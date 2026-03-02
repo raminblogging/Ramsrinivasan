@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Article Title — RamSrinivasan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #141414; --surface: #1a1a1a;
+      --border: #2a2a2a; --text: #e8e2d9; --muted: #6b6560;
+      --accent: #c8a96e; --accent2: #7eb8a4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: rgba(13,13,13,0.92); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    /* HERO */
+    .article-hero { padding: 9rem 3rem 4rem; max-width: 780px; margin: 0 auto; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; margin-bottom: 2.5rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link svg { width: 14px; height: 14px; }
+    .article-meta { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .article-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); padding: 0.25rem 0.7rem; border: 1px solid var(--accent2); opacity: 0.8; }
+    .article-date, .article-read-time { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    .article-hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .article-hero h1 em { font-style: italic; color: var(--accent); }
+    .article-subtitle { font-size: 1.15rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .article-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .author-row { display: flex; align-items: center; gap: 1rem; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .author-name { font-size: 0.9rem; font-weight: 500; }
+    .author-handle { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+    /* BODY */
+    .article-body { max-width: 680px; margin: 0 auto; padding: 3rem 3rem 5rem; opacity: 0; animation: fadeUp 0.7s 0.3s forwards; }
+    .article-body p { margin-bottom: 1.6rem; font-size: 1.05rem; line-height: 1.85; color: #d4cfc6; }
+    .article-body h2 { font-family: var(--serif); font-size: 1.9rem; line-height: 1.2; margin: 3rem 0 1.2rem; }
+    .article-body h2 em { font-style: italic; color: var(--accent); }
+    .article-body h3 { font-family: var(--serif); font-size: 1.35rem; margin: 2.5rem 0 0.9rem; }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; transition: opacity 0.2s; }
+    .article-body a:hover { opacity: 0.75; }
+    .article-body strong { color: var(--text); font-weight: 500; }
+    .article-body em { color: var(--accent); font-style: italic; }
+    .article-body blockquote { border-left: 2px solid var(--accent); margin: 2.5rem 0; padding: 0.5rem 0 0.5rem 2rem; }
+    .article-body blockquote p { color: var(--muted); font-size: 1.1rem; font-style: italic; margin-bottom: 0; }
+    .article-body code { font-family: var(--mono); font-size: 0.85rem; background: var(--surface); color: var(--accent2); padding: 0.15em 0.45em; border: 1px solid var(--border); }
+    .article-body pre { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; margin: 2rem 0; overflow-x: auto; }
+    .article-body pre code { background: none; border: none; padding: 0; font-size: 0.88rem; color: #d4cfc6; line-height: 1.7; }
+    .article-body ul, .article-body ol { padding-left: 1.5rem; margin-bottom: 1.6rem; }
+    .article-body li { margin-bottom: 0.5rem; color: #d4cfc6; line-height: 1.75; }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .callout { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1.25rem 1.5rem; margin: 2.5rem 0; }
+    .callout p { margin-bottom: 0; color: var(--muted); font-size: 0.95rem; }
+    .article-image { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; margin: 2.5rem 0; }
+    .article-image span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    /* FOOTER */
+    .article-footer { max-width: 680px; margin: 0 auto; padding: 0 3rem 5rem; opacity: 0; animation: fadeUp 0.7s 0.45s forwards; }
+    .tags-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .tags-row span { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.85rem; border: 1px solid var(--border); color: var(--muted); }
+    .share-row { display: flex; align-items: center; gap: 1.5rem; padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
+    .share-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .share-btn { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.45rem 1rem; border: 1px solid var(--border); color: var(--muted); background: transparent; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .share-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .nl-cta { background: var(--surface); border: 1px solid var(--border); padding: 2.5rem; margin-bottom: 3rem; }
+    .nl-cta h3 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .nl-cta p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.4rem; }
+    .nl-form { display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden; }
+    .nl-form input { background: var(--bg); border: none; color: var(--text); padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.9rem; flex: 1; outline: none; min-width: 0; }
+    .nl-form button { background: var(--accent); color: #0d0d0d; border: none; padding: 0.75rem 1.2rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
+    .nl-form button:hover { opacity: 0.85; }
+    .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .post-nav-link { padding: 1.5rem; border: 1px solid var(--border); text-decoration: none; color: inherit; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 0.4rem; }
+    .post-nav-link:hover { border-color: #3a3a3a; }
+    .post-nav-link:hover .pnl-title { color: var(--accent); }
+    .post-nav-link.next { text-align: right; }
+    .pnl-dir { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .pnl-title { font-family: var(--serif); font-size: 1rem; line-height: 1.3; transition: color 0.2s; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+    footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    footer a { color: var(--accent); text-decoration: none; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 200; transition: width 0.1s linear; width: 0%; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; } .nav-links { gap: 1.5rem; }
+      .article-hero, .article-body, .article-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .post-nav { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">RM.</a>
+  <ul class="nav-links">
+    <li><a href="/about/">About</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/../">Home</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- 
+     HERO — edit tag, date, title, subtitle
+      -->
+<div class="article-hero">
+  <a class="back-link" href="/blog/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+    Back to blog
+  </a>
+
+  <div class="article-meta">
+    <span class="article-tag">Essay</span>  <!-- Essay / Tutorial / Opinion / Dev Log / Personal -->
+    <span class="article-date">Mar 01, 2026</span>
+    <span class="article-read-time">· 5 min read</span>
+  </div>
+
+  <h1>Your Article Title Goes <em>Here</em></h1>
+  <p class="article-subtitle">A short sentence that sets up what this piece is about and why the reader should keep going.</p>
+
+  <hr class="article-divider">
+
+  <div class="author-row">
+    <div class="author-avatar"></div>
+    <div>
+      <div class="author-name">Ram Srinivasan</div>
+      <div class="author-handle">@ramsrinivasan</div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+     BODY — write your article content here
+      -->
+<article class="article-body">
+
+  <!-- Replace or delete cover image placeholder -->
+  <div class="article-image">
+    <span>Cover image — replace with &lt;img src="..." alt="..."&gt;</span>
+  </div>
+
+  <p>Start your article here. Hook the reader with a surprising fact, a question, or a bold claim.</p>
+
+  <p>Continue the introduction. Give readers a clear sense of what they will take away.</p>
+
+  <h2>Your First <em>Section</em></h2>
+
+  <p>Dive into your first main point. Use concrete examples, data, or anecdotes.</p>
+
+  <!-- Callout box — tip / warning / key takeaway -->
+  <div class="callout">
+    <p> <strong>Quick tip:</strong> Use callout boxes to highlight key takeaways or warnings.</p>
+  </div>
+
+  <h2>A Second Point Worth Making</h2>
+
+  <h3>A Subpoint If You Need It</h3>
+
+  <p>Elaborate here. Build your argument layer by layer.</p>
+
+  <ul>
+    <li>First point — keep these specific, not vague</li>
+    <li>Second point</li>
+    <li>Third point</li>
+  </ul>
+
+  <blockquote>
+    <p>"A meaningful quote that reinforces your argument."</p>
+  </blockquote>
+
+  <!-- Code block — delete if not needed -->
+  <pre><code># Example Python snippet
+import pandas as pd
+
+df = pd.read_csv('your_data.csv')
+print(df.head())</code></pre>
+
+  <h2>Wrapping Up</h2>
+
+  <p>Summarise what you covered. Restate the key insight in fresh words. End with a clear next action or challenge for the reader.</p>
+
+  <hr>
+
+</article>
+
+<!-- 
+     FOOTER — update tags, prev/next links
+      -->
+<div class="article-footer">
+
+  <div class="tags-row">
+    <span>Supply Chain</span>
+    <span>Automation</span>
+    <span>Career</span>
+  </div>
+
+  <div class="share-row">
+    <span class="share-label">Share</span>
+    <a class="share-btn" id="share-twitter" href="#" target="_blank" rel="noopener">Twitter / X</a>
+    <a class="share-btn" id="share-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+    <button class="share-btn" id="copy-link">Copy link</button>
+  </div>
+
+  <div class="nl-cta">
+    <h3>Enjoyed this? <em>Subscribe.</em></h3>
+    <p>New articles on supply chain, automation, and AI — delivered to your inbox whenever I publish something worth sharing. No spam, ever.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com" />
+      <button>Subscribe — It's Free</button>
+    </div>
+  </div>
+
+  <div class="post-nav">
+    <a class="post-nav-link prev" href="#">
+      <span class="pnl-dir"> Previous</span>
+      <span class="pnl-title">Title of the previous article</span>
+    </a>
+    <a class="post-nav-link next" href="#">
+      <span class="pnl-dir">Next </span>
+      <span class="pnl-title">Title of the next article</span>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 <a href="index.html">RamSrinivasan</a>. All rights reserved.</p>
+  <p>Built with care &amp; a lot of </p>
+</footer>
+
+<script>
+  // Reading progress bar
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (docH > 0 ? (window.scrollY / docH) * 100 : 0) + '%';
+  });
+
+  // Share buttons
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent(document.title);
+  document.getElementById('share-twitter').href = 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title;
+  document.getElementById('share-linkedin').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+
+  // Copy link
+  document.getElementById('copy-link').addEventListener('click', () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.getElementById('copy-link');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy link', 2000);
+    });
+  });
+</script>
+</body>
+</html>
