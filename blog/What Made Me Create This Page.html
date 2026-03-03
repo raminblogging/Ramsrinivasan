@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Article Title — RamSrinivasan</title>
+  <title>What Made Me Create This Page â€” RamSrinivasan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -28,7 +28,6 @@
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-    /* HERO */
     .article-hero { padding: 9rem 3rem 4rem; max-width: 780px; margin: 0 auto; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
     .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; margin-bottom: 2.5rem; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); }
@@ -44,7 +43,6 @@
     .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
     .author-name { font-size: 0.9rem; font-weight: 500; }
     .author-handle { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
-    /* BODY */
     .article-body { max-width: 680px; margin: 0 auto; padding: 3rem 3rem 5rem; opacity: 0; animation: fadeUp 0.7s 0.3s forwards; }
     .article-body p { margin-bottom: 1.6rem; font-size: 1.05rem; line-height: 1.85; color: #d4cfc6; }
     .article-body h2 { font-family: var(--serif); font-size: 1.9rem; line-height: 1.2; margin: 3rem 0 1.2rem; }
@@ -56,17 +54,12 @@
     .article-body em { color: var(--accent); font-style: italic; }
     .article-body blockquote { border-left: 2px solid var(--accent); margin: 2.5rem 0; padding: 0.5rem 0 0.5rem 2rem; }
     .article-body blockquote p { color: var(--muted); font-size: 1.1rem; font-style: italic; margin-bottom: 0; }
-    .article-body code { font-family: var(--mono); font-size: 0.85rem; background: var(--surface); color: var(--accent2); padding: 0.15em 0.45em; border: 1px solid var(--border); }
-    .article-body pre { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; margin: 2rem 0; overflow-x: auto; }
-    .article-body pre code { background: none; border: none; padding: 0; font-size: 0.88rem; color: #d4cfc6; line-height: 1.7; }
     .article-body ul, .article-body ol { padding-left: 1.5rem; margin-bottom: 1.6rem; }
     .article-body li { margin-bottom: 0.5rem; color: #d4cfc6; line-height: 1.75; }
     .article-body hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
     .callout { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1.25rem 1.5rem; margin: 2.5rem 0; }
     .callout p { margin-bottom: 0; color: var(--muted); font-size: 0.95rem; }
-    .article-image { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; margin: 2.5rem 0; }
-    .article-image span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-    /* FOOTER */
+    .pull-line { font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--accent); line-height: 1.4; margin: 2.5rem 0; padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .article-footer { max-width: 680px; margin: 0 auto; padding: 0 3rem 5rem; opacity: 0; animation: fadeUp 0.7s 0.45s forwards; }
     .tags-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 3rem; }
     .tags-row span { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.85rem; border: 1px solid var(--border); color: var(--muted); }
@@ -115,9 +108,6 @@
   </ul>
 </nav>
 
-<!-- 
-     HERO — edit tag, date, title, subtitle
-      -->
 <div class="article-hero">
   <a class="back-link" href="/blog/">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
@@ -125,18 +115,18 @@
   </a>
 
   <div class="article-meta">
-    <span class="article-tag">Essay</span>  <!-- Essay / Tutorial / Opinion / Dev Log / Personal -->
+    <span class="article-tag">Personal</span>
     <span class="article-date">Mar 01, 2026</span>
-    <span class="article-read-time">· 5 min read</span>
+    <span class="article-read-time">Â· 5 min read</span>
   </div>
 
-  <h1>Your Article Title Goes <em>Here</em></h1>
-  <p class="article-subtitle">A short sentence that sets up what this piece is about and why the reader should keep going.</p>
+  <h1>What Made Me <em>Create</em> This Page?</h1>
+  <p class="article-subtitle">For a long time, I consumed more than I created. This is about the moment I decided to change that.</p>
 
   <hr class="article-divider">
 
   <div class="author-row">
-    <div class="author-avatar"></div>
+    <div class="author-avatar">ðŸª„</div>
     <div>
       <div class="author-name">Ram Srinivasan</div>
       <div class="author-handle">@ramsrinivasan</div>
@@ -144,69 +134,94 @@
   </div>
 </div>
 
-<!-- 
-     BODY — write your article content here
-      -->
 <article class="article-body">
 
-  <!-- Replace or delete cover image placeholder -->
-  <div class="article-image">
-    <span>Cover image — replace with &lt;img src="..." alt="..."&gt;</span>
-  </div>
+  <p>For a long time, I consumed more than I created. I read blogs. I followed builders. I watched people ship products, share ideas, and document their journeys.</p>
 
-  <p>Start your article here. Hook the reader with a surprising fact, a question, or a bold claim.</p>
+  <p>But I stayed in the background â€” learning quietly, experimenting privately, solving problems inside spreadsheets and internal dashboards that no one outside my workplace would ever see.</p>
 
-  <p>Continue the introduction. Give readers a clear sense of what they will take away.</p>
+  <p>This page started as a small decision:</p>
 
-  <h2>Your First <em>Section</em></h2>
+  <p class="pull-line">Instead of building silently, why not build publicly?</p>
 
-  <p>Dive into your first main point. Use concrete examples, data, or anecdotes.</p>
+  <h2>From Doing the Work to <em>Showing</em> the Work</h2>
 
-  <!-- Callout box — tip / warning / key takeaway -->
-  <div class="callout">
-    <p> <strong>Quick tip:</strong> Use callout boxes to highlight key takeaways or warnings.</p>
-  </div>
+  <p>Most of my early growth happened inside operations â€” supply chains, reporting cycles, inventory tracking, vendor coordination. The kind of work that doesn't always look glamorous from the outside.</p>
 
-  <h2>A Second Point Worth Making</h2>
-
-  <h3>A Subpoint If You Need It</h3>
-
-  <p>Elaborate here. Build your argument layer by layer.</p>
+  <p>But inside that work, I started noticing patterns.</p>
 
   <ul>
-    <li>First point — keep these specific, not vague</li>
-    <li>Second point</li>
-    <li>Third point</li>
+    <li>Manual tasks repeated every day.</li>
+    <li>Reports built the same way every week.</li>
+    <li>Questions that kept coming back every month.</li>
   </ul>
 
+  <p>And I began asking a simple question:</p>
+
   <blockquote>
-    <p>"A meaningful quote that reinforces your argument."</p>
+    <p>Can this be systemized?</p>
   </blockquote>
 
-  <!-- Code block — delete if not needed -->
-  <pre><code># Example Python snippet
-import pandas as pd
+  <p>That question slowly changed how I approached problems. I stopped thinking in tasks. I started thinking in systems. Instead of finishing work faster, I wanted to remove unnecessary work entirely.</p>
 
-df = pd.read_csv('your_data.csv')
-print(df.head())</code></pre>
+  <p>That shift â€” from operator to system-builder â€” is what led here.</p>
 
-  <h2>Wrapping Up</h2>
+  <h2>Why Create a <em>Personal</em> Page?</h2>
 
-  <p>Summarise what you covered. Restate the key insight in fresh words. End with a clear next action or challenge for the reader.</p>
+  <p>Because systems deserve visibility. Not just big startup products. Not just viral apps. But small, practical tools that solve real operational problems.</p>
+
+  <div class="callout">
+    <p><strong>This page is:</strong> a place to document what I build, a record of how I think, a space to learn in public, and a reminder that progress compounds.</p>
+  </div>
+
+  <p>It's easy to underestimate internal tools and automation workflows. They don't trend on social media. They don't get applause. But they create leverage. And leverage changes careers.</p>
+
+  <h2>Thinking Beyond <em>My Job Title</em></h2>
+
+  <p>Titles describe responsibilities. They don't describe direction.</p>
+
+  <p>Creating this page is my way of defining direction. I'm interested in:</p>
+
+  <ul>
+    <li>Systems thinking</li>
+    <li>Process design</li>
+    <li>Automation</li>
+    <li>Building tools instead of repeating effort</li>
+  </ul>
+
+  <p>This site reflects that identity. Not just what I do â€” but how I think.</p>
+
+  <h2>Building in Public, <em>Even If It's Quiet</em></h2>
+
+  <p>This isn't about going viral. It's about consistency.</p>
+
+  <ul>
+    <li>Writing forces clarity.</li>
+    <li>Publishing creates accountability.</li>
+    <li>Documenting builds momentum.</li>
+  </ul>
+
+  <p>Every project here â€” whether big or small â€” represents learning. And learning compounds when shared.</p>
+
+  <h2>A Small <em>Beginning</em></h2>
+
+  <p>This page may evolve. The design may change. The writing may improve. But the intention will stay the same:</p>
+
+  <blockquote>
+    <p>To build thoughtfully. To share honestly. To think in systems. And to keep asking better questions.</p>
+  </blockquote>
 
   <hr>
 
 </article>
 
-<!-- 
-     FOOTER — update tags, prev/next links
-      -->
 <div class="article-footer">
 
   <div class="tags-row">
-    <span>Supply Chain</span>
+    <span>Personal</span>
+    <span>Systems Thinking</span>
     <span>Automation</span>
-    <span>Career</span>
+    <span>Building in Public</span>
   </div>
 
   <div class="share-row">
@@ -218,20 +233,20 @@ print(df.head())</code></pre>
 
   <div class="nl-cta">
     <h3>Enjoyed this? <em>Subscribe.</em></h3>
-    <p>New articles on supply chain, automation, and AI — delivered to your inbox whenever I publish something worth sharing. No spam, ever.</p>
+    <p>New articles on supply chain, automation, and AI â€” delivered to your inbox whenever I publish something worth sharing. No spam, ever.</p>
     <div class="nl-form">
       <input type="email" placeholder="your@email.com" />
-      <button>Subscribe — It's Free</button>
+      <button>Subscribe â€” It's Free</button>
     </div>
   </div>
 
   <div class="post-nav">
     <a class="post-nav-link prev" href="#">
-      <span class="pnl-dir"> Previous</span>
+      <span class="pnl-dir">&#8592; Previous</span>
       <span class="pnl-title">Title of the previous article</span>
     </a>
     <a class="post-nav-link next" href="#">
-      <span class="pnl-dir">Next </span>
+      <span class="pnl-dir">Next &#8594;</span>
       <span class="pnl-title">Title of the next article</span>
     </a>
   </div>
@@ -239,24 +254,21 @@ print(df.head())</code></pre>
 </div>
 
 <footer>
-  <p>© 2026 <a href="index.html">RamSrinivasan</a>. All rights reserved.</p>
-  <p>Built with care &amp; a lot of </p>
+  <p>&#169; 2026 <a href="index.html">RamSrinivasan</a>. All rights reserved.</p>
+  <p>Built with care &amp; a lot of &#9749;</p>
 </footer>
 
 <script>
-  // Reading progress bar
   window.addEventListener('scroll', () => {
     const docH = document.documentElement.scrollHeight - window.innerHeight;
     document.getElementById('progress-bar').style.width = (docH > 0 ? (window.scrollY / docH) * 100 : 0) + '%';
   });
 
-  // Share buttons
   const url = encodeURIComponent(window.location.href);
   const title = encodeURIComponent(document.title);
   document.getElementById('share-twitter').href = 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title;
   document.getElementById('share-linkedin').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
 
-  // Copy link
   document.getElementById('copy-link').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       const btn = document.getElementById('copy-link');
