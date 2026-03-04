@@ -10,155 +10,53 @@ print(f"World Monitor — Feed Fetch Started")
 print(f"Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
 print("=" * 50)
 
-# ── CATEGORY MAP ──────────────────────────────────────────
-# Maps each feed URL keyword to a category label
-CATEGORY_MAP = {
-    # India News
-    "timesofindia":        "India",
-    "thehindu":            "India",
-    "indianexpress":       "India",
-    "hindustantimes":      "India",
-    "ndtv":                "India",
-    "indiatoday":          "India",
-    "news18":              "India",
-    "deccanherald":        "India",
-    "tribuneindia":        "India",
+# Read feeds and assign category from section comment headers
+# e.g. "# ── SUPPLY CHAIN ──" sets category = "Supply Chain" for all feeds below it
+feeds_raw = open("feeds.txt", encoding="utf-8").read().splitlines()
 
-    # Supply Chain
-    "supplychaindive":     "Supply Chain",
-    "logisticsmgmt":       "Supply Chain",
-    "supplychainbrain":    "Supply Chain",
-    "freightwaves":        "Supply Chain",
-    "joc.com":             "Supply Chain",
-    "dcvelocity":          "Supply Chain",
-    "sdcexec":             "Supply Chain",
-    "inboundlogistics":    "Supply Chain",
-    "globaltrademag":      "Supply Chain",
-    "materialhandling247": "Supply Chain",
-    "supplychainquarterly":"Supply Chain",
-    "scmr.com":            "Supply Chain",
-    "transporttopics":     "Supply Chain",
-    "lloydsloadinglist":   "Supply Chain",
-    "porttechnology":      "Supply Chain",
-    "maritime-executive":  "Supply Chain",
-    "aircargonews":        "Supply Chain",
-    "ajot.com":            "Supply Chain",
-    "logisticsmanager":    "Supply Chain",
-    "foodlogistics":       "Supply Chain",
-    "mmh.com":             "Supply Chain",
-    "tradewindsnews":      "Supply Chain",
-    "railwayage":          "Supply Chain",
-    "bulk-online":         "Supply Chain",
-    "automotivelogistics": "Supply Chain",
-    "container-news":      "Supply Chain",
-    "cips.org":            "Supply Chain",
-    "sourcingjournal":     "Supply Chain",
-    "projectcargojournal": "Supply Chain",
-
-    # Cricket
-    "espncricinfo":        "Cricket",
-    "cricbuzz":            "Cricket",
-    "icc-cricket":         "Cricket",
-    "sportskeeda":         "Cricket",
-    "skysports":           "Cricket",
-    "54829575":            "Cricket",  # TOI cricket feed ID
-    "cricket":             "Cricket",
-
-    # Economy
-    "reutersagency":       "Economy",
-    "ft.com":              "Economy",
-    "worldbank":           "Economy",
-    "imf.org":             "Economy",
-    "oecd.org":            "Economy",
-    "economist.com":       "Economy",
-    "marketwatch":         "Economy",
-    "moneycontrol":        "Economy",
-    "bloomberg":           "Economy",
-    "business-standard":   "Economy",
-    "livemint":            "Economy",
-    "forbes.com/economy":  "Economy",
-
-    # Tech
-    "techcrunch":          "Tech",
-    "theverge":            "Tech",
-    "wired.com":           "Tech",
-    "arstechnica":         "Tech",
-    "thenextweb":          "Tech",
-    "zdnet":               "Tech",
-    "engadget":            "Tech",
-    "techradar":           "Tech",
-    "gizmodo":             "Tech",
-    "macrumors":           "Tech",
-    "androidauthority":    "Tech",
-    "windowscentral":      "Tech",
-    "digitaltrends":       "Tech",
-    "slashgear":           "Tech",
-    "tomshardware":        "Tech",
-
-    # Business
-    "cnbc.com":            "Business",
-    "forbes.com/business": "Business",
-    "businessinsider":     "Business",
-    "fortune.com":         "Business",
-    "inc.com":             "Business",
-    "entrepreneur":        "Business",
-    "wsj.com":             "Business",
-    "nytimes.com":         "Business",
-    "bbc.co.uk/news/business": "Business",
-    "moneycontrol.com/rss/markets": "Business",
-    "13352306":            "Business",  # ET markets feed ID
-    "hindustantimes.com/feeds/rss/business": "Business",
-    "indianexpress.com/section/business": "Business",
-
-    # AI
-    "venturebeat.com/category/ai": "AI",
-    "technologyreview":    "AI",
-    "ai.googleblog":       "AI",
-    "openai.com":          "AI",
-    "blogs.microsoft.com/ai": "AI",
-    "aws.amazon.com/blogs/machine-learning": "AI",
-    "deepmind":            "AI",
-    "towardsdatascience":  "AI",
-    "unite.ai":            "AI",
-    "analyticsindiamag":   "AI",
-    "marktechpost":        "AI",
-    "artificialintelligence-news": "AI",
-    "kdnuggets":           "AI",
-    "machinelearningmastery": "AI",
-    "sciencedaily.com/rss/computers_math/artificial_intelligence": "AI",
-
-    # Trending
-    "news.google.com":     "Trending",
-    "reddit.com":          "Trending",
-    "aljazeera":           "Trending",
-    "bbci.co.uk/news/rss": "Trending",
-    "theguardian.com/world": "Trending",
+# Map comment headers to clean category names
+HEADER_MAP = {
+    "INDIA":        "India",
+    "SUPPLY CHAIN": "Supply Chain",
+    "CRICKET":      "Cricket",
+    "ECONOMY":      "Economy",
+    "TECH":         "Tech",
+    "BUSINESS":     "Business",
+    "AI":           "AI",
+    "TRENDING":     "Trending",
 }
 
-def get_category(url):
-    url_lower = url.lower()
-    # Try longest/most specific match first
-    for key in sorted(CATEGORY_MAP.keys(), key=len, reverse=True):
-        if key in url_lower:
-            return CATEGORY_MAP[key]
-    return "Other"
+def header_to_category(line):
+    """Extract category name from a comment line like # ── SUPPLY CHAIN ──"""
+    clean = line.strip("#─ \t").strip().upper()
+    for key, label in HEADER_MAP.items():
+        if key in clean:
+            return label
+    return None
 
-# Read feeds
-feeds = open("feeds.txt", encoding="utf-8").read().splitlines()
+# Build list of (url, category) pairs
+feed_list = []
+current_category = "Other"
+
+for line in feeds_raw:
+    line = line.strip()
+    if not line:
+        continue
+    if line.startswith("#"):
+        cat = header_to_category(line)
+        if cat:
+            current_category = cat
+        continue
+    feed_list.append((line, current_category))
+
+total_feeds = len(feed_list)
+print(f"\nFetching {total_feeds} feeds...\n")
+
 articles = []
 success = 0
 failed = 0
-total_feeds = sum(1 for f in feeds if f.strip() and not f.strip().startswith("#"))
 
-print(f"\nFetching {total_feeds} feeds...\n")
-
-for url in feeds:
-    url = url.strip()
-    if not url or url.startswith("#"):
-        continue
-
-    category = get_category(url)
-
+for url, category in feed_list:
     try:
         feed = feedparser.parse(url)
         if not feed.entries:
