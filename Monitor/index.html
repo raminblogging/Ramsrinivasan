@@ -638,39 +638,44 @@
     applyFilters();
   }
 
-  // ─── BUILD SOURCES ───
+  // ─── CATEGORY ORDER ───
+  const CATEGORY_ORDER = ['India', 'Supply Chain', 'Cricket', 'Economy', 'Tech', 'Business', 'AI', 'Trending'];
+
+  // ─── BUILD CATEGORIES ───
   function buildSources() {
-    const counts = {};
+    const catCounts = {};
+    const srcCounts = {};
     allArticles.forEach(a => {
-      const s = a.source || 'Unknown';
-      counts[s] = (counts[s] || 0) + 1;
+      const cat = a.category || 'Other';
+      const src = a.source || 'Unknown';
+      catCounts[cat] = (catCounts[cat] || 0) + 1;
+      srcCounts[src] = (srcCounts[src] || 0) + 1;
     });
 
-    // stat
     document.getElementById('stat-total').textContent = allArticles.length;
-    document.getElementById('stat-sources').textContent = Object.keys(counts).length;
+    document.getElementById('stat-sources').textContent = Object.keys(srcCounts).length;
 
-    // source list sidebar
     const list = document.getElementById('source-list');
     list.innerHTML = '';
-    Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .forEach(([name, count]) => {
-        const div = document.createElement('div');
-        div.className = 'source-item';
-        div.innerHTML = `<span class="source-name">${name}</span><span class="source-count">${count}</span>`;
-        div.addEventListener('click', () => setFilter(name));
-        list.appendChild(div);
-      });
+    const orderedCats = [
+      ...CATEGORY_ORDER.filter(c => catCounts[c]),
+      ...Object.keys(catCounts).filter(c => !CATEGORY_ORDER.includes(c)).sort()
+    ];
+    orderedCats.forEach(cat => {
+      const div = document.createElement('div');
+      div.className = 'source-item';
+      div.innerHTML = `<span class="source-name">${cat}</span><span class="source-count">${catCounts[cat]}</span>`;
+      div.addEventListener('click', () => setFilter(cat));
+      list.appendChild(div);
+    });
 
-    // filter tabs
     const tabsEl = document.getElementById('filter-tabs');
-    Object.keys(counts).sort().forEach(name => {
+    tabsEl.querySelectorAll('.filter-tab:not([data-filter="all"])').forEach(e => e.remove());
+    orderedCats.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = 'filter-tab';
-      btn.dataset.filter = name;
-      btn.textContent = name.length > 18 ? name.slice(0, 16) + '…' : name;
-      btn.addEventListener('click', () => setFilter(name));
+      btn.dataset.filter = cat;
+      btn.textContent = cat;
       tabsEl.appendChild(btn);
     });
   }
@@ -688,9 +693,9 @@
   function applyFilters() {
     const q = searchQuery.toLowerCase();
     filtered = allArticles.filter(a => {
-      const matchSource = currentFilter === 'all' || a.source === currentFilter;
+      const matchCat = currentFilter === 'all' || (a.category || 'Other') === currentFilter;
       const matchSearch = !q || a.title.toLowerCase().includes(q) || (a.source || '').toLowerCase().includes(q);
-      return matchSource && matchSearch;
+      return matchCat && matchSearch;
     });
     page = 0;
     document.getElementById('news-feed').innerHTML = '';
