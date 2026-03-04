@@ -8,3 +8,13 @@ https://www.news18.com/rss/india.xml
 https://economictimes.indiatimes.com/rssfeedsdefault.cms
 https://www.deccanherald.com/rss
 https://www.tribuneindia.com/rss
+https://www.supplychainbrain.com/rss/articles.xml
+https://www.supplychain247.com/rss
+https://www.logisticsmgmt.com/rss
+https://www.inboundlogistics.com/rss.xml
+https://supplychaindigital.com/rss.xml
+https://www.logisticsmanager.com/feed/
+https://scmdojo.com/feed/
+https://allthingssupplychain.com/feed/
+https://letstalksupplychain.com/feed/
+https://supplychaingamechanger.com/feed/
