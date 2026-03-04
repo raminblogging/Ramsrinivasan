@@ -1,3 +1,15 @@
+# ── INDIA NEWS ──────────────────────────────────────────
+https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms
+https://www.thehindu.com/news/national/?service=rss
+https://indianexpress.com/feed/
+https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml
+https://feeds.feedburner.com/ndtvnews-top-stories
+https://www.indiatoday.in/rss/home
+https://www.news18.com/rss/india.xml
+https://economictimes.indiatimes.com/rssfeedsdefault.cms
+https://www.deccanherald.com/rss
+https://www.tribuneindia.com/rss
+
 # ── SUPPLY CHAIN ──────────────────────────────────────────
 https://www.supplychaindive.com/feeds/news/
 https://www.logisticsmgmt.com/rss
@@ -27,11 +39,9 @@ https://www.automotivelogistics.media/rss
 https://www.container-news.com/feed/
 https://www.cips.org/rss/news/
 https://www.sourcingjournal.com/feed/
-https://www.globaltrademag.com/feed/
 https://www.projectcargojournal.com/feed/
 
-
-# ── CRICKET ─────────────────────────────────────
+# ── CRICKET ──────────────────────────────────────────────
 https://www.espncricinfo.com/rss/content/story/feeds/0.xml
 http://feeds.bbci.co.uk/sport/cricket/rss.xml
 https://www.cricbuzz.com/rss/news
@@ -43,7 +53,7 @@ https://indianexpress.com/section/sports/cricket/feed/
 https://www.thehindu.com/sport/cricket/?service=rss
 https://www.skysports.com/rss/12040
 
-# ── ECONOMY ───────────────────────────────────
+# ── ECONOMY ──────────────────────────────────────────────
 https://www.reutersagency.com/feed/?best-topics=business-finance
 https://www.ft.com/rss/home
 https://www.worldbank.org/en/news/all/rss
@@ -53,14 +63,13 @@ https://www.economist.com/finance-and-economics/rss.xml
 https://www.cnbc.com/id/20910258/device/rss/rss.html
 https://www.marketwatch.com/rss/topstories
 https://www.moneycontrol.com/rss/business.xml
-https://economictimes.indiatimes.com/rssfeedsdefault.cms
 https://www.bloomberg.com/feed/podcast/etf-report.xml
 https://www.business-standard.com/rss/economy-policy-102.rss
 https://www.livemint.com/rss/economy
 https://www.forbes.com/economy/feed/
 https://www.aljazeera.com/xml/rss/all.xml
 
-# ── TECH ─────────────────────────────────────
+# ── TECH ─────────────────────────────────────────────────
 https://techcrunch.com/feed/
 https://www.theverge.com/rss/index.xml
 https://www.wired.com/feed/rss
@@ -77,7 +86,7 @@ https://www.digitaltrends.com/feed/
 https://www.slashgear.com/feed/
 https://www.tomshardware.com/feeds/all
 
-# ── BUSINESS  ─────────────────────────────
+# ── BUSINESS ─────────────────────────────────────────────
 https://feeds.bloomberg.com/markets/news.rss
 https://www.cnbc.com/id/100003114/device/rss/rss.html
 https://www.forbes.com/business/feed/
@@ -94,7 +103,7 @@ https://economictimes.indiatimes.com/rssfeeds/13352306.cms
 https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml
 https://indianexpress.com/section/business/feed/
 
-# ── AI  ─────────────────────────────
+# ── AI ────────────────────────────────────────────────────
 https://venturebeat.com/category/ai/feed/
 https://www.technologyreview.com/topic/artificial-intelligence/feed/
 https://ai.googleblog.com/feeds/posts/default?alt=rss
@@ -111,7 +120,7 @@ https://www.kdnuggets.com/feed
 https://machinelearningmastery.com/blog/feed/
 https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml
 
-# ── TRENDING  ─────────────────────────────
+# ── TRENDING ─────────────────────────────────────────────
 https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en
 https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en
 https://news.google.com/rss/search?q=trending&hl=en-IN&gl=IN&ceid=IN:en
