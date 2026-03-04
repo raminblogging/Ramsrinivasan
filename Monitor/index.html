@@ -474,7 +474,7 @@
     <li><a href="/work/">Work</a></li>
     <li><a href="/blog/" target="_blank" rel="noopener noreferrer">Blog</a></li>
     <li><a href="/contact/">Contact</a></li>
-    <li><a href="/Monitor/" class="active">Monitor</a></li>
+    <li><a href="/Reflect/" class="active">Monitor</a></li>
   </ul>
 </nav>
 
@@ -617,7 +617,7 @@
   // ─── LOAD DATA ───
   async function loadFeed() {
     try {
-      const res = await fetch('news.json');
+      const res = await fetch('news.json?v=' + Date.now());
       if (!res.ok) throw new Error('Failed to load news.json');
       allArticles = await res.json();
       init();
