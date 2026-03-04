@@ -183,7 +183,7 @@
 
   async function loadFeed() {
     try {
-      const res = await fetch('news.json');
+      const res = await fetch('news.json?v=' + Date.now());
       if (!res.ok) throw new Error();
       allArticles = await res.json();
       init();
