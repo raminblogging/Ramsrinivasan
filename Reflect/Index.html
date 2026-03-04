@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My News Monitor</title>
+</head>
+<body>
+  <h1>Latest News</h1>
+  <div id="news"></div>
+
+<script>
+fetch("news.json")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("news");
+    data.forEach(article => {
+      container.innerHTML += `
+        <div style="margin-bottom:20px;">
+          <h3>
+            <a href="${article.link}" target="_blank">
+              ${article.title}
+            </a>
+          </h3>
+          <small>${article.source}</small>
+        </div>
+      `;
+    });
+  });
+</script>
+
+</body>
+</html>
