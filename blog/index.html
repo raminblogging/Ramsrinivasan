@@ -157,8 +157,8 @@
   <div class="header-right">
     <p>Essays, tutorials, and dev logs on supply chain, automation, and the occasional half-formed idea worth publishing.</p>
     <div class="newsletter-inline">
-      <input type="email" placeholder="your@email.com" />
-      <button>Subscribe</button>
+      <input type="email" id="headerEmail" placeholder="your@email.com" />
+      <button onclick="subscribeHeader()">Subscribe</button>
     </div>
   </div>
 </div>
@@ -289,9 +289,9 @@
     <h3>Stay in the <em>loop</em></h3>
     <p>New articles on supply chain, automation, and AI — delivered to your inbox whenever I publish something worth sharing. No spam, ever.</p>
     <div class="nl-form">
-      <input type="text" placeholder="Your name" />
-      <input type="email" placeholder="your@email.com" />
-      <button>Subscribe — It's Free</button>
+      <input type="text" id="nlName" placeholder="Your name" />
+      <input type="email" id="nlEmail" placeholder="your@email.com" />
+      <button onclick="subscribeSidebar()">Subscribe — It's Free</button>
     </div>
   </div>
 </div>
@@ -302,6 +302,38 @@
 </footer>
 
 <script>
+  const FORM_URL = 'https://forms.gle/qX99SUZen94n7uMB6';
+
+  // Header subscribe — opens Google Form in new tab
+  function subscribeHeader() {
+    const email = document.getElementById('headerEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('headerEmail').focus();
+      return;
+    }
+    window.open(FORM_URL, '_blank');
+  }
+
+  // Sidebar subscribe — opens Google Form in new tab
+  function subscribeSidebar() {
+    const email = document.getElementById('nlEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('nlEmail').focus();
+      return;
+    }
+    window.open(FORM_URL, '_blank');
+  }
+
+  // Allow Enter key on header email input
+  document.getElementById('headerEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') subscribeHeader();
+  });
+
+  // Allow Enter key on sidebar email input
+  document.getElementById('nlEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') subscribeSidebar();
+  });
+
   // Filter
   const filterBtns = document.querySelectorAll('.filter-btn');
   const posts = document.querySelectorAll('.blog-post');
