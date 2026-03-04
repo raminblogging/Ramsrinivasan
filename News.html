@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Monitor - RamSrinivasan</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h1>News Monitor</h1>
+<p>Latest curated headlines</p>
+
+<div id="news"></div>
+
+<script>
+fetch("news.json")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("news");
+
+    data.forEach(article => {
+      container.innerHTML += `
+        <div style="margin-bottom:20px;">
+          <h3>
+            <a href="${article.link}" target="_blank">
+              ${article.title}
+            </a>
+          </h3>
+          <small>${article.source}</small>
+        </div>
+      `;
+    });
+  });
+</script>
+
+</body>
+</html>
