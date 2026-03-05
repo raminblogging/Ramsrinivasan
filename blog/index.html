@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZH170NH9GW');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZH170NH9GW');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog — RamSrinivasan</title>
@@ -32,6 +31,7 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none; z-index: 9999; opacity: 0.4;
     }
+
     /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: rgba(13,13,13,0.92); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
     .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
@@ -59,8 +59,10 @@
     .filter-btn.active { color: var(--bg); background: var(--accent); border-color: var(--accent); }
     .posts-count { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
 
-    /* FEATURED POST */
+    /* BLOG SECTION */
     .blog-section { padding: 0 3rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    /* FEATURED POST */
     .featured-post {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
       border: 1px solid var(--border); padding: 3rem; margin-bottom: 1.5rem;
@@ -79,7 +81,8 @@
     .fp-title { font-family: var(--serif); font-size: 2rem; line-height: 1.2; margin-bottom: 0.8rem; transition: color 0.2s; }
     .fp-excerpt { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem; }
     .fp-read { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
-    .fp-visual { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 3/2; display: flex; align-items: center; justify-content: center; }
+    .fp-visual { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 3/2; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .fp-visual img { width: 100%; height: 100%; object-fit: cover; }
     .fp-visual-inner { font-size: 4rem; opacity: 0.15; }
 
     /* POST LIST */
@@ -97,9 +100,9 @@
     .post-title { font-family: var(--serif); font-size: 1.25rem; transition: color 0.2s; }
     .post-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); padding: 0.25rem 0.7rem; border: 1px solid var(--accent2); white-space: nowrap; opacity: 0.7; }
 
-    /* SECTION LABEL */
-    .sec-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-    .sec-label::before, .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    /* EMPTY / LOADING STATE */
+    .blog-empty { padding: 4rem 0; text-align: center; }
+    .blog-empty p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.08em; }
 
     /* TOPICS SIDEBAR ROW */
     .topics-section { padding: 3rem 3rem; max-width: 1100px; margin: 0 auto; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
@@ -165,106 +168,20 @@
 
 <!-- FILTER -->
 <div class="filter-bar">
-  <div class="filter-tags">
+  <div class="filter-tags" id="filter-tags">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="essay">Essay</button>
-    <button class="filter-btn" data-filter="tutorial">Tutorial</button>
-    <button class="filter-btn" data-filter="opinion">Opinion</button>
-    <button class="filter-btn" data-filter="devlog">Dev Log</button>
-    <button class="filter-btn" data-filter="personal">Personal</button>
+    <!-- Tag buttons injected dynamically -->
   </div>
-  <span class="posts-count">12 articles</span>
+  <span class="posts-count" id="posts-count">Loading…</span>
 </div>
 
 <!-- BLOG CONTENT -->
 <div class="blog-section">
-
-  <!-- FEATURED -->
-  <a class="featured-post" href="https://ramsrinivasan.in/blog/what-made-me-create-this-page.html#">
-    <div>
-      <span class="fp-badge">Latest</span>
-      <div class="fp-meta">
-        <span class="fp-tag">Essay</span>
-        <span class="fp-date">Mar 01, 2026</span>
-      </div>
-      <h2 class="fp-title">What Made Me Create This Page?</h2>
-      <p class="fp-excerpt">A small step toward building in public — documenting systems, automation, and the mindset behind solving operational problems more intelligently.</p>
-      <span class="fp-read">Read article →</span>
-    </div>
-    <div class="fp-visual">
-      <div class="fp-visual-inner">✍️</div>
-    </div>
-  </a>
-
-  <!-- LIST -->
+  <!-- Featured post rendered here -->
+  <div id="featured-wrap"></div>
+  <!-- All other posts rendered here -->
   <div class="post-list" id="postList">
-
-    <a class="blog-post" href="#" data-tag="tutorial">
-      <span class="post-date">Feb 14, 2026</span>
-      <span class="post-title">A Second Article About Something Interesting</span>
-      <span class="post-tag">Tutorial</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="opinion">
-      <span class="post-date">Jan 28, 2026</span>
-      <span class="post-title">Thoughts on a Topic You Care Deeply About</span>
-      <span class="post-tag">Opinion</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="devlog">
-      <span class="post-date">Jan 10, 2026</span>
-      <span class="post-title">How I Built Something and What I Learned</span>
-      <span class="post-tag">Dev Log</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="personal">
-      <span class="post-date">Dec 20, 2025</span>
-      <span class="post-title">Year in Review: Reflections and Looking Forward</span>
-      <span class="post-tag">Personal</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="essay">
-      <span class="post-date">Dec 05, 2025</span>
-      <span class="post-title">Why Supply Chain Professionals Should Learn to Code</span>
-      <span class="post-tag">Essay</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="tutorial">
-      <span class="post-date">Nov 18, 2025</span>
-      <span class="post-title">Automating Your Weekly Reports with Python in 30 Minutes</span>
-      <span class="post-tag">Tutorial</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="opinion">
-      <span class="post-date">Nov 01, 2025</span>
-      <span class="post-title">What AI Actually Gets Wrong About Operations</span>
-      <span class="post-tag">Opinion</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="devlog">
-      <span class="post-date">Oct 15, 2025</span>
-      <span class="post-title">Building a Dashboard for My Team: A Dev Log</span>
-      <span class="post-tag">Dev Log</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="essay">
-      <span class="post-date">Oct 01, 2025</span>
-      <span class="post-title">The Surprising Overlap Between Gaming and Supply Chain</span>
-      <span class="post-tag">Essay</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="tutorial">
-      <span class="post-date">Sep 10, 2025</span>
-      <span class="post-title">Getting Started with Make.com for Workflow Automation</span>
-      <span class="post-tag">Tutorial</span>
-    </a>
-
-    <a class="blog-post" href="#" data-tag="personal">
-      <span class="post-date">Aug 22, 2025</span>
-      <span class="post-title">Six Months of Writing in Public: What I've Learned</span>
-      <span class="post-tag">Personal</span>
-    </a>
-
+    <div class="blog-empty"><p>Loading posts…</p></div>
   </div>
 </div>
 
@@ -297,62 +214,43 @@
 </div>
 
 <footer>
-  <p>© 2026 <a href="index.html">RamSrinivasan</a>. All rights reserved.</p>
+  <p>© 2026 <a href="/../">RamSrinivasan</a>. All rights reserved.</p>
   <p>Built with care &amp; a lot of ☕</p>
 </footer>
 
 <script>
   const FORM_URL = 'https://forms.gle/qX99SUZen94n7uMB6';
 
-  // Header subscribe — opens Google Form in new tab
+  // ─── SUBSCRIBE ────────────────────────────────────────────────
   function subscribeHeader() {
     const email = document.getElementById('headerEmail').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('headerEmail').focus();
-      return;
-    }
+    if (!email || !email.includes('@')) { document.getElementById('headerEmail').focus(); return; }
     window.open(FORM_URL, '_blank');
   }
-
-  // Sidebar subscribe — opens Google Form in new tab
   function subscribeSidebar() {
     const email = document.getElementById('nlEmail').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('nlEmail').focus();
-      return;
-    }
+    if (!email || !email.includes('@')) { document.getElementById('nlEmail').focus(); return; }
     window.open(FORM_URL, '_blank');
   }
+  document.getElementById('headerEmail').addEventListener('keydown', e => { if (e.key === 'Enter') subscribeHeader(); });
+  document.getElementById('nlEmail').addEventListener('keydown', e => { if (e.key === 'Enter') subscribeSidebar(); });
 
-  // Allow Enter key on header email input
-  document.getElementById('headerEmail').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') subscribeHeader();
-  });
+  // ─── HELPERS ──────────────────────────────────────────────────
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+  }
 
-  // Allow Enter key on sidebar email input
-  document.getElementById('nlEmail').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') subscribeSidebar();
-  });
+  // Build the URL for a blog post's individual page.
+  // All posts live at: /blog/post.html?slug=your-slug
+  function postUrl(post) {
+    // If the post already has a custom URL saved from the admin, use it
+    if (post.customUrl && post.customUrl !== '#') return post.customUrl;
+    // Otherwise point to the universal reader page
+    return `/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+  }
 
-  // Filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const posts = document.querySelectorAll('.blog-post');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      posts.forEach(post => {
-        if (filter === 'all' || post.dataset.tag === filter) {
-          post.style.display = '';
-        } else {
-          post.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  // Scroll reveal
+  // ─── SCROLL REVEAL ────────────────────────────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -360,7 +258,139 @@
       }
     });
   }, { threshold: 0.05 });
-  document.querySelectorAll('.featured-post, .blog-post').forEach(el => observer.observe(el));
+
+  function observeNew() {
+    document.querySelectorAll('.featured-post:not(.observed), .blog-post:not(.observed)').forEach(el => {
+      el.classList.add('observed');
+      observer.observe(el);
+    });
+  }
+
+  // ─── FILTER ───────────────────────────────────────────────────
+  let allPosts = [];
+  let activeFilter = 'all';
+
+  function applyFilter(filter) {
+    activeFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    const posts = document.querySelectorAll('#postList .blog-post');
+    let shown = 0;
+    posts.forEach(post => {
+      const tag = (post.dataset.tag || '').toLowerCase();
+      const match = filter === 'all' || tag === filter.toLowerCase();
+      post.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    document.getElementById('posts-count').textContent = `${shown} article${shown !== 1 ? 's' : ''}`;
+  }
+
+  function buildFilters(posts) {
+    const tags = ['all', ...new Set(posts.flatMap(p => p.tags || []).map(t => t.toLowerCase()))];
+    const wrap = document.getElementById('filter-tags');
+    wrap.innerHTML = tags.map(t => `<button class="filter-btn${t === 'all' ? ' active' : ''}" data-filter="${t}">${t === 'all' ? 'All' : t}</button>`).join('');
+    wrap.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+  }
+
+  // ─── RENDER ───────────────────────────────────────────────────
+  function renderFeatured(post) {
+    const wrap = document.getElementById('featured-wrap');
+    const tag = (post.tags || [])[0] || '';
+    const url = postUrl(post);
+    wrap.innerHTML = `
+      <a class="featured-post" href="${url}">
+        <div>
+          <span class="fp-badge">Latest</span>
+          <div class="fp-meta">
+            ${tag ? `<span class="fp-tag">${tag}</span>` : ''}
+            <span class="fp-date">${fmtDate(post.publishDate || post.createdAt)}</span>
+          </div>
+          <h2 class="fp-title">${post.title}</h2>
+          <p class="fp-excerpt">${post.description || ''}</p>
+          <span class="fp-read">Read article →</span>
+        </div>
+        <div class="fp-visual">
+          ${post.featuredImage
+            ? `<img src="${post.featuredImage}" alt="${post.title}" />`
+            : `<div class="fp-visual-inner">✍️</div>`}
+        </div>
+      </a>`;
+    observeNew();
+  }
+
+  function renderPostList(posts) {
+    const list = document.getElementById('postList');
+    if (!posts.length) {
+      list.innerHTML = '<div class="blog-empty"><p>No posts published yet.</p></div>';
+      document.getElementById('posts-count').textContent = '0 articles';
+      return;
+    }
+    list.innerHTML = posts.map(post => {
+      const tag = (post.tags || [])[0] || '';
+      const url = postUrl(post);
+      return `
+        <a class="blog-post" href="${url}" data-tag="${tag.toLowerCase()}">
+          <span class="post-date">${fmtDate(post.publishDate || post.createdAt)}</span>
+          <span class="post-title">${post.title}</span>
+          ${tag ? `<span class="post-tag">${tag}</span>` : ''}
+        </a>`;
+    }).join('');
+    document.getElementById('posts-count').textContent = `${posts.length} article${posts.length !== 1 ? 's' : ''}`;
+    observeNew();
+  }
+
+  function renderAll(posts) {
+    // Sort newest first
+    const sorted = [...posts].sort((a, b) =>
+      new Date(b.publishDate || b.createdAt) - new Date(a.publishDate || a.createdAt)
+    );
+    if (!sorted.length) {
+      document.getElementById('featured-wrap').innerHTML = '';
+      renderPostList([]);
+      buildFilters([]);
+      return;
+    }
+    const [featured, ...rest] = sorted;
+    renderFeatured(featured);
+    renderPostList(rest);
+    buildFilters(sorted);
+    applyFilter('all');
+  }
+
+  // ─── DATA LOADING ─────────────────────────────────────────────
+  // Priority: 1) localStorage (same-domain admin), 2) site-data.json, 3) hardcoded fallback
+
+  const FALLBACK = [
+    { title: 'What Made Me Create This Page?', slug: 'what-made-me-create-this-page', tags: ['Essay'], description: 'A small step toward building in public — documenting systems, automation, and the mindset behind solving operational problems more intelligently.', publishDate: '2026-03-01', status: 'published', customUrl: 'https://ramsrinivasan.in/blog/what-made-me-create-this-page.html' },
+    { title: 'Why? — Is This Question Necessary?', slug: 'why-is-this-question-necessary', tags: ['Opinion'], description: 'Questioning the questions we ask ourselves.', publishDate: '2026-03-02', status: 'published' },
+    { title: 'From Operations to Systems Thinking', slug: 'from-operations-to-systems-thinking', tags: ['Essay'], description: 'How supply chain shaped the way I see every problem.', publishDate: '2026-03-03', status: 'published' },
+    { title: 'Building Tools Instead of Complaining About Problems', slug: 'building-tools-not-complaining', tags: ['Automation'], description: 'A mindset shift that changed how I work.', publishDate: '2026-03-04', status: 'published' },
+    { title: 'Learning in Public: Why I Chose to Share My Work', slug: 'learning-in-public', tags: ['Career'], description: 'The scary and worthwhile decision to document my progress openly.', publishDate: '2026-03-05', status: 'published' },
+  ];
+
+  function loadPosts() {
+    // Step 1 — localStorage (works when admin.html is on same domain)
+    try {
+      const raw = localStorage.getItem('rs_blogs');
+      if (raw) {
+        const all = JSON.parse(raw);
+        const published = all.filter(b => b.status === 'published');
+        if (published.length) { renderAll(published); return; }
+      }
+    } catch(e) {}
+
+    // Step 2 — site-data.json (committed to repo)
+    fetch('../site-data.json?v=' + Date.now())
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => {
+        const published = (data.blogs || []).filter(b => b.status === 'published');
+        renderAll(published.length ? published : FALLBACK);
+      })
+      .catch(() => renderAll(FALLBACK));
+  }
+
+  loadPosts();
 </script>
 </body>
 </html>
