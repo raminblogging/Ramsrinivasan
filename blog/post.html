@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZH170NH9GW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Dynamic meta tags filled by JS -->
+  <title>Loading… — RamSrinivasan</title>
+  <meta name="description" content="" id="meta-desc"/>
+  <meta property="og:title" content="" id="og-title"/>
+  <meta property="og:description" content="" id="og-desc"/>
+  <meta property="og:type" content="article"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #141414; --surface: #1a1a1a;
+      --border: #2a2a2a; --text: #e8e2d9; --muted: #6b6560;
+      --accent: #c8a96e; --accent2: #7eb8a4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: rgba(13,13,13,0.92); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* READING PROGRESS BAR */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 200; transition: width 0.1s linear;
+    }
+
+    /* HERO */
+    .post-hero {
+      padding: 9rem 3rem 4rem;
+      max-width: 860px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .post-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+    .post-back:hover { color: var(--accent); }
+    .post-back::before { content: '←'; }
+    .post-tags { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .post-tag-item {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); padding: 0.25rem 0.8rem; border: 1px solid var(--accent2); opacity: 0.8;
+    }
+    .post-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+    }
+    .post-hero h1 em { font-style: italic; color: var(--accent); }
+    .post-desc {
+      font-size: 1.15rem; color: var(--muted); line-height: 1.8;
+      margin-bottom: 2rem; max-width: 680px;
+    }
+    .post-meta {
+      display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .meta-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .meta-value { font-family: var(--mono); font-size: 0.8rem; color: var(--text); }
+
+    /* FEATURED IMAGE */
+    .post-cover {
+      max-width: 860px; margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      opacity: 0; animation: fadeUp 0.7s 0.3s forwards;
+    }
+    .post-cover img { width: 100%; max-height: 480px; object-fit: cover; display: block; }
+
+    /* ARTICLE BODY */
+    .post-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 3rem 5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    /* Prose styles — rich text from the editor */
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 {
+      font-family: var(--serif);
+      line-height: 1.2;
+      margin: 2.2rem 0 0.8rem;
+      color: var(--text);
+    }
+    .post-body h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .post-body h3 { font-size: 1.4rem; }
+    .post-body h4 { font-size: 1.1rem; font-family: var(--sans); font-weight: 600; }
+    .post-body p {
+      color: #c8c2b8;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 1.4rem;
+    }
+    .post-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(200,169,110,0.3); transition: border-color 0.2s; }
+    .post-body a:hover { border-color: var(--accent); }
+    .post-body strong { color: var(--text); font-weight: 600; }
+    .post-body em { font-style: italic; color: var(--accent); }
+    .post-body ul, .post-body ol { padding-left: 1.8rem; margin-bottom: 1.4rem; }
+    .post-body li { color: #c8c2b8; font-size: 1.05rem; line-height: 1.85; margin-bottom: 0.4rem; }
+    .post-body blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 2rem 0;
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+    }
+    .post-body blockquote p { color: var(--muted); font-style: italic; margin-bottom: 0; }
+    .post-body code {
+      font-family: var(--mono); font-size: 0.85em;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.15em 0.4em; border-radius: 2px; color: var(--accent2);
+    }
+    .post-body pre {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 1.5rem; overflow-x: auto; margin-bottom: 1.4rem;
+    }
+    .post-body pre code { background: none; border: none; padding: 0; }
+    .post-body hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .post-body img { max-width: 100%; height: auto; display: block; margin: 2rem auto; border: 1px solid var(--border); }
+
+    /* SHARE + TAGS FOOTER */
+    .post-footer {
+      max-width: 680px; margin: 0 auto;
+      padding: 0 3rem 4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2.5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.7s forwards;
+    }
+    .share-row { display: flex; align-items: center; gap: 1rem; }
+    .share-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .share-btn {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.5rem 1rem; border: 1px solid var(--border); color: var(--muted);
+      text-decoration: none; transition: all 0.2s; cursor: pointer; background: transparent;
+    }
+    .share-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--accent); }
+
+    /* RELATED POSTS */
+    .related-section {
+      max-width: 860px; margin: 0 auto;
+      padding: 3rem 3rem 5rem;
+      border-top: 1px solid var(--border);
+      opacity: 0; animation: fadeUp 0.7s 0.9s forwards;
+    }
+    .related-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .related-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .related-card {
+      background: var(--surface); border: 1px solid var(--border); padding: 1.5rem;
+      text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.6rem;
+      transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden;
+    }
+    .related-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .related-card:hover { border-color: #3a3a3a; transform: translateY(-3px); }
+    .related-card:hover::before { transform: scaleX(1); }
+    .related-card:hover .rc-title { color: var(--accent); }
+    .rc-tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); }
+    .rc-title { font-family: var(--serif); font-size: 1.1rem; line-height: 1.3; transition: color 0.2s; }
+    .rc-date { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); margin-top: auto; }
+
+    /* NOT FOUND */
+    .not-found {
+      max-width: 680px; margin: 0 auto;
+      padding: 10rem 3rem 5rem; text-align: center;
+    }
+    .not-found h2 { font-family: var(--serif); font-size: 3rem; margin-bottom: 1rem; }
+    .not-found p { color: var(--muted); margin-bottom: 2rem; }
+    .not-found a { color: var(--accent); font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+    footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; } .nav-links { gap: 1.5rem; }
+      .post-hero, .post-body, .post-footer, .related-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .post-hero { padding-top: 7rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="/../" class="nav-logo">RM.</a>
+  <ul class="nav-links">
+    <li><a href="/about/">About</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Everything injected by JS below -->
+<div id="app"></div>
+
+<footer>
+  <p>© 2026 <a href="/../">RamSrinivasan</a>. All rights reserved.</p>
+  <p>Built with care &amp; a lot of ☕</p>
+</footer>
+
+<script>
+  // ─── READING PROGRESS ──────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+    document.getElementById('progress-bar').style.width = Math.min(pct, 100) + '%';
+  });
+
+  // ─── HELPERS ───────────────────────────────────────────────
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function readTime(html) {
+    const text = html.replace(/<[^>]*>/g, '');
+    const words = text.trim().split(/\s+/).length;
+    return Math.max(1, Math.round(words / 200)) + ' min read';
+  }
+
+  function postUrl(post) {
+    if (post.customUrl && post.customUrl !== '#') return post.customUrl;
+    return `/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+  }
+
+  // ─── GET SLUG FROM URL ────────────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+  const targetSlug = params.get('slug') || '';
+
+  // ─── RENDER POST ─────────────────────────────────────────
+  function renderPost(post, allPosts) {
+    // Update page title and meta
+    document.title = `${post.title} — RamSrinivasan`;
+    document.getElementById('meta-desc').content = post.description || '';
+    document.getElementById('og-title').content = post.title;
+    document.getElementById('og-desc').content = post.description || '';
+
+    // Related posts: same tag, exclude current
+    const related = allPosts
+      .filter(p => p.id !== post.id && (p.tags || []).some(t => (post.tags || []).includes(t)))
+      .slice(0, 3);
+
+    const app = document.getElementById('app');
+    app.innerHTML = `
+
+      <!-- HERO -->
+      <div class="post-hero">
+        <a href="/blog/" class="post-back">Back to Blog</a>
+        ${(post.tags || []).length ? `
+          <div class="post-tags">
+            ${(post.tags || []).map(t => `<span class="post-tag-item">${t}</span>`).join('')}
+          </div>` : ''}
+        <h1>${post.title}</h1>
+        ${post.description ? `<p class="post-desc">${post.description}</p>` : ''}
+        <div class="post-meta">
+          <div class="meta-item">
+            <span class="meta-label">Published</span>
+            <span class="meta-value">${fmtDate(post.publishDate || post.createdAt)}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Reading time</span>
+            <span class="meta-value">${readTime(post.content || '')}</span>
+          </div>
+          ${(post.tags || []).length ? `
+          <div class="meta-item">
+            <span class="meta-label">Topics</span>
+            <span class="meta-value">${(post.tags || []).join(', ')}</span>
+          </div>` : ''}
+        </div>
+      </div>
+
+      <!-- FEATURED IMAGE -->
+      ${post.featuredImage ? `
+        <div class="post-cover">
+          <img src="${post.featuredImage}" alt="${post.title}" />
+        </div>` : ''}
+
+      <!-- ARTICLE BODY -->
+      <div class="post-body">
+        ${post.content || '<p>No content yet.</p>'}
+      </div>
+
+      <!-- SHARE + BACK -->
+      <div class="post-footer">
+        <div class="share-row">
+          <span class="share-label">Share</span>
+          <a class="share-btn" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener">Twitter</a>
+          <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener">LinkedIn</a>
+          <button class="share-btn" onclick="copyLink()">Copy Link</button>
+        </div>
+        <a href="/blog/" class="back-btn">← All Posts</a>
+      </div>
+
+      <!-- RELATED POSTS -->
+      ${related.length ? `
+        <div class="related-section">
+          <div class="related-label">More to read</div>
+          <div class="related-grid">
+            ${related.map(r => `
+              <a class="related-card" href="${postUrl(r)}">
+                <span class="rc-tag">${(r.tags || [])[0] || ''}</span>
+                <span class="rc-title">${r.title}</span>
+                <span class="rc-date">${fmtDate(r.publishDate || r.createdAt)}</span>
+              </a>`).join('')}
+          </div>
+        </div>` : ''}
+    `;
+  }
+
+  function renderNotFound() {
+    document.title = 'Post Not Found — RamSrinivasan';
+    document.getElementById('app').innerHTML = `
+      <div class="not-found">
+        <h2>Post not <em>found</em></h2>
+        <p>This post doesn't exist or may have been removed.</p>
+        <a href="/blog/">← Back to all posts</a>
+      </div>`;
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => { alert('Link copied!'); })
+      .catch(() => {});
+  }
+
+  // ─── LOAD DATA ────────────────────────────────────────────
+  // Same priority as blog index: localStorage → site-data.json
+
+  function findAndRender(allPosts) {
+    const published = allPosts.filter(b => b.status === 'published');
+    const post = published.find(b => b.slug === targetSlug);
+    if (!post) { renderNotFound(); return; }
+    renderPost(post, published);
+  }
+
+  function loadPost() {
+    if (!targetSlug) { renderNotFound(); return; }
+
+    // Step 1: localStorage
+    try {
+      const raw = localStorage.getItem('rs_blogs');
+      if (raw) {
+        const all = JSON.parse(raw);
+        if (all.length) { findAndRender(all); return; }
+      }
+    } catch(e) {}
+
+    // Step 2: site-data.json
+    fetch('../site-data.json?v=' + Date.now())
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => findAndRender(data.blogs || []))
+      .catch(() => renderNotFound());
+  }
+
+  loadPost();
+</script>
+</body>
+</html>
