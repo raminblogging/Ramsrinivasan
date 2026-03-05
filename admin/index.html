@@ -6,192 +6,56 @@
 <title>Admin — ramsrinivasan.in</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --bg:#080a0f;
-  --s1:#0e1117;
-  --s2:#141820;
-  --s3:#1c2130;
-  --bdr:#ffffff0f;
-  --bdr2:#ffffff18;
-  --acc:#00e5ff;
-  --acc2:#7c3aed;
-  --acc3:#10b981;
-  --warn:#f59e0b;
-  --danger:#ef4444;
-  --txt:#e8edf5;
-  --txt2:#8892a4;
-  --txt3:#4b5563;
-  --sw:252px;
-  --hh:58px;
-  --r:10px;
-}
+:root{--bg:#080a0f;--s1:#0e1117;--s2:#141820;--s3:#1c2130;--bdr:#ffffff0f;--bdr2:#ffffff18;--acc:#00e5ff;--acc2:#7c3aed;--acc3:#10b981;--warn:#f59e0b;--danger:#ef4444;--txt:#e8edf5;--txt2:#8892a4;--txt3:#4b5563;--sw:252px;--hh:58px;--r:10px}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
-
-/* ── scrollbar ── */
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--s3);border-radius:99px}
-
-/* ════════════════ LOGIN ════════════════ */
-#login-wrap{
-  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:var(--bg);z-index:999;
-}
-.login-bg{
-  position:absolute;inset:0;overflow:hidden;pointer-events:none;
-}
-.login-bg::before{
-  content:'';position:absolute;width:600px;height:600px;
-  border-radius:50%;
-  background:radial-gradient(circle,#7c3aed22 0%,transparent 70%);
-  top:-100px;left:-100px;
-}
-.login-bg::after{
-  content:'';position:absolute;width:500px;height:500px;
-  border-radius:50%;
-  background:radial-gradient(circle,#00e5ff18 0%,transparent 70%);
-  bottom:-80px;right:-80px;
-}
-.login-card{
-  position:relative;z-index:1;
-  background:var(--s1);
-  border:1px solid var(--bdr2);
-  border-radius:20px;
-  padding:44px 40px;
-  width:100%;max-width:420px;
-  box-shadow:0 40px 80px #00000060;
-}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:99px}
+#login-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:999}
+.login-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.login-bg::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,#7c3aed22 0%,transparent 70%);top:-100px;left:-100px}
+.login-bg::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,#00e5ff18 0%,transparent 70%);bottom:-80px;right:-80px}
+.login-card{position:relative;z-index:1;background:var(--s1);border:1px solid var(--bdr2);border-radius:20px;padding:44px 40px;width:100%;max-width:420px;box-shadow:0 40px 80px #00000060}
 .login-logo{margin-bottom:32px;text-align:center}
-.login-logo .site-name{
-  font-size:13px;font-weight:600;letter-spacing:.15em;
-  color:var(--acc);text-transform:uppercase;font-family:'JetBrains Mono',monospace;
-  margin-bottom:10px;
-}
+.login-logo .site-name{font-size:13px;font-weight:600;letter-spacing:.15em;color:var(--acc);text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:10px}
 .login-logo h2{font-size:26px;font-weight:800;color:var(--txt);line-height:1.2}
 .login-logo p{color:var(--txt2);font-size:14px;margin-top:6px}
 .login-field{margin-bottom:16px}
 .login-field label{display:block;font-size:12px;font-weight:600;color:var(--txt2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
-.login-field input{
-  width:100%;background:var(--s2);border:1px solid var(--bdr2);
-  border-radius:var(--r);padding:12px 14px;
-  color:var(--txt);font-family:'Outfit',sans-serif;font-size:15px;
-  outline:none;transition:border-color .2s;
-}
+.login-field input{width:100%;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);padding:12px 14px;color:var(--txt);font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:border-color .2s}
 .login-field input:focus{border-color:var(--acc)}
-.login-err{
-  background:#ef444418;border:1px solid #ef444430;
-  color:#fca5a5;border-radius:var(--r);padding:10px 14px;
-  font-size:13px;margin-bottom:14px;display:none;
-}
-.btn-login{
-  width:100%;padding:13px;border:none;border-radius:var(--r);
-  background:linear-gradient(135deg,var(--acc2),var(--acc));
-  color:#fff;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;
-  cursor:pointer;letter-spacing:.02em;
-  transition:opacity .2s,transform .15s;
-  margin-top:4px;
-}
+.login-err{background:#ef444418;border:1px solid #ef444430;color:#fca5a5;border-radius:var(--r);padding:10px 14px;font-size:13px;margin-bottom:14px;display:none}
+.btn-login{width:100%;padding:13px;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .15s;margin-top:4px}
 .btn-login:hover{opacity:.88;transform:translateY(-1px)}
-.btn-login:active{transform:translateY(0)}
 .login-hint{text-align:center;margin-top:16px;font-size:12px;color:var(--txt3);font-family:'JetBrains Mono',monospace}
-
-/* ════════════════ LAYOUT ════════════════ */
 #app{display:none;min-height:100vh}
-
-/* ── Sidebar ── */
-#sidebar{
-  position:fixed;top:0;left:0;bottom:0;width:var(--sw);
-  background:var(--s1);border-right:1px solid var(--bdr);
-  display:flex;flex-direction:column;z-index:200;
-  transition:transform .3s cubic-bezier(.4,0,.2,1);
-}
-.sb-brand{
-  padding:22px 20px 18px;
-  border-bottom:1px solid var(--bdr);
-}
-.sb-brand .label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;font-weight:600;letter-spacing:.18em;
-  color:var(--acc);text-transform:uppercase;margin-bottom:4px;
-}
+#sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--s1);border-right:1px solid var(--bdr);display:flex;flex-direction:column;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid var(--bdr)}
+.sb-brand .label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:4px}
 .sb-brand h1{font-size:17px;font-weight:800;color:var(--txt);line-height:1.2}
 .sb-brand p{font-size:11px;color:var(--txt3);margin-top:2px}
-
 .sb-nav{flex:1;overflow-y:auto;padding:10px 0}
-.sb-section{
-  padding:14px 20px 4px;
-  font-size:9.5px;font-weight:700;letter-spacing:.14em;
-  color:var(--txt3);text-transform:uppercase;
-  font-family:'JetBrains Mono',monospace;
-}
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 20px;margin:1px 8px;border-radius:8px;
-  font-size:14px;font-weight:500;color:var(--txt2);
-  cursor:pointer;transition:all .15s;position:relative;
-}
+.sb-section{padding:14px 20px 4px;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--txt3);text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;margin:1px 8px;border-radius:8px;font-size:14px;font-weight:500;color:var(--txt2);cursor:pointer;transition:all .15s;position:relative}
 .nav-item:hover{color:var(--txt);background:var(--s2)}
 .nav-item.active{color:var(--txt);background:var(--s3)}
-.nav-item.active::before{
-  content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);
-  width:3px;height:20px;border-radius:0 3px 3px 0;
-  background:linear-gradient(to bottom,var(--acc),var(--acc2));
-}
+.nav-item.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:20px;border-radius:0 3px 3px 0;background:linear-gradient(to bottom,var(--acc),var(--acc2))}
 .nav-item .ni{font-size:16px;width:20px;text-align:center}
-.nav-badge{
-  margin-left:auto;background:var(--danger);color:#fff;
-  font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;
-  display:none;
-}
-
-.sb-foot{
-  padding:16px;border-top:1px solid var(--bdr);
-}
-.admin-chip{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 12px;background:var(--s2);border-radius:var(--r);
-  margin-bottom:10px;
-}
-.av{
-  width:34px;height:34px;border-radius:50%;
-  background:linear-gradient(135deg,var(--acc2),var(--acc));
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:800;color:#fff;flex-shrink:0;
-}
+.nav-badge{margin-left:auto;background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;display:none}
+.sb-foot{padding:16px;border-top:1px solid var(--bdr)}
+.admin-chip{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s2);border-radius:var(--r);margin-bottom:10px}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--acc2),var(--acc));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
 .admin-chip .name{font-size:13px;font-weight:600}
 .admin-chip .role{font-size:11px;color:var(--txt3)}
-
-/* ── Topbar ── */
-#topbar{
-  position:fixed;top:0;left:var(--sw);right:0;height:var(--hh);
-  background:var(--s1);border-bottom:1px solid var(--bdr);
-  display:flex;align-items:center;padding:0 24px;gap:14px;
-  z-index:100;
-}
+#topbar{position:fixed;top:0;left:var(--sw);right:0;height:var(--hh);background:var(--s1);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 24px;gap:14px;z-index:100}
 #hamburger{display:none;background:none;border:none;color:var(--txt);font-size:22px;cursor:pointer;padding:4px}
 #pg-title{font-size:18px;font-weight:700;color:var(--txt)}
 .tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
 .tb-time{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3)}
-
-/* ── Main content ── */
-#main{
-  margin-left:var(--sw);padding-top:var(--hh);min-height:100vh;
-}
+#main{margin-left:var(--sw);padding-top:var(--hh);min-height:100vh}
 .page{display:none;padding:28px;flex-direction:column;gap:22px;animation:fadeIn .3s ease}
 .page.active{display:flex}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ════════════════ COMPONENTS ════════════════ */
-
-/* buttons */
-.btn{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:9px 18px;border-radius:var(--r);border:none;
-  font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;
-  cursor:pointer;transition:all .15s;white-space:nowrap;
-}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--r);border:none;font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
 .btn-pri{background:linear-gradient(135deg,var(--acc2),#2563eb);color:#fff}
 .btn-pri:hover{opacity:.85;transform:translateY(-1px)}
 .btn-ghost{background:var(--s2);color:var(--txt);border:1px solid var(--bdr2)}
@@ -201,218 +65,116 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-h
 .btn-success{background:#10b98115;color:var(--acc3);border:1px solid #10b98128}
 .btn-warn{background:#f59e0b15;color:var(--warn);border:1px solid #f59e0b28}
 .btn-sm{padding:6px 12px;font-size:12px}
-
-/* section header */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .sec-title{font-size:16px;font-weight:700}
-
-/* stat cards */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
-.stat-card{
-  background:var(--s1);border:1px solid var(--bdr);border-radius:14px;
-  padding:22px;position:relative;overflow:hidden;
-  transition:border-color .2s,transform .2s;
-}
+.stat-card{background:var(--s1);border:1px solid var(--bdr);border-radius:14px;padding:22px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
 .stat-card:hover{border-color:var(--bdr2);transform:translateY(-2px)}
-.stat-card .glow{
-  position:absolute;top:-30px;right:-30px;
-  width:100px;height:100px;border-radius:50%;opacity:.25;filter:blur(30px);
-}
-.stat-card.c0 .glow{background:var(--acc)}
-.stat-card.c1 .glow{background:var(--acc3)}
-.stat-card.c2 .glow{background:var(--warn)}
-.stat-card.c3 .glow{background:var(--acc2)}
+.stat-card .glow{position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.25;filter:blur(30px)}
+.stat-card.c0 .glow{background:var(--acc)}.stat-card.c1 .glow{background:var(--acc3)}.stat-card.c2 .glow{background:var(--warn)}.stat-card.c3 .glow{background:var(--acc2)}
 .stat-icon{font-size:22px;margin-bottom:14px;display:block}
 .stat-label{font-size:12px;color:var(--txt2);font-weight:500;margin-bottom:4px}
 .stat-val{font-size:36px;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
 .stat-sub{font-size:11px;color:var(--txt3);margin-top:6px}
-.stat-card.c0 .stat-val{color:var(--acc)}
-.stat-card.c1 .stat-val{color:var(--acc3)}
-.stat-card.c2 .stat-val{color:var(--warn)}
-.stat-card.c3 .stat-val{color:var(--acc2)}
-
-/* table */
-.tbl-wrap{
-  background:var(--s1);border:1px solid var(--bdr);
-  border-radius:14px;overflow:hidden;overflow-x:auto;
-}
+.stat-card.c0 .stat-val{color:var(--acc)}.stat-card.c1 .stat-val{color:var(--acc3)}.stat-card.c2 .stat-val{color:var(--warn)}.stat-card.c3 .stat-val{color:var(--acc2)}
+.tbl-wrap{background:var(--s1);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:520px}
 thead tr{background:var(--s2)}
-th{
-  padding:12px 16px;text-align:left;
-  font-size:10.5px;font-weight:700;color:var(--txt3);
-  text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;
-  font-family:'JetBrains Mono',monospace;
-}
-td{
-  padding:13px 16px;font-size:13.5px;
-  border-bottom:1px solid var(--bdr);vertical-align:middle;
-}
+th{padding:12px 16px;text-align:left;font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;font-family:'JetBrains Mono',monospace}
+td{padding:13px 16px;font-size:13.5px;border-bottom:1px solid var(--bdr);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:#ffffff03}
 .td-title{font-weight:600;color:var(--txt);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .td-muted{color:var(--txt2);font-size:12.5px}
 .td-mono{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt2)}
 .act-row{display:flex;gap:6px;align-items:center}
-
-/* badges */
-.badge{
-  display:inline-block;padding:3px 10px;border-radius:99px;
-  font-size:11px;font-weight:700;letter-spacing:.03em;
-}
+.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.03em}
 .b-green{background:#10b98118;color:#34d399;border:1px solid #10b98128}
 .b-yellow{background:#f59e0b18;color:#fbbf24;border:1px solid #f59e0b28}
 .b-red{background:#ef444418;color:#fca5a5;border:1px solid #ef444428}
 .b-blue{background:#3b82f618;color:#93c5fd;border:1px solid #3b82f628}
 .b-gray{background:var(--s2);color:var(--txt3);border:1px solid var(--bdr)}
-
-/* forms */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .fg{display:flex;flex-direction:column;gap:6px}
 .fg.full{grid-column:1/-1}
 .fg label{font-size:11.5px;font-weight:600;color:var(--txt2);letter-spacing:.05em;text-transform:uppercase}
-.fg input,.fg select,.fg textarea{
-  background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);
-  color:var(--txt);font-family:'Outfit',sans-serif;font-size:14px;
-  padding:10px 13px;width:100%;outline:none;transition:border-color .2s;
-}
+.fg input,.fg select,.fg textarea{background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--txt);font-family:'Outfit',sans-serif;font-size:14px;padding:10px 13px;width:100%;outline:none;transition:border-color .2s}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--acc)}
 .fg select option{background:var(--s1)}
 .fg textarea{min-height:110px;resize:vertical;line-height:1.55}
 .rich-wrap{background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden}
 .rich-wrap:focus-within{border-color:var(--acc)}
 .rtoolbar{display:flex;flex-wrap:wrap;gap:3px;padding:8px 10px;border-bottom:1px solid var(--bdr)}
-.rtoolbar button{
-  background:none;border:none;color:var(--txt2);cursor:pointer;
-  padding:4px 9px;border-radius:6px;font-size:13px;font-family:inherit;
-  transition:all .12s;
-}
+.rtoolbar button{background:none;border:none;color:var(--txt2);cursor:pointer;padding:4px 9px;border-radius:6px;font-size:13px;font-family:inherit;transition:all .12s}
 .rtoolbar button:hover{background:var(--s3);color:var(--txt)}
-[contenteditable]{
-  padding:12px 14px;min-height:160px;outline:none;
-  font-size:14px;line-height:1.65;color:var(--txt);
-}
+[contenteditable]{padding:12px 14px;min-height:160px;outline:none;font-size:14px;line-height:1.65;color:var(--txt)}
 [contenteditable]:empty::before{content:attr(data-ph);color:var(--txt3)}
-
-/* modal */
-.overlay{
-  position:fixed;inset:0;background:#00000088;
-  backdrop-filter:blur(6px);display:flex;
-  align-items:center;justify-content:center;
-  z-index:500;padding:20px;display:none;
-}
+.overlay{position:fixed;inset:0;background:#00000088;backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:500;padding:20px}
 .overlay.open{display:flex}
-.modal{
-  background:var(--s1);border:1px solid var(--bdr2);
-  border-radius:18px;width:100%;max-width:680px;
-  max-height:90vh;overflow-y:auto;padding:28px;
-  display:flex;flex-direction:column;gap:20px;
-  animation:modalIn .25s cubic-bezier(.34,1.4,.64,1);
-}
+.modal{background:var(--s1);border:1px solid var(--bdr2);border-radius:18px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:20px;animation:modalIn .25s cubic-bezier(.34,1.4,.64,1)}
 @keyframes modalIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between}
 .modal-title{font-size:19px;font-weight:800}
-.modal-x{
-  background:var(--s2);border:none;color:var(--txt2);
-  width:32px;height:32px;border-radius:8px;cursor:pointer;
-  font-size:16px;display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
+.modal-x{background:var(--s2);border:none;color:var(--txt2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .modal-x:hover{background:var(--s3);color:var(--txt)}
-.modal-foot{
-  display:flex;gap:10px;justify-content:flex-end;
-  padding-top:10px;border-top:1px solid var(--bdr);
-}
-
-/* media */
+.modal-foot{display:flex;gap:10px;justify-content:flex-end;padding-top:10px;border-top:1px solid var(--bdr)}
 .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.media-card{
-  background:var(--s1);border:1px solid var(--bdr);
-  border-radius:var(--r);overflow:hidden;
-  transition:border-color .2s,transform .2s;
-}
+.media-card{background:var(--s1);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .2s}
 .media-card:hover{border-color:var(--bdr2);transform:translateY(-2px)}
 .media-card img{width:100%;height:110px;object-fit:cover;display:block;background:var(--s2)}
 .media-card .mc-foot{padding:8px;display:flex;flex-direction:column;gap:5px}
 .media-card .mc-name{font-size:11px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .media-card .mc-acts{display:flex;gap:4px}
-
-/* upload zone */
-.drop-zone{
-  border:2px dashed var(--bdr2);border-radius:14px;
-  padding:36px;text-align:center;cursor:pointer;transition:all .2s;
-}
+.drop-zone{border:2px dashed var(--bdr2);border-radius:14px;padding:36px;text-align:center;cursor:pointer;transition:all .2s}
 .drop-zone:hover,.drop-zone.over{border-color:var(--acc);background:#00e5ff08}
 .drop-zone .dz-icon{font-size:38px;margin-bottom:10px}
 .drop-zone p{color:var(--txt2);font-size:14px}
 .drop-zone small{color:var(--txt3);font-size:12px;margin-top:4px;display:block}
 
-/* toast */
-#toast{
-  position:fixed;bottom:24px;right:24px;
-  background:var(--s2);border:1px solid var(--bdr2);
-  border-radius:var(--r);padding:13px 20px;
-  font-size:14px;font-weight:500;z-index:9999;
-  transform:translateY(60px);opacity:0;
-  transition:all .35s cubic-bezier(.34,1.4,.64,1);
-  pointer-events:none;max-width:320px;
-}
+/* ── DATA SYNC PAGE ── */
+.sync-card{background:var(--s1);border:1px solid var(--bdr);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.sync-card h3{font-size:12px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;font-family:'JetBrains Mono',monospace;padding-bottom:10px;border-bottom:1px solid var(--bdr)}
+.sync-card p{color:var(--txt2);font-size:14px;line-height:1.7}
+.sync-card code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--acc);background:var(--s2);padding:2px 7px;border-radius:4px}
+.sync-btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn-export{background:#00e5ff12;color:var(--acc);border:1px solid #00e5ff28}
+.btn-export:hover{background:#00e5ff22}
+.btn-import{background:#10b98112;color:var(--acc3);border:1px solid #10b98128}
+.btn-import:hover{background:#10b98122}
+.json-preview{display:none;background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:14px;max-height:220px;overflow-y:auto}
+.json-preview pre{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2);white-space:pre-wrap;word-break:break-all}
+.keys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.key-pill{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.key-pill .kname{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--acc)}
+.key-pill .kcount{font-size:12px;color:var(--txt3);background:var(--s3);padding:2px 8px;border-radius:99px}
+.step-list{display:flex;flex-direction:column;gap:10px;counter-reset:steps}
+.step{display:flex;gap:14px;align-items:flex-start;counter-increment:steps}
+.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--acc2),var(--acc));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13.5px;color:var(--txt2);line-height:1.6;padding-top:3px}
+.step-text strong{color:var(--txt)}
+
+#toast{position:fixed;bottom:24px;right:24px;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);padding:13px 20px;font-size:14px;font-weight:500;z-index:9999;transform:translateY(60px);opacity:0;transition:all .35s cubic-bezier(.34,1.4,.64,1);pointer-events:none;max-width:320px}
 #toast.show{transform:translateY(0);opacity:1}
 #toast.ok{border-left:3px solid var(--acc3)}
 #toast.err{border-left:3px solid var(--danger)}
 #toast.info{border-left:3px solid var(--acc)}
-
-/* confirm */
-#confirm-overlay{
-  position:fixed;inset:0;background:#00000088;
-  backdrop-filter:blur(4px);display:none;
-  align-items:center;justify-content:center;z-index:900;
-}
+#confirm-overlay{position:fixed;inset:0;background:#00000088;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:900}
 #confirm-overlay.open{display:flex}
-#confirm-box{
-  background:var(--s1);border:1px solid var(--bdr2);
-  border-radius:16px;padding:28px;max-width:380px;
-  width:100%;text-align:center;animation:modalIn .2s ease;
-}
+#confirm-box{background:var(--s1);border:1px solid var(--bdr2);border-radius:16px;padding:28px;max-width:380px;width:100%;text-align:center;animation:modalIn .2s ease}
 #confirm-box h3{font-size:18px;font-weight:700;margin-bottom:8px}
 #confirm-box p{color:var(--txt2);font-size:14px;margin-bottom:22px}
 #confirm-box .cbs{display:flex;gap:10px;justify-content:center}
-
-/* empty */
-.empty{
-  padding:56px 20px;text-align:center;color:var(--txt3);
-}
+.s-card{background:var(--s1);border:1px solid var(--bdr);border-radius:14px;padding:24px}
+.s-card h3{font-size:14px;font-weight:700;margin-bottom:18px;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace}
+.empty{padding:56px 20px;text-align:center;color:var(--txt3)}
 .empty .ei{font-size:44px;margin-bottom:12px}
 .empty p{font-size:14px}
-
-/* settings card */
-.s-card{
-  background:var(--s1);border:1px solid var(--bdr);
-  border-radius:14px;padding:24px;
-}
-.s-card h3{font-size:14px;font-weight:700;margin-bottom:18px;color:var(--txt2);
-  text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace;}
-
-/* responsive */
-@media(max-width:768px){
-  #sidebar{transform:translateX(-100%)}
-  #sidebar.open{transform:translateX(0)}
-  #topbar{left:0}
-  #main{margin-left:0}
-  #hamburger{display:block}
-  .form-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .page{padding:16px}
-  .modal{padding:20px}
-}
-@media(max-width:400px){
-  .stats-grid{grid-template-columns:1fr}
-}
+@media(max-width:768px){#sidebar{transform:translateX(-100%)}#sidebar.open{transform:translateX(0)}#topbar{left:0}#main{margin-left:0}#hamburger{display:block}.form-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.page{padding:16px}.modal{padding:20px}}
+@media(max-width:400px){.stats-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- ══════════ LOGIN ══════════ -->
 <div id="login-wrap">
   <div class="login-bg"></div>
   <div class="login-card">
@@ -422,301 +184,176 @@ tbody tr:hover td{background:#ffffff03}
       <p>Sign in to manage your website</p>
     </div>
     <div class="login-err" id="login-err">Incorrect email or password.</div>
-    <div class="login-field">
-      <label>Email</label>
-      <input type="email" id="l-email" placeholder="admin@ramsrinivasan.in" autocomplete="email"/>
-    </div>
-    <div class="login-field">
-      <label>Password</label>
-      <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"
-        onkeydown="if(event.key==='Enter')login()"/>
-    </div>
+    <div class="login-field"><label>Email</label><input type="email" id="l-email" placeholder="admin@ramsrinivasan.in" autocomplete="email"/></div>
+    <div class="login-field"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"/></div>
     <button class="btn-login" onclick="login()">Sign In →</button>
     <div class="login-hint">Default: admin@ramsrinivasan.in / Admin@123</div>
   </div>
 </div>
 
-<!-- ══════════ APP ══════════ -->
 <div id="app">
-
-  <!-- Sidebar -->
   <aside id="sidebar">
-    <div class="sb-brand">
-      <div class="label">Admin Panel</div>
-      <h1>ramsrinivasan.in</h1>
-      <p>Content Management</p>
-    </div>
+    <div class="sb-brand"><div class="label">Admin Panel</div><h1>ramsrinivasan.in</h1><p>Content Management</p></div>
     <nav class="sb-nav">
       <div class="sb-section">Overview</div>
-      <div class="nav-item active" data-page="dashboard" onclick="nav('dashboard')">
-        <span class="ni">📊</span> Dashboard
-      </div>
+      <div class="nav-item active" data-page="dashboard" onclick="nav('dashboard')"><span class="ni">📊</span> Dashboard</div>
       <div class="sb-section">Content</div>
-      <div class="nav-item" data-page="blogs" onclick="nav('blogs')">
-        <span class="ni">📝</span> Blogs
-      </div>
-      <div class="nav-item" data-page="monitor" onclick="nav('monitor')">
-        <span class="ni">📡</span> Monitor
-      </div>
+      <div class="nav-item" data-page="blogs" onclick="nav('blogs')"><span class="ni">📝</span> Blogs</div>
+      <div class="nav-item" data-page="monitor" onclick="nav('monitor')"><span class="ni">📡</span> Monitor</div>
       <div class="sb-section">Inbox</div>
-      <div class="nav-item" data-page="messages" onclick="nav('messages')">
-        <span class="ni">💬</span> Messages
-        <span class="nav-badge" id="msg-badge">0</span>
-      </div>
+      <div class="nav-item" data-page="messages" onclick="nav('messages')"><span class="ni">💬</span> Messages<span class="nav-badge" id="msg-badge">0</span></div>
       <div class="sb-section">Assets</div>
-      <div class="nav-item" data-page="media" onclick="nav('media')">
-        <span class="ni">🖼️</span> Media
-      </div>
+      <div class="nav-item" data-page="media" onclick="nav('media')"><span class="ni">🖼️</span> Media</div>
       <div class="sb-section">Config</div>
-      <div class="nav-item" data-page="settings" onclick="nav('settings')">
-        <span class="ni">⚙️</span> Settings
-      </div>
+      <div class="nav-item" data-page="datasync" onclick="nav('datasync')"><span class="ni">🔄</span> Data Sync</div>
+      <div class="nav-item" data-page="settings" onclick="nav('settings')"><span class="ni">⚙️</span> Settings</div>
     </nav>
     <div class="sb-foot">
-      <div class="admin-chip">
-        <div class="av" id="sb-av">R</div>
-        <div>
-          <div class="name" id="sb-name">Admin</div>
-          <div class="role" id="sb-email">ramsrinivasan.in</div>
-        </div>
-      </div>
-      <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="logout()">
-        🚪 Logout
-      </button>
+      <div class="admin-chip"><div class="av" id="sb-av">R</div><div><div class="name" id="sb-name">Admin</div><div class="role" id="sb-email">ramsrinivasan.in</div></div></div>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="logout()">🚪 Logout</button>
     </div>
   </aside>
 
-  <!-- Topbar -->
   <div id="topbar">
     <button id="hamburger" onclick="toggleSb()">☰</button>
     <span id="pg-title">Dashboard</span>
-    <div class="tb-right">
-      <span class="tb-time" id="clock"></span>
-    </div>
+    <div class="tb-right"><span class="tb-time" id="clock"></span></div>
   </div>
 
-  <!-- Main -->
   <div id="main">
 
-    <!-- ── DASHBOARD ── -->
+    <!-- DASHBOARD -->
     <div class="page active" id="pg-dashboard">
-      <div class="sec-hdr">
-        <div class="sec-title">Overview</div>
-        <span style="font-size:13px;color:var(--txt3)" id="dash-date"></span>
-      </div>
+      <div class="sec-hdr"><div class="sec-title">Overview</div><span style="font-size:13px;color:var(--txt3)" id="dash-date"></span></div>
       <div class="stats-grid">
-        <div class="stat-card c0">
-          <div class="glow"></div>
-          <span class="stat-icon">📝</span>
-          <div class="stat-label">Blog Posts</div>
-          <div class="stat-val" id="d-blogs">0</div>
-          <div class="stat-sub" id="d-blogs-sub">0 published · 0 drafts</div>
-        </div>
-        <div class="stat-card c1">
-          <div class="glow"></div>
-          <span class="stat-icon">📡</span>
-          <div class="stat-label">Monitor Articles</div>
-          <div class="stat-val" id="d-arts">0</div>
-          <div class="stat-sub" id="d-arts-sub">0 approved · 0 pending</div>
-        </div>
-        <div class="stat-card c2">
-          <div class="glow"></div>
-          <span class="stat-icon">💬</span>
-          <div class="stat-label">Messages</div>
-          <div class="stat-val" id="d-msgs">0</div>
-          <div class="stat-sub" id="d-msgs-sub">0 unread</div>
-        </div>
-        <div class="stat-card c3">
-          <div class="glow"></div>
-          <span class="stat-icon">🖼️</span>
-          <div class="stat-label">Media Files</div>
-          <div class="stat-val" id="d-media">0</div>
-          <div class="stat-sub">Stored locally</div>
-        </div>
+        <div class="stat-card c0"><div class="glow"></div><span class="stat-icon">📝</span><div class="stat-label">Blog Posts</div><div class="stat-val" id="d-blogs">0</div><div class="stat-sub" id="d-blogs-sub">0 published · 0 drafts</div></div>
+        <div class="stat-card c1"><div class="glow"></div><span class="stat-icon">📡</span><div class="stat-label">Monitor Articles</div><div class="stat-val" id="d-arts">0</div><div class="stat-sub" id="d-arts-sub">0 approved · 0 pending</div></div>
+        <div class="stat-card c2"><div class="glow"></div><span class="stat-icon">💬</span><div class="stat-label">Messages</div><div class="stat-val" id="d-msgs">0</div><div class="stat-sub" id="d-msgs-sub">0 unread</div></div>
+        <div class="stat-card c3"><div class="glow"></div><span class="stat-icon">🖼️</span><div class="stat-label">Media Files</div><div class="stat-val" id="d-media">0</div><div class="stat-sub">Stored locally</div></div>
       </div>
-
-      <!-- Recent blogs -->
-      <div class="sec-hdr"><div class="sec-title">Recent Blog Posts</div>
-        <button class="btn btn-ghost btn-sm" onclick="nav('blogs')">View all →</button>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Title</th><th>Status</th><th>Date</th></tr></thead>
-          <tbody id="d-recent-blogs"><tr><td colspan="3"><div class="empty"><p>No posts yet</p></div></td></tr></tbody>
-        </table>
-      </div>
+      <div class="sec-hdr"><div class="sec-title">Recent Blog Posts</div><button class="btn btn-ghost btn-sm" onclick="nav('blogs')">View all →</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Title</th><th>Status</th><th>Date</th></tr></thead><tbody id="d-recent-blogs"><tr><td colspan="3"><div class="empty"><p>No posts yet</p></div></td></tr></tbody></table></div>
     </div>
 
-    <!-- ── BLOGS ── -->
+    <!-- BLOGS -->
     <div class="page" id="pg-blogs">
-      <div class="sec-hdr">
-        <div class="sec-title">Blog Posts</div>
-        <button class="btn btn-pri" onclick="openBlogModal()">+ New Post</button>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th><th>Status</th><th>Tags</th><th>Date</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="blogs-body">
-            <tr><td colspan="5"><div class="empty"><div class="ei">📝</div><p>No blog posts yet</p></div></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="sec-hdr"><div class="sec-title">Blog Posts</div><button class="btn btn-pri" onclick="openBlogModal()">+ New Post</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Title</th><th>Status</th><th>Tags</th><th>Date</th><th>Actions</th></tr></thead><tbody id="blogs-body"><tr><td colspan="5"><div class="empty"><div class="ei">📝</div><p>No blog posts yet</p></div></td></tr></tbody></table></div>
     </div>
 
-    <!-- ── MONITOR ── -->
+    <!-- MONITOR -->
     <div class="page" id="pg-monitor">
-      <div class="sec-hdr">
-        <div class="sec-title">Monitor Sources</div>
-        <button class="btn btn-pri" onclick="openSourceModal()">+ Add Source</button>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>URL</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="sources-body">
-            <tr><td colspan="5"><div class="empty"><div class="ei">📡</div><p>No sources yet</p></div></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="sec-hdr">
-        <div class="sec-title">Collected Articles</div>
-        <button class="btn btn-ghost btn-sm" onclick="openArticleModal()">+ Add Article</button>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Title</th><th>Source</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="articles-body">
-            <tr><td colspan="4"><div class="empty"><div class="ei">📰</div><p>No articles yet</p></div></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="sec-hdr"><div class="sec-title">Monitor Sources</div><button class="btn btn-pri" onclick="openSourceModal()">+ Add Source</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Name</th><th>URL</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead><tbody id="sources-body"><tr><td colspan="5"><div class="empty"><div class="ei">📡</div><p>No sources yet</p></div></td></tr></tbody></table></div>
+      <div class="sec-hdr"><div class="sec-title">Collected Articles</div><button class="btn btn-ghost btn-sm" onclick="openArticleModal()">+ Add Article</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Title</th><th>Source</th><th>Status</th><th>Actions</th></tr></thead><tbody id="articles-body"><tr><td colspan="4"><div class="empty"><div class="ei">📰</div><p>No articles yet</p></div></td></tr></tbody></table></div>
     </div>
 
-    <!-- ── MESSAGES ── -->
+    <!-- MESSAGES -->
     <div class="page" id="pg-messages">
-      <div class="sec-hdr">
-        <div class="sec-title">Contact Messages</div>
-        <button class="btn btn-ghost btn-sm" onclick="openMsgModal()">+ Add Message</button>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Email</th><th>Message</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="msgs-body">
-            <tr><td colspan="6"><div class="empty"><div class="ei">💬</div><p>No messages yet</p></div></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="sec-hdr"><div class="sec-title">Contact Messages</div><button class="btn btn-ghost btn-sm" onclick="openMsgModal()">+ Add Message</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Message</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="msgs-body"><tr><td colspan="6"><div class="empty"><div class="ei">💬</div><p>No messages yet</p></div></td></tr></tbody></table></div>
     </div>
 
-    <!-- ── MEDIA ── -->
+    <!-- MEDIA -->
     <div class="page" id="pg-media">
-      <div class="sec-hdr">
-        <div class="sec-title">Media Manager</div>
-        <span style="font-size:12px;color:var(--txt3)">Images stored as base64 in localStorage</span>
-      </div>
-      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-in').click()"
-        ondragover="event.preventDefault();this.classList.add('over')"
-        ondragleave="this.classList.remove('over')"
-        ondrop="handleDrop(event)">
-        <div class="dz-icon">📸</div>
-        <p>Click or drag & drop to upload images</p>
-        <small>JPG, PNG, GIF, WEBP, SVG · max 2MB each</small>
+      <div class="sec-hdr"><div class="sec-title">Media Manager</div><span style="font-size:12px;color:var(--txt3)">Images stored as base64 in localStorage</span></div>
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-in').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleDrop(event)">
+        <div class="dz-icon">📸</div><p>Click or drag & drop to upload images</p><small>JPG, PNG, GIF, WEBP · max 2MB each</small>
         <input type="file" id="file-in" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)"/>
       </div>
-      <div class="media-grid" id="media-grid">
-        <div class="empty" style="grid-column:1/-1"><div class="ei">🖼️</div><p>No images uploaded yet</p></div>
+      <div class="media-grid" id="media-grid"><div class="empty" style="grid-column:1/-1"><div class="ei">🖼️</div><p>No images yet</p></div></div>
+    </div>
+
+    <!-- DATA SYNC -->
+    <div class="page" id="pg-datasync">
+      <div class="sec-hdr"><div class="sec-title">Data Sync</div><span style="font-size:12px;color:var(--txt3)">Connect admin data to your main site</span></div>
+
+      <div class="sync-card">
+        <h3>📤 Export — Download site-data.json</h3>
+        <p>Downloads all your content as a <code>site-data.json</code> file. Commit this file to the root of your GitHub repo so your main <code>index.html</code> can fetch and display it automatically.</p>
+        <div class="sync-btns">
+          <button class="btn btn-export" onclick="exportJSON()">⬇️ Download site-data.json</button>
+          <button class="btn btn-ghost btn-sm" onclick="togglePreview()">👁 Preview JSON</button>
+        </div>
+        <div class="json-preview" id="json-preview"><pre id="json-pre"></pre></div>
+      </div>
+
+      <div class="sync-card">
+        <h3>📥 Import — Restore from JSON</h3>
+        <p>Upload a previously exported <code>site-data.json</code> to restore your data on a new browser or device. <strong style="color:var(--warn)">Warning:</strong> This overwrites all current data.</p>
+        <div class="sync-btns">
+          <button class="btn btn-import" onclick="document.getElementById('import-in').click()">⬆️ Import JSON File</button>
+          <input type="file" id="import-in" accept=".json" style="display:none" onchange="importJSON(this)"/>
+        </div>
+      </div>
+
+      <div class="sync-card">
+        <h3>🗄️ Current Data in Browser</h3>
+        <p>These values are stored in your browser's localStorage and are read by your main site automatically when both files are on the same domain.</p>
+        <div class="keys-grid" id="sync-keys"></div>
+      </div>
+
+      <div class="sync-card">
+        <h3>📋 How to Connect to Your Main Site</h3>
+        <div class="step-list">
+          <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Same domain (automatic):</strong> If you upload both <code>admin.html</code> and <code>index.html</code> to the same GitHub Pages repo at <code>ramsrinivasan.in</code>, the blog section on your main site already reads your blog posts from localStorage automatically — no extra setup needed.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text"><strong>JSON file (manual):</strong> Click "Download site-data.json" above, then commit that file to your GitHub repo root. Your updated <code>index.html</code> fetches this file as a fallback when localStorage is empty (e.g. for first-time visitors).</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text"><strong>After writing a new post:</strong> Publish it in the Blogs section, then export a fresh <code>site-data.json</code> and commit it. Your live site will show the new post instantly for all visitors.</div></div>
+        </div>
       </div>
     </div>
 
-    <!-- ── SETTINGS ── -->
+    <!-- SETTINGS -->
     <div class="page" id="pg-settings">
-      <div class="sec-hdr">
-        <div class="sec-title">Site Settings</div>
-      </div>
-      <div class="s-card">
-        <h3>General</h3>
+      <div class="sec-hdr"><div class="sec-title">Site Settings</div></div>
+      <div class="s-card"><h3>General</h3>
         <div class="form-grid">
-          <div class="fg"><label>Website Title</label>
-            <input type="text" id="s-wtitle" placeholder="Ram Srinivasan"/></div>
-          <div class="fg"><label>Contact Email</label>
-            <input type="email" id="s-cemail" placeholder="contact@ramsrinivasan.in"/></div>
-          <div class="fg full"><label>Meta Description</label>
-            <textarea id="s-meta" placeholder="Short SEO description for your homepage…"></textarea></div>
-          <div class="fg full"><label>Footer Text</label>
-            <input type="text" id="s-footer" placeholder="© 2024 Ram Srinivasan. All rights reserved."/></div>
+          <div class="fg"><label>Website Title</label><input type="text" id="s-wtitle" placeholder="Ram Srinivasan"/></div>
+          <div class="fg"><label>Contact Email</label><input type="email" id="s-cemail" placeholder="contact@ramsrinivasan.in"/></div>
+          <div class="fg full"><label>Meta Description</label><textarea id="s-meta" placeholder="Short SEO description…"></textarea></div>
+          <div class="fg full"><label>Footer Text</label><input type="text" id="s-footer" placeholder="© 2024 Ram Srinivasan. All rights reserved."/></div>
         </div>
       </div>
-      <div class="s-card">
-        <h3>Social Links</h3>
+      <div class="s-card"><h3>Social Links</h3>
         <div class="form-grid">
-          <div class="fg"><label>Twitter / X</label>
-            <input type="url" id="s-tw" placeholder="https://twitter.com/…"/></div>
-          <div class="fg"><label>LinkedIn</label>
-            <input type="url" id="s-li" placeholder="https://linkedin.com/in/…"/></div>
-          <div class="fg"><label>GitHub</label>
-            <input type="url" id="s-gh" placeholder="https://github.com/…"/></div>
-          <div class="fg"><label>Instagram</label>
-            <input type="url" id="s-ig" placeholder="https://instagram.com/…"/></div>
+          <div class="fg"><label>Twitter / X</label><input type="url" id="s-tw" placeholder="https://twitter.com/…"/></div>
+          <div class="fg"><label>LinkedIn</label><input type="url" id="s-li" placeholder="https://linkedin.com/in/…"/></div>
+          <div class="fg"><label>GitHub</label><input type="url" id="s-gh" placeholder="https://github.com/…"/></div>
+          <div class="fg"><label>Instagram</label><input type="url" id="s-ig" placeholder="https://instagram.com/…"/></div>
         </div>
       </div>
-      <div class="s-card">
-        <h3>Admin Credentials</h3>
+      <div class="s-card"><h3>Admin Credentials</h3>
         <div class="form-grid">
-          <div class="fg"><label>Admin Email</label>
-            <input type="email" id="s-aemail" placeholder="admin@ramsrinivasan.in"/></div>
-          <div class="fg"><label>New Password</label>
-            <input type="password" id="s-apass" placeholder="Leave blank to keep current"/></div>
+          <div class="fg"><label>Admin Email</label><input type="email" id="s-aemail" placeholder="admin@ramsrinivasan.in"/></div>
+          <div class="fg"><label>New Password</label><input type="password" id="s-apass" placeholder="Leave blank to keep current"/></div>
         </div>
       </div>
-      <div>
-        <button class="btn btn-pri" onclick="saveSettings()">💾 Save All Settings</button>
-      </div>
+      <div><button class="btn btn-pri" onclick="saveSettings()">💾 Save All Settings</button></div>
     </div>
 
-  </div><!-- /main -->
-</div><!-- /app -->
+  </div>
+</div>
 
-<!-- ══════════ MODALS ══════════ -->
-
-<!-- Blog Modal -->
+<!-- MODALS -->
 <div class="overlay" id="blog-overlay">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title" id="blog-modal-title">New Blog Post</div>
-      <button class="modal-x" onclick="closeModal('blog-overlay')">✕</button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title" id="blog-modal-title">New Blog Post</div><button class="modal-x" onclick="closeModal('blog-overlay')">✕</button></div>
     <div class="form-grid">
-      <div class="fg full"><label>Title *</label>
-        <input type="text" id="b-title" placeholder="Post title…"/></div>
-      <div class="fg full"><label>Short Description *</label>
-        <input type="text" id="b-desc" placeholder="One-liner summary…"/></div>
-      <div class="fg"><label>Tags</label>
-        <input type="text" id="b-tags" placeholder="ai, tech, productivity"/></div>
-      <div class="fg"><label>Featured Image URL</label>
-        <input type="text" id="b-img" placeholder="/uploads/cover.jpg"/></div>
-      <div class="fg"><label>Status</label>
-        <select id="b-status">
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-        </select></div>
-      <div class="fg"><label>Publish Date</label>
-        <input type="date" id="b-date"/></div>
+      <div class="fg full"><label>Title *</label><input type="text" id="b-title" placeholder="Post title…"/></div>
+      <div class="fg full"><label>Short Description *</label><input type="text" id="b-desc" placeholder="One-liner summary…"/></div>
+      <div class="fg"><label>Tags</label><input type="text" id="b-tags" placeholder="ai, tech, productivity"/></div>
+      <div class="fg"><label>Featured Image URL</label><input type="text" id="b-img" placeholder="/uploads/cover.jpg"/></div>
+      <div class="fg"><label>Status</label><select id="b-status"><option value="draft">Draft</option><option value="published">Published</option></select></div>
+      <div class="fg"><label>Publish Date</label><input type="date" id="b-date"/></div>
       <div class="fg full"><label>Content</label>
         <div class="rich-wrap">
           <div class="rtoolbar">
-            <button onclick="fmt('bold')"><b>B</b></button>
-            <button onclick="fmt('italic')"><i>I</i></button>
-            <button onclick="fmt('underline')"><u>U</u></button>
-            <button onclick="fmt('strikeThrough')"><s>S</s></button>
-            <button onclick="fmt('formatBlock','h2')">H2</button>
-            <button onclick="fmt('formatBlock','h3')">H3</button>
-            <button onclick="fmt('formatBlock','p')">¶</button>
-            <button onclick="fmt('insertUnorderedList')">• List</button>
-            <button onclick="fmt('insertOrderedList')">1. List</button>
-            <button onclick="fmt('insertHorizontalRule')">—</button>
+            <button onclick="fmt('bold')"><b>B</b></button><button onclick="fmt('italic')"><i>I</i></button>
+            <button onclick="fmt('underline')"><u>U</u></button><button onclick="fmt('strikeThrough')"><s>S</s></button>
+            <button onclick="fmt('formatBlock','h2')">H2</button><button onclick="fmt('formatBlock','h3')">H3</button>
+            <button onclick="fmt('formatBlock','p')">¶</button><button onclick="fmt('insertUnorderedList')">• List</button>
+            <button onclick="fmt('insertOrderedList')">1. List</button><button onclick="fmt('insertHorizontalRule')">—</button>
           </div>
           <div contenteditable="true" id="b-content" data-ph="Write your post content here…"></div>
         </div>
@@ -730,708 +367,288 @@ tbody tr:hover td{background:#ffffff03}
   </div>
 </div>
 
-<!-- Source Modal -->
 <div class="overlay" id="src-overlay">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title" id="src-modal-title">Add Source</div>
-      <button class="modal-x" onclick="closeModal('src-overlay')">✕</button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title" id="src-modal-title">Add Source</div><button class="modal-x" onclick="closeModal('src-overlay')">✕</button></div>
     <div class="form-grid">
-      <div class="fg"><label>Source Name *</label>
-        <input type="text" id="src-name" placeholder="TechCrunch"/></div>
-      <div class="fg"><label>Source URL *</label>
-        <input type="url" id="src-url" placeholder="https://techcrunch.com"/></div>
-      <div class="fg"><label>Category *</label>
-        <input type="text" id="src-cat" placeholder="Technology"/></div>
-      <div class="fg"><label>Status</label>
-        <select id="src-status">
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select></div>
+      <div class="fg"><label>Source Name *</label><input type="text" id="src-name" placeholder="TechCrunch"/></div>
+      <div class="fg"><label>Source URL *</label><input type="url" id="src-url" placeholder="https://techcrunch.com"/></div>
+      <div class="fg"><label>Category *</label><input type="text" id="src-cat" placeholder="Technology"/></div>
+      <div class="fg"><label>Status</label><select id="src-status"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="closeModal('src-overlay')">Cancel</button>
-      <button class="btn btn-pri" onclick="saveSource()">Save Source</button>
-    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('src-overlay')">Cancel</button><button class="btn btn-pri" onclick="saveSource()">Save Source</button></div>
   </div>
 </div>
 
-<!-- Article Modal -->
 <div class="overlay" id="art-overlay">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title">Add Article</div>
-      <button class="modal-x" onclick="closeModal('art-overlay')">✕</button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title">Add Article</div><button class="modal-x" onclick="closeModal('art-overlay')">✕</button></div>
     <div class="form-grid">
-      <div class="fg full"><label>Title *</label>
-        <input type="text" id="art-title" placeholder="Article headline…"/></div>
-      <div class="fg full"><label>URL *</label>
-        <input type="url" id="art-url" placeholder="https://…"/></div>
-      <div class="fg"><label>Source Name</label>
-        <input type="text" id="art-src" placeholder="TechCrunch"/></div>
-      <div class="fg"><label>Status</label>
-        <select id="art-status">
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="removed">Removed</option>
-        </select></div>
-      <div class="fg full"><label>Summary</label>
-        <textarea id="art-sum" placeholder="Brief summary of the article…"></textarea></div>
+      <div class="fg full"><label>Title *</label><input type="text" id="art-title" placeholder="Article headline…"/></div>
+      <div class="fg full"><label>URL *</label><input type="url" id="art-url" placeholder="https://…"/></div>
+      <div class="fg"><label>Source Name</label><input type="text" id="art-src" placeholder="TechCrunch"/></div>
+      <div class="fg"><label>Status</label><select id="art-status"><option value="pending">Pending</option><option value="approved">Approved</option><option value="removed">Removed</option></select></div>
+      <div class="fg full"><label>Summary</label><textarea id="art-sum" placeholder="Brief summary…"></textarea></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="closeModal('art-overlay')">Cancel</button>
-      <button class="btn btn-pri" onclick="saveArticle()">Add Article</button>
-    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('art-overlay')">Cancel</button><button class="btn btn-pri" onclick="saveArticle()">Add Article</button></div>
   </div>
 </div>
 
-<!-- Message Modal (add manually) -->
 <div class="overlay" id="msg-overlay">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title">Add Message</div>
-      <button class="modal-x" onclick="closeModal('msg-overlay')">✕</button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title">Add Message</div><button class="modal-x" onclick="closeModal('msg-overlay')">✕</button></div>
     <div class="form-grid">
-      <div class="fg"><label>Name *</label>
-        <input type="text" id="msg-name" placeholder="John Doe"/></div>
-      <div class="fg"><label>Email *</label>
-        <input type="email" id="msg-email" placeholder="john@example.com"/></div>
-      <div class="fg full"><label>Message *</label>
-        <textarea id="msg-body" placeholder="Message content…"></textarea></div>
+      <div class="fg"><label>Name *</label><input type="text" id="msg-name" placeholder="John Doe"/></div>
+      <div class="fg"><label>Email *</label><input type="email" id="msg-email" placeholder="john@example.com"/></div>
+      <div class="fg full"><label>Message *</label><textarea id="msg-body" placeholder="Message content…"></textarea></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="closeModal('msg-overlay')">Cancel</button>
-      <button class="btn btn-pri" onclick="saveMsg()">Save Message</button>
-    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('msg-overlay')">Cancel</button><button class="btn btn-pri" onclick="saveMsg()">Save Message</button></div>
   </div>
 </div>
 
-<!-- Confirm Dialog -->
 <div id="confirm-overlay">
   <div id="confirm-box">
-    <h3 id="c-title">Are you sure?</h3>
-    <p id="c-body">This action cannot be undone.</p>
-    <div class="cbs">
-      <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
-      <button class="btn btn-danger" id="c-ok">Delete</button>
-    </div>
+    <h3 id="c-title">Are you sure?</h3><p id="c-body">This action cannot be undone.</p>
+    <div class="cbs"><button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button><button class="btn btn-danger" id="c-ok">Delete</button></div>
   </div>
 </div>
-
-<!-- Toast -->
 <div id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-//  DATA LAYER — localStorage persistence
-// ═══════════════════════════════════════════════════════════
-const DB = {
-  get(k){try{return JSON.parse(localStorage.getItem('rs_'+k))||null}catch{return null}},
-  set(k,v){localStorage.setItem('rs_'+k,JSON.stringify(v))},
-  del(k){localStorage.removeItem('rs_'+k)}
-};
+const DB={get(k){try{return JSON.parse(localStorage.getItem('rs_'+k))||null}catch{return null}},set(k,v){localStorage.setItem('rs_'+k,JSON.stringify(v))},del(k){localStorage.removeItem('rs_'+k)}};
+const DEFAULTS={creds:{email:'admin@ramsrinivasan.in',password:'Admin@123'},settings:{websiteTitle:'Ram Srinivasan',contactEmail:'contact@ramsrinivasan.in',metaDescription:'',footerText:'© 2024 Ram Srinivasan. All rights reserved.',social:{twitter:'',linkedin:'',github:'',instagram:''}}};
+const getBlogs=()=>DB.get('blogs')||[];
+const getSources=()=>DB.get('sources')||[];
+const getArticles=()=>DB.get('articles')||[];
+const getMessages=()=>DB.get('messages')||[];
+const getMedia=()=>DB.get('media')||[];
+const getSettings=()=>DB.get('settings')||DEFAULTS.settings;
+const getCreds=()=>DB.get('creds')||DEFAULTS.creds;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const fmtDate=d=>new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+const esc=s=>String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-// Default admin credentials
-const DEFAULTS = {
-  creds:{email:'admin@ramsrinivasan.in',password:'Admin@123'},
-  settings:{
-    websiteTitle:'Ram Srinivasan',contactEmail:'contact@ramsrinivasan.in',
-    metaDescription:'',footerText:'© 2024 Ram Srinivasan. All rights reserved.',
-    social:{twitter:'',linkedin:'',github:'',instagram:''}
-  }
-};
-
-function getBlogs(){return DB.get('blogs')||[]}
-function getSources(){return DB.get('sources')||[]}
-function getArticles(){return DB.get('articles')||[]}
-function getMessages(){return DB.get('messages')||[]}
-function getMedia(){return DB.get('media')||[]}
-function getSettings(){return DB.get('settings')||DEFAULTS.settings}
-function getCreds(){return DB.get('creds')||DEFAULTS.creds}
-
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function fmtDate(d){return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}
-function esc(s){return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-// ═══════════════════════════════════════════════════════════
-//  AUTH
-// ═══════════════════════════════════════════════════════════
-let currentAdmin = null;
-
+// AUTH
+let currentAdmin=null,editingId=null;
 function login(){
-  const email = document.getElementById('l-email').value.trim();
-  const pass  = document.getElementById('l-pass').value;
-  const creds = getCreds();
-  if(email===creds.email && pass===creds.password){
-    currentAdmin = {email};
-    DB.set('session',{email,ts:Date.now()});
+  const email=document.getElementById('l-email').value.trim();
+  const pass=document.getElementById('l-pass').value;
+  const creds=getCreds();
+  if(email===creds.email&&pass===creds.password){
+    currentAdmin={email};DB.set('session',{email,ts:Date.now()});
     document.getElementById('login-wrap').style.display='none';
-    document.getElementById('app').style.display='block';
-    initApp();
-  } else {
-    const el=document.getElementById('login-err');
-    el.style.display='block';
-    setTimeout(()=>el.style.display='none',3000);
-  }
+    document.getElementById('app').style.display='block';initApp();
+  }else{const el=document.getElementById('login-err');el.style.display='block';setTimeout(()=>el.style.display='none',3000)}
 }
-
-function logout(){
-  DB.del('session');
-  currentAdmin=null;
-  document.getElementById('app').style.display='none';
-  document.getElementById('login-wrap').style.display='flex';
-  document.getElementById('l-email').value='';
-  document.getElementById('l-pass').value='';
-}
-
-// Auto-restore session
-(function(){
-  const s=DB.get('session');
-  if(s&&s.ts&&Date.now()-s.ts<86400000*7){
-    currentAdmin={email:s.email};
-    document.getElementById('login-wrap').style.display='none';
-    document.getElementById('app').style.display='block';
-    setTimeout(initApp,0);
-  }
-})();
-
-// ═══════════════════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════════════════
-let currentPage = 'dashboard';
-let editingId = null;
+function logout(){DB.del('session');currentAdmin=null;document.getElementById('app').style.display='none';document.getElementById('login-wrap').style.display='flex';document.getElementById('l-email').value='';document.getElementById('l-pass').value=''}
+(function(){const s=DB.get('session');if(s&&s.ts&&Date.now()-s.ts<86400000*7){currentAdmin={email:s.email};document.getElementById('login-wrap').style.display='none';document.getElementById('app').style.display='block';setTimeout(initApp,0)}})();
 
 function initApp(){
-  // Admin info in sidebar
   const creds=getCreds();
-  const initial=(creds.email[0]||'A').toUpperCase();
-  document.getElementById('sb-av').textContent=initial;
+  document.getElementById('sb-av').textContent=(creds.email[0]||'R').toUpperCase();
   document.getElementById('sb-name').textContent='Ram Srinivasan';
   document.getElementById('sb-email').textContent=creds.email;
-
-  // Clock
-  setInterval(()=>{
-    const now=new Date();
-    document.getElementById('clock').textContent=
-      now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  },1000);
-
-  // Dashboard date
-  document.getElementById('dash-date').textContent=
-    new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
+  setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})},1000);
+  document.getElementById('dash-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   nav('dashboard');
-  loadSettings();
 }
 
-// ═══════════════════════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════════════════════
 function nav(page){
-  currentPage=page;
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.querySelector(`[data-page="${page}"]`).classList.add('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('pg-'+page).classList.add('active');
-  const titles={dashboard:'Dashboard',blogs:'Blog Posts',monitor:'Monitor',
-    messages:'Messages',media:'Media',settings:'Settings'};
-  document.getElementById('pg-title').textContent=titles[page]||page;
-  // Close sidebar on mobile
+  document.getElementById('pg-title').textContent={dashboard:'Dashboard',blogs:'Blog Posts',monitor:'Monitor',messages:'Messages',media:'Media',datasync:'Data Sync',settings:'Settings'}[page]||page;
   if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open');
-  // Load page data
-  const loaders={dashboard:loadDashboard,blogs:loadBlogs,monitor:loadMonitor,
-    messages:loadMessages,media:loadMedia,settings:loadSettingsPage};
-  if(loaders[page])loaders[page]();
+  ({dashboard:loadDashboard,blogs:loadBlogs,monitor:loadMonitor,messages:loadMessages,media:loadMedia,datasync:loadDataSync,settings:loadSettingsPage})[page]?.();
 }
-
 function toggleSb(){document.getElementById('sidebar').classList.toggle('open')}
 
-// ═══════════════════════════════════════════════════════════
-//  DASHBOARD
-// ═══════════════════════════════════════════════════════════
+function statusBadge(s){return`<span class="badge ${{published:'b-green',draft:'b-yellow',approved:'b-green',pending:'b-yellow',removed:'b-red',active:'b-green',inactive:'b-gray',unread:'b-blue',read:'b-gray'}[s]||'b-gray'}">${s}</span>`}
+
 function loadDashboard(){
   const blogs=getBlogs(),arts=getArticles(),msgs=getMessages(),media=getMedia();
-  const pub=blogs.filter(b=>b.status==='published').length;
-  const draft=blogs.filter(b=>b.status==='draft').length;
-  const approved=arts.filter(a=>a.status==='approved').length;
-  const pending=arts.filter(a=>a.status==='pending').length;
+  const pub=blogs.filter(b=>b.status==='published').length,draft=blogs.filter(b=>b.status==='draft').length;
+  const approved=arts.filter(a=>a.status==='approved').length,pending=arts.filter(a=>a.status==='pending').length;
   const unread=msgs.filter(m=>m.status==='unread').length;
-
-  document.getElementById('d-blogs').textContent=blogs.length;
-  document.getElementById('d-blogs-sub').textContent=`${pub} published · ${draft} drafts`;
-  document.getElementById('d-arts').textContent=arts.length;
-  document.getElementById('d-arts-sub').textContent=`${approved} approved · ${pending} pending`;
-  document.getElementById('d-msgs').textContent=msgs.length;
-  document.getElementById('d-msgs-sub').textContent=`${unread} unread`;
+  document.getElementById('d-blogs').textContent=blogs.length;document.getElementById('d-blogs-sub').textContent=`${pub} published · ${draft} drafts`;
+  document.getElementById('d-arts').textContent=arts.length;document.getElementById('d-arts-sub').textContent=`${approved} approved · ${pending} pending`;
+  document.getElementById('d-msgs').textContent=msgs.length;document.getElementById('d-msgs-sub').textContent=`${unread} unread`;
   document.getElementById('d-media').textContent=media.length;
-
-  // unread badge
-  const badge=document.getElementById('msg-badge');
-  if(unread>0){badge.textContent=unread;badge.style.display='block'}
-  else{badge.style.display='none'}
-
-  // Recent blogs table
-  const recent=blogs.slice(-5).reverse();
-  const tbody=document.getElementById('d-recent-blogs');
-  if(!recent.length){
-    tbody.innerHTML='<tr><td colspan="3"><div class="empty"><p>No posts yet</p></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=recent.map(b=>`
-    <tr>
-      <td class="td-title">${esc(b.title)}</td>
-      <td>${statusBadge(b.status)}</td>
-      <td class="td-mono">${fmtDate(b.createdAt)}</td>
-    </tr>`).join('');
+  const badge=document.getElementById('msg-badge');unread>0?(badge.textContent=unread,badge.style.display='block'):badge.style.display='none';
+  const recent=[...blogs].reverse().slice(0,5);
+  document.getElementById('d-recent-blogs').innerHTML=recent.length?recent.map(b=>`<tr><td class="td-title">${esc(b.title)}</td><td>${statusBadge(b.status)}</td><td class="td-mono">${fmtDate(b.createdAt)}</td></tr>`).join(''):'<tr><td colspan="3"><div class="empty"><p>No posts yet</p></div></td></tr>';
 }
 
-function statusBadge(s){
-  const map={published:'b-green',draft:'b-yellow',approved:'b-green',pending:'b-yellow',removed:'b-red',active:'b-green',inactive:'b-gray',unread:'b-blue',read:'b-gray'};
-  return `<span class="badge ${map[s]||'b-gray'}">${s}</span>`;
-}
-
-// ═══════════════════════════════════════════════════════════
-//  BLOGS
-// ═══════════════════════════════════════════════════════════
 function loadBlogs(){
   const blogs=getBlogs();
-  const tbody=document.getElementById('blogs-body');
-  if(!blogs.length){
-    tbody.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ei">📝</div><p>No blog posts yet. Create your first post!</p></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=[...blogs].reverse().map(b=>`
-    <tr>
-      <td><div class="td-title">${esc(b.title)}</div>
-        <div class="td-muted">${esc(b.description||'').substring(0,60)}${(b.description||'').length>60?'…':''}</div></td>
-      <td>${statusBadge(b.status)}</td>
-      <td><div class="td-muted">${(b.tags||[]).slice(0,3).map(t=>`<span class="badge b-blue" style="font-size:10px;margin:1px">${esc(t)}</span>`).join('')}</div></td>
-      <td class="td-mono">${fmtDate(b.createdAt)}</td>
-      <td><div class="act-row">
-        <button class="btn btn-ghost btn-sm" onclick="editBlog('${b.id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="confirmDel('blog','${b.id}')">🗑️</button>
-      </div></td>
-    </tr>`).join('');
+  if(!blogs.length){document.getElementById('blogs-body').innerHTML='<tr><td colspan="5"><div class="empty"><div class="ei">📝</div><p>No blog posts yet</p></div></td></tr>';return}
+  document.getElementById('blogs-body').innerHTML=[...blogs].reverse().map(b=>`<tr><td><div class="td-title">${esc(b.title)}</div><div class="td-muted">${esc((b.description||'').substring(0,60))}…</div></td><td>${statusBadge(b.status)}</td><td>${(b.tags||[]).slice(0,3).map(t=>`<span class="badge b-blue" style="font-size:10px;margin:1px">${esc(t)}</span>`).join('')}</td><td class="td-mono">${fmtDate(b.createdAt)}</td><td><div class="act-row"><button class="btn btn-ghost btn-sm" onclick="openBlogModal('${b.id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="confirmDel('blog','${b.id}')">🗑️</button></div></td></tr>`).join('');
 }
-
 function openBlogModal(id){
   editingId=id||null;
   document.getElementById('blog-modal-title').textContent=id?'Edit Blog Post':'New Blog Post';
-  if(id){
-    const b=getBlogs().find(x=>x.id===id);
-    if(!b)return;
-    document.getElementById('b-title').value=b.title||'';
-    document.getElementById('b-desc').value=b.description||'';
-    document.getElementById('b-tags').value=(b.tags||[]).join(', ');
-    document.getElementById('b-img').value=b.featuredImage||'';
-    document.getElementById('b-status').value=b.status||'draft';
-    document.getElementById('b-date').value=b.publishDate?b.publishDate.split('T')[0]:'';
-    document.getElementById('b-content').innerHTML=b.content||'';
-  } else {
-    document.getElementById('b-title').value='';
-    document.getElementById('b-desc').value='';
-    document.getElementById('b-tags').value='';
-    document.getElementById('b-img').value='';
-    document.getElementById('b-status').value='draft';
-    document.getElementById('b-date').value='';
-    document.getElementById('b-content').innerHTML='';
-  }
+  if(id){const b=getBlogs().find(x=>x.id===id);if(!b)return;document.getElementById('b-title').value=b.title||'';document.getElementById('b-desc').value=b.description||'';document.getElementById('b-tags').value=(b.tags||[]).join(', ');document.getElementById('b-img').value=b.featuredImage||'';document.getElementById('b-status').value=b.status||'draft';document.getElementById('b-date').value=b.publishDate?b.publishDate.split('T')[0]:'';document.getElementById('b-content').innerHTML=b.content||'';}
+  else{['b-title','b-desc','b-tags','b-img'].forEach(i=>document.getElementById(i).value='');document.getElementById('b-status').value='draft';document.getElementById('b-date').value='';document.getElementById('b-content').innerHTML='';}
   openModal('blog-overlay');
 }
-
 function saveBlog(forceStatus){
   const title=document.getElementById('b-title').value.trim();
-  const desc=document.getElementById('b-desc').value.trim();
-  const content=document.getElementById('b-content').innerHTML.trim();
   if(!title){toast('Title is required','err');return}
   const status=forceStatus||document.getElementById('b-status').value;
-  const blog={
-    id:editingId||uid(),
-    title,
-    slug:title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
-    description:desc,
-    content,
-    tags:document.getElementById('b-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
-    featuredImage:document.getElementById('b-img').value.trim(),
-    status,
-    publishDate:status==='published'?(document.getElementById('b-date').value||new Date().toISOString()):null,
-    createdAt:editingId?(getBlogs().find(b=>b.id===editingId)||{}).createdAt||new Date().toISOString():new Date().toISOString(),
-    updatedAt:new Date().toISOString()
-  };
+  const existing=editingId?getBlogs().find(b=>b.id===editingId):null;
+  const blog={id:editingId||uid(),title,slug:title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),description:document.getElementById('b-desc').value.trim(),content:document.getElementById('b-content').innerHTML.trim(),tags:document.getElementById('b-tags').value.split(',').map(t=>t.trim()).filter(Boolean),featuredImage:document.getElementById('b-img').value.trim(),status,publishDate:status==='published'?(document.getElementById('b-date').value||new Date().toISOString()):null,createdAt:existing?existing.createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
   const blogs=getBlogs();
-  if(editingId){
-    const i=blogs.findIndex(b=>b.id===editingId);
-    if(i>=0)blogs[i]=blog;
-  } else {
-    blogs.push(blog);
-  }
-  DB.set('blogs',blogs);
-  closeModal('blog-overlay');
-  loadBlogs();
-  loadDashboard();
-  toast(editingId?'Post updated!':'Post created!','ok');
-  editingId=null;
+  if(editingId){const i=blogs.findIndex(b=>b.id===editingId);if(i>=0)blogs[i]=blog;}else blogs.push(blog);
+  DB.set('blogs',blogs);closeModal('blog-overlay');loadBlogs();loadDashboard();toast(editingId?'Post updated!':'Post created!','ok');editingId=null;
 }
+function deleteBlog(id){DB.set('blogs',getBlogs().filter(b=>b.id!==id));loadBlogs();loadDashboard();toast('Post deleted','info')}
 
-function editBlog(id){openBlogModal(id)}
-
-function deleteBlog(id){
-  DB.set('blogs',getBlogs().filter(b=>b.id!==id));
-  loadBlogs();loadDashboard();toast('Post deleted','info');
-}
-
-// ═══════════════════════════════════════════════════════════
-//  MONITOR — SOURCES
-// ═══════════════════════════════════════════════════════════
-function loadMonitor(){
-  loadSources();loadArticles();
-}
-
+function loadMonitor(){loadSources();loadArticles()}
 function loadSources(){
-  const sources=getSources();
-  const tbody=document.getElementById('sources-body');
-  if(!sources.length){
-    tbody.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ei">📡</div><p>No sources yet</p></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=[...sources].reverse().map(s=>`
-    <tr>
-      <td class="td-title">${esc(s.name)}</td>
-      <td><a href="${esc(s.url)}" target="_blank" style="color:var(--acc);font-size:12px;font-family:'JetBrains Mono',monospace">${esc(s.url).substring(0,40)}…</a></td>
-      <td><span class="badge b-blue">${esc(s.category)}</span></td>
-      <td>${statusBadge(s.status)}</td>
-      <td><div class="act-row">
-        <button class="btn btn-ghost btn-sm" onclick="editSource('${s.id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="confirmDel('source','${s.id}')">🗑️</button>
-      </div></td>
-    </tr>`).join('');
+  const s=getSources();
+  if(!s.length){document.getElementById('sources-body').innerHTML='<tr><td colspan="5"><div class="empty"><div class="ei">📡</div><p>No sources yet</p></div></td></tr>';return}
+  document.getElementById('sources-body').innerHTML=[...s].reverse().map(s=>`<tr><td class="td-title">${esc(s.name)}</td><td><a href="${esc(s.url)}" target="_blank" style="color:var(--acc);font-size:12px;font-family:'JetBrains Mono',monospace">${esc(s.url).substring(0,36)}…</a></td><td><span class="badge b-blue">${esc(s.category)}</span></td><td>${statusBadge(s.status)}</td><td><div class="act-row"><button class="btn btn-ghost btn-sm" onclick="openSourceModal('${s.id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="confirmDel('source','${s.id}')">🗑️</button></div></td></tr>`).join('');
 }
-
 function openSourceModal(id){
-  editingId=id||null;
-  document.getElementById('src-modal-title').textContent=id?'Edit Source':'Add Source';
-  if(id){
-    const s=getSources().find(x=>x.id===id);
-    if(!s)return;
-    document.getElementById('src-name').value=s.name||'';
-    document.getElementById('src-url').value=s.url||'';
-    document.getElementById('src-cat').value=s.category||'';
-    document.getElementById('src-status').value=s.status||'active';
-  } else {
-    document.getElementById('src-name').value='';
-    document.getElementById('src-url').value='';
-    document.getElementById('src-cat').value='';
-    document.getElementById('src-status').value='active';
-  }
+  editingId=id||null;document.getElementById('src-modal-title').textContent=id?'Edit Source':'Add Source';
+  if(id){const s=getSources().find(x=>x.id===id);if(!s)return;document.getElementById('src-name').value=s.name||'';document.getElementById('src-url').value=s.url||'';document.getElementById('src-cat').value=s.category||'';document.getElementById('src-status').value=s.status||'active';}
+  else{['src-name','src-url','src-cat'].forEach(i=>document.getElementById(i).value='');document.getElementById('src-status').value='active';}
   openModal('src-overlay');
 }
-
 function saveSource(){
-  const name=document.getElementById('src-name').value.trim();
-  const url=document.getElementById('src-url').value.trim();
-  const cat=document.getElementById('src-cat').value.trim();
-  if(!name||!url){toast('Name and URL are required','err');return}
-  const src={
-    id:editingId||uid(),
-    name,url,category:cat,
-    status:document.getElementById('src-status').value,
-    createdAt:editingId?(getSources().find(s=>s.id===editingId)||{}).createdAt||new Date().toISOString():new Date().toISOString()
-  };
-  const sources=getSources();
-  if(editingId){const i=sources.findIndex(s=>s.id===editingId);if(i>=0)sources[i]=src;}
-  else sources.push(src);
-  DB.set('sources',sources);
-  closeModal('src-overlay');
-  loadSources();
-  toast(editingId?'Source updated!':'Source added!','ok');
-  editingId=null;
+  const name=document.getElementById('src-name').value.trim(),url=document.getElementById('src-url').value.trim(),cat=document.getElementById('src-cat').value.trim();
+  if(!name||!url){toast('Name and URL required','err');return}
+  const src={id:editingId||uid(),name,url,category:cat,status:document.getElementById('src-status').value,createdAt:editingId?(getSources().find(s=>s.id===editingId)||{}).createdAt||new Date().toISOString():new Date().toISOString()};
+  const sources=getSources();if(editingId){const i=sources.findIndex(s=>s.id===editingId);if(i>=0)sources[i]=src;}else sources.push(src);
+  DB.set('sources',sources);closeModal('src-overlay');loadSources();toast(editingId?'Source updated!':'Source added!','ok');editingId=null;
 }
+function deleteSource(id){DB.set('sources',getSources().filter(s=>s.id!==id));loadSources();toast('Deleted','info')}
 
-function editSource(id){openSourceModal(id)}
-function deleteSource(id){DB.set('sources',getSources().filter(s=>s.id!==id));loadSources();toast('Source deleted','info')}
-
-// ═══════════════════════════════════════════════════════════
-//  MONITOR — ARTICLES
-// ═══════════════════════════════════════════════════════════
 function loadArticles(){
   const arts=getArticles();
-  const tbody=document.getElementById('articles-body');
-  if(!arts.length){
-    tbody.innerHTML='<tr><td colspan="4"><div class="empty"><div class="ei">📰</div><p>No articles yet</p></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=[...arts].reverse().map(a=>`
-    <tr>
-      <td><div class="td-title"><a href="${esc(a.url)}" target="_blank" style="color:var(--txt);text-decoration:none">${esc(a.title)}</a></div>
-        <div class="td-muted">${esc((a.summary||'').substring(0,60))}${(a.summary||'').length>60?'…':''}</div></td>
-      <td class="td-muted">${esc(a.sourceName||'—')}</td>
-      <td>${statusBadge(a.status)}</td>
-      <td><div class="act-row">
-        ${a.status!=='approved'?`<button class="btn btn-success btn-sm" onclick="setArticleStatus('${a.id}','approved')">✅</button>`:''}
-        ${a.status!=='removed'?`<button class="btn btn-danger btn-sm" onclick="setArticleStatus('${a.id}','removed')">🚫</button>`:''}
-        <button class="btn btn-danger btn-sm" onclick="confirmDel('article','${a.id}')">🗑️</button>
-      </div></td>
-    </tr>`).join('');
+  if(!arts.length){document.getElementById('articles-body').innerHTML='<tr><td colspan="4"><div class="empty"><div class="ei">📰</div><p>No articles yet</p></div></td></tr>';return}
+  document.getElementById('articles-body').innerHTML=[...arts].reverse().map(a=>`<tr><td><div class="td-title"><a href="${esc(a.url)}" target="_blank" style="color:var(--txt);text-decoration:none">${esc(a.title)}</a></div><div class="td-muted">${esc((a.summary||'').substring(0,55))}…</div></td><td class="td-muted">${esc(a.sourceName||'—')}</td><td>${statusBadge(a.status)}</td><td><div class="act-row">${a.status!=='approved'?`<button class="btn btn-success btn-sm" onclick="setArticleStatus('${a.id}','approved')">✅</button>`:''} ${a.status!=='removed'?`<button class="btn btn-danger btn-sm" onclick="setArticleStatus('${a.id}','removed')">🚫</button>`:''}<button class="btn btn-danger btn-sm" onclick="confirmDel('article','${a.id}')">🗑️</button></div></td></tr>`).join('');
 }
-
-function openArticleModal(){
-  document.getElementById('art-title').value='';
-  document.getElementById('art-url').value='';
-  document.getElementById('art-src').value='';
-  document.getElementById('art-status').value='pending';
-  document.getElementById('art-sum').value='';
-  openModal('art-overlay');
-}
-
+function openArticleModal(){['art-title','art-url','art-src','art-sum'].forEach(i=>document.getElementById(i).value='');document.getElementById('art-status').value='pending';openModal('art-overlay')}
 function saveArticle(){
-  const title=document.getElementById('art-title').value.trim();
-  const url=document.getElementById('art-url').value.trim();
-  if(!title||!url){toast('Title and URL are required','err');return}
-  const arts=getArticles();
-  arts.push({id:uid(),title,url,sourceName:document.getElementById('art-src').value.trim(),
-    status:document.getElementById('art-status').value,
-    summary:document.getElementById('art-sum').value.trim(),
-    createdAt:new Date().toISOString()});
-  DB.set('articles',arts);
-  closeModal('art-overlay');
-  loadArticles();
-  loadDashboard();
-  toast('Article added!','ok');
+  const title=document.getElementById('art-title').value.trim(),url=document.getElementById('art-url').value.trim();
+  if(!title||!url){toast('Title and URL required','err');return}
+  const arts=getArticles();arts.push({id:uid(),title,url,sourceName:document.getElementById('art-src').value.trim(),status:document.getElementById('art-status').value,summary:document.getElementById('art-sum').value.trim(),createdAt:new Date().toISOString()});
+  DB.set('articles',arts);closeModal('art-overlay');loadArticles();loadDashboard();toast('Article added!','ok');
 }
+function setArticleStatus(id,s){const arts=getArticles();const i=arts.findIndex(a=>a.id===id);if(i>=0)arts[i].status=s;DB.set('articles',arts);loadArticles();loadDashboard();toast(`Article ${s}!`,'ok')}
+function deleteArticle(id){DB.set('articles',getArticles().filter(a=>a.id!==id));loadArticles();loadDashboard();toast('Deleted','info')}
 
-function setArticleStatus(id,status){
-  const arts=getArticles();
-  const i=arts.findIndex(a=>a.id===id);
-  if(i>=0)arts[i].status=status;
-  DB.set('articles',arts);
-  loadArticles();loadDashboard();
-  toast(`Article ${status}!`,'ok');
-}
-
-function deleteArticle(id){DB.set('articles',getArticles().filter(a=>a.id!==id));loadArticles();loadDashboard();toast('Article deleted','info')}
-
-// ═══════════════════════════════════════════════════════════
-//  MESSAGES
-// ═══════════════════════════════════════════════════════════
 function loadMessages(){
   const msgs=getMessages();
-  const badge=document.getElementById('msg-badge');
   const unread=msgs.filter(m=>m.status==='unread').length;
-  if(unread>0){badge.textContent=unread;badge.style.display='block'}
-  else{badge.style.display='none'}
-
-  const tbody=document.getElementById('msgs-body');
-  if(!msgs.length){
-    tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ei">💬</div><p>No messages yet</p></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=[...msgs].reverse().map(m=>`
-    <tr style="${m.status==='unread'?'background:var(--s2)':''}">
-      <td><div style="font-weight:${m.status==='unread'?700:400}">${esc(m.name)}</div></td>
-      <td class="td-mono">${esc(m.email)}</td>
-      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(m.message)}</td>
-      <td class="td-mono">${fmtDate(m.createdAt)}</td>
-      <td>${statusBadge(m.status)}</td>
-      <td><div class="act-row">
-        ${m.status==='unread'?`<button class="btn btn-success btn-sm" onclick="markRead('${m.id}')">✓ Read</button>`:''}
-        <button class="btn btn-danger btn-sm" onclick="confirmDel('message','${m.id}')">🗑️</button>
-      </div></td>
-    </tr>`).join('');
+  const badge=document.getElementById('msg-badge');unread>0?(badge.textContent=unread,badge.style.display='block'):badge.style.display='none';
+  if(!msgs.length){document.getElementById('msgs-body').innerHTML='<tr><td colspan="6"><div class="empty"><div class="ei">💬</div><p>No messages yet</p></div></td></tr>';return}
+  document.getElementById('msgs-body').innerHTML=[...msgs].reverse().map(m=>`<tr style="${m.status==='unread'?'background:var(--s2)':''}"><td style="font-weight:${m.status==='unread'?700:400}">${esc(m.name)}</td><td class="td-mono">${esc(m.email)}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(m.message)}</td><td class="td-mono">${fmtDate(m.createdAt)}</td><td>${statusBadge(m.status)}</td><td><div class="act-row">${m.status==='unread'?`<button class="btn btn-success btn-sm" onclick="markRead('${m.id}')">✓ Read</button>`:''}<button class="btn btn-danger btn-sm" onclick="confirmDel('message','${m.id}')">🗑️</button></div></td></tr>`).join('');
 }
-
-function openMsgModal(){
-  document.getElementById('msg-name').value='';
-  document.getElementById('msg-email').value='';
-  document.getElementById('msg-body').value='';
-  openModal('msg-overlay');
-}
-
+function openMsgModal(){['msg-name','msg-email','msg-body'].forEach(i=>document.getElementById(i).value='');openModal('msg-overlay')}
 function saveMsg(){
-  const name=document.getElementById('msg-name').value.trim();
-  const email=document.getElementById('msg-email').value.trim();
-  const message=document.getElementById('msg-body').value.trim();
+  const name=document.getElementById('msg-name').value.trim(),email=document.getElementById('msg-email').value.trim(),message=document.getElementById('msg-body').value.trim();
   if(!name||!email||!message){toast('All fields required','err');return}
-  const msgs=getMessages();
-  msgs.push({id:uid(),name,email,message,status:'unread',createdAt:new Date().toISOString()});
-  DB.set('messages',msgs);
-  closeModal('msg-overlay');
-  loadMessages();loadDashboard();
-  toast('Message added!','ok');
+  const msgs=getMessages();msgs.push({id:uid(),name,email,message,status:'unread',createdAt:new Date().toISOString()});
+  DB.set('messages',msgs);closeModal('msg-overlay');loadMessages();loadDashboard();toast('Message saved!','ok');
 }
+function markRead(id){const msgs=getMessages();const i=msgs.findIndex(m=>m.id===id);if(i>=0)msgs[i].status='read';DB.set('messages',msgs);loadMessages();loadDashboard();toast('Marked as read','info')}
+function deleteMessage(id){DB.set('messages',getMessages().filter(m=>m.id!==id));loadMessages();loadDashboard();toast('Deleted','info')}
 
-function markRead(id){
-  const msgs=getMessages();
-  const i=msgs.findIndex(m=>m.id===id);
-  if(i>=0)msgs[i].status='read';
-  DB.set('messages',msgs);
-  loadMessages();loadDashboard();
-  toast('Marked as read','info');
-}
-
-function deleteMessage(id){DB.set('messages',getMessages().filter(m=>m.id!==id));loadMessages();loadDashboard();toast('Message deleted','info')}
-
-// ═══════════════════════════════════════════════════════════
-//  MEDIA
-// ═══════════════════════════════════════════════════════════
 function loadMedia(){
   const media=getMedia();
-  const grid=document.getElementById('media-grid');
-  if(!media.length){
-    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ei">🖼️</div><p>No images uploaded yet</p></div>';
-    return;
-  }
-  grid.innerHTML=media.map(f=>`
-    <div class="media-card">
-      <img src="${f.data}" alt="${esc(f.name)}" loading="lazy"/>
-      <div class="mc-foot">
-        <div class="mc-name" title="${esc(f.name)}">${esc(f.name)}</div>
-        <div class="mc-acts">
-          <button class="btn btn-ghost btn-sm" onclick="copyUrl('${f.id}')" title="Copy URL">🔗</button>
-          <button class="btn btn-danger btn-sm" onclick="confirmDel('media','${f.id}')" title="Delete">🗑️</button>
-        </div>
-      </div>
-    </div>`).join('');
+  if(!media.length){document.getElementById('media-grid').innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ei">🖼️</div><p>No images yet</p></div>';return}
+  document.getElementById('media-grid').innerHTML=media.map(f=>`<div class="media-card"><img src="${f.data}" alt="${esc(f.name)}" loading="lazy"/><div class="mc-foot"><div class="mc-name">${esc(f.name)}</div><div class="mc-acts"><button class="btn btn-ghost btn-sm" onclick="copyUrl('${f.id}')" title="Copy">🔗</button><button class="btn btn-danger btn-sm" onclick="confirmDel('media','${f.id}')">🗑️</button></div></div></div>`).join('');
+}
+function handleFiles(files){for(const file of files){if(file.size>2*1024*1024){toast(`${file.name} too large`,'err');continue}const r=new FileReader();r.onload=e=>{const m=getMedia();m.push({id:uid(),name:file.name,data:e.target.result,type:file.type,createdAt:new Date().toISOString()});DB.set('media',m);loadMedia();loadDashboard();toast('Uploaded!','ok')};r.readAsDataURL(file)}}
+function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('over');handleFiles(e.dataTransfer.files)}
+function copyUrl(id){const f=getMedia().find(x=>x.id===id);if(!f)return;navigator.clipboard.writeText(f.data).then(()=>toast('Copied!','ok')).catch(()=>toast('Failed','err'))}
+function deleteMedia(id){DB.set('media',getMedia().filter(f=>f.id!==id));loadMedia();loadDashboard();toast('Deleted','info')}
+
+// ── DATA SYNC ────────────────────────────────────────────────────────────
+function loadDataSync(){
+  const keys=[
+    {label:'Blogs',count:getBlogs().length,key:'rs_blogs'},
+    {label:'Sources',count:getSources().length,key:'rs_sources'},
+    {label:'Articles',count:getArticles().length,key:'rs_articles'},
+    {label:'Messages',count:getMessages().length,key:'rs_messages'},
+    {label:'Media',count:getMedia().length,key:'rs_media'},
+    {label:'Settings',count:1,key:'rs_settings'},
+  ];
+  document.getElementById('sync-keys').innerHTML=keys.map(k=>`<div class="key-pill"><span class="kname">${k.key}</span><span class="kcount">${k.count} item${k.count!==1?'s':''}</span></div>`).join('');
 }
 
-function handleFiles(files){
-  for(const file of files){
-    if(file.size>2*1024*1024){toast(`${file.name} too large (max 2MB)`,'err');continue}
-    const reader=new FileReader();
-    reader.onload=e=>{
-      const media=getMedia();
-      const id=uid();
-      media.push({id,name:file.name,data:e.target.result,type:file.type,createdAt:new Date().toISOString()});
-      DB.set('media',media);
-      loadMedia();loadDashboard();
-      toast('Image uploaded!','ok');
-    };
-    reader.readAsDataURL(file);
-  }
+function buildExport(){
+  return {exportedAt:new Date().toISOString(),version:'1.0',blogs:getBlogs(),sources:getSources(),articles:getArticles(),messages:getMessages(),settings:getSettings()};
 }
 
-function handleDrop(e){
-  e.preventDefault();
-  document.getElementById('drop-zone').classList.remove('over');
-  handleFiles(e.dataTransfer.files);
+function exportJSON(){
+  const json=JSON.stringify(buildExport(),null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='site-data.json';a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ site-data.json downloaded! Commit it to your GitHub repo.','ok');
 }
 
-function copyUrl(id){
-  const f=getMedia().find(x=>x.id===id);
-  if(!f)return;
-  // Copy data URL (for base64 stored images)
-  navigator.clipboard.writeText(f.data).then(()=>toast('Image URL copied!','ok')).catch(()=>toast('Copy failed','err'));
+function togglePreview(){
+  const el=document.getElementById('json-preview');
+  if(el.style.display==='none'||!el.style.display){
+    document.getElementById('json-pre').textContent=JSON.stringify(buildExport(),null,2);
+    el.style.display='block';
+  }else{el.style.display='none'}
 }
 
-function deleteMedia(id){
-  DB.set('media',getMedia().filter(f=>f.id!==id));
-  loadMedia();loadDashboard();toast('Image deleted','info');
+function importJSON(input){
+  const file=input.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(data.blogs)DB.set('blogs',data.blogs);
+      if(data.sources)DB.set('sources',data.sources);
+      if(data.articles)DB.set('articles',data.articles);
+      if(data.messages)DB.set('messages',data.messages);
+      if(data.settings)DB.set('settings',data.settings);
+      loadDashboard();loadDataSync();
+      toast(`✅ Imported! (exported ${new Date(data.exportedAt).toLocaleDateString()})`, 'ok');
+    }catch{toast('❌ Invalid JSON file','err')}
+  };
+  r.readAsText(file);input.value='';
 }
 
-// ═══════════════════════════════════════════════════════════
-//  SETTINGS
-// ═══════════════════════════════════════════════════════════
-function loadSettings(){/* loads on settings page nav */}
-
+// ── SETTINGS ─────────────────────────────────────────────────────────────
 function loadSettingsPage(){
   const s=getSettings();
-  document.getElementById('s-wtitle').value=s.websiteTitle||'';
-  document.getElementById('s-cemail').value=s.contactEmail||'';
-  document.getElementById('s-meta').value=s.metaDescription||'';
-  document.getElementById('s-footer').value=s.footerText||'';
-  document.getElementById('s-tw').value=(s.social||{}).twitter||'';
-  document.getElementById('s-li').value=(s.social||{}).linkedin||'';
-  document.getElementById('s-gh').value=(s.social||{}).github||'';
-  document.getElementById('s-ig').value=(s.social||{}).instagram||'';
-  const creds=getCreds();
-  document.getElementById('s-aemail').value=creds.email||'';
-  document.getElementById('s-apass').value='';
+  document.getElementById('s-wtitle').value=s.websiteTitle||'';document.getElementById('s-cemail').value=s.contactEmail||'';document.getElementById('s-meta').value=s.metaDescription||'';document.getElementById('s-footer').value=s.footerText||'';
+  document.getElementById('s-tw').value=(s.social||{}).twitter||'';document.getElementById('s-li').value=(s.social||{}).linkedin||'';document.getElementById('s-gh').value=(s.social||{}).github||'';document.getElementById('s-ig').value=(s.social||{}).instagram||'';
+  const creds=getCreds();document.getElementById('s-aemail').value=creds.email||'';document.getElementById('s-apass').value='';
 }
-
 function saveSettings(){
-  const s={
-    websiteTitle:document.getElementById('s-wtitle').value.trim()||'Ram Srinivasan',
-    contactEmail:document.getElementById('s-cemail').value.trim(),
-    metaDescription:document.getElementById('s-meta').value.trim(),
-    footerText:document.getElementById('s-footer').value.trim(),
-    social:{
-      twitter:document.getElementById('s-tw').value.trim(),
-      linkedin:document.getElementById('s-li').value.trim(),
-      github:document.getElementById('s-gh').value.trim(),
-      instagram:document.getElementById('s-ig').value.trim()
-    }
-  };
-  DB.set('settings',s);
-
-  // Update admin credentials if changed
-  const newEmail=document.getElementById('s-aemail').value.trim();
-  const newPass=document.getElementById('s-apass').value;
-  if(newEmail||newPass){
-    const creds=getCreds();
-    DB.set('creds',{email:newEmail||creds.email,password:newPass||creds.password});
-    // Update sidebar
-    document.getElementById('sb-email').textContent=newEmail||creds.email;
-    document.getElementById('sb-av').textContent=(newEmail||creds.email)[0].toUpperCase();
-  }
-
+  DB.set('settings',{websiteTitle:document.getElementById('s-wtitle').value.trim()||'Ram Srinivasan',contactEmail:document.getElementById('s-cemail').value.trim(),metaDescription:document.getElementById('s-meta').value.trim(),footerText:document.getElementById('s-footer').value.trim(),social:{twitter:document.getElementById('s-tw').value.trim(),linkedin:document.getElementById('s-li').value.trim(),github:document.getElementById('s-gh').value.trim(),instagram:document.getElementById('s-ig').value.trim()}});
+  const ne=document.getElementById('s-aemail').value.trim(),np=document.getElementById('s-apass').value;
+  if(ne||np){const c=getCreds();DB.set('creds',{email:ne||c.email,password:np||c.password});document.getElementById('sb-email').textContent=ne||c.email;document.getElementById('sb-av').textContent=(ne||c.email)[0].toUpperCase();}
   toast('Settings saved!','ok');
 }
 
-// ═══════════════════════════════════════════════════════════
-//  CONFIRM DIALOG
-// ═══════════════════════════════════════════════════════════
-let confirmCallback=null;
-
+// ── HELPERS ───────────────────────────────────────────────────────────────
+let confirmCb=null;
 function confirmDel(type,id){
-  const labels={blog:'blog post',source:'source',article:'article',message:'message',media:'image'};
-  document.getElementById('c-title').textContent=`Delete ${labels[type]||type}?`;
+  document.getElementById('c-title').textContent=`Delete this ${type}?`;
   document.getElementById('c-body').textContent='This action cannot be undone.';
-  confirmCallback=()=>{
-    const del={blog:deleteBlog,source:deleteSource,article:deleteArticle,message:deleteMessage,media:deleteMedia};
-    if(del[type])del[type](id);
-    closeConfirm();
-  };
-  document.getElementById('c-ok').onclick=confirmCallback;
+  confirmCb=()=>{({blog:deleteBlog,source:deleteSource,article:deleteArticle,message:deleteMessage,media:deleteMedia})[type]?.(id);closeConfirm()};
+  document.getElementById('c-ok').onclick=confirmCb;
   document.getElementById('confirm-overlay').classList.add('open');
 }
-
-function closeConfirm(){
-  document.getElementById('confirm-overlay').classList.remove('open');
-  confirmCallback=null;
-}
-
-// ═══════════════════════════════════════════════════════════
-//  MODAL HELPERS
-// ═══════════════════════════════════════════════════════════
+function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('open');confirmCb=null}
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open');editingId=null}
-
-// Close modal on backdrop click
-document.querySelectorAll('.overlay').forEach(o=>{
-  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')});
-});
-
-// ═══════════════════════════════════════════════════════════
-//  RICH TEXT
-// ═══════════════════════════════════════════════════════════
-function fmt(cmd,val){
-  document.getElementById('b-content').focus();
-  document.execCommand(cmd,false,val||null);
-}
-
-// ═══════════════════════════════════════════════════════════
-//  TOAST
-// ═══════════════════════════════════════════════════════════
-let toastTimer=null;
-function toast(msg,type='info'){
-  const el=document.getElementById('toast');
-  el.textContent=msg;
-  el.className='show '+(type||'info');
-  if(toastTimer)clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.className='',3000);
-}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+function fmt(cmd,val){document.getElementById('b-content').focus();document.execCommand(cmd,false,val||null)}
+let toastT=null;
+function toast(msg,type='info'){const el=document.getElementById('toast');el.textContent=msg;el.className='show '+(type||'info');if(toastT)clearTimeout(toastT);toastT=setTimeout(()=>el.className='',3500)}
 </script>
 </body>
 </html>
