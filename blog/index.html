@@ -9,388 +9,588 @@
     gtag('js', new Date());
     gtag('config', 'G-ZH170NH9GW');
   </script>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog — RamSrinivasan</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>Blog — Ram Srinivasan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0d0d0d; --bg2: #141414; --surface: #1a1a1a;
-      --border: #2a2a2a; --text: #e8e2d9; --muted: #6b6560;
-      --accent: #c8a96e; --accent2: #7eb8a4;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --mono: 'DM Mono', monospace;
-      --sans: 'DM Sans', sans-serif;
+      --bg: #080a0f;
+      --s1: #0e1117;
+      --s2: #141820;
+      --s3: #1c2130;
+      --bdr: #ffffff0f;
+      --bdr2: #ffffff1a;
+      --acc: #c8a96e;
+      --acc2: #7eb8a4;
+      --acc3: #10b981;
+      --txt: #e8edf5;
+      --txt2: #8892a4;
+      --txt3: #4b5563;
+      --danger: #ef4444;
+      --purple: #7c3aed;
+      --r: 8px;
     }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999; opacity: 0.4;
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--s3); border-radius: 99px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 3rem; height: 60px;
+      background: rgba(8,10,15,0.92);
+      border-bottom: 1px solid var(--bdr);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 600;
+      color: var(--acc); text-decoration: none;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      color: var(--txt2); text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 14px; border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--txt); background: var(--s2); }
+    .nav-links a.active { color: var(--acc); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 96px 3rem 48px;
+      max-width: 1100px; margin: 0 auto;
+      border-bottom: 1px solid var(--bdr);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: end;
+    }
+    .page-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--acc); margin-bottom: 12px;
+      opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+    }
+    .page-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em;
+      opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .page-header h1 span { color: var(--acc); }
+    .header-right {
+      opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+    }
+    .header-right p {
+      color: var(--txt2); font-size: 14px;
+      line-height: 1.85; margin-bottom: 20px;
+    }
+    .nl-row {
+      display: flex; gap: 0;
+      border: 1px solid var(--bdr2); border-radius: var(--r);
+      overflow: hidden; background: var(--s2);
+    }
+    .nl-row input {
+      background: transparent; border: none; color: var(--txt);
+      padding: 10px 14px; font-family: 'Outfit', sans-serif;
+      font-size: 13px; flex: 1; outline: none; min-width: 0;
+    }
+    .nl-row input::placeholder { color: var(--txt3); }
+    .nl-row button {
+      background: var(--acc); color: #0a0700;
+      border: none; padding: 10px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .nl-row button:hover { opacity: 0.85; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      padding: 20px 3rem; max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 12px; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .filter-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 12px; border: 1px solid var(--bdr2);
+      background: transparent; color: var(--txt2);
+      border-radius: 99px; cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover { color: var(--txt); border-color: var(--acc); }
+    .filter-btn.active {
+      color: #0a0700; background: var(--acc);
+      border-color: var(--acc);
+    }
+    .posts-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--txt3); letter-spacing: 0.08em;
     }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: rgba(13,13,13,0.92); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
-    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    /* ── BLOG CONTENT AREA ── */
+    .blog-section {
+      padding: 0 3rem 32px;
+      max-width: 1100px; margin: 0 auto;
+    }
 
-    /* PAGE HEADER */
-    .page-header { padding: 10rem 3rem 5rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
-    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
-    .page-header h1 { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; opacity: 0; animation: fadeUp 0.7s 0.25s forwards; }
-    .page-header h1 em { font-style: italic; color: var(--accent); }
-    .header-right { opacity: 0; animation: fadeUp 0.7s 0.4s forwards; }
-    .header-right p { color: var(--muted); font-size: 1.05rem; line-height: 1.85; margin-bottom: 1.8rem; }
-    .newsletter-inline { display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden; }
-    .newsletter-inline input { background: var(--surface); border: none; color: var(--text); padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.9rem; flex: 1; outline: none; min-width: 0; }
-    .newsletter-inline button { background: var(--accent); color: #0d0d0d; border: none; padding: 0.75rem 1.2rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
-    .newsletter-inline button:hover { opacity: 0.85; }
-
-    /* FILTER */
-    .filter-bar { padding: 2.5rem 3rem; max-width: 1100px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-    .filter-tags { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-    .filter-btn { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.45rem 1rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
-    .filter-btn:hover { color: var(--text); border-color: #3a3a3a; }
-    .filter-btn.active { color: var(--bg); background: var(--accent); border-color: var(--accent); }
-    .posts-count { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
-
-    /* BLOG SECTION */
-    .blog-section { padding: 0 3rem 2rem; max-width: 1100px; margin: 0 auto; }
-
-    /* FEATURED POST */
+    /* ── FEATURED POST ── */
     .featured-post {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
-      border: 1px solid var(--border); padding: 3rem; margin-bottom: 1.5rem;
-      text-decoration: none; color: inherit; position: relative; overflow: hidden;
-      opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; align-items: center;
+      background: var(--s1); border: 1px solid var(--bdr);
+      border-radius: 14px; padding: 32px; margin: 24px 0 4px;
+      text-decoration: none; color: inherit;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
     }
-    .featured-post.visible { opacity: 1; transform: translateY(0); }
-    .featured-post::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
-    .featured-post:hover { border-color: #3a3a3a; }
+    .featured-post::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--acc), var(--acc2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .featured-post:hover { border-color: var(--bdr2); transform: translateY(-2px); }
     .featured-post:hover::before { transform: scaleX(1); }
-    .featured-post:hover .fp-title { color: var(--accent); }
-    .fp-badge { position: absolute; top: 1.5rem; right: 1.5rem; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.25rem 0.7rem; opacity: 0.7; }
-    .fp-meta { display: flex; gap: 1.5rem; margin-bottom: 1rem; }
-    .fp-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); }
-    .fp-date { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.05em; }
-    .fp-title { font-family: var(--serif); font-size: 2rem; line-height: 1.2; margin-bottom: 0.8rem; transition: color 0.2s; }
-    .fp-excerpt { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.5rem; }
-    .fp-read { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
-    .fp-visual { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 3/2; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .fp-visual img { width: 100%; height: 100%; object-fit: cover; }
-    .fp-visual-inner { font-size: 4rem; opacity: 0.15; }
-
-    /* POST LIST */
-    .post-list { display: flex; flex-direction: column; }
-    .blog-post {
-      display: grid; grid-template-columns: 140px 1fr auto;
-      gap: 2rem; align-items: center; padding: 1.8rem 0;
-      border-bottom: 1px solid var(--border); text-decoration: none; color: inherit;
-      opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s;
+    .featured-post:hover .fp-title { color: var(--acc); }
+    .fp-badge {
+      position: absolute; top: 20px; right: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--acc); border: 1px solid var(--bdr2);
+      background: var(--s2);
+      padding: 4px 10px; border-radius: 99px;
     }
-    .blog-post:first-child { border-top: 1px solid var(--border); }
+    .fp-meta { display: flex; gap: 12px; margin-bottom: 12px; align-items: center; }
+    .fp-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #0a0700; background: var(--acc2);
+      padding: 3px 9px; border-radius: 99px;
+    }
+    .fp-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--txt3); letter-spacing: 0.05em;
+    }
+    .fp-title {
+      font-size: 1.7rem; font-weight: 800;
+      line-height: 1.2; margin-bottom: 10px;
+      transition: color 0.2s; letter-spacing: -0.02em;
+    }
+    .fp-excerpt {
+      color: var(--txt2); font-size: 13.5px;
+      line-height: 1.75; margin-bottom: 20px;
+    }
+    .fp-read {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--acc);
+    }
+    .fp-visual {
+      background: var(--s2); border: 1px solid var(--bdr);
+      border-radius: 10px; aspect-ratio: 3/2;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .fp-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .fp-visual-inner { font-size: 3.5rem; opacity: 0.12; }
+
+    /* ── POST LIST ── */
+    .post-list { display: flex; flex-direction: column; margin-top: 4px; }
+    .blog-post {
+      display: grid; grid-template-columns: 130px 1fr auto;
+      gap: 20px; align-items: center; padding: 16px 0;
+      border-bottom: 1px solid var(--bdr);
+      text-decoration: none; color: inherit;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .blog-post:first-child { border-top: 1px solid var(--bdr); }
     .blog-post.visible { opacity: 1; transform: translateY(0); }
-    .blog-post:hover .post-title { color: var(--accent); }
-    .post-date { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
-    .post-title { font-family: var(--serif); font-size: 1.25rem; transition: color 0.2s; }
-    .post-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); padding: 0.25rem 0.7rem; border: 1px solid var(--accent2); white-space: nowrap; opacity: 0.7; }
+    .blog-post:hover .post-title { color: var(--acc); }
+    .post-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; color: var(--txt3); letter-spacing: 0.05em;
+    }
+    .post-title {
+      font-size: 14.5px; font-weight: 600;
+      transition: color 0.2s; line-height: 1.4;
+    }
+    .post-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--acc2); padding: 3px 9px;
+      border: 1px solid var(--bdr2); border-radius: 99px;
+      white-space: nowrap;
+    }
 
-    /* EMPTY / LOADING STATE */
-    .blog-empty { padding: 4rem 0; text-align: center; }
-    .blog-empty p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.08em; }
+    /* ── EMPTY STATE ── */
+    .blog-empty {
+      padding: 48px 0; text-align: center;
+      color: var(--txt3);
+    }
+    .blog-empty .ei { font-size: 36px; margin-bottom: 10px; }
+    .blog-empty p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.08em;
+    }
 
-    /* TOPICS SIDEBAR ROW */
-    .topics-section { padding: 3rem 3rem; max-width: 1100px; margin: 0 auto; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
-    .topics-section h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 1.2rem; }
-    .topics-section p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7; }
-    .topic-pills { display: flex; flex-wrap: wrap; gap: 0.7rem; }
-    .topic-pill { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; border: 1px solid var(--border); color: var(--muted); cursor: pointer; transition: all 0.2s; }
-    .topic-pill:hover { color: var(--accent); border-color: var(--accent); }
-    .newsletter-box { background: var(--surface); border: 1px solid var(--border); padding: 2.5rem; }
-    .newsletter-box h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 0.8rem; }
-    .newsletter-box p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7; }
-    .nl-form { display: flex; flex-direction: column; gap: 0.8rem; }
-    .nl-form input { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 0.8rem 1rem; font-family: var(--sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
-    .nl-form input:focus { border-color: var(--accent); }
-    .nl-form button { background: var(--accent); color: #0d0d0d; border: none; padding: 0.85rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
-    .nl-form button:hover { opacity: 0.85; }
+    /* ── BOTTOM SECTION ── */
+    .bottom-section {
+      padding: 32px 3rem 48px; max-width: 1100px; margin: 0 auto;
+      border-top: 1px solid var(--bdr);
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 32px;
+    }
+    .topics-card {
+      background: var(--s1); border: 1px solid var(--bdr);
+      border-radius: 12px; padding: 22px;
+    }
+    .topics-card h3, .nl-card h3 {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--txt3); font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .topic-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .topic-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 11px; border: 1px solid var(--bdr2);
+      color: var(--txt2); border-radius: 99px; cursor: pointer;
+      transition: all 0.15s; background: transparent;
+    }
+    .topic-pill:hover { color: var(--acc); border-color: var(--acc); background: #c8a96e10; }
+    .nl-card {
+      background: var(--s1); border: 1px solid var(--bdr);
+      border-radius: 12px; padding: 22px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .nl-card p { color: var(--txt2); font-size: 13px; line-height: 1.7; }
+    .nl-form { display: flex; flex-direction: column; gap: 8px; }
+    .nl-form input {
+      background: var(--s2); border: 1px solid var(--bdr2);
+      border-radius: var(--r); color: var(--txt);
+      padding: 10px 12px; font-family: 'Outfit', sans-serif;
+      font-size: 13.5px; outline: none; transition: border-color 0.2s;
+    }
+    .nl-form input:focus { border-color: var(--acc); }
+    .nl-form input::placeholder { color: var(--txt3); }
+    .nl-form button {
+      background: var(--acc); color: #0a0700;
+      border: none; padding: 11px;
+      border-radius: var(--r);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+    }
+    .nl-form button:hover { opacity: 0.88; transform: translateY(-1px); }
 
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
-    footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
-    footer a { color: var(--accent); text-decoration: none; }
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--bdr);
+      padding: 20px 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--txt3); letter-spacing: 0.05em;
+    }
+    footer a { color: var(--acc); text-decoration: none; }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     @media (max-width: 768px) {
-      nav { padding: 1.2rem 1.5rem; } .nav-links { gap: 1.5rem; }
-      .page-header { grid-template-columns: 1fr; gap: 2rem; padding: 8rem 1.5rem 3rem; }
-      .filter-bar, .blog-section, .topics-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      nav { padding: 0 1.5rem; }
+      .page-header { grid-template-columns: 1fr; gap: 24px; padding: 80px 1.5rem 32px; }
+      .filter-bar, .blog-section, .bottom-section { padding-left: 1.5rem; padding-right: 1.5rem; }
       .featured-post { grid-template-columns: 1fr; }
       .fp-visual { display: none; }
-      .blog-post { grid-template-columns: 1fr; gap: 0.4rem; }
-      .post-tag { display: none; }
-      .topics-section { grid-template-columns: 1fr; gap: 2rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .blog-post { grid-template-columns: 1fr; gap: 4px; }
+      .post-tag, .post-date { display: none; }
+      .post-title { display: block; }
+      .blog-post { padding: 14px 0; }
+      .bottom-section { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a href="/../" class="nav-logo">RM.</a>
+  <a href="/../" class="nav-logo">rs.</a>
   <ul class="nav-links">
     <li><a href="/about/">About</a></li>
     <li><a href="/work/">Work</a></li>
-    <li><a href="/../">Home</a></li>
+    <li><a href="/blog/" class="active">Blog</a></li>
     <li><a href="/contact/">Contact</a></li>
   </ul>
 </nav>
 
+<!-- PAGE HEADER -->
 <div class="page-header">
   <div>
-    <p class="page-eyebrow">Writing & thinking</p>
-    <h1>From the <em>blog</em></h1>
+    <p class="page-eyebrow">// writing & thinking</p>
+    <h1>From the <span>blog</span></h1>
   </div>
   <div class="header-right">
-    <p>Essays, tutorials, and dev logs on supply chain, automation, and the occasional half-formed idea worth publishing.</p>
-    <div class="newsletter-inline">
-      <input type="email" id="headerEmail" placeholder="your@email.com" />
-      <button onclick="subscribeHeader()">Subscribe</button>
+    <p>Essays, dev logs, and half-formed ideas on supply chain, automation, and building things that actually work.</p>
+    <div class="nl-row">
+      <input type="email" id="headerEmail" placeholder="your@email.com"/>
+      <button onclick="subscribeHeader()">Subscribe →</button>
     </div>
   </div>
 </div>
 
-<!-- FILTER -->
+<!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="filter-tags" id="filter-tags">
     <button class="filter-btn active" data-filter="all">All</button>
-    <!-- Tag buttons injected dynamically -->
   </div>
   <span class="posts-count" id="posts-count">Loading…</span>
 </div>
 
 <!-- BLOG CONTENT -->
 <div class="blog-section">
-  <!-- Featured post rendered here -->
   <div id="featured-wrap"></div>
-  <!-- All other posts rendered here -->
   <div class="post-list" id="postList">
-    <div class="blog-empty"><p>Loading posts…</p></div>
+    <div class="blog-empty">
+      <div class="ei">📝</div>
+      <p>Loading posts…</p>
+    </div>
   </div>
 </div>
 
-<!-- TOPICS & NEWSLETTER -->
-<div class="topics-section">
-  <div>
-    <h3>Browse <em>topics</em></h3>
-    <p>Jump into a theme that interests you.</p>
-    <div class="topic-pills">
-      <span class="topic-pill">Supply Chain</span>
-      <span class="topic-pill">Automation</span>
-      <span class="topic-pill">AI Tools</span>
-      <span class="topic-pill">Python</span>
-      <span class="topic-pill">Career</span>
-      <span class="topic-pill">Productivity</span>
-      <span class="topic-pill">Gaming</span>
-      <span class="topic-pill">Drawing</span>
-      <span class="topic-pill">Systems Thinking</span>
+<!-- BOTTOM: TOPICS + NEWSLETTER -->
+<div class="bottom-section">
+  <div class="topics-card">
+    <h3>Browse Topics</h3>
+    <div class="topic-pills" id="topic-pills">
+      <span class="topic-pill" onclick="filterByTopic('Supply Chain')">Supply Chain</span>
+      <span class="topic-pill" onclick="filterByTopic('Automation')">Automation</span>
+      <span class="topic-pill" onclick="filterByTopic('AI Tools')">AI Tools</span>
+      <span class="topic-pill" onclick="filterByTopic('Python')">Python</span>
+      <span class="topic-pill" onclick="filterByTopic('Career')">Career</span>
+      <span class="topic-pill" onclick="filterByTopic('Productivity')">Productivity</span>
+      <span class="topic-pill" onclick="filterByTopic('Systems')">Systems</span>
+      <span class="topic-pill" onclick="filterByTopic('Essay')">Essay</span>
+      <span class="topic-pill" onclick="filterByTopic('Opinion')">Opinion</span>
     </div>
   </div>
-  <div class="newsletter-box">
-    <h3>Stay in the <em>loop</em></h3>
-    <p>New articles on supply chain, automation, and AI — delivered to your inbox whenever I publish something worth sharing. No spam, ever.</p>
+  <div class="nl-card">
+    <h3>Stay in the Loop</h3>
+    <p>New articles on supply chain, automation, and AI — delivered whenever I publish something worth sharing. No spam, ever.</p>
     <div class="nl-form">
-      <input type="text" id="nlName" placeholder="Your name" />
-      <input type="email" id="nlEmail" placeholder="your@email.com" />
+      <input type="text" id="nlName" placeholder="Your name"/>
+      <input type="email" id="nlEmail" placeholder="your@email.com"/>
       <button onclick="subscribeSidebar()">Subscribe — It's Free</button>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>© 2026 <a href="/../">RamSrinivasan</a>. All rights reserved.</p>
-  <p>Built with care &amp; a lot of ☕</p>
+  <p>© 2026 <a href="/../">Ram Srinivasan</a>. All rights reserved.</p>
+  <p>Built with care &amp; ☕</p>
 </footer>
 
 <script>
-  const FORM_URL = 'https://forms.gle/qX99SUZen94n7uMB6';
+'use strict';
+const FORM_URL = 'https://forms.gle/qX99SUZen94n7uMB6';
 
-  // ─── SUBSCRIBE ────────────────────────────────────────────────
-  function subscribeHeader() {
-    const email = document.getElementById('headerEmail').value.trim();
-    if (!email || !email.includes('@')) { document.getElementById('headerEmail').focus(); return; }
-    window.open(FORM_URL, '_blank');
+function subscribeHeader() {
+  const e = document.getElementById('headerEmail').value.trim();
+  if (!e || !e.includes('@')) { document.getElementById('headerEmail').focus(); return; }
+  window.open(FORM_URL, '_blank');
+}
+function subscribeSidebar() {
+  const e = document.getElementById('nlEmail').value.trim();
+  if (!e || !e.includes('@')) { document.getElementById('nlEmail').focus(); return; }
+  window.open(FORM_URL, '_blank');
+}
+document.getElementById('headerEmail').addEventListener('keydown', e => { if (e.key === 'Enter') subscribeHeader(); });
+document.getElementById('nlEmail').addEventListener('keydown', e => { if (e.key === 'Enter') subscribeSidebar(); });
+
+function fmtDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function postUrl(post) {
+  if (post.customUrl && post.customUrl !== '#') return post.customUrl;
+  return `/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 55);
+    }
+  });
+}, { threshold: 0.05 });
+
+function observeNew() {
+  document.querySelectorAll('.blog-post:not(.observed)').forEach(el => {
+    el.classList.add('observed');
+    observer.observe(el);
+  });
+}
+
+let activeFilter = 'all';
+
+function applyFilter(filter) {
+  activeFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+  const posts = document.querySelectorAll('#postList .blog-post');
+  let shown = 0;
+  posts.forEach(post => {
+    const tag = (post.dataset.tag || '').toLowerCase();
+    const match = filter === 'all' || tag === filter.toLowerCase();
+    post.style.display = match ? '' : 'none';
+    if (match) shown++;
+  });
+  document.getElementById('posts-count').textContent = `${shown} article${shown !== 1 ? 's' : ''}`;
+}
+
+function filterByTopic(topic) {
+  window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 70, behavior: 'smooth' });
+  setTimeout(() => applyFilter(topic.toLowerCase()), 300);
+}
+
+function buildFilters(posts) {
+  const tags = ['all', ...new Set(posts.flatMap(p => p.tags || []).map(t => t.toLowerCase()))];
+  const wrap = document.getElementById('filter-tags');
+  wrap.innerHTML = tags.map(t =>
+    `<button class="filter-btn${t === 'all' ? ' active' : ''}" data-filter="${t}">${t === 'all' ? 'All' : t}</button>`
+  ).join('');
+  wrap.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+  });
+}
+
+function renderFeatured(post) {
+  const wrap = document.getElementById('featured-wrap');
+  const tag = (post.tags || [])[0] || '';
+  wrap.innerHTML = `
+    <a class="featured-post" href="${postUrl(post)}">
+      <div>
+        <span class="fp-badge">Latest</span>
+        <div class="fp-meta">
+          ${tag ? `<span class="fp-tag">${tag}</span>` : ''}
+          <span class="fp-date">${fmtDate(post.publishDate || post.createdAt)}</span>
+        </div>
+        <h2 class="fp-title">${post.title}</h2>
+        <p class="fp-excerpt">${post.description || ''}</p>
+        <span class="fp-read">Read article →</span>
+      </div>
+      <div class="fp-visual">
+        ${post.featuredImage
+          ? `<img src="${post.featuredImage}" alt="${post.title}"/>`
+          : `<div class="fp-visual-inner">✍️</div>`}
+      </div>
+    </a>`;
+}
+
+function renderPostList(posts) {
+  const list = document.getElementById('postList');
+  if (!posts.length) {
+    list.innerHTML = '<div class="blog-empty"><div class="ei">📝</div><p>No posts published yet.</p></div>';
+    document.getElementById('posts-count').textContent = '0 articles';
+    return;
   }
-  function subscribeSidebar() {
-    const email = document.getElementById('nlEmail').value.trim();
-    if (!email || !email.includes('@')) { document.getElementById('nlEmail').focus(); return; }
-    window.open(FORM_URL, '_blank');
-  }
-  document.getElementById('headerEmail').addEventListener('keydown', e => { if (e.key === 'Enter') subscribeHeader(); });
-  document.getElementById('nlEmail').addEventListener('keydown', e => { if (e.key === 'Enter') subscribeSidebar(); });
-
-  // ─── HELPERS ──────────────────────────────────────────────────
-  function fmtDate(d) {
-    if (!d) return '';
-    return new Date(d).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
-  }
-
-  // Build the URL for a blog post's individual page.
-  // All posts live at: /blog/post.html?slug=your-slug
-  function postUrl(post) {
-    // If the post already has a custom URL saved from the admin, use it
-    if (post.customUrl && post.customUrl !== '#') return post.customUrl;
-    // Otherwise point to the universal reader page
-    return `/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
-  }
-
-  // ─── SCROLL REVEAL ────────────────────────────────────────────
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-      }
-    });
-  }, { threshold: 0.05 });
-
-  function observeNew() {
-    document.querySelectorAll('.featured-post:not(.observed), .blog-post:not(.observed)').forEach(el => {
-      el.classList.add('observed');
-      observer.observe(el);
-    });
-  }
-
-  // ─── FILTER ───────────────────────────────────────────────────
-  let allPosts = [];
-  let activeFilter = 'all';
-
-  function applyFilter(filter) {
-    activeFilter = filter;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
-    const posts = document.querySelectorAll('#postList .blog-post');
-    let shown = 0;
-    posts.forEach(post => {
-      const tag = (post.dataset.tag || '').toLowerCase();
-      const match = filter === 'all' || tag === filter.toLowerCase();
-      post.style.display = match ? '' : 'none';
-      if (match) shown++;
-    });
-    document.getElementById('posts-count').textContent = `${shown} article${shown !== 1 ? 's' : ''}`;
-  }
-
-  function buildFilters(posts) {
-    const tags = ['all', ...new Set(posts.flatMap(p => p.tags || []).map(t => t.toLowerCase()))];
-    const wrap = document.getElementById('filter-tags');
-    wrap.innerHTML = tags.map(t => `<button class="filter-btn${t === 'all' ? ' active' : ''}" data-filter="${t}">${t === 'all' ? 'All' : t}</button>`).join('');
-    wrap.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
-    });
-  }
-
-  // ─── RENDER ───────────────────────────────────────────────────
-  function renderFeatured(post) {
-    const wrap = document.getElementById('featured-wrap');
+  list.innerHTML = posts.map(post => {
     const tag = (post.tags || [])[0] || '';
-    const url = postUrl(post);
-    wrap.innerHTML = `
-      <a class="featured-post" href="${url}">
-        <div>
-          <span class="fp-badge">Latest</span>
-          <div class="fp-meta">
-            ${tag ? `<span class="fp-tag">${tag}</span>` : ''}
-            <span class="fp-date">${fmtDate(post.publishDate || post.createdAt)}</span>
-          </div>
-          <h2 class="fp-title">${post.title}</h2>
-          <p class="fp-excerpt">${post.description || ''}</p>
-          <span class="fp-read">Read article →</span>
-        </div>
-        <div class="fp-visual">
-          ${post.featuredImage
-            ? `<img src="${post.featuredImage}" alt="${post.title}" />`
-            : `<div class="fp-visual-inner">✍️</div>`}
-        </div>
+    return `
+      <a class="blog-post" href="${postUrl(post)}" data-tag="${tag.toLowerCase()}">
+        <span class="post-date">${fmtDate(post.publishDate || post.createdAt)}</span>
+        <span class="post-title">${post.title}</span>
+        ${tag ? `<span class="post-tag">${tag}</span>` : ''}
       </a>`;
-    observeNew();
-  }
+  }).join('');
+  document.getElementById('posts-count').textContent = `${posts.length} article${posts.length !== 1 ? 's' : ''}`;
+  observeNew();
+}
 
-  function renderPostList(posts) {
-    const list = document.getElementById('postList');
-    if (!posts.length) {
-      list.innerHTML = '<div class="blog-empty"><p>No posts published yet.</p></div>';
-      document.getElementById('posts-count').textContent = '0 articles';
-      return;
+function renderAll(posts) {
+  const sorted = [...posts].sort((a, b) =>
+    new Date(b.publishDate || b.createdAt) - new Date(a.publishDate || a.createdAt)
+  );
+  if (!sorted.length) {
+    document.getElementById('featured-wrap').innerHTML = '';
+    renderPostList([]);
+    buildFilters([]);
+    return;
+  }
+  const [featured, ...rest] = sorted;
+  renderFeatured(featured);
+  renderPostList(rest);
+  buildFilters(sorted);
+  applyFilter('all');
+}
+
+// ── DATA LOADING ──
+const FALLBACK = [
+  { title:'What Made Me Create This Page?', slug:'what-made-me-create-this-page', tags:['Essay'], description:'A small step toward building in public — documenting systems, automation, and the mindset behind solving operational problems.', publishDate:'2026-03-01', status:'published', customUrl:'https://ramsrinivasan.in/blog/what-made-me-create-this-page.html' },
+  { title:'Why? — Is This Question Necessary?', slug:'why-is-this-question-necessary', tags:['Opinion'], description:'Questioning the questions we ask ourselves.', publishDate:'2026-03-02', status:'published' },
+  { title:'From Operations to Systems Thinking', slug:'from-operations-to-systems-thinking', tags:['Essay'], description:'How supply chain shaped the way I see every problem.', publishDate:'2026-03-03', status:'published' },
+  { title:'Building Tools Instead of Complaining About Problems', slug:'building-tools-not-complaining', tags:['Automation'], description:'A mindset shift that changed how I work.', publishDate:'2026-03-04', status:'published' },
+  { title:'Learning in Public: Why I Chose to Share My Work', slug:'learning-in-public', tags:['Career'], description:'The scary and worthwhile decision to document my progress openly.', publishDate:'2026-03-05', status:'published' },
+];
+
+function loadPosts() {
+  try {
+    const raw = localStorage.getItem('rs_blogs');
+    if (raw) {
+      const all = JSON.parse(raw);
+      const published = all.filter(b => b.status === 'published');
+      if (published.length) { renderAll(published); return; }
     }
-    list.innerHTML = posts.map(post => {
-      const tag = (post.tags || [])[0] || '';
-      const url = postUrl(post);
-      return `
-        <a class="blog-post" href="${url}" data-tag="${tag.toLowerCase()}">
-          <span class="post-date">${fmtDate(post.publishDate || post.createdAt)}</span>
-          <span class="post-title">${post.title}</span>
-          ${tag ? `<span class="post-tag">${tag}</span>` : ''}
-        </a>`;
-    }).join('');
-    document.getElementById('posts-count').textContent = `${posts.length} article${posts.length !== 1 ? 's' : ''}`;
-    observeNew();
-  }
+  } catch(e) {}
 
-  function renderAll(posts) {
-    // Sort newest first
-    const sorted = [...posts].sort((a, b) =>
-      new Date(b.publishDate || b.createdAt) - new Date(a.publishDate || a.createdAt)
-    );
-    if (!sorted.length) {
-      document.getElementById('featured-wrap').innerHTML = '';
-      renderPostList([]);
-      buildFilters([]);
-      return;
-    }
-    const [featured, ...rest] = sorted;
-    renderFeatured(featured);
-    renderPostList(rest);
-    buildFilters(sorted);
-    applyFilter('all');
-  }
+  fetch('../site-data.json?v=' + Date.now())
+    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    .then(data => {
+      const published = (data.blogs || []).filter(b => b.status === 'published');
+      renderAll(published.length ? published : FALLBACK);
+    })
+    .catch(() => renderAll(FALLBACK));
+}
 
-  // ─── DATA LOADING ─────────────────────────────────────────────
-  // Priority: 1) localStorage (same-domain admin), 2) site-data.json, 3) hardcoded fallback
-
-  const FALLBACK = [
-    { title: 'What Made Me Create This Page?', slug: 'what-made-me-create-this-page', tags: ['Essay'], description: 'A small step toward building in public — documenting systems, automation, and the mindset behind solving operational problems more intelligently.', publishDate: '2026-03-01', status: 'published', customUrl: 'https://ramsrinivasan.in/blog/what-made-me-create-this-page.html' },
-    { title: 'Why? — Is This Question Necessary?', slug: 'why-is-this-question-necessary', tags: ['Opinion'], description: 'Questioning the questions we ask ourselves.', publishDate: '2026-03-02', status: 'published' },
-    { title: 'From Operations to Systems Thinking', slug: 'from-operations-to-systems-thinking', tags: ['Essay'], description: 'How supply chain shaped the way I see every problem.', publishDate: '2026-03-03', status: 'published' },
-    { title: 'Building Tools Instead of Complaining About Problems', slug: 'building-tools-not-complaining', tags: ['Automation'], description: 'A mindset shift that changed how I work.', publishDate: '2026-03-04', status: 'published' },
-    { title: 'Learning in Public: Why I Chose to Share My Work', slug: 'learning-in-public', tags: ['Career'], description: 'The scary and worthwhile decision to document my progress openly.', publishDate: '2026-03-05', status: 'published' },
-  ];
-
-  function loadPosts() {
-    // Step 1 — localStorage (works when admin.html is on same domain)
-    try {
-      const raw = localStorage.getItem('rs_blogs');
-      if (raw) {
-        const all = JSON.parse(raw);
-        const published = all.filter(b => b.status === 'published');
-        if (published.length) { renderAll(published); return; }
-      }
-    } catch(e) {}
-
-    // Step 2 — site-data.json (committed to repo)
-    fetch('../site-data.json?v=' + Date.now())
-      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-      .then(data => {
-        const published = (data.blogs || []).filter(b => b.status === 'published');
-        renderAll(published.length ? published : FALLBACK);
-      })
-      .catch(() => renderAll(FALLBACK));
-  }
-
-  loadPosts();
+loadPosts();
 </script>
 </body>
 </html>
