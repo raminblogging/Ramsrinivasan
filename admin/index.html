@@ -19,7 +19,6 @@ html,body{height:100%}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden}
 ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:99px}
 
-/* ── LOGIN ─────────────────────────────────────────────── */
 #login-screen{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;background:var(--bg)}
 #login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 30%,#c8a96e08,transparent),radial-gradient(ellipse 60% 60% at 80% 70%,#7eb8a406,transparent)}
 .login-card{position:relative;z-index:1;width:100%;max-width:400px;background:var(--s1);border:1px solid var(--bdr2);border-radius:16px;padding:44px 40px;box-shadow:0 32px 80px #00000060}
@@ -33,9 +32,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);overf
 .lerr{display:none;background:#ef444412;border:1px solid #ef444430;color:#fca5a5;border-radius:var(--r);padding:10px 14px;font-size:12px;text-align:center;margin-bottom:14px}
 .btn-login{width:100%;padding:13px;border:none;border-radius:var(--r);background:var(--acc);color:#0a0700;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.04em;transition:opacity .2s,transform .15s}
 .btn-login:hover{opacity:.88;transform:translateY(-1px)}
-.login-hint{text-align:center;margin-top:16px;font-size:11px;color:var(--txt3);font-family:'JetBrains Mono',monospace;line-height:1.7}
+.btn-login:disabled{opacity:.5;cursor:not-allowed;transform:none}
 
-/* ── APP SHELL ──────────────────────────────────────────── */
 #app{display:none;height:100vh;overflow:hidden}
 #sb{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--s1);border-right:1px solid var(--bdr);display:flex;flex-direction:column;z-index:200;transition:transform .3s}
 .sb-brand{padding:22px 20px 18px;border-bottom:1px solid var(--bdr)}
@@ -56,23 +54,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);overf
 .admin-chip .an{font-size:12.5px;font-weight:700}
 .admin-chip .ae{font-size:10.5px;color:var(--txt3);margin-top:1px}
 
-/* ── TOPBAR ─────────────────────────────────────────────── */
 #topbar{position:fixed;top:0;left:var(--sw);right:0;height:var(--hh);background:var(--s1);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 24px;gap:12px;z-index:100}
 #hbtn{display:none;background:none;border:none;color:var(--txt);font-size:22px;cursor:pointer;line-height:1}
 #ptitle{font-size:17px;font-weight:800}
 .tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
 .tb-dot{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--acc3);font-family:'JetBrains Mono',monospace}
 .tb-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--acc3);animation:dotpulse 2s infinite}
+.tb-api{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);background:var(--s2);padding:4px 10px;border-radius:99px;border:1px solid var(--bdr)}
 @keyframes dotpulse{0%,100%{opacity:1}50%{opacity:.35}}
 .tb-clock{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3)}
 
-/* ── PAGES ──────────────────────────────────────────────── */
 #main{margin-left:var(--sw);padding-top:var(--hh);height:100vh;overflow-y:auto}
 .page{display:none;padding:26px;flex-direction:column;gap:20px;animation:pgfade .22s ease}
 .page.on{display:flex}
 @keyframes pgfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── BUTTONS ─────────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:var(--r);border:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .14s;white-space:nowrap;text-decoration:none}
 .btn-acc{background:var(--acc);color:#0a0700}.btn-acc:hover{opacity:.85;transform:translateY(-1px)}
 .btn-ghost{background:var(--s2);color:var(--txt);border:1px solid var(--bdr2)}.btn-ghost:hover{border-color:var(--acc);color:var(--acc)}
@@ -80,8 +76,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);overf
 .btn-green{background:#10b98112;color:var(--acc3);border:1px solid #10b98128}
 .btn-warn{background:#f59e0b12;color:var(--warn);border:1px solid #f59e0b28}
 .btn-sm{padding:6px 11px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
 
-/* ── STAT CARDS ─────────────────────────────────────────── */
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
 .scard{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
 .scard:hover{border-color:var(--bdr2);transform:translateY(-2px)}
@@ -93,7 +89,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);overf
 .scard .ss{font-size:10.5px;color:var(--txt3);margin-top:5px}
 .scard.ca .sv{color:var(--acc)}.scard.ct .sv{color:var(--acc2)}.scard.cg .sv{color:var(--acc3)}.scard.cp .sv{color:var(--purple)}
 
-/* ── TABLE ───────────────────────────────────────────────── */
 .tbl-wrap{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;overflow:hidden;overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:480px}
 thead tr{background:var(--s2)}
@@ -108,7 +103,6 @@ tbody tr:hover td{background:#ffffff02}
 .td-url:hover{text-decoration:underline}
 .ar{display:flex;gap:5px;align-items:center}
 
-/* ── BADGES ──────────────────────────────────────────────── */
 .badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.03em}
 .bg{background:#10b98112;color:#34d399;border:1px solid #10b98128}
 .by{background:#f59e0b12;color:#fbbf24;border:1px solid #f59e0b28}
@@ -117,16 +111,15 @@ tbody tr:hover td{background:#ffffff02}
 .bt{background:#7eb8a412;color:var(--acc2);border:1px solid #7eb8a428}
 .bk{background:var(--s2);color:var(--txt3);border:1px solid var(--bdr)}
 
-/* ── SECTION HEADER ─────────────────────────────────────── */
 .phdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .phdr-t{font-size:15px;font-weight:800}
 .phdr-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
-/* ── INFO BANNER ─────────────────────────────────────────── */
 .info-banner{background:#c8a96e08;border:1px solid #c8a96e20;border-radius:var(--r);padding:12px 16px;font-size:12.5px;color:var(--txt2);line-height:1.65}
 .info-banner strong{color:var(--acc)}
+.info-banner.green{background:#10b98108;border-color:#10b98120}
+.info-banner.green strong{color:var(--acc3)}
 
-/* ── FORMS ───────────────────────────────────────────────── */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fgrid .full{grid-column:1/-1}
 .fg{display:flex;flex-direction:column;gap:5px}
@@ -137,7 +130,6 @@ tbody tr:hover td{background:#ffffff02}
 .fg textarea{min-height:90px;resize:vertical;line-height:1.5}
 .fg .hint{font-size:10.5px;color:var(--txt3);font-family:'JetBrains Mono',monospace;margin-top:3px;word-break:break-all}
 
-/* ── RICH TEXT EDITOR ────────────────────────────────────── */
 .rte{background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
 .rte:focus-within{border-color:var(--acc)}
 .rte-bar{display:flex;flex-wrap:wrap;gap:2px;padding:7px 8px;border-bottom:1px solid var(--bdr);background:var(--s3)}
@@ -146,7 +138,6 @@ tbody tr:hover td{background:#ffffff02}
 .rte-bar .sep{width:1px;height:18px;background:var(--bdr2);margin:2px 3px;align-self:center}
 .rte-body{padding:14px;min-height:240px;outline:none;font-size:14px;line-height:1.75;color:var(--txt);font-family:'Outfit',sans-serif}
 .rte-body:empty::before{content:attr(data-ph);color:var(--txt3);pointer-events:none}
-/* Styles for rendered content inside the editor */
 .rte-body h2{font-size:1.45em;font-weight:700;margin:1.2em 0 .5em;line-height:1.2;color:var(--txt)}
 .rte-body h3{font-size:1.2em;font-weight:700;margin:1em 0 .4em;line-height:1.2;color:var(--txt)}
 .rte-body p{margin-bottom:1em}
@@ -159,7 +150,6 @@ tbody tr:hover td{background:#ffffff02}
 .rte-body code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--s3);padding:.1em .35em;border-radius:3px;color:var(--acc2)}
 .rte-body hr{border:none;border-top:1px solid var(--bdr);margin:1.5em 0}
 
-/* ── MODALS ──────────────────────────────────────────────── */
 .ov{position:fixed;inset:0;background:#00000090;backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:500;padding:16px}
 .ov.on{display:flex}
 .modal{background:var(--s1);border:1px solid var(--bdr2);border-radius:14px;width:100%;max-width:760px;max-height:92vh;overflow-y:auto;padding:26px;display:flex;flex-direction:column;gap:16px;animation:mshow .2s cubic-bezier(.34,1.4,.64,1)}
@@ -171,7 +161,6 @@ tbody tr:hover td{background:#ffffff02}
 .mclose:hover{background:var(--s3);color:var(--txt)}
 .mftr{display:flex;gap:9px;justify-content:flex-end;padding-top:10px;border-top:1px solid var(--bdr);flex-wrap:wrap;flex-shrink:0}
 
-/* ── CONFIRM ─────────────────────────────────────────────── */
 #conf-ov{position:fixed;inset:0;background:#00000090;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:900}
 #conf-ov.on{display:flex}
 #conf-box{background:var(--s1);border:1px solid var(--bdr2);border-radius:13px;padding:26px;max-width:340px;width:100%;text-align:center;animation:mshow .18s ease}
@@ -179,44 +168,10 @@ tbody tr:hover td{background:#ffffff02}
 #conf-box p{color:var(--txt2);font-size:13px;margin-bottom:20px;line-height:1.5}
 #conf-box .cr{display:flex;gap:9px;justify-content:center}
 
-/* ── SETTINGS ────────────────────────────────────────────── */
 .sett-card{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;padding:20px}
 .sett-card h3{font-size:10.5px;font-weight:800;color:var(--txt3);text-transform:uppercase;letter-spacing:.12em;font-family:'JetBrains Mono',monospace;padding-bottom:13px;border-bottom:1px solid var(--bdr);margin-bottom:16px}
 
-/* ── SYNC PAGE ───────────────────────────────────────────── */
-.sync-card{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px}
-.sync-card h3{font-size:10.5px;font-weight:800;color:var(--txt3);text-transform:uppercase;letter-spacing:.12em;font-family:'JetBrains Mono',monospace;padding-bottom:11px;border-bottom:1px solid var(--bdr)}
-.sync-card p{font-size:13px;color:var(--txt2);line-height:1.65}
-.sync-card code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acc);background:var(--s2);padding:2px 6px;border-radius:3px}
-.sync-btns{display:flex;flex-wrap:wrap;gap:8px}
-.jprev{display:none;background:var(--s2);border:1px solid var(--bdr);border-radius:var(--r);padding:12px;max-height:180px;overflow-y:auto}
-.jprev pre{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt2);white-space:pre-wrap;word-break:break-all}
-.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:7px}
-.kpill{background:var(--s2);border:1px solid var(--bdr);border-radius:7px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.kpill .kn{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--acc);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.kpill .kc{font-size:11px;color:var(--txt3);background:var(--s3);padding:2px 7px;border-radius:99px;flex-shrink:0}
-.steps{display:flex;flex-direction:column;gap:10px}
-.step{display:flex;gap:11px;align-items:flex-start}
-.sn{width:22px;height:22px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0a0700;flex-shrink:0;margin-top:2px}
-.st{font-size:13px;color:var(--txt2);line-height:1.6;padding-top:1px}
-.st strong{color:var(--txt)}
-
-/* ── MEDIA ───────────────────────────────────────────────── */
-.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.mcard{background:var(--s1);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .18s}
-.mcard:hover{border-color:var(--bdr2);transform:translateY(-2px)}
-.mcard img{width:100%;height:100px;object-fit:cover;display:block;background:var(--s2)}
-.mcard .mcf{padding:7px;display:flex;flex-direction:column;gap:4px}
-.mcard .mcn{font-size:10.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mcard .mca{display:flex;gap:3px}
-.dropzone{border:2px dashed var(--bdr2);border-radius:11px;padding:30px;text-align:center;cursor:pointer;transition:all .2s}
-.dropzone:hover,.dropzone.over{border-color:var(--acc);background:#c8a96e05}
-.dropzone .dzi{font-size:32px;margin-bottom:8px}
-.dropzone p{color:var(--txt2);font-size:13.5px}
-.dropzone small{color:var(--txt3);font-size:11px;margin-top:3px;display:block}
-
-/* ── TOAST ───────────────────────────────────────────────── */
-#toast{position:fixed;bottom:20px;right:20px;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);padding:11px 18px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(50px);opacity:0;transition:all .3s cubic-bezier(.34,1.4,.64,1);pointer-events:none;max-width:280px}
+#toast{position:fixed;bottom:20px;right:20px;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);padding:11px 18px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(50px);opacity:0;transition:all .3s cubic-bezier(.34,1.4,.64,1);pointer-events:none;max-width:300px}
 #toast.on{transform:translateY(0);opacity:1}
 #toast.ok{border-left:3px solid var(--acc3)}
 #toast.err{border-left:3px solid var(--danger)}
@@ -225,6 +180,23 @@ tbody tr:hover td{background:#ffffff02}
 .empty-state{padding:44px 20px;text-align:center;color:var(--txt3)}
 .empty-state .ei{font-size:38px;margin-bottom:9px}
 .empty-state p{font-size:13px}
+
+.loading-row td{text-align:center;padding:32px;color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em}
+
+/* ── REORDER ─────────────────────────────────────────────── */
+.reorder-list{display:flex;flex-direction:column;gap:8px}
+.reorder-row{display:grid;grid-template-columns:64px 1fr 80px;gap:14px;align-items:center;background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:13px 16px;transition:border-color .2s}
+.reorder-row:hover{border-color:var(--bdr2)}
+.reorder-pos{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3);display:flex;align-items:center;gap:6px}
+.reorder-pos .cur{font-size:14px;font-weight:700;color:var(--acc)}
+.reorder-info{min-width:0}
+.reorder-title{font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.reorder-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);margin-top:3px}
+.reorder-input{width:100%;background:var(--s2);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;padding:8px 10px;outline:none;transition:border-color .2s;text-align:center}
+.reorder-input:focus{border-color:var(--acc)}
+.reorder-input.changed{border-color:var(--warn);color:var(--warn)}
+.reorder-unsaved{background:#f59e0b10;border:1px solid #f59e0b30;border-radius:var(--r);padding:10px 14px;font-size:12.5px;color:var(--warn);display:none;align-items:center;gap:8px}
+.reorder-unsaved.on{display:flex}
 
 @media(max-width:768px){
   #sb{transform:translateX(-100%)}
@@ -242,7 +214,7 @@ tbody tr:hover td{background:#ffffff02}
 </head>
 <body>
 
-<!-- LOGIN ─────────────────────────────────────────────────── -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-eyebrow">ramsrinivasan.in</div>
@@ -251,32 +223,27 @@ tbody tr:hover td{background:#ffffff02}
     <div class="lerr" id="lerr">Incorrect email or password.</div>
     <div class="lf"><label>Email</label><input id="lem" type="email" placeholder="admin@ramsrinivasan.in" autocomplete="email"/></div>
     <div class="lf"><label>Password</label><input id="lpw" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-    <button class="btn-login" onclick="doLogin()">Sign In →</button>
-    <div class="login-hint">Default: admin@ramsrinivasan.in / Admin@123</div>
+    <button class="btn-login" id="login-btn" onclick="doLogin()">Sign In →</button>
   </div>
 </div>
 
-<!-- APP ─────────────────────────────────────────────────────── -->
+<!-- APP -->
 <div id="app">
-  <!-- Sidebar -->
   <aside id="sb">
     <div class="sb-brand">
       <div class="ey">Admin Panel</div>
       <h1>ramsrinivasan.in</h1>
-      <p>Content Management</p>
+      <p>Cloudflare Powered</p>
     </div>
     <nav class="sb-nav">
       <div class="sb-grp">Overview</div>
       <div class="nli on" data-page="dashboard" onclick="goPage('dashboard')"><span class="ic">📊</span> Dashboard</div>
       <div class="sb-grp">Content</div>
       <div class="nli" data-page="blogs" onclick="goPage('blogs')"><span class="ic">📝</span> Blogs</div>
-      <div class="nli" data-page="monitor" onclick="goPage('monitor')"><span class="ic">📡</span> Monitor</div>
+      <div class="nli" data-page="reorder" onclick="goPage('reorder')"><span class="ic">🔢</span> Reorder</div>
       <div class="sb-grp">Inbox</div>
       <div class="nli" data-page="messages" onclick="goPage('messages')"><span class="ic">💬</span> Messages <span class="bdg" id="msg-bdg"></span></div>
-      <div class="sb-grp">Assets</div>
-      <div class="nli" data-page="media" onclick="goPage('media')"><span class="ic">🖼️</span> Media</div>
       <div class="sb-grp">Config</div>
-      <div class="nli" data-page="sync" onclick="goPage('sync')"><span class="ic">🔄</span> Data Sync</div>
       <div class="nli" data-page="settings" onclick="goPage('settings')"><span class="ic">⚙️</span> Settings</div>
     </nav>
     <div class="sb-foot">
@@ -288,218 +255,143 @@ tbody tr:hover td{background:#ffffff02}
     </div>
   </aside>
 
-  <!-- Topbar -->
   <div id="topbar">
     <button id="hbtn" onclick="document.getElementById('sb').classList.toggle('open')">☰</button>
     <span id="ptitle">Dashboard</span>
     <div class="tb-right">
+      <span class="tb-api" id="api-status">⚡ Cloudflare</span>
       <span class="tb-dot">Live</span>
       <span class="tb-clock" id="clk"></span>
     </div>
   </div>
 
-  <!-- Main scroll area -->
   <div id="main">
 
-    <!-- ═══ DASHBOARD ════════════════════════════════════════ -->
+    <!-- DASHBOARD -->
     <div class="page on" id="page-dashboard">
       <div class="phdr">
         <div class="phdr-t">Overview</div>
         <span id="dash-date" style="font-size:12px;color:var(--txt3)"></span>
       </div>
       <div class="sgrid">
-        <div class="scard ca"><div class="glow"></div><span class="si">📝</span><div class="sl">Blog Posts</div><div class="sv" id="dc-blogs">0</div><div class="ss" id="dc-blogs-s"></div></div>
-        <div class="scard ct"><div class="glow"></div><span class="si">📡</span><div class="sl">Monitor Articles</div><div class="sv" id="dc-arts">0</div><div class="ss" id="dc-arts-s"></div></div>
-        <div class="scard cg"><div class="glow"></div><span class="si">💬</span><div class="sl">Messages</div><div class="sv" id="dc-msgs">0</div><div class="ss" id="dc-msgs-s"></div></div>
-        <div class="scard cp"><div class="glow"></div><span class="si">🖼️</span><div class="sl">Media Files</div><div class="sv" id="dc-media">0</div><div class="ss">Stored locally</div></div>
+        <div class="scard ca"><div class="glow"></div><span class="si">📝</span><div class="sl">Blog Posts</div><div class="sv" id="dc-blogs">—</div><div class="ss" id="dc-blogs-s"></div></div>
+        <div class="scard cg"><div class="glow"></div><span class="si">💬</span><div class="sl">Messages</div><div class="sv" id="dc-msgs">—</div><div class="ss" id="dc-msgs-s"></div></div>
+        <div class="scard ct"><div class="glow"></div><span class="si">⚡</span><div class="sl">API Status</div><div class="sv" style="font-size:18px;color:var(--acc2)" id="dc-api">—</div><div class="ss">Cloudflare Workers</div></div>
       </div>
       <div class="phdr">
         <div class="phdr-t">Recent Posts</div>
         <button class="btn btn-ghost btn-sm" onclick="goPage('blogs')">All posts →</button>
       </div>
       <div class="tbl-wrap">
-        <table><thead><tr><th>Title</th><th>Status</th><th>URL</th><th>Date</th></tr></thead>
-        <tbody id="dash-recent"></tbody></table>
+        <table><thead><tr><th>Title</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody id="dash-recent"><tr class="loading-row"><td colspan="3">Loading…</td></tr></tbody></table>
       </div>
     </div>
 
-    <!-- ═══ BLOGS ════════════════════════════════════════════ -->
+    <!-- BLOGS -->
     <div class="page" id="page-blogs">
       <div class="phdr">
         <div class="phdr-t">Blog Posts</div>
-        <div class="phdr-r">
-          <button class="btn btn-ghost btn-sm" onclick="goPage('sync')">📤 Export JSON</button>
-          <button class="btn btn-acc" onclick="openBlogModal()">+ New Post</button>
-        </div>
+        <button class="btn btn-acc" onclick="openBlogModal()">+ New Post</button>
       </div>
-      <div class="info-banner">
-        <strong>ℹ️ How publishing works:</strong> Posts saved here appear on your blog automatically (same browser/device).
-        After publishing, go to <strong>Data Sync → Export</strong> and commit <code>site-data.json</code> so all visitors on any device can read them.
+      <div class="info-banner green">
+        <strong>✅ Cloudflare powered:</strong> Posts publish instantly for all visitors worldwide — no export or GitHub commit needed.
       </div>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>Title</th><th>Status</th><th>Tags</th><th>Post URL</th><th>Date</th><th>Actions</th></tr></thead>
-          <tbody id="blogs-tbody"></tbody>
+          <tbody id="blogs-tbody"><tr class="loading-row"><td colspan="6">Loading…</td></tr></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ═══ MONITOR ══════════════════════════════════════════ -->
-    <div class="page" id="page-monitor">
-      <div class="phdr"><div class="phdr-t">Sources</div><button class="btn btn-acc" onclick="openSrcModal()">+ Add Source</button></div>
-      <div class="tbl-wrap"><table><thead><tr><th>Name</th><th>URL</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead><tbody id="src-tbody"></tbody></table></div>
-      <div class="phdr"><div class="phdr-t">Articles</div><button class="btn btn-ghost btn-sm" onclick="openArtModal()">+ Add Article</button></div>
-      <div class="tbl-wrap"><table><thead><tr><th>Title</th><th>Source</th><th>Status</th><th>Actions</th></tr></thead><tbody id="art-tbody"></tbody></table></div>
+    <!-- REORDER -->
+    <div class="page" id="page-reorder">
+      <div class="phdr">
+        <div class="phdr-t">Reorder Blog Posts</div>
+        <div class="phdr-r">
+          <button class="btn btn-ghost btn-sm" onclick="loadReorderPage()">↺ Reset</button>
+          <button class="btn btn-acc" id="reorder-save-btn" onclick="saveReorder()">💾 Save Order</button>
+        </div>
+      </div>
+      <div class="info-banner">
+        <strong>ℹ️ How it works:</strong> Type a position number (1 = top) next to each post. Duplicates are allowed — posts with the same number are sorted by date. Hit <strong>Save Order</strong> when done.
+      </div>
+      <div class="reorder-unsaved" id="reorder-unsaved">
+        ⚠️ You have unsaved changes — click Save Order to apply.
+      </div>
+      <div class="reorder-list" id="reorder-list">
+        <div class="empty-state"><div class="ei">📝</div><p>Loading…</p></div>
+      </div>
     </div>
 
-    <!-- ═══ MESSAGES ══════════════════════════════════════════ -->
+    <!-- MESSAGES -->
     <div class="page" id="page-messages">
-      <div class="phdr"><div class="phdr-t">Contact Messages</div><button class="btn btn-ghost btn-sm" onclick="openMsgModal()">+ Add</button></div>
-      <div class="tbl-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Message</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="msg-tbody"></tbody></table></div>
-    </div>
-
-    <!-- ═══ MEDIA ════════════════════════════════════════════ -->
-    <div class="page" id="page-media">
-      <div class="phdr"><div class="phdr-t">Media Manager</div></div>
-      <div class="dropzone" id="dz" onclick="document.getElementById('file-inp').click()"
-           ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleDrop(event)">
-        <div class="dzi">📸</div>
-        <p>Click or drag & drop images here</p>
-        <small>JPG · PNG · GIF · WEBP — max 2MB each</small>
-        <input type="file" id="file-inp" accept="image/*" multiple style="display:none" onchange="uploadFiles(this.files)"/>
-      </div>
-      <div class="mgrid" id="media-grid"></div>
-    </div>
-
-    <!-- ═══ DATA SYNC ════════════════════════════════════════ -->
-    <div class="page" id="page-sync">
-      <div class="phdr"><div class="phdr-t">Data Sync</div></div>
-
-      <div class="sync-card">
-        <h3>📤 Export — Download site-data.json</h3>
-        <p>Exports all your content as <code>site-data.json</code>. Commit this file to your GitHub repo root so visitors on <strong>any device</strong> can read your posts.</p>
-        <div class="sync-btns">
-          <button class="btn btn-acc" onclick="doExport()">⬇️ Download site-data.json</button>
-          <button class="btn btn-ghost btn-sm" onclick="togglePreview()">👁 Preview JSON</button>
-        </div>
-        <div class="jprev" id="jprev"><pre id="jpre"></pre></div>
-      </div>
-
-      <div class="sync-card">
-        <h3>📥 Import — Merge from JSON</h3>
-        <p>Import a previously exported file. <strong style="color:var(--acc3)">Merge-safe:</strong> New posts are added; nothing existing is ever deleted or overwritten.</p>
-        <div class="sync-btns">
-          <button class="btn btn-green" onclick="document.getElementById('imp-file').click()">⬆️ Import & Merge</button>
-          <input type="file" id="imp-file" accept=".json" style="display:none" onchange="doImport(this)"/>
-        </div>
-      </div>
-
-      <div class="sync-card">
-        <h3>🗄️ What's Stored Right Now</h3>
-        <div class="kgrid" id="kgrid"></div>
-      </div>
-
-      <div class="sync-card">
-        <h3>📋 The Full Flow — Step by Step</h3>
-        <div class="steps">
-          <div class="step"><div class="sn">1</div><div class="st"><strong>Write in admin → Publish.</strong> Post saved to localStorage as <code>rs_blogs</code>.</div></div>
-          <div class="step"><div class="sn">2</div><div class="st"><strong>Blog index auto-updates</strong> on the same device. New posts appear at the top immediately.</div></div>
-          <div class="step"><div class="sn">3</div><div class="st"><strong>Clicking a post</strong> opens <code>/blog/post.html?slug=your-slug</code> and renders the full rich content with all your H2/H3 headings.</div></div>
-          <div class="step"><div class="sn">4</div><div class="st"><strong>Export → commit site-data.json</strong> to GitHub after publishing. All visitors on any device will then see the post.</div></div>
-          <div class="step"><div class="sn">5</div><div class="st"><strong>Old posts are never deleted.</strong> Both the blog index and post reader merge localStorage + site-data.json, so every post from both sources always shows up.</div></div>
-        </div>
+      <div class="phdr"><div class="phdr-t">Messages & Subscribers</div></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Message</th><th>Type</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="msg-tbody"><tr class="loading-row"><td colspan="7">Loading…</td></tr></tbody>
+        </table>
       </div>
     </div>
 
-    <!-- ═══ SETTINGS ══════════════════════════════════════════ -->
+    <!-- SETTINGS -->
     <div class="page" id="page-settings">
       <div class="phdr"><div class="phdr-t">Settings</div></div>
-      <div class="sett-card"><h3>General</h3>
+      <div class="sett-card"><h3>API Configuration</h3>
         <div class="fgrid">
-          <div class="fg"><label>Website Title</label><input id="s-wt" type="text" placeholder="Ram Srinivasan"/></div>
-          <div class="fg"><label>Contact Email</label><input id="s-ce" type="email" placeholder="contact@ramsrinivasan.in"/></div>
-          <div class="fg full"><label>Meta Description</label><textarea id="s-md" placeholder="Short SEO description…"></textarea></div>
-          <div class="fg full"><label>Footer Text</label><input id="s-ft" type="text"/></div>
+          <div class="fg full"><label>Worker API URL</label>
+            <input id="s-api" type="url" placeholder="https://ramsrinivasan-api.YOUR-SUBDOMAIN.workers.dev"/>
+            <div class="hint">Your Cloudflare Worker URL. Found in Cloudflare dashboard → Workers.</div>
+          </div>
         </div>
+        <br/>
+        <button class="btn btn-acc" onclick="saveApiUrl()">💾 Save API URL</button>
       </div>
-      <div class="sett-card"><h3>Social Links</h3>
-        <div class="fgrid">
-          <div class="fg"><label>Twitter / X</label><input id="s-tw" type="url" placeholder="https://x.com/…"/></div>
-          <div class="fg"><label>LinkedIn</label><input id="s-li" type="url" placeholder="https://linkedin.com/in/…"/></div>
-          <div class="fg"><label>GitHub</label><input id="s-gh" type="url" placeholder="https://github.com/…"/></div>
-          <div class="fg"><label>Instagram</label><input id="s-ig" type="url" placeholder="https://instagram.com/…"/></div>
-        </div>
-      </div>
-      <div class="sett-card"><h3>Admin Credentials</h3>
-        <div class="fgrid">
-          <div class="fg"><label>Email</label><input id="s-ae" type="email"/></div>
-          <div class="fg"><label>New Password</label><input id="s-ap" type="password" placeholder="Leave blank to keep current"/></div>
-        </div>
-      </div>
-      <button class="btn btn-acc" onclick="saveSettings()">💾 Save Settings</button>
     </div>
 
-  </div><!-- /main -->
-</div><!-- /app -->
+  </div>
+</div>
 
-<!-- ═══ BLOG MODAL ═══════════════════════════════════════════ -->
+<!-- BLOG MODAL -->
 <div class="ov" id="blog-modal">
   <div class="modal">
     <div class="mhdr"><h3 id="blog-modal-title">New Blog Post</h3><button class="mclose" onclick="closeOv('blog-modal')">✕</button></div>
     <div class="fgrid">
-      <div class="fg full">
-        <label>Title *</label>
-        <input id="b-title" type="text" placeholder="Your post title…" oninput="autoSlug()"/>
-      </div>
-      <div class="fg full">
-        <label>Description * <span style="color:var(--txt3);font-weight:400;font-size:10px">(shown in blog list)</span></label>
-        <input id="b-desc" type="text" placeholder="One-sentence summary…"/>
-      </div>
-      <div class="fg">
-        <label>Tags <span style="color:var(--txt3);font-weight:400;font-size:10px">(comma-separated)</span></label>
-        <input id="b-tags" type="text" placeholder="Essay, Automation, Career"/>
-      </div>
-      <div class="fg">
-        <label>Featured Image URL <span style="color:var(--txt3);font-weight:400;font-size:10px">(optional)</span></label>
-        <input id="b-img" type="text" placeholder="/uploads/cover.jpg"/>
-      </div>
-      <div class="fg">
-        <label>Slug <span style="color:var(--txt3);font-weight:400;font-size:10px">(auto from title)</span></label>
-        <input id="b-slug" type="text" placeholder="auto-generated" oninput="updateUrlPreview()"/>
-        <div class="hint" id="slug-hint"></div>
-      </div>
-      <div class="fg">
-        <label>Publish Date</label>
-        <input id="b-date" type="date"/>
-      </div>
-      <div class="fg full">
-        <label>Status</label>
+      <div class="fg full"><label>Title *</label><input id="b-title" type="text" placeholder="Your post title…" oninput="autoSlug()"/></div>
+      <div class="fg full"><label>Description *</label><input id="b-desc" type="text" placeholder="One-sentence summary…"/></div>
+      <div class="fg"><label>Tags (comma-separated)</label><input id="b-tags" type="text" placeholder="Essay, Automation"/></div>
+      <div class="fg"><label>Featured Image URL</label><input id="b-img" type="text" placeholder="/uploads/cover.jpg"/></div>
+      <div class="fg"><label>Slug</label><input id="b-slug" type="text" oninput="updateUrlPreview()"/><div class="hint" id="slug-hint"></div></div>
+      <div class="fg"><label>Publish Date</label><input id="b-date" type="date"/></div>
+      <div class="fg full"><label>Status</label>
         <select id="b-status">
-          <option value="draft">Draft — not visible on site</option>
-          <option value="published">Published — live on site</option>
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
         </select>
       </div>
       <div class="fg full">
-        <label>Content * <span style="color:var(--txt3);font-weight:400;font-size:10px">(use H2/H3 for section headings)</span></label>
+        <label>Content *</label>
         <div class="rte">
           <div class="rte-bar">
-            <button onclick="fe('bold')" title="Bold"><b>B</b></button>
-            <button onclick="fe('italic')" title="Italic"><i>I</i></button>
-            <button onclick="fe('underline')" title="Underline"><u>U</u></button>
-            <button onclick="fe('strikeThrough')" title="Strike"><s>S</s></button>
+            <button onclick="fe('bold')"><b>B</b></button>
+            <button onclick="fe('italic')"><i>I</i></button>
+            <button onclick="fe('underline')"><u>U</u></button>
+            <button onclick="fe('strikeThrough')"><s>S</s></button>
             <div class="sep"></div>
-            <button onclick="fe('formatBlock','h2')" title="Heading 2" style="font-weight:700">H2</button>
-            <button onclick="fe('formatBlock','h3')" title="Heading 3" style="font-weight:700">H3</button>
-            <button onclick="fe('formatBlock','p')" title="Paragraph">¶</button>
+            <button onclick="fe('formatBlock','h2')" style="font-weight:700">H2</button>
+            <button onclick="fe('formatBlock','h3')" style="font-weight:700">H3</button>
+            <button onclick="fe('formatBlock','p')">¶</button>
             <div class="sep"></div>
-            <button onclick="fe('insertUnorderedList')" title="Bullet list">• List</button>
-            <button onclick="fe('insertOrderedList')" title="Numbered list">1. List</button>
+            <button onclick="fe('insertUnorderedList')">• List</button>
+            <button onclick="fe('insertOrderedList')">1. List</button>
             <div class="sep"></div>
-            <button onclick="fe('insertHorizontalRule')" title="Horizontal rule">─</button>
-            <button onclick="fe('formatBlock','blockquote')" title="Blockquote">❝</button>
-            <button onclick="doLink()" title="Insert link">🔗</button>
+            <button onclick="fe('insertHorizontalRule')">─</button>
+            <button onclick="fe('formatBlock','blockquote')">❝</button>
+            <button onclick="doLink()">🔗</button>
           </div>
-          <div class="rte-body" id="b-content" contenteditable="true" data-ph="Write your post content here…&#10;&#10;Use H2 for main sections, H3 for sub-sections."></div>
+          <div class="rte-body" id="b-content" contenteditable="true" data-ph="Write your post content here…"></div>
         </div>
       </div>
     </div>
@@ -511,49 +403,7 @@ tbody tr:hover td{background:#ffffff02}
   </div>
 </div>
 
-<!-- ═══ SOURCE MODAL ══════════════════════════════════════════ -->
-<div class="ov" id="src-modal">
-  <div class="modal sm">
-    <div class="mhdr"><h3 id="src-modal-title">Add Source</h3><button class="mclose" onclick="closeOv('src-modal')">✕</button></div>
-    <div class="fgrid">
-      <div class="fg"><label>Name *</label><input id="sn-name" type="text" placeholder="TechCrunch"/></div>
-      <div class="fg"><label>URL *</label><input id="sn-url" type="url" placeholder="https://techcrunch.com"/></div>
-      <div class="fg"><label>Category</label><input id="sn-cat" type="text" placeholder="Technology"/></div>
-      <div class="fg"><label>Status</label><select id="sn-status"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
-    </div>
-    <div class="mftr"><button class="btn btn-ghost" onclick="closeOv('src-modal')">Cancel</button><button class="btn btn-acc" onclick="saveSrc()">Save</button></div>
-  </div>
-</div>
-
-<!-- ═══ ARTICLE MODAL ═════════════════════════════════════════ -->
-<div class="ov" id="art-modal">
-  <div class="modal sm">
-    <div class="mhdr"><h3>Add Article</h3><button class="mclose" onclick="closeOv('art-modal')">✕</button></div>
-    <div class="fgrid">
-      <div class="fg full"><label>Title *</label><input id="an-title" type="text" placeholder="Article headline…"/></div>
-      <div class="fg full"><label>URL *</label><input id="an-url" type="url" placeholder="https://…"/></div>
-      <div class="fg"><label>Source Name</label><input id="an-src" type="text" placeholder="TechCrunch"/></div>
-      <div class="fg"><label>Status</label><select id="an-status"><option value="pending">Pending</option><option value="approved">Approved</option><option value="removed">Removed</option></select></div>
-      <div class="fg full"><label>Summary</label><textarea id="an-summary" placeholder="Brief summary…"></textarea></div>
-    </div>
-    <div class="mftr"><button class="btn btn-ghost" onclick="closeOv('art-modal')">Cancel</button><button class="btn btn-acc" onclick="saveArt()">Add Article</button></div>
-  </div>
-</div>
-
-<!-- ═══ MESSAGE MODAL ════════════════════════════════════════ -->
-<div class="ov" id="msg-modal">
-  <div class="modal sm">
-    <div class="mhdr"><h3>Add Message</h3><button class="mclose" onclick="closeOv('msg-modal')">✕</button></div>
-    <div class="fgrid">
-      <div class="fg"><label>Name *</label><input id="mn-name" type="text" placeholder="John Doe"/></div>
-      <div class="fg"><label>Email *</label><input id="mn-email" type="email" placeholder="john@example.com"/></div>
-      <div class="fg full"><label>Message *</label><textarea id="mn-msg" placeholder="Message content…"></textarea></div>
-    </div>
-    <div class="mftr"><button class="btn btn-ghost" onclick="closeOv('msg-modal')">Cancel</button><button class="btn btn-acc" onclick="saveMsg()">Save</button></div>
-  </div>
-</div>
-
-<!-- ═══ CONFIRM ══════════════════════════════════════════════ -->
+<!-- CONFIRM -->
 <div id="conf-ov"><div id="conf-box">
   <h3 id="conf-title">Delete?</h3>
   <p id="conf-body">This cannot be undone.</p>
@@ -567,107 +417,89 @@ tbody tr:hover td{background:#ffffff02}
 
 <script>
 'use strict';
-/* ═══════════════════════════════════════════════════════════
-   DATA LAYER  —  all keys prefixed rs_
-═══════════════════════════════════════════════════════════ */
-const DB = {
-  get(k)  { try { return JSON.parse(localStorage.getItem('rs_' + k)) } catch { return null } },
-  set(k,v){ localStorage.setItem('rs_' + k, JSON.stringify(v)) },
-  del(k)  { localStorage.removeItem('rs_' + k) }
-};
 
-const getBlogs    = () => DB.get('blogs')    || [];
-const getSources  = () => DB.get('sources')  || [];
-const getArticles = () => DB.get('articles') || [];
-const getMessages = () => DB.get('messages') || [];
-const getMedia    = () => DB.get('media')    || [];
-const getSettings = () => DB.get('settings') || { websiteTitle:'Ram Srinivasan', contactEmail:'contact@ramsrinivasan.in', metaDescription:'', footerText:'© 2026 Ram Srinivasan. All rights reserved.', social:{} };
-const getCreds    = () => DB.get('creds')    || { email:'admin@ramsrinivasan.in', password:'Admin@123' };
-
-const uid  = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
-const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const fd   = d => d ? new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '—';
-const makeSlug = t => t.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
-
-/* ── Seed legacy posts — runs once, never overwrites ── */
-const LEGACY_POSTS = [
-  { id:'leg-1', title:'What Made Me Create This Page?',                slug:'what-made-me-create-this-page',     description:'A small step toward building in public — documenting systems, automation, and the mindset behind solving operational problems.', content:'<h2>The Beginning</h2><p>This is where the full content lives. Open this post in the admin and paste your real article content here.</p><h2>Why I Started</h2><p>Edit this post from the admin panel Blogs section → click the ✏️ Edit button.</p>', tags:['Essay','Personal'],  featuredImage:'', status:'published', publishDate:'2026-03-01', createdAt:'2026-03-01T00:00:00.000Z', updatedAt:'2026-03-01T00:00:00.000Z', customUrl:'https://ramsrinivasan.in/blog/what-made-me-create-this-page.html' },
-  { id:'leg-2', title:'Why? — Is This Question Necessary?',             slug:'why-is-this-question-necessary',    description:'Questioning the questions we ask ourselves.',                                                                                    content:'<h2>The Question</h2><p>Full content coming soon. Edit this post from the admin panel.</p>',                                                                                                                                tags:['Opinion','Mindset'],  featuredImage:'', status:'published', publishDate:'2026-03-02', createdAt:'2026-03-02T00:00:00.000Z', updatedAt:'2026-03-02T00:00:00.000Z' },
-  { id:'leg-3', title:'From Operations to Systems Thinking',            slug:'from-operations-to-systems-thinking',description:'How supply chain shaped the way I see every problem.',                                                                         content:'<h2>The Shift</h2><p>Full content coming soon. Edit this post from the admin panel.</p>',                                                                                                                                       tags:['Essay','Systems'],    featuredImage:'', status:'published', publishDate:'2026-03-03', createdAt:'2026-03-03T00:00:00.000Z', updatedAt:'2026-03-03T00:00:00.000Z' },
-  { id:'leg-4', title:'Building Tools Instead of Complaining About Problems', slug:'building-tools-not-complaining',description:'A mindset shift that changed how I work.',                                                                               content:'<h2>The Problem</h2><p>Full content coming soon. Edit this post from the admin panel.</p>',                                                                                                                                     tags:['Automation'],         featuredImage:'', status:'published', publishDate:'2026-03-04', createdAt:'2026-03-04T00:00:00.000Z', updatedAt:'2026-03-04T00:00:00.000Z' },
-  { id:'leg-5', title:'Learning in Public: Why I Chose to Share My Work', slug:'learning-in-public',              description:'The scary and worthwhile decision to document progress openly.',                                                                content:'<h2>Going Public</h2><p>Full content coming soon. Edit this post from the admin panel.</p>',                                                                                                                                    tags:['Career'],             featuredImage:'', status:'published', publishDate:'2026-03-05', createdAt:'2026-03-05T00:00:00.000Z', updatedAt:'2026-03-05T00:00:00.000Z' },
-];
-
-function seedLegacy() {
-  const cur  = getBlogs();
-  const ids  = new Set(cur.map(b => b.id));
-  const slugs = new Set(cur.map(b => b.slug));
-  const toAdd = LEGACY_POSTS.filter(l => !ids.has(l.id) && !slugs.has(l.slug));
-  if (toAdd.length) DB.set('blogs', [...cur, ...toAdd]);
+// ── API CONFIG ────────────────────────────────────────────────────────────
+// Stored in localStorage so you can change it from Settings page
+function getApiUrl() {
+  return localStorage.getItem('rs_api_url') || 'https://ramsrinivasan-api.YOUR-SUBDOMAIN.workers.dev';
 }
 
-/* ═══════════════════════════════════════════════════════════
-   AUTH
-═══════════════════════════════════════════════════════════ */
-let currentUser = null;
-let editingId   = null;
+let authToken = null;
 
-function doLogin() {
+async function apiFetch(path, opts = {}) {
+  const url = getApiUrl() + path;
+  const headers = { 'Content-Type': 'application/json' };
+  if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+  const res = await fetch(url, { ...opts, headers: { ...headers, ...(opts.headers || {}) } });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────
+async function doLogin() {
   const email = document.getElementById('lem').value.trim();
   const pass  = document.getElementById('lpw').value;
-  const creds = getCreds();
-  if (email === creds.email && pass === creds.password) {
-    currentUser = { email };
-    DB.set('session', { email, ts: Date.now() });
+  const btn   = document.getElementById('login-btn');
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+  try {
+    const data = await apiFetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password: pass })
+    });
+    authToken = data.token;
+    localStorage.setItem('rs_token', authToken);
+    localStorage.setItem('rs_email', email);
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
-    bootApp();
-  } else {
+    bootApp(email);
+  } catch(e) {
     const el = document.getElementById('lerr');
+    el.textContent = e.message || 'Incorrect email or password.';
     el.style.display = 'block';
     setTimeout(() => el.style.display = 'none', 3200);
   }
+  btn.disabled = false;
+  btn.textContent = 'Sign In →';
 }
 
 function doLogout() {
-  DB.del('session');
-  currentUser = null;
+  authToken = null;
+  localStorage.removeItem('rs_token');
+  localStorage.removeItem('rs_email');
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('lem').value = '';
   document.getElementById('lpw').value = '';
 }
 
-// Auto-login from saved session
+// Auto-login from saved token
 (function() {
-  const s = DB.get('session');
-  if (s && s.ts && Date.now() - s.ts < 7 * 86400000) {
-    currentUser = { email: s.email };
+  const t = localStorage.getItem('rs_token');
+  const e = localStorage.getItem('rs_email');
+  if (t && e) {
+    authToken = t;
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
-    setTimeout(bootApp, 0);
+    setTimeout(() => bootApp(e), 0);
   }
 })();
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT
-═══════════════════════════════════════════════════════════ */
-function bootApp() {
-  seedLegacy();
-  const c = getCreds();
-  document.getElementById('sb-av').textContent    = (c.email[0] || 'R').toUpperCase();
-  document.getElementById('sb-email').textContent = c.email;
-  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+// ── BOOT ──────────────────────────────────────────────────────────────────
+function bootApp(email) {
+  document.getElementById('sb-av').textContent    = (email[0] || 'R').toUpperCase();
+  document.getElementById('sb-email').textContent = email;
+  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('s-api').value = getApiUrl();
   setInterval(() => {
-    document.getElementById('clk').textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('clk').textContent = new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
   }, 1000);
   goPage('dashboard');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════════════════════ */
-const PAGE_TITLES = { dashboard:'Dashboard', blogs:'Blog Posts', monitor:'Monitor', messages:'Messages', media:'Media', sync:'Data Sync', settings:'Settings' };
+// ── NAVIGATION ────────────────────────────────────────────────────────────
+const PAGE_TITLES = { dashboard:'Dashboard', blogs:'Blog Posts', reorder:'Reorder Posts', messages:'Messages', settings:'Settings' };
 
 function goPage(p) {
   document.querySelectorAll('.nli').forEach(n => n.classList.remove('on'));
@@ -677,75 +509,84 @@ function goPage(p) {
   document.getElementById('page-' + p).classList.add('on');
   document.getElementById('ptitle').textContent = PAGE_TITLES[p] || p;
   if (window.innerWidth <= 768) document.getElementById('sb').classList.remove('open');
-  const loaders = { dashboard:loadDash, blogs:loadBlogsPage, monitor:loadMonitor, messages:loadMessages, media:loadMedia, sync:loadSync, settings:loadSettingsPage };
+  const loaders = { dashboard:loadDash, blogs:loadBlogsPage, reorder:loadReorderPage, messages:loadMessages, settings:loadSettingsPage };
   loaders[p]?.();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════════════════════ */
+// ── HELPERS ───────────────────────────────────────────────────────────────
+const esc  = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fd   = d => d ? new Date(d).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }) : '—';
+const uid  = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const makeSlug = t => t.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+
 function sbadge(s) {
-  const map = { published:'bg', draft:'by', approved:'bg', pending:'by', removed:'br', active:'bg', inactive:'bk', unread:'bb', read:'bk' };
+  const map = { published:'bg', draft:'by', unread:'bb', read:'bk', contact:'bt', subscribe:'bg' };
   return `<span class="badge ${map[s]||'bk'}">${s}</span>`;
 }
 
-// Build the URL for a post
 function postUrl(p) {
   if (p.customUrl && p.customUrl !== '#') return p.customUrl;
-  return `/blog/post.html?slug=${encodeURIComponent(p.slug)}`;
+  return `https://ramsrinivasan.github.io/ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(p.slug)}`;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   DASHBOARD
-═══════════════════════════════════════════════════════════ */
-function loadDash() {
-  const B = getBlogs(), A = getArticles(), M = getMessages(), Med = getMedia();
-  const pub   = B.filter(b => b.status === 'published').length;
-  const draft = B.filter(b => b.status === 'draft').length;
-  const unread = M.filter(m => m.status === 'unread').length;
-  const appr  = A.filter(a => a.status === 'approved').length;
-  const pend  = A.filter(a => a.status === 'pending').length;
-
-  setText('dc-blogs',   B.length);
-  setText('dc-blogs-s', `${pub} published · ${draft} drafts`);
-  setText('dc-arts',    A.length);
-  setText('dc-arts-s',  `${appr} approved · ${pend} pending`);
-  setText('dc-msgs',    M.length);
-  setText('dc-msgs-s',  `${unread} unread`);
-  setText('dc-media',   Med.length);
-
-  refreshMsgBadge(unread);
-
-  const recent = [...B].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,5);
-  document.getElementById('dash-recent').innerHTML = recent.length
-    ? recent.map(b => `<tr>
-        <td><div class="td-main">${esc(b.title)}</div></td>
-        <td>${sbadge(b.status)}</td>
-        <td><a class="td-url" href="${postUrl(b)}" target="_blank">${postUrl(b)}</a></td>
-        <td class="td-mono">${fd(b.publishDate || b.createdAt)}</td>
-      </tr>`).join('')
-    : `<tr><td colspan="4"><div class="empty-state"><p>No posts yet</p></div></td></tr>`;
-}
-
-function setText(id, v) { document.getElementById(id).textContent = v; }
 function refreshMsgBadge(n) {
   const el = document.getElementById('msg-bdg');
   if (n > 0) { el.textContent = n; el.style.display = 'block'; }
   else el.style.display = 'none';
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BLOGS
-═══════════════════════════════════════════════════════════ */
-function loadBlogsPage() {
-  const blogs = getBlogs();
+// ── DASHBOARD ─────────────────────────────────────────────────────────────
+async function loadDash() {
+  document.getElementById('dc-api').textContent = '✓ Online';
+  try {
+    const [blogs, msgs] = await Promise.all([
+      apiFetch('/api/admin/blogs'),
+      apiFetch('/api/admin/messages')
+    ]);
+    const pub   = blogs.filter(b => b.status === 'published').length;
+    const draft = blogs.filter(b => b.status === 'draft').length;
+    const unread = msgs.filter(m => m.status === 'unread').length;
+    document.getElementById('dc-blogs').textContent   = blogs.length;
+    document.getElementById('dc-blogs-s').textContent = `${pub} published · ${draft} drafts`;
+    document.getElementById('dc-msgs').textContent    = msgs.length;
+    document.getElementById('dc-msgs-s').textContent  = `${unread} unread`;
+    refreshMsgBadge(unread);
+
+    const recent = [...blogs].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,5);
+    document.getElementById('dash-recent').innerHTML = recent.length
+      ? recent.map(b => `<tr>
+          <td><div class="td-main">${esc(b.title)}</div></td>
+          <td>${sbadge(b.status)}</td>
+          <td class="td-mono">${fd(b.publishDate || b.createdAt)}</td>
+        </tr>`).join('')
+      : `<tr><td colspan="3"><div class="empty-state"><p>No posts yet</p></div></td></tr>`;
+  } catch(e) {
+    document.getElementById('dc-api').textContent = '✗ Offline';
+    toast('API error: ' + e.message, 'err');
+  }
+}
+
+// ── BLOGS ─────────────────────────────────────────────────────────────────
+let allBlogs = [];
+let editingId = null;
+
+async function loadBlogsPage() {
+  document.getElementById('blogs-tbody').innerHTML = '<tr class="loading-row"><td colspan="6">Loading…</td></tr>';
+  try {
+    allBlogs = await apiFetch('/api/admin/blogs');
+    renderBlogsTable(allBlogs);
+  } catch(e) {
+    toast('Failed to load blogs: ' + e.message, 'err');
+  }
+}
+
+function renderBlogsTable(blogs) {
   const tb = document.getElementById('blogs-tbody');
   if (!blogs.length) {
-    tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="ei">📝</div><p>No posts yet. Click + New Post to start writing.</p></div></td></tr>';
+    tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="ei">📝</div><p>No posts yet.</p></div></td></tr>';
     return;
   }
-  const sorted = [...blogs].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-  tb.innerHTML = sorted.map(b => {
+  tb.innerHTML = blogs.map(b => {
     const tags = (b.tags||[]).slice(0,3).map(t => `<span class="badge bt" style="font-size:9.5px;margin:1px">${esc(t)}</span>`).join('');
     return `<tr>
       <td>
@@ -768,9 +609,8 @@ function openBlogModal(id) {
   editingId = id || null;
   document.getElementById('blog-modal-title').textContent = id ? 'Edit Blog Post' : 'New Blog Post';
   const today = new Date().toISOString().split('T')[0];
-
   if (id) {
-    const b = getBlogs().find(x => x.id === id);
+    const b = allBlogs.find(x => x.id === id);
     if (!b) return;
     document.getElementById('b-title').value   = b.title || '';
     document.getElementById('b-desc').value    = b.description || '';
@@ -791,7 +631,6 @@ function openBlogModal(id) {
 }
 
 function autoSlug() {
-  // Only auto-fill if creating new, or slug field is still empty
   const slugField = document.getElementById('b-slug');
   if (!editingId || !slugField.value) {
     slugField.value = makeSlug(document.getElementById('b-title').value);
@@ -801,63 +640,55 @@ function autoSlug() {
 
 function updateUrlPreview() {
   const s = document.getElementById('b-slug').value || makeSlug(document.getElementById('b-title').value || '');
-  const hint = document.getElementById('slug-hint');
-  hint.textContent = s ? `→ /blog/post.html?slug=${s}` : '';
+  document.getElementById('slug-hint').textContent = s ? `→ /blog/post.html?slug=${s}` : '';
 }
 
-function saveBlog(forceStatus) {
+async function saveBlog(forceStatus) {
   const title   = document.getElementById('b-title').value.trim();
   const content = document.getElementById('b-content').innerHTML.trim();
-
   if (!title)   { toast('Title is required', 'err'); return; }
   if (!content || content === '<br>') { toast('Content cannot be empty', 'err'); return; }
 
-  const status  = forceStatus || document.getElementById('b-status').value;
-  const rawSlug = document.getElementById('b-slug').value.trim();
+  const status   = forceStatus || document.getElementById('b-status').value;
+  const rawSlug  = document.getElementById('b-slug').value.trim();
   const postSlug = rawSlug || makeSlug(title);
-  const now = new Date().toISOString();
-  const existing = editingId ? getBlogs().find(b => b.id === editingId) : null;
-
-  // Slug uniqueness check for new posts
-  if (!editingId) {
-    const taken = getBlogs().find(b => b.slug === postSlug);
-    if (taken) { toast('A post with this slug already exists — change the title or slug.', 'err'); return; }
-  }
-
-  const post = {
-    id:           editingId || uid(),
+  const payload  = {
     title,
-    slug:         postSlug,
-    description:  document.getElementById('b-desc').value.trim(),
+    slug:          postSlug,
+    description:   document.getElementById('b-desc').value.trim(),
     content,
-    tags:         document.getElementById('b-tags').value.split(',').map(t => t.trim()).filter(Boolean),
-    featuredImage:document.getElementById('b-img').value.trim(),
+    tags:          document.getElementById('b-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    featuredImage: document.getElementById('b-img').value.trim(),
     status,
-    publishDate:  status === 'published' ? (document.getElementById('b-date').value || now) : null,
-    createdAt:    existing ? existing.createdAt : now,
-    updatedAt:    now,
-    customUrl:    existing ? (existing.customUrl || '') : ''
+    publishDate:   status === 'published' ? (document.getElementById('b-date').value || new Date().toISOString()) : null,
   };
 
-  const blogs = getBlogs();
-  if (editingId) {
-    const i = blogs.findIndex(b => b.id === editingId);
-    if (i >= 0) blogs[i] = post;
-  } else {
-    blogs.push(post);
+  // Disable buttons while saving
+  document.querySelectorAll('.mftr .btn').forEach(b => b.disabled = true);
+  try {
+    if (editingId) {
+      await apiFetch(`/api/blogs/${editingId}`, { method:'PUT', body:JSON.stringify(payload) });
+    } else {
+      await apiFetch('/api/blogs', { method:'POST', body:JSON.stringify(payload) });
+    }
+    closeOv('blog-modal');
+    await loadBlogsPage();
+    await loadDash();
+    toast(editingId ? 'Post updated! ✓' : (status==='published' ? '🚀 Published! Live for all visitors.' : 'Draft saved! ✓'), 'ok');
+    editingId = null;
+  } catch(e) {
+    toast('Save failed: ' + e.message, 'err');
   }
-
-  DB.set('blogs', blogs);
-  closeOv('blog-modal');
-  loadBlogsPage();
-  loadDash();
-  toast(editingId ? 'Post updated! ✓' : (status === 'published' ? 'Post published! ✓' : 'Draft saved! ✓'), 'ok');
-  editingId = null;
+  document.querySelectorAll('.mftr .btn').forEach(b => b.disabled = false);
 }
 
-function deleteBlog(id) {
-  DB.set('blogs', getBlogs().filter(b => b.id !== id));
-  loadBlogsPage(); loadDash(); toast('Post deleted', 'info');
+async function deleteBlog(id) {
+  try {
+    await apiFetch(`/api/blogs/${id}`, { method:'DELETE' });
+    await loadBlogsPage();
+    await loadDash();
+    toast('Post deleted', 'info');
+  } catch(e) { toast('Delete failed: ' + e.message, 'err'); }
 }
 
 function fe(cmd, val) {
@@ -869,345 +700,205 @@ function doLink() {
   if (url) fe('createLink', url);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MONITOR — SOURCES
-═══════════════════════════════════════════════════════════ */
-function loadMonitor() { loadSources(); loadArticles(); }
+// ── REORDER ───────────────────────────────────────────────────────────────
+let reorderData = []; // { id, title, status, publishDate, sortOrder, newOrder }
 
-function loadSources() {
-  const src = getSources();
-  const tb = document.getElementById('src-tbody');
-  if (!src.length) { tb.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="ei">📡</div><p>No sources yet</p></div></td></tr>'; return; }
-  tb.innerHTML = [...src].reverse().map(s => `<tr>
-    <td class="td-main">${esc(s.name)}</td>
-    <td><a class="td-url" href="${esc(s.url)}" target="_blank">${esc(s.url)}</a></td>
-    <td><span class="badge bb">${esc(s.category||'—')}</span></td>
-    <td>${sbadge(s.status)}</td>
-    <td><div class="ar">
-      <button class="btn btn-ghost btn-sm" onclick="openSrcModal('${s.id}')">✏️</button>
-      <button class="btn btn-red btn-sm" onclick="askDelete('source','${s.id}')">🗑️</button>
-    </div></td>
-  </tr>`).join('');
-}
-
-function openSrcModal(id) {
-  editingId = id || null;
-  document.getElementById('src-modal-title').textContent = id ? 'Edit Source' : 'Add Source';
-  if (id) {
-    const s = getSources().find(x => x.id === id);
-    if (!s) return;
-    document.getElementById('sn-name').value   = s.name||'';
-    document.getElementById('sn-url').value    = s.url||'';
-    document.getElementById('sn-cat').value    = s.category||'';
-    document.getElementById('sn-status').value = s.status||'active';
-  } else {
-    ['sn-name','sn-url','sn-cat'].forEach(i => document.getElementById(i).value = '');
-    document.getElementById('sn-status').value = 'active';
+async function loadReorderPage() {
+  const list = document.getElementById('reorder-list');
+  list.innerHTML = '<div class="empty-state"><div class="ei">📝</div><p>Loading…</p></div>';
+  document.getElementById('reorder-unsaved').classList.remove('on');
+  try {
+    const blogs = await apiFetch('/api/admin/blogs');
+    // Sort by current sort_order, then date
+    reorderData = blogs
+      .sort((a, b) => {
+        if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+        return new Date(b.publishDate || b.createdAt) - new Date(a.publishDate || a.createdAt);
+      })
+      .map((b, i) => ({
+        id:          b.id,
+        title:       b.title,
+        status:      b.status,
+        publishDate: b.publishDate || b.createdAt,
+        sortOrder:   b.sortOrder || (i + 1),
+        newOrder:    b.sortOrder || (i + 1),
+      }));
+    renderReorderList();
+  } catch(e) {
+    list.innerHTML = `<div class="empty-state"><p>Failed to load: ${e.message}</p></div>`;
   }
-  openOv('src-modal');
 }
 
-function saveSrc() {
-  const name = document.getElementById('sn-name').value.trim();
-  const url  = document.getElementById('sn-url').value.trim();
-  if (!name||!url) { toast('Name and URL required','err'); return; }
-  const rec = { id:editingId||uid(), name, url, category:document.getElementById('sn-cat').value.trim(), status:document.getElementById('sn-status').value, createdAt: editingId?(getSources().find(s=>s.id===editingId)||{}).createdAt||new Date().toISOString() : new Date().toISOString() };
-  const arr = getSources();
-  if (editingId) { const i=arr.findIndex(s=>s.id===editingId); if(i>=0)arr[i]=rec; } else arr.push(rec);
-  DB.set('sources',arr); closeOv('src-modal'); loadSources(); toast(editingId?'Updated!':'Added!','ok'); editingId=null;
-}
-function deleteSource(id) { DB.set('sources',getSources().filter(s=>s.id!==id)); loadSources(); toast('Deleted','info'); }
-
-/* ARTICLES */
-function loadArticles() {
-  const arts = getArticles();
-  const tb = document.getElementById('art-tbody');
-  if (!arts.length) { tb.innerHTML = '<tr><td colspan="4"><div class="empty-state"><div class="ei">📰</div><p>No articles yet</p></div></td></tr>'; return; }
-  tb.innerHTML = [...arts].reverse().map(a => `<tr>
-    <td>
-      <div class="td-main"><a href="${esc(a.url)}" target="_blank" style="color:var(--txt);text-decoration:none">${esc(a.title)}</a></div>
-      <div class="td-sub">${esc((a.summary||'').slice(0,55))}${(a.summary||'').length>55?'…':''}</div>
-    </td>
-    <td class="td-mono">${esc(a.sourceName||'—')}</td>
-    <td>${sbadge(a.status)}</td>
-    <td><div class="ar">
-      ${a.status!=='approved'?`<button class="btn btn-green btn-sm" onclick="setArtStatus('${a.id}','approved')">✅</button>`:''}
-      ${a.status!=='removed'?`<button class="btn btn-red btn-sm" onclick="setArtStatus('${a.id}','removed')">🚫</button>`:''}
-      <button class="btn btn-red btn-sm" onclick="askDelete('article','${a.id}')">🗑️</button>
-    </div></td>
-  </tr>`).join('');
-}
-
-function openArtModal() {
-  ['an-title','an-url','an-src','an-summary'].forEach(i => document.getElementById(i).value = '');
-  document.getElementById('an-status').value = 'pending';
-  openOv('art-modal');
-}
-
-function saveArt() {
-  const title = document.getElementById('an-title').value.trim();
-  const url   = document.getElementById('an-url').value.trim();
-  if (!title||!url) { toast('Title and URL required','err'); return; }
-  const arts = getArticles();
-  arts.push({ id:uid(), title, url, sourceName:document.getElementById('an-src').value.trim(), status:document.getElementById('an-status').value, summary:document.getElementById('an-summary').value.trim(), createdAt:new Date().toISOString() });
-  DB.set('articles',arts); closeOv('art-modal'); loadArticles(); loadDash(); toast('Article added!','ok');
-}
-
-function setArtStatus(id, s) {
-  const arts = getArticles();
-  const i = arts.findIndex(a => a.id===id);
-  if (i>=0) arts[i].status=s;
-  DB.set('articles',arts); loadArticles(); loadDash(); toast(`Marked ${s}`,'ok');
-}
-function deleteArticle(id) { DB.set('articles',getArticles().filter(a=>a.id!==id)); loadArticles(); loadDash(); toast('Deleted','info'); }
-
-/* ═══════════════════════════════════════════════════════════
-   MESSAGES
-═══════════════════════════════════════════════════════════ */
-function loadMessages() {
-  const msgs = getMessages();
-  const unread = msgs.filter(m => m.status==='unread').length;
-  refreshMsgBadge(unread);
-  const tb = document.getElementById('msg-tbody');
-  if (!msgs.length) { tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="ei">💬</div><p>No messages yet</p></div></td></tr>'; return; }
-  tb.innerHTML = [...msgs].reverse().map(m => `<tr style="${m.status==='unread'?'background:var(--s2)':''}">
-    <td style="font-weight:${m.status==='unread'?700:500}">${esc(m.name)}</td>
-    <td class="td-mono">${esc(m.email)}</td>
-    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(m.message)}</td>
-    <td class="td-mono">${fd(m.createdAt)}</td>
-    <td>${sbadge(m.status)}</td>
-    <td><div class="ar">
-      ${m.status==='unread'?`<button class="btn btn-green btn-sm" onclick="markRead('${m.id}')">✓ Read</button>`:''}
-      <button class="btn btn-red btn-sm" onclick="askDelete('message','${m.id}')">🗑️</button>
-    </div></td>
-  </tr>`).join('');
-}
-
-function openMsgModal() {
-  ['mn-name','mn-email','mn-msg'].forEach(i => document.getElementById(i).value = '');
-  openOv('msg-modal');
-}
-
-function saveMsg() {
-  const name = document.getElementById('mn-name').value.trim();
-  const email = document.getElementById('mn-email').value.trim();
-  const msg  = document.getElementById('mn-msg').value.trim();
-  if (!name||!email||!msg) { toast('All fields required','err'); return; }
-  const msgs = getMessages();
-  msgs.push({ id:uid(), name, email, message:msg, status:'unread', createdAt:new Date().toISOString() });
-  DB.set('messages',msgs); closeOv('msg-modal'); loadMessages(); loadDash(); toast('Saved!','ok');
-}
-
-function markRead(id) {
-  const msgs = getMessages();
-  const i = msgs.findIndex(m => m.id===id);
-  if (i>=0) msgs[i].status='read';
-  DB.set('messages',msgs); loadMessages(); loadDash(); toast('Marked as read','info');
-}
-function deleteMessage(id) { DB.set('messages',getMessages().filter(m=>m.id!==id)); loadMessages(); loadDash(); toast('Deleted','info'); }
-
-/* ═══════════════════════════════════════════════════════════
-   MEDIA
-═══════════════════════════════════════════════════════════ */
-function loadMedia() {
-  const media = getMedia();
-  const g = document.getElementById('media-grid');
-  if (!media.length) { g.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="ei">🖼️</div><p>No images uploaded yet</p></div>'; return; }
-  g.innerHTML = media.map(f => `<div class="mcard">
-    <img src="${f.data}" alt="${esc(f.name)}" loading="lazy"/>
-    <div class="mcf">
-      <div class="mcn">${esc(f.name)}</div>
-      <div class="mca">
-        <button class="btn btn-ghost btn-sm" onclick="copyMediaUrl('${f.id}')" title="Copy URL">🔗</button>
-        <button class="btn btn-red btn-sm" onclick="askDelete('media','${f.id}')">🗑️</button>
+function renderReorderList() {
+  const list = document.getElementById('reorder-list');
+  if (!reorderData.length) {
+    list.innerHTML = '<div class="empty-state"><div class="ei">📝</div><p>No posts yet.</p></div>';
+    return;
+  }
+  list.innerHTML = reorderData.map((b, i) => `
+    <div class="reorder-row" id="rr-${b.id}">
+      <div class="reorder-pos">
+        <span class="cur">#${b.newOrder}</span>
       </div>
-    </div>
-  </div>`).join('');
+      <div class="reorder-info">
+        <div class="reorder-title">${esc(b.title)}</div>
+        <div class="reorder-meta">${sbadge(b.status)} &nbsp;${fd(b.publishDate)}</div>
+      </div>
+      <input
+        class="reorder-input"
+        type="number"
+        min="1"
+        value="${b.newOrder}"
+        data-id="${b.id}"
+        data-orig="${b.sortOrder}"
+        oninput="onReorderInput(this)"
+        onblur="onReorderBlur(this)"
+      />
+    </div>`).join('');
 }
 
-function uploadFiles(files) {
-  for (const f of files) {
-    if (f.size > 2*1024*1024) { toast(`${f.name} exceeds 2MB limit`, 'err'); continue; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      const m = getMedia();
-      m.push({ id:uid(), name:f.name, data:e.target.result, type:f.type, createdAt:new Date().toISOString() });
-      DB.set('media',m); loadMedia(); loadDash(); toast('Uploaded!','ok');
-    };
-    reader.readAsDataURL(f);
+function onReorderInput(input) {
+  const id  = input.dataset.id;
+  const val = parseInt(input.value, 10);
+  if (!val || val < 1) { input.classList.add('changed'); return; }
+
+  // Update reorderData
+  const item = reorderData.find(b => b.id === id);
+  if (item) item.newOrder = val;
+
+  // Mark input as changed if different from original
+  input.classList.toggle('changed', val !== parseInt(input.dataset.orig, 10));
+
+  // Update the #N display live
+  const row = document.getElementById('rr-' + id);
+  if (row) row.querySelector('.cur').textContent = '#' + val;
+
+  // Show unsaved banner if any changes exist
+  const hasChanges = reorderData.some(b => b.newOrder !== b.sortOrder);
+  document.getElementById('reorder-unsaved').classList.toggle('on', hasChanges);
+}
+
+function onReorderBlur(input) {
+  // If user left field empty or invalid, reset to current newOrder
+  const id  = input.dataset.id;
+  const item = reorderData.find(b => b.id === id);
+  if (!input.value || parseInt(input.value, 10) < 1) {
+    input.value = item ? item.newOrder : 1;
+    input.classList.remove('changed');
   }
 }
 
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('dz').classList.remove('over');
-  uploadFiles(e.dataTransfer.files);
+async function saveReorder() {
+  const hasChanges = reorderData.some(b => b.newOrder !== b.sortOrder);
+  if (!hasChanges) { toast('No changes to save', 'info'); return; }
+
+  const btn = document.getElementById('reorder-save-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  try {
+    const payload = reorderData.map(b => ({ id: b.id, sortOrder: b.newOrder }));
+    await apiFetch('/api/admin/blogs/reorder', {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+    // Update local state so orig = newOrder
+    reorderData.forEach(b => { b.sortOrder = b.newOrder; });
+    // Clear changed styling
+    document.querySelectorAll('.reorder-input').forEach(inp => {
+      inp.dataset.orig = inp.value;
+      inp.classList.remove('changed');
+    });
+    document.getElementById('reorder-unsaved').classList.remove('on');
+    toast(`✓ Order saved — ${payload.length} posts updated`, 'ok');
+  } catch(e) {
+    toast('Save failed: ' + e.message, 'err');
+  }
+  btn.disabled = false;
+  btn.textContent = '💾 Save Order';
 }
 
-function copyMediaUrl(id) {
-  const f = getMedia().find(x => x.id===id);
-  if (!f) return;
-  navigator.clipboard.writeText(f.data).then(() => toast('URL copied!','ok')).catch(() => toast('Copy failed','err'));
-}
-function deleteMedia(id) { DB.set('media',getMedia().filter(f=>f.id!==id)); loadMedia(); loadDash(); toast('Deleted','info'); }
-
-/* ═══════════════════════════════════════════════════════════
-   DATA SYNC
-═══════════════════════════════════════════════════════════ */
-function buildExport() {
-  return {
-    exportedAt: new Date().toISOString(),
-    version: '2.0',
-    blogs:    getBlogs(),
-    sources:  getSources(),
-    articles: getArticles(),
-    messages: getMessages(),
-    settings: getSettings()
-    // media intentionally excluded — base64 makes file too large
-  };
-}
-
-function doExport() {
-  const json = JSON.stringify(buildExport(), null, 2);
-  const blob = new Blob([json], { type:'application/json' });
-  const url  = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'site-data.json'; a.click();
-  URL.revokeObjectURL(url);
-  toast('✅ Downloaded! Commit site-data.json to your GitHub repo.','ok');
+// ── MESSAGES ──────────────────────────────────────────────────────────────
+async function loadMessages() {
+  document.getElementById('msg-tbody').innerHTML = '<tr class="loading-row"><td colspan="7">Loading…</td></tr>';
+  try {
+    const msgs = await apiFetch('/api/admin/messages');
+    const unread = msgs.filter(m => m.status === 'unread').length;
+    refreshMsgBadge(unread);
+    const tb = document.getElementById('msg-tbody');
+    if (!msgs.length) {
+      tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="ei">💬</div><p>No messages yet</p></div></td></tr>';
+      return;
+    }
+    tb.innerHTML = msgs.map(m => `<tr style="${m.status==='unread'?'background:var(--s2)':''}">
+      <td style="font-weight:${m.status==='unread'?700:500}">${esc(m.name)}</td>
+      <td class="td-mono">${esc(m.email)}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(m.message||'—')}</td>
+      <td>${sbadge(m.type||'contact')}</td>
+      <td class="td-mono">${fd(m.created_at)}</td>
+      <td>${sbadge(m.status)}</td>
+      <td><div class="ar">
+        ${m.status==='unread'?`<button class="btn btn-green btn-sm" onclick="markRead('${m.id}')">✓ Read</button>`:''}
+        <button class="btn btn-red btn-sm" onclick="askDelete('message','${m.id}')">🗑️</button>
+      </div></td>
+    </tr>`).join('');
+  } catch(e) { toast('Failed to load messages: ' + e.message, 'err'); }
 }
 
-function togglePreview() {
-  const el = document.getElementById('jprev');
-  const shown = el.style.display === 'block';
-  if (!shown) document.getElementById('jpre').textContent = JSON.stringify(buildExport(), null, 2);
-  el.style.display = shown ? 'none' : 'block';
+async function markRead(id) {
+  try {
+    await apiFetch(`/api/admin/messages/${id}`, { method:'PUT' });
+    await loadMessages();
+    await loadDash();
+    toast('Marked as read', 'info');
+  } catch(e) { toast('Failed: ' + e.message, 'err'); }
 }
 
-// MERGE IMPORT — never deletes existing data
-function doImport(input) {
-  const file = input.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const data = JSON.parse(e.target.result);
-      let added = 0;
-
-      if (Array.isArray(data.blogs)) {
-        const cur = getBlogs();
-        const ids = new Set(cur.map(b => b.id));
-        const slugs = new Set(cur.map(b => b.slug));
-        const newOnes = data.blogs.filter(b => !ids.has(b.id) && !slugs.has(b.slug));
-        if (newOnes.length) { DB.set('blogs', [...cur, ...newOnes]); added += newOnes.length; }
-      }
-      if (Array.isArray(data.sources)) {
-        const cur=getSources(); const ids=new Set(cur.map(s=>s.id));
-        const n=data.sources.filter(s=>!ids.has(s.id));
-        if(n.length){DB.set('sources',[...cur,...n]);added+=n.length;}
-      }
-      if (Array.isArray(data.articles)) {
-        const cur=getArticles(); const ids=new Set(cur.map(a=>a.id));
-        const n=data.articles.filter(a=>!ids.has(a.id));
-        if(n.length){DB.set('articles',[...cur,...n]);added+=n.length;}
-      }
-      if (Array.isArray(data.messages)) {
-        const cur=getMessages(); const ids=new Set(cur.map(m=>m.id));
-        const n=data.messages.filter(m=>!ids.has(m.id));
-        if(n.length){DB.set('messages',[...cur,...n]);added+=n.length;}
-      }
-      if (data.settings) DB.set('settings', data.settings);
-
-      loadDash(); loadSync();
-      toast(`✅ Merged! ${added} new item${added!==1?'s':''} added. Nothing deleted.`,'ok');
-    } catch { toast('❌ Invalid JSON file','err'); }
-  };
-  reader.readAsText(file);
-  input.value = '';
+async function deleteMessage(id) {
+  try {
+    await apiFetch(`/api/admin/messages/${id}`, { method:'DELETE' });
+    await loadMessages();
+    await loadDash();
+    toast('Deleted', 'info');
+  } catch(e) { toast('Failed: ' + e.message, 'err'); }
 }
 
-function loadSync() {
-  document.getElementById('kgrid').innerHTML = [
-    { label:'Blogs',    count:getBlogs().length,    key:'rs_blogs' },
-    { label:'Sources',  count:getSources().length,  key:'rs_sources' },
-    { label:'Articles', count:getArticles().length, key:'rs_articles' },
-    { label:'Messages', count:getMessages().length, key:'rs_messages' },
-    { label:'Media',    count:getMedia().length,    key:'rs_media' },
-    { label:'Settings', count:1,                    key:'rs_settings' },
-  ].map(k => `<div class="kpill">
-    <span class="kn">${k.key}</span>
-    <span class="kc">${k.count} item${k.count!==1?'s':''}</span>
-  </div>`).join('');
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SETTINGS
-═══════════════════════════════════════════════════════════ */
+// ── SETTINGS ──────────────────────────────────────────────────────────────
 function loadSettingsPage() {
-  const s = getSettings();
-  document.getElementById('s-wt').value = s.websiteTitle||'';
-  document.getElementById('s-ce').value = s.contactEmail||'';
-  document.getElementById('s-md').value = s.metaDescription||'';
-  document.getElementById('s-ft').value = s.footerText||'';
-  document.getElementById('s-tw').value = (s.social||{}).twitter||'';
-  document.getElementById('s-li').value = (s.social||{}).linkedin||'';
-  document.getElementById('s-gh').value = (s.social||{}).github||'';
-  document.getElementById('s-ig').value = (s.social||{}).instagram||'';
-  const c = getCreds();
-  document.getElementById('s-ae').value = c.email||'';
-  document.getElementById('s-ap').value = '';
+  document.getElementById('s-api').value = getApiUrl();
 }
 
-function saveSettings() {
-  DB.set('settings', {
-    websiteTitle: document.getElementById('s-wt').value.trim() || 'Ram Srinivasan',
-    contactEmail: document.getElementById('s-ce').value.trim(),
-    metaDescription: document.getElementById('s-md').value.trim(),
-    footerText: document.getElementById('s-ft').value.trim(),
-    social: { twitter:document.getElementById('s-tw').value.trim(), linkedin:document.getElementById('s-li').value.trim(), github:document.getElementById('s-gh').value.trim(), instagram:document.getElementById('s-ig').value.trim() }
-  });
-  const ne = document.getElementById('s-ae').value.trim();
-  const np = document.getElementById('s-ap').value;
-  if (ne || np) {
-    const c = getCreds();
-    DB.set('creds', { email:ne||c.email, password:np||c.password });
-    document.getElementById('sb-email').textContent = ne||c.email;
-    document.getElementById('sb-av').textContent = (ne||c.email)[0].toUpperCase();
-  }
-  toast('Settings saved! ✓','ok');
+function saveApiUrl() {
+  const url = document.getElementById('s-api').value.trim();
+  if (!url) { toast('URL required', 'err'); return; }
+  localStorage.setItem('rs_api_url', url);
+  toast('API URL saved! ✓', 'ok');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CONFIRM DIALOG
-═══════════════════════════════════════════════════════════ */
-let _confCb = null;
+// ── CONFIRM ───────────────────────────────────────────────────────────────
 function askDelete(type, id) {
-  const labels = { blog:'blog post', source:'source', article:'article', message:'message', media:'image' };
+  const labels = { blog:'blog post', message:'message' };
   document.getElementById('conf-title').textContent = `Delete this ${labels[type]||type}?`;
   document.getElementById('conf-body').textContent  = 'This cannot be undone.';
-  const actions = { blog:deleteBlog, source:deleteSource, article:deleteArticle, message:deleteMessage, media:deleteMedia };
-  _confCb = () => { actions[type]?.(id); closeConf(); };
-  document.getElementById('conf-ok').onclick = _confCb;
+  const actions = { blog:deleteBlog, message:deleteMessage };
+  document.getElementById('conf-ok').onclick = () => { actions[type]?.(id); closeConf(); };
   document.getElementById('conf-ov').classList.add('on');
 }
-function closeConf() { document.getElementById('conf-ov').classList.remove('on'); _confCb = null; }
+function closeConf() { document.getElementById('conf-ov').classList.remove('on'); }
 
-/* ═══════════════════════════════════════════════════════════
-   MODAL HELPERS
-═══════════════════════════════════════════════════════════ */
+// ── MODAL ─────────────────────────────────────────────────────────────────
 function openOv(id)  { document.getElementById(id).classList.add('on'); }
 function closeOv(id) { document.getElementById(id).classList.remove('on'); editingId = null; }
 document.querySelectorAll('.ov').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('on'); }));
 
-/* ═══════════════════════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════════════════════ */
-let _toastTimer = null;
+// ── TOAST ─────────────────────────────────────────────────────────────────
+let _tt = null;
 function toast(msg, type = 'info') {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.className   = 'on ' + type;
-  if (_toastTimer) clearTimeout(_toastTimer);
-  _toastTimer = setTimeout(() => el.className = '', 3500);
+  if (_tt) clearTimeout(_tt);
+  _tt = setTimeout(() => el.className = '', 3500);
 }
 </script>
 </body>
