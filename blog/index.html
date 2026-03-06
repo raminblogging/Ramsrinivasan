@@ -87,12 +87,12 @@
 <body>
 
 <nav>
-  <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/" class="nav-logo">rs.</a>
+  <a href="https://ramsrinivasan.in/" class="nav-logo">rs.</a>
   <ul class="nav-links">
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/about/">About</a></li>
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/work/">Work</a></li>
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/blog/" class="active">Blog</a></li>
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/contact/">Contact</a></li>
+    <li><a href="https://ramsrinivasan.in/about/">About</a></li>
+    <li><a href="https://ramsrinivasan.in/work/">Work</a></li>
+    <li><a href="https://ramsrinivasan.in/blog/" class="active">Blog</a></li>
+    <li><a href="https://ramsrinivasan.in/contact/">Contact</a></li>
   </ul>
 </nav>
 
@@ -147,13 +147,13 @@
 </div>
 
 <footer>
-  <p>© 2026 <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/">Ram Srinivasan</a>. All rights reserved.</p>
+  <p>© 2026 <a href="https://ramsrinivasan.in/">Ram Srinivasan</a>. All rights reserved.</p>
   <p>Built with care &amp; ☕</p>
 </footer>
 
 <script>
 'use strict';
-const API = 'https://ramsrinivasan-api.rammv2001.workers.dev';
+const API = 'https://ramsrinivasan-api.YOUR-SUBDOMAIN.workers.dev';
 
 async function subscribe(name, email, type) {
   if (!email || !email.includes('@')) return false;
@@ -191,7 +191,7 @@ function fmtDate(d) {
 }
 function postUrl(post) {
   if (post.customUrl && post.customUrl !== '#') return post.customUrl;
-  return `https://ramsrinivasan.github.io/ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+  return `https://ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
 }
 
 const observer = new IntersectionObserver((entries) => {
