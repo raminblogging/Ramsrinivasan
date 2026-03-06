@@ -342,7 +342,7 @@ tbody tr:hover td{background:#ffffff02}
       <div class="sett-card"><h3>API Configuration</h3>
         <div class="fgrid">
           <div class="fg full"><label>Worker API URL</label>
-            <input id="s-api" type="url" placeholder="https://ramsrinivasan-api.rammv2001.workers.dev"/>
+            <input id="s-api" type="url" placeholder="https://ramsrinivasan-api.YOUR-SUBDOMAIN.workers.dev"/>
             <div class="hint">Your Cloudflare Worker URL. Found in Cloudflare dashboard → Workers.</div>
           </div>
         </div>
@@ -421,7 +421,7 @@ tbody tr:hover td{background:#ffffff02}
 // ── API CONFIG ────────────────────────────────────────────────────────────
 // Stored in localStorage so you can change it from Settings page
 function getApiUrl() {
-  return localStorage.getItem('rs_api_url') || 'https://ramsrinivasan-api.rammv2001.workers.dev';
+  return localStorage.getItem('rs_api_url') || 'https://ramsrinivasan-api.YOUR-SUBDOMAIN.workers.dev';
 }
 
 let authToken = null;
@@ -526,7 +526,7 @@ function sbadge(s) {
 
 function postUrl(p) {
   if (p.customUrl && p.customUrl !== '#') return p.customUrl;
-  return `https://ramsrinivasan.github.io/ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(p.slug)}`;
+  return `https://ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(p.slug)}`;
 }
 
 function refreshMsgBadge(n) {
