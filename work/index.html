@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZH170NH9GW');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Work — RamSrinivasan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #141414; --surface: #1a1a1a;
+      --border: #2a2a2a; --text: #e8e2d9; --muted: #6b6560;
+      --accent: #c8a96e; --accent2: #7eb8a4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: rgba(13,13,13,0.92); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* PAGE HEADER */
+    .page-header { padding: 10rem 3rem 5rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
+    .page-header h1 { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.7s 0.25s forwards; }
+    .page-header h1 em { font-style: italic; color: var(--accent); }
+    .header-desc { font-size: 1.05rem; color: var(--muted); max-width: 580px; line-height: 1.85; opacity: 0; animation: fadeUp 0.7s 0.4s forwards; }
+
+    /* FILTER TABS */
+    .filter-bar { padding: 2.5rem 3rem; max-width: 1100px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .filter-btn { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover { color: var(--text); border-color: #3a3a3a; }
+    .filter-btn.active { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+
+    /* PROJECTS */
+    .projects-section { padding: 0 3rem 4rem; max-width: 1100px; margin: 0 auto; }
+
+    /* FEATURED PROJECT */
+    .featured-project {
+      border: 1px solid var(--border); padding: 3rem; margin-bottom: 1.5rem;
+      position: relative; overflow: hidden; cursor: pointer;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .featured-project.visible { opacity: 1; transform: translateY(0); }
+    .featured-project::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+    .featured-project:hover { border-color: #3a3a3a; }
+    .featured-project:hover::before { transform: scaleX(1); }
+    .featured-badge { position: absolute; top: 1.5rem; right: 1.5rem; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.25rem 0.7rem; opacity: 0.7; }
+    .fp-tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem; display: block; }
+    .featured-project h3 { font-family: var(--serif); font-size: 2.2rem; line-height: 1.15; margin-bottom: 1rem; }
+    .featured-project p { color: var(--muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.5rem; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.8rem; }
+    .tech-tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--muted); border: 1px solid var(--border); padding: 0.3rem 0.75rem; }
+    .project-links { display: flex; gap: 1.5rem; }
+    .project-links a { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .project-links a:hover { color: var(--accent); }
+    .fp-visual { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .fp-visual-inner { font-family: var(--mono); font-size: 4rem; opacity: 0.15; }
+    .fp-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent, rgba(200,169,110,0.05)); }
+
+    /* REGULAR GRID */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border); padding: 2rem;
+      position: relative; overflow: hidden; cursor: pointer;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, transform 0.3s;
+    }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .project-card:hover { border-color: #3a3a3a; transform: translateY(-4px); }
+    .project-card.visible:hover { transform: translateY(-4px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-tag { display: inline-block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem; }
+    .project-card h3 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.8rem; line-height: 1.2; }
+    .project-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.2rem; line-height: 1.7; }
+    .project-card .tech-stack { margin-bottom: 1.5rem; }
+    .project-card .project-links a { font-size: 0.73rem; }
+
+    /* SECTION DIVIDER */
+    .section-sep { padding: 0 3rem; max-width: 1100px; margin: 2rem auto 0; }
+    .section-sep-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .section-sep-label::before, .section-sep-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* CTA */
+    .page-cta { padding: 5rem 3rem; max-width: 1100px; margin: 0 auto; border-top: 1px solid var(--border); text-align: center; }
+    .page-cta h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.2rem; }
+    .page-cta p { color: var(--muted); font-size: 1.05rem; max-width: 480px; margin: 0 auto 2.5rem; }
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.85rem 2.2rem; border-radius: 2px; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent); color: #0d0d0d; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+    footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; } .nav-links { gap: 1.5rem; }
+      .page-header { padding: 8rem 1.5rem 3rem; }
+      .filter-bar, .projects-section, .section-sep, .page-cta { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .featured-project { grid-template-columns: 1fr; gap: 1.5rem; }
+      .fp-visual { display: none; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/../" class="nav-logo">RM.</a>
+  <ul class="nav-links">
+    <li><a href="/about/">About</a></li>
+    <li><a href="/../">Home</a></li>
+    <li><a href="/blog/"target="_blank" rel="noopener noreferrer">Blog</a></li>
+    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/Monitor/"target="_blank" rel="noopener noreferrer">Monitor</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Selected projects</p>
+  <h1>Things I've <em>built</em></h1>
+  <p class="header-desc">A collection of projects across supply chain automation, workflow tools, and data pipelines — built to solve real problems and share what I've learned.</p>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="automation">Automation</button>
+  <button class="filter-btn" data-filter="web">Web App</button>
+  <button class="filter-btn" data-filter="data">Data & Analysis</button>
+</div>
+
+<!-- PROJECTS -->
+<div class="projects-section">
+
+  <!-- FEATURED -->
+  <div class="featured-project" data-category="automation">
+    <div>
+      <span class="featured-badge">Featured</span>
+      <span class="fp-tag">Automation</span>
+      <h3>Supply Chain Automation Dashboard</h3>
+      <p>An automated reporting system that consolidates live inventory data, processes operational metrics, and generates stakeholder-ready dashboards. Reduced 3+ hours of manual daily reporting into a streamlined one-click workflow.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Excel Automation</span>
+        <span class="tech-tag">Power Automate</span>
+        <span class="tech-tag">Power BI</span>
+        <span class="tech-tag">Structured Data Models</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+    <div class="fp-visual">
+      <div class="fp-visual-inner">⚙️</div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="projects-grid">
+
+    <div class="project-card" data-category="web">
+      <span class="project-tag">Web App</span>
+      <h3>Operations Workflow Engine</h3>
+      <p>A lightweight internal web tool designed to track operational tasks, streamline approvals, and improve cross-team visibility. Built to reduce follow-ups and manual coordination.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">HTML/CSS</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Node.js</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+
+    <div class="project-card" data-category="data">
+      <span class="project-tag">Data & Analysis</span>
+      <h3>Inventory Intelligence Dashboard</h3>
+      <p>A dynamic performance dashboard built to monitor stock levels, SKU movement, and procurement efficiency. Converts raw operational data into clear, decision-ready insights.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Excel VBA</span>
+        <span class="tech-tag">SQL</span>
+        <span class="tech-tag">Power BI</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+
+    <div class="project-card" data-category="automation">
+      <span class="project-tag">Automation</span>
+      <h3>Automation Scenario Builder</h3>
+      <p>A no-code/low code automation workflow system built using Make.com and Airtable to automate reporting triggers, notifications, and approval flows across teams.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Make.com</span>
+        <span class="tech-tag">Airtable</span>
+        <span class="tech-tag">Webhooks</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+
+    <div class="project-card" data-category="data">
+      <span class="project-tag">Data & Analysis</span>
+      <h3>Operations KPI Tracker</h3>
+      <p>A structured performance tracking system to monitor order fulfillment rates, vendor turnaround times, and inventory accuracy across business cycles.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Excel</span>
+        <span class="tech-tag">Power BI</span>
+        <span class="tech-tag">Google Sheets</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+
+    <div class="project-card" data-category="automation">
+      <span class="project-tag">Automation</span>
+      <h3>Internal Process Automation Suite</h3>
+      <p>A collection of automated workflows connecting multiple business tools to eliminate repetitive manual work, improve reporting speed, and enhance operational consistency.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Power Automate</span>
+        <span class="tech-tag">Make.com</span>
+        <span class="tech-tag">APIs</span>
+        <span class="tech-tag">Webhooks</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+
+    <div class="project-card" data-category="automation">
+      <span class="project-tag">Automation</span>
+      <h3>Real-Time Order Monitoring System</h3>
+      <p>An event-driven workflow that captures order data via webhooks, updates centralized records, and triggers instant notifications for delays, stock risks, or dispatch confirmations.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Webhooks</span>
+        <span class="tech-tag">Make.com</span>
+        <span class="tech-tag">Airtable</span>
+        <span class="tech-tag">APIs</span>
+      </div>
+      <div class="project-links">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="page-cta">
+  <h2>Have a project <em>in mind?</em></h2>
+  <p>I'm always open to interesting problems and collaborations. Let's figure out what we can build together.</p>
+  <div class="btn-group">
+    <a href="/contact/" class="btn btn-primary">Start a Conversation</a>
+    <a href="/blog/" class="btn btn-ghost">Read the Blog</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <a href="index.html">RamSrinivasan</a>. All rights reserved.</p>
+  <p>Built with care &amp; a lot of ☕</p>
+</footer>
+
+<script>
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card, .featured-project');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        if (filter === 'all' || cat === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.project-card, .featured-project').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
