@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "Ramsrinivasan-db"
-database_id = "fa9b30c0-7bd4-4804-b2f1-4ecbaaaedf95"
+database_id = "56eabc71-43cd-4850-b4d0-b08eb588f275"
 
 # ── Custom domain (set after deploying) ──────────────────────────────────
 # routes = [{ pattern = "api.ramsrinivasan.in/*", zone_name = "ramsrinivasan.in" }]
