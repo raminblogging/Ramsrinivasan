@@ -465,10 +465,10 @@
 <section id="hero">
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Available for opportunities</p>
-    <h1>Ram <em>Srinivasan</em><br></h1>
-    <p class="hero-sub">Supply Chain professional learning automation and AI. Building efficient workflows and sharing what I learn.</p>
-    <div class="hero-ctas">
+    <p class="hero-eyebrow" id="hero-eyebrow">Available for opportunities</p>
+    <h1 id="hero-h1">Ram <em>Srinivasan</em><br></h1>
+    <p class="hero-sub" id="hero-sub">Supply Chain professional learning automation and AI. Building efficient workflows and sharing what I learn.</p>
+    <div class="hero-ctas" id="hero-ctas">
       <a href="work/"target="_blank" rel="noopener noreferrer" class="btn btn-primary">View My Work</a>
       <a href="blog/"target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Read the Blog</a>
     </div>
@@ -482,12 +482,12 @@
 <!-- ─── ABOUT ─── -->
 <section id="about">
   <p class="section-label">About me</p>
-  <h2>A bit about <em>who I am</em></h2>
+  <h2 id="about-heading">A bit about <em>who I am</em></h2>
   <div class="about-grid">
-    <div class="about-text"><p>Hi, I'm <strong>RamSrinivasan</strong> — a Supply Chain professional based in Chennai. I've been passionate about operations, process improvement, and technology-driven solutions, with a growing focus on automation and AI.</p>
+    <div class="about-text" id="about-text"><p>Hi, I'm <strong>RamSrinivasan</strong> — a Supply Chain professional based in Chennai. I've been passionate about operations, process improvement, and technology-driven solutions, with a growing focus on automation and AI.</p>
 <p>I believe great work happens at the intersection of <strong>systems and simplicity</strong>. Whether optimizing supply chain workflows or building automation tools, I strive to create solutions that are efficient, practical, and meaningful.</p>
 <p>When I'm not working, you'll find me drawing or immersed in gaming.</p>
-      <div class="skills-list">
+      <div class="skills-list" id="skills-list">
         <span class="skill-item">Supply Chain Operations</span>
         <span class="skill-item">Process Optimization</span>
         <span class="skill-item">Workflow Automation</span>
@@ -496,7 +496,7 @@
         <span class="skill-item">Problem Solving & System Thinking</span>
       </div>
     </div>
-    <div class="about-stats">
+    <div class="about-stats" id="about-stats">
       <div>
         <div class="stat-num">5+</div>
         <div class="stat-label">Years of experience</div>
@@ -520,8 +520,8 @@
 <!-- ─── PROJECTS ─── -->
 <section id="projects">
   <p class="section-label">Selected work</p>
-  <h2>Things I've <em>built</em></h2>
-  <div class="projects-grid">
+  <h2 id="work-heading">Things I've <em>built</em></h2>
+  <div class="projects-grid" id="projects-grid">
 
     <div class="project-card">
       <span class="project-tag">Web App</span>
@@ -565,14 +565,14 @@
   <div class="contact-inner">
     <div class="contact-text">
       <p>I'm always open to interesting conversations, collaborations, and new opportunities. Whether you have a project in mind or just want to say hello — my inbox is open.</p>
-      <div class="social-links">
+      <div class="social-links" id="home-social-links">
         <a class="social-link" href="mailto:rammv2001@gmail.com" target="_blank" rel="noopener noreferrer">Gmail</a>
         <a class="social-link" href="https://www.instagram.com/_ram_srinivasan_?igsh=MWUzcXVvcmQwN24xdw==" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a class="social-link" href="https://www.linkedin.com/in/ram-srinivasan29" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a class="social-link" href="https://x.com/rammv2001" target="_blank" rel="noopener noreferrer">X</a>
       </div>
     </div>
-    <form class="contact-form" onsubmit="https://formspree.io/f/mnjbylvn">
+    <form class="contact-form" id="home-contact-form" onsubmit="submitHomeContact(event)">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Your Name" required />
@@ -638,3 +638,153 @@
 
 </body>
 </html>
+
+<script>
+// ── Fetch live content from API and update the page ───────────────────────
+const API = 'https://ramsrinivasan-api.rammv2001.workers.dev';
+
+async function loadSiteContent() {
+  try {
+    // Load all sections in parallel
+    const [hero, about, work, contact] = await Promise.all([
+      fetch(API + '/api/site/hero').then(r=>r.json()).catch(()=>null),
+      fetch(API + '/api/site/about').then(r=>r.json()).catch(()=>null),
+      fetch(API + '/api/site/work').then(r=>r.json()).catch(()=>null),
+      fetch(API + '/api/site/contact').then(r=>r.json()).catch(()=>null),
+    ]);
+
+    // HERO
+    if (hero && !hero.error) {
+      if (hero.eyebrow)            setText('hero-eyebrow', hero.eyebrow);
+      if (hero.heading)            document.getElementById('hero-h1').innerHTML = hero.heading + '<br>';
+      if (hero.subheading)         setText('hero-sub', hero.subheading);
+      if (hero.cta_primary_text || hero.cta_primary_url || hero.cta_secondary_text || hero.cta_secondary_url) {
+        const ctas = document.getElementById('hero-ctas');
+        if (ctas) ctas.innerHTML = `
+          <a href="${hero.cta_primary_url||'/work/'}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">${hero.cta_primary_text||'View My Work'}</a>
+          <a href="${hero.cta_secondary_url||'/blog/'}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">${hero.cta_secondary_text||'Read the Blog'}</a>
+        `;
+      }
+    }
+
+    // ABOUT
+    if (about && !about.error) {
+      if (about.heading) {
+        const h = document.getElementById('about-heading');
+        if (h) h.innerHTML = about.heading;
+      }
+      const aboutText = document.getElementById('about-text');
+      if (aboutText && (about.bio_1 || about.bio_2 || about.bio_3)) {
+        aboutText.innerHTML = `
+          ${about.bio_1 ? `<p>${about.bio_1}</p>` : ''}
+          ${about.bio_2 ? `<p>${about.bio_2}</p>` : ''}
+          ${about.bio_3 ? `<p>${about.bio_3}</p>` : ''}
+          <div class="skills-list" id="skills-list"></div>
+        `;
+      }
+      if (Array.isArray(about.skills) && about.skills.length) {
+        const sl = document.getElementById('skills-list');
+        if (sl) sl.innerHTML = about.skills.map(s=>`<span class="skill-item">${s}</span>`).join('');
+      }
+      const stats = document.getElementById('about-stats');
+      if (stats) {
+        const s = about;
+        stats.innerHTML = `
+          <div><div class="stat-num">${s.stat_1_num||'5+'}</div><div class="stat-label">${s.stat_1_label||'Years of experience'}</div></div>
+          <div><div class="stat-num">${s.stat_2_num||'30+'}</div><div class="stat-label">${s.stat_2_label||'Projects completed'}</div></div>
+          <div><div class="stat-num">${s.stat_3_num||'12'}</div><div class="stat-label">${s.stat_3_label||'Articles published'}</div></div>
+          <div><div class="stat-num">${s.stat_4_num||'∞'}</div><div class="stat-label">${s.stat_4_label||'Coffees consumed'}</div></div>
+        `;
+      }
+    }
+
+    // WORK / PROJECTS
+    if (work && !work.error && Array.isArray(work.projects)) {
+      if (work.heading) {
+        const h = document.getElementById('work-heading');
+        if (h) h.innerHTML = work.heading;
+      }
+      const grid = document.getElementById('projects-grid');
+      if (grid && work.projects.length) {
+        grid.innerHTML = work.projects.map(p => `
+          <div class="project-card">
+            <span class="project-tag">${p.tag||''}</span>
+            <h3>${p.title||''}</h3>
+            <p>${p.description||''}</p>
+            <div class="project-links">
+              ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener">View Project →</a>` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // CONTACT SOCIAL LINKS
+    if (contact && !contact.error) {
+      const sl = document.getElementById('home-social-links');
+      if (sl) {
+        const links = [];
+        if (contact.email)     links.push(`<a class="social-link" href="mailto:${contact.email}" target="_blank" rel="noopener noreferrer">Gmail</a>`);
+        if (contact.instagram) links.push(`<a class="social-link" href="${contact.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a>`);
+        if (contact.linkedin)  links.push(`<a class="social-link" href="${contact.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+        if (contact.twitter)   links.push(`<a class="social-link" href="${contact.twitter}" target="_blank" rel="noopener noreferrer">X</a>`);
+        if (links.length) sl.innerHTML = links.join('');
+      }
+    }
+
+    // LOAD BLOG POSTS
+    loadBlogPosts();
+
+  } catch(e) { console.error('Failed to load site content:', e); }
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+async function loadBlogPosts() {
+  try {
+    const posts = await fetch(API + '/api/blogs').then(r=>r.json());
+    const list = document.querySelector('.blog-list');
+    if (!list || !Array.isArray(posts) || !posts.length) return;
+    list.innerHTML = posts.slice(0,4).map(p => `
+      <a class="blog-post" href="/blog/post.html?slug=${encodeURIComponent(p.slug)}">
+        <span class="post-date">${p.publishDate ? new Date(p.publishDate).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : ''}</span>
+        <span class="post-title">${p.title}</span>
+        <span class="post-tag">${(p.tags&&p.tags[0])||''}</span>
+      </a>
+    `).join('');
+  } catch(e) { console.error('Blog load error:', e); }
+}
+
+// Contact form on homepage → saves to DB
+async function submitHomeContact(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  const name    = e.target.querySelector('#name')?.value.trim();
+  const email   = e.target.querySelector('#email')?.value.trim();
+  const message = e.target.querySelector('#message')?.value.trim();
+  if (!name || !email) return;
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  try {
+    const res  = await fetch(API + '/api/messages', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ name, email, message, type: 'contact' })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--accent2)';
+      btn.style.borderColor = 'var(--accent2)';
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = ''; btn.style.borderColor = ''; btn.disabled = false;
+      }, 3000);
+    } else { btn.textContent = 'Failed. Try again.'; btn.disabled = false; }
+  } catch { btn.textContent = 'Error. Try again.'; btn.disabled = false; }
+}
+
+loadSiteContent();
+</script>
