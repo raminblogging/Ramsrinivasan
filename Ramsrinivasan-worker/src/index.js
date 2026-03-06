@@ -18,7 +18,7 @@
  * The blog post page reads post.ga_id and injects the gtag script automatically.
  */
 
-const CORS_ORIGIN  = 'https://ramsrinivasan.github.io';
+const CORS_ORIGIN  = 'https://ramsrinivasan.in';
 const DEFAULT_GA   = 'G-ZH170NH9GW';
 
 function cors(origin) {
