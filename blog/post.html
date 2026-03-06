@@ -89,25 +89,25 @@
 <div id="progress-bar"></div>
 
 <nav>
-  <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/" class="nav-logo">rs.</a>
+  <a href="https://ramsrinivasan.in/" class="nav-logo">rs.</a>
   <ul class="nav-links">
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/about/">About</a></li>
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/work/">Work</a></li>
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/blog/">Blog</a></li>
-    <li><a href="https://ramsrinivasan.github.io/ramsrinivasan.in/contact/">Contact</a></li>
+    <li><a href="https://ramsrinivasan.in/about/">About</a></li>
+    <li><a href="https://ramsrinivasan.in/work/">Work</a></li>
+    <li><a href="https://ramsrinivasan.in/blog/">Blog</a></li>
+    <li><a href="https://ramsrinivasan.in/contact/">Contact</a></li>
   </ul>
 </nav>
 
 <div id="app"></div>
 
 <footer>
-  <p>© 2026 <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/">Ram Srinivasan</a>. All rights reserved.</p>
+  <p>© 2026 <a href="https://ramsrinivasan.in/">Ram Srinivasan</a>. All rights reserved.</p>
   <p>Built with care &amp; ☕</p>
 </footer>
 
 <script>
 'use strict';
-const API = 'https://ramsrinivasan-api.rammv2001.workers.dev';
+const API = 'https://ramsrinivasan-api.YOUR-SUBDOMAIN.workers.dev';
 
 window.addEventListener('scroll', () => {
   const doc = document.documentElement;
@@ -125,7 +125,7 @@ function readTime(html) {
 }
 function postUrl(post) {
   if (post.customUrl && post.customUrl !== '#') return post.customUrl;
-  return `https://ramsrinivasan.github.io/ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+  return `https://ramsrinivasan.in/blog/post.html?slug=${encodeURIComponent(post.slug)}`;
 }
 
 const params = new URLSearchParams(window.location.search);
@@ -157,7 +157,7 @@ function renderPost(post, allPosts) {
 
   document.getElementById('app').innerHTML = `
     <div class="post-hero">
-      <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/blog/" class="post-back">← Back to Blog</a>
+      <a href="https://ramsrinivasan.in/blog/" class="post-back">← Back to Blog</a>
       ${(post.tags||[]).length ? `<div class="post-tags">${(post.tags||[]).map(t=>`<span class="post-tag-item">${t}</span>`).join('')}</div>` : ''}
       <h1>${post.title}</h1>
       ${post.description ? `<p class="post-desc">${post.description}</p>` : ''}
@@ -176,7 +176,7 @@ function renderPost(post, allPosts) {
         <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener">LinkedIn</a>
         <button class="share-btn" onclick="copyLink()">Copy Link</button>
       </div>
-      <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/blog/" class="back-btn">← All Posts</a>
+      <a href="https://ramsrinivasan.in/blog/" class="back-btn">← All Posts</a>
     </div>
     ${related.length ? `
       <div class="related-section">
@@ -200,7 +200,7 @@ function renderNotFound() {
       <span class="nf-code">// 404</span>
       <h2>Post not found</h2>
       <p>This post doesn't exist or may have been removed.</p>
-      <a href="https://ramsrinivasan.github.io/ramsrinivasan.in/blog/">← Back to all posts</a>
+      <a href="https://ramsrinivasan.in/blog/">← Back to all posts</a>
     </div>`;
 }
 
