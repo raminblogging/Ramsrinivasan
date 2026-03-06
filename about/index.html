@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZH170NH9GW');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — RamSrinivasan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #141414; --surface: #1a1a1a;
+      --border: #2a2a2a; --text: #e8e2d9; --muted: #6b6560;
+      --accent: #c8a96e; --accent2: #7eb8a4;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      background: rgba(13,13,13,0.92); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 10rem 3rem 5rem;
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .page-header h1 {
+      font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05; letter-spacing: -0.02em;
+      opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
+    }
+    .page-header h1 em { font-style: italic; color: var(--accent); }
+    .header-desc {
+      font-size: 1.05rem; color: var(--muted); line-height: 1.85;
+      opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .header-desc strong { color: var(--text); font-weight: 500; }
+
+    /* SECTIONS */
+    .content-section { padding: 5rem 3rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .section-label {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 2rem; }
+
+    /* STORY */
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .story-col p { color: var(--muted); font-size: 1.05rem; margin-bottom: 1.3rem; line-height: 1.85; }
+    .story-col p strong { color: var(--text); font-weight: 500; }
+    .story-col p em { color: var(--accent); font-style: italic; }
+
+    /* TIMELINE */
+    .timeline { margin-top: 1rem; }
+    .timeline-item {
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 2rem; padding: 1.8rem 0; border-bottom: 1px solid var(--border);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .timeline-item.visible { opacity: 1; transform: translateY(0); }
+    .tl-year { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); padding-top: 0.2rem; letter-spacing: 0.05em; }
+    .tl-body h3 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .tl-body .tl-org { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.7rem; }
+    .tl-body p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+    /* SKILLS */
+    .skills-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1rem; }
+    .skill-group {
+      background: var(--surface); border: 1px solid var(--border); padding: 1.8rem;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .skill-group.visible { opacity: 1; transform: translateY(0); }
+    .skill-group:hover { border-color: #3a3a3a; }
+    .skill-group h4 { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 1.2rem; }
+    .skill-tag {
+      display: block; padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; color: var(--muted); transition: color 0.2s;
+    }
+    .skill-tag:last-child { border-bottom: none; }
+    .skill-tag:hover { color: var(--text); }
+    .skill-tag::before { content: '▸ '; color: var(--accent2); }
+
+    /* INTERESTS */
+    .interests-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1rem; }
+    .interest-card {
+      border: 1px solid var(--border); padding: 2rem; position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s;
+    }
+    .interest-card.visible { opacity: 1; transform: translateY(0); }
+    .interest-card:hover { border-color: #3a3a3a; }
+    .interest-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .interest-card h4 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .interest-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* CTA */
+    .page-cta { padding: 5rem 3rem; max-width: 1100px; margin: 0 auto; text-align: center; }
+    .page-cta h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.2rem; }
+    .page-cta p { color: var(--muted); font-size: 1.05rem; max-width: 480px; margin: 0 auto 2.5rem; }
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.85rem 2.2rem; border-radius: 2px; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent); color: #0d0d0d; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+    footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .page-header { grid-template-columns: 1fr; gap: 2rem; padding: 8rem 1.5rem 3rem; }
+      .content-section { padding: 3.5rem 1.5rem; }
+      .story-grid { grid-template-columns: 1fr; gap: 0; }
+      .skills-section { grid-template-columns: 1fr; }
+      .interests-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 80px 1fr; gap: 1rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/../" class="nav-logo">RM.</a>
+  <ul class="nav-links">
+    <li><a href="/../">Home</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/blog/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/Monitor/"target="_blank" rel="noopener noreferrer">Monitor</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div>
+    <p class="page-eyebrow">Get to know me</p>
+    <h1>The story<br>so <em>far</em></h1>
+  </div>
+  <p class="header-desc">
+    I'm <strong>Ram Srinivasan</strong> — a Supply Chain professional based in <strong>Chennai</strong>, at the intersection of operations, technology, and continuous learning. I'm on a journey to blend <em>domain expertise</em> with the power of AI and automation.
+  </p>
+</div>
+
+<!-- STORY -->
+<div class="content-section">
+  <p class="section-label">My story</p>
+  <h2>More than just <em>a résumé</em></h2>
+  <div class="story-grid">
+    <div class="story-col">
+      <p>I started my career deep in <strong>supply chain operations</strong> — tracking inventory, optimizing flows, solving logistics puzzles that never quite fit neatly into spreadsheets. That friction is what drove me toward automation.</p>
+      <p>Over 5+ years, I've seen how <em>smart systems</em> can replace hours of manual work with minutes of intelligent processing. I became obsessed with building those systems — first for myself, then for the teams around me.</p>
+      <p>Today, I sit at an interesting crossroads: a practitioner who knows the operational pain points <em>and</em> has the technical curiosity to build solutions for them.</p>
+    </div>
+    <div class="story-col">
+      <p>I believe the best tools are the ones that <strong>disappear into the work</strong> — so well-designed that they feel invisible. That philosophy drives how I approach both process design and the automation tools I build.</p>
+      <p>When I'm not untangling supply chain complexity, I'm usually drawing (analog, deliberate, slow) or deep in a game that rewards <em>systems thinking</em>. Both hobbies, oddly enough, teach the same lessons.</p>
+      <p>This site is where I share what I learn — from supply chain insights to automation experiments to the occasional <strong>half-formed idea</strong> worth thinking through in public.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE TIMELINE -->
+<div class="content-section">
+  <p class="section-label">Experience</p>
+  <h2>Where I've <em>been</em></h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="tl-year">2023 — Now</span>
+      <div class="tl-body">
+        <h3>Senior Associate - Supply Chain</h3>
+        <div class="tl-org">Operations & Automation</div>
+        <p>Leading workflow automation initiatives, process optimization projects, and integrating AI tools into daily supply chain operations. Reduced manual reporting time by building automated dashboards and data pipelines.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="tl-year">2021 — 2023</span>
+      <div class="tl-body">
+        <h3>Group Lead</h3>
+        <div class="tl-org">Semi Voice Process</div>
+        <p>Led a team handling semi-voice customer support operations, ensuring quality, SLA adherence, and performance optimization. Coordinated workflow distribution, resolved escalations, and streamlined reporting processes — building leadership strength and operational efficiency at scale.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION TIMELINE -->
+<div class="content-section">
+  <p class="section-label">Education</p>
+  <h2>Where I've <em>Built the Foundation</em></h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="tl-year">2023 — 2025</span>
+      <div class="tl-body">
+        <h3>MBA — Logistics and Supply Chain Management</h3>
+        <div class="tl-org">University of Madras, Chennai</div>
+        <p>Established a solid foundation in logistics and supply chain management, emphasizing analytical thinking, systems design, and operational efficiency across end-to-end supply networks.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="tl-year">2018 — 2021</span>
+      <div class="tl-body">
+        <h3>B.Com — Accounting and Finance</h3>
+        <div class="tl-org">C. Kandasamy Naidu College for Men, Chennai</div>
+        <p>Built a strong foundation in accounting and finance, focusing on financial analysis, taxation, and data-driven business decision-making.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="content-section">
+  <p class="section-label">Capabilities</p>
+  <h2>What I <em>bring</em></h2>
+  <div class="skills-section">
+    <div class="skill-group">
+      <h4>Supply Chain</h4>
+      <span class="skill-tag">Inventory Management</span>
+      <span class="skill-tag">Demand Forecasting</span>
+      <span class="skill-tag">Vendor Coordination</span>
+      <span class="skill-tag">Logistics Optimization</span>
+      <span class="skill-tag">Process Improvement</span>
+    </div>
+    <div class="skill-group">
+      <h4>Automation & AI</h4>
+      <span class="skill-tag">Workflow Automation</span>
+      <span class="skill-tag">AI Tool Integration</span>
+      <span class="skill-tag">Python Scripting</span>
+      <span class="skill-tag">No-code / Low-code</span>
+      <span class="skill-tag">Data Pipelines</span>
+    </div>
+    <div class="skill-group">
+      <h4>Analysis & Strategy</h4>
+      <span class="skill-tag">Data Analysis</span>
+      <span class="skill-tag">Dashboard Building</span>
+      <span class="skill-tag">Systems Thinking</span>
+      <span class="skill-tag">Root Cause Analysis</span>
+      <span class="skill-tag">Reporting & Insights</span>
+    </div>
+  </div>
+</div>
+
+<!-- INTERESTS -->
+<div class="content-section">
+  <p class="section-label">Beyond work</p>
+  <h2>What keeps me <em>curious</em></h2>
+  <div class="interests-grid">
+    <div class="interest-card">
+      <span class="interest-icon">✏️</span>
+      <h4>Drawing</h4>
+      <p>Analog, deliberate, slow. Drawing is the opposite of my day job — no undo button, no automation. Just a pen and a blank page teaching me to be patient with the process.</p>
+    </div>
+    <div class="interest-card">
+      <span class="interest-icon">🎮</span>
+      <h4>Gaming</h4>
+      <p>Particularly drawn to games that reward systems thinking — strategy games, open-world sandboxes, anything with deep mechanics. They're essentially supply chain problems in disguise.</p>
+    </div>
+    <div class="interest-card">
+      <span class="interest-icon">🤖</span>
+      <h4>AI Experiments</h4>
+      <p>Tinkering with new AI tools, testing prompts, building small automations. This started as curiosity and has become one of my most valuable professional skills.</p>
+    </div>
+    <div class="interest-card">
+      <span class="interest-icon">✍️</span>
+      <h4>Writing</h4>
+      <p>Turning messy thoughts into clear ideas. I write to think, and publish to stay accountable. The blog is where half-formed ideas go to become something shareable.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="page-cta">
+  <h2>Want to <em>connect?</em></h2>
+  <p>Whether you have a project, an opportunity, or just want to talk supply chain and automation — I'd love to hear from you.</p>
+  <div class="btn-group">
+    <a href="/contact/" class="btn btn-primary">Get in Touch</a>
+    <a href="/work/" class="btn btn-ghost">See My Work</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <a href="index.html">RamSrinivasan</a>. All rights reserved.</p>
+  <p>Built with care &amp; a lot of ☕</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.timeline-item, .skill-group, .interest-card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
