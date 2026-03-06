@@ -1,9 +1,16 @@
 import feedparser
 import json
+import os
 import socket
 from datetime import datetime, timezone
 
 socket.setdefaulttimeout(10)
+
+# Always resolve paths relative to this script's location
+# so it works whether called as "python Monitor/fetch.py" from repo root
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+FEEDS_FILE = os.path.join(SCRIPT_DIR, "feeds.txt")
+NEWS_FILE  = os.path.join(SCRIPT_DIR, "news.json")
 
 print("=" * 50)
 print(f"World Monitor — Feed Fetch Started")
@@ -12,7 +19,7 @@ print("=" * 50)
 
 # Read feeds and assign category from section comment headers
 # e.g. "# ── SUPPLY CHAIN ──" sets category = "Supply Chain" for all feeds below it
-feeds_raw = open("feeds.txt", encoding="utf-8").read().splitlines()
+feeds_raw = open(FEEDS_FILE, encoding="utf-8").read().splitlines()
 
 # Map comment headers to clean category names
 HEADER_MAP = {
@@ -98,11 +105,11 @@ for a in articles:
         unique.append(a)
 
 final = unique[:5000]
-with open("news.json", "w", encoding="utf-8") as f:
+with open(NEWS_FILE, "w", encoding="utf-8") as f:
     json.dump(final, f, indent=2, ensure_ascii=False)
 
 print("\n" + "=" * 50)
-print(f"✓ Saved {len(final)} unique articles to news.json")
+print(f"✓ Saved {len(final)} unique articles to {NEWS_FILE}")
 print(f"  Sources : {success} succeeded / {failed} failed")
 print(f"  Finished: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
 print("=" * 50)
