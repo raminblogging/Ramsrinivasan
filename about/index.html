@@ -188,7 +188,7 @@
 <div class="content-section">
   <p class="section-label">My story</p>
   <h2>More than just <em>a résumé</em></h2>
-  <div class="story-grid">
+  <div class="story-grid" id="story-grid">
     <div class="story-col">
       <p>I started my career deep in <strong>supply chain operations</strong> — tracking inventory, optimizing flows, solving logistics puzzles that never quite fit neatly into spreadsheets. That friction is what drove me toward automation.</p>
       <p>Over 5+ years, I've seen how <em>smart systems</em> can replace hours of manual work with minutes of intelligent processing. I became obsessed with building those systems — first for myself, then for the teams around me.</p>
@@ -254,7 +254,7 @@
 <div class="content-section">
   <p class="section-label">Capabilities</p>
   <h2>What I <em>bring</em></h2>
-  <div class="skills-section">
+  <div class="skills-section" id="skills-section">
     <div class="skill-group">
       <h4>Supply Chain</h4>
       <span class="skill-tag">Inventory Management</span>
@@ -337,3 +337,47 @@
 </script>
 </body>
 </html>
+
+<script>
+const API = 'https://ramsrinivasan-api.rammv2001.workers.dev';
+async function loadAbout() {
+  try {
+    const d = await fetch(API + '/api/site/about').then(r=>r.json());
+    if (!d || d.error) return;
+
+    // Header desc
+    const hd = document.getElementById('about-header-desc');
+    if (hd && d.bio_1) hd.textContent = d.bio_1;
+
+    // Story grid
+    const sg = document.getElementById('story-grid');
+    if (sg && (d.bio_1 || d.bio_2 || d.bio_3)) {
+      sg.innerHTML = `
+        <div class="story-col">
+          ${d.bio_1 ? `<p>${d.bio_1}</p>` : ''}
+          ${d.bio_2 ? `<p>${d.bio_2}</p>` : ''}
+        </div>
+        <div class="story-col">
+          ${d.bio_3 ? `<p>${d.bio_3}</p>` : ''}
+        </div>
+      `;
+    }
+
+    // Skills
+    if (Array.isArray(d.skills) && d.skills.length) {
+      const ss = document.getElementById('skills-section');
+      if (ss) ss.innerHTML = `
+        <div class="skill-group">
+          <h4>Core Skills</h4>
+          ${d.skills.slice(0, Math.ceil(d.skills.length/2)).map(s=>`<span class="skill-tag">${s}</span>`).join('')}
+        </div>
+        <div class="skill-group">
+          <h4>Additional Skills</h4>
+          ${d.skills.slice(Math.ceil(d.skills.length/2)).map(s=>`<span class="skill-tag">${s}</span>`).join('')}
+        </div>
+      `;
+    }
+  } catch(e) { console.error('About load error:', e); }
+}
+loadAbout();
+</script>
