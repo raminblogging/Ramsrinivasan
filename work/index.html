@@ -159,7 +159,7 @@
 </div>
 
 <!-- PROJECTS -->
-<div class="projects-section">
+<div class="projects-section" id="projects-section">
 
   <!-- FEATURED -->
   <div class="featured-project" data-category="automation">
@@ -315,3 +315,64 @@
 </script>
 </body>
 </html>
+
+<script>
+const API = 'https://ramsrinivasan-api.rammv2001.workers.dev';
+async function loadWork() {
+  try {
+    const d = await fetch(API + '/api/site/work').then(r=>r.json());
+    if (!d || d.error || !Array.isArray(d.projects)) return;
+
+    if (d.subheading) {
+      const hd = document.getElementById('work-header-desc');
+      if (hd) hd.textContent = d.subheading;
+    }
+
+    const section = document.getElementById('projects-section');
+    if (!section || !d.projects.length) return;
+
+    const featured = d.projects.find(p=>p.featured) || d.projects[0];
+    const others   = d.projects.filter(p=>p!==featured);
+
+    section.innerHTML = `
+      <div class="featured-project" data-category="automation">
+        <div>
+          <span class="featured-badge">Featured</span>
+          <span class="fp-tag">${featured.tag||''}</span>
+          <h3>${featured.title||''}</h3>
+          <p>${featured.description||''}</p>
+          <div class="tech-stack">
+            ${(featured.tech||[]).map(t=>`<span class="tech-tag">${t}</span>`).join('')}
+          </div>
+          <div class="project-links">
+            ${featured.link ? `<a href="${featured.link}" target="_blank" rel="noopener">View Project →</a>` : ''}
+          </div>
+        </div>
+        <div class="fp-visual"><div class="fp-visual-inner">⚙️</div></div>
+      </div>
+      <div class="projects-grid">
+        ${others.map(p=>`
+          <div class="project-card" data-category="${(p.tag||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}">
+            <span class="project-tag">${p.tag||''}</span>
+            <h3>${p.title||''}</h3>
+            <p>${p.description||''}</p>
+            <div class="tech-stack">${(p.tech||[]).map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>
+            <div class="project-links">
+              ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener">View Project →</a>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Re-init scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.project-card, .featured-project').forEach(el => observer.observe(el));
+  } catch(e) { console.error('Work load error:', e); }
+}
+loadWork();
+</script>
