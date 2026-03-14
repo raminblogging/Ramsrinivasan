@@ -1,0 +1,50 @@
+# ── ramsrinivasan-api Worker ────────────────────────────────────────────────
+# This is the Cloudflare Worker that powers ALL API calls:
+#   - Blog CRUD (admin)
+#   - Contact form submissions  → stored in D1 messages table
+#   - Newsletter subscriptions  → stored in D1 messages table (type='subscribe')
+#   - Admin auth (JWT)
+#
+# Deploy command (from repo root):
+#   wrangler deploy --config src/wrangler.toml
+#
+# First-time DB setup:
+#   wrangler d1 execute ramsrinivasan-db --remote --file=src/schema.sql --config src/wrangler.toml
+#
+# Set secrets (run once, never commit these):
+#   wrangler secret put JWT_SECRET      --config src/wrangler.toml
+#   wrangler secret put ADMIN_EMAIL     --config src/wrangler.toml
+#   wrangler secret put ADMIN_PASSWORD  --config src/wrangler.toml
+
+name            = "ramsrinivasan-api"
+main            = "src/index.js"
+compatibility_date  = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ── D1 Database ──────────────────────────────────────────────────────────────
+# The same DB stores both blog posts, contact messages, and subscriptions.
+[[d1_databases]]
+binding       = "DB"
+database_name = "ramsrinivasan-db"
+database_id   = "56eabc71-43cd-4850-b4d0-b08eb588f275"
+
+# ── Custom routes ────────────────────────────────────────────────────────────
+# Routes all /api/* requests on ramsrinivasan.in to this worker.
+# This means the frontend can call /api/messages directly instead of
+# the workers.dev subdomain — which also avoids any CORS issues.
+#
+# IMPORTANT: After adding these routes, update CORS_ORIGIN in src/index.js
+# to include both origins (already done if you used the updated index.js).
+#
+[[routes]]
+pattern    = "ramsrinivasan.in/api/*"
+zone_name  = "ramsrinivasan.in"
+
+[[routes]]
+pattern    = "www.ramsrinivasan.in/api/*"
+zone_name  = "ramsrinivasan.in"
+
+# ── Secrets (set via CLI, not stored here) ───────────────────────────────────
+# JWT_SECRET     — random string, used to sign admin login tokens
+# ADMIN_EMAIL    — your admin login email
+# ADMIN_PASSWORD — your admin login password

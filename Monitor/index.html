@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2516736960447895" crossorigin="anonymous"></script>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-2516736960447895">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- SEO -->
+  <title>World Monitor — Live News Feed | Ram Srinivasan</title>
+  <meta name="description" content="Real-time curated news feed covering India, Supply Chain, Economy, Tech, and Cricket. Stay updated with the World Monitor by Ram Srinivasan."/>
+  <meta name="keywords" content="World Monitor, India News, Supply Chain News, Tech News, Live Feed, Ram Srinivasan Monitor"/>
+  <meta name="author" content="Ram Srinivasan"/>
+  <link rel="canonical" href="https://ramsrinivasan.com/Monitor/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ramsrinivasan.com/Monitor/"/>
+  <meta property="og:title" content="World Monitor — Live News Feed | Ram Srinivasan"/>
+  <meta property="og:description" content="Real-time curated news covering India, Supply Chain, Economy, Tech, and Cricket."/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"World Monitor - Ram Srinivasan","description":"Real-time news feed covering India, Supply Chain, Economy, Tech","url":"https://ramsrinivasan.com/Monitor/"}</script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZH170NH9GW');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --ink:#080810;--ink2:#0E0E1C;--panel:#141428;--surface:#1A1A32;--border:#252545;
+      --red:#E8192C;--blue:#1E3EFF;--pink:#FF6AB1;--yellow:#FFE600;--cyan:#00F5FF;--white:#F0EEFF;--muted:#7070A0;
+      --comic:'Bangers',cursive;--body:'Nunito',sans-serif;--mono:'Space Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--ink);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(0,245,255,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(8,8,16,.96);border-bottom:3px solid var(--cyan);backdrop-filter:blur(14px)}
+    .nav-logo{font-family:var(--comic);font-size:1.8rem;color:var(--red);text-decoration:none;letter-spacing:.06em;text-shadow:2px 2px 0 var(--yellow);transition:transform .2s}
+    .nav-logo:hover{transform:rotate(-3deg) scale(1.08)}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{color:var(--muted);text-decoration:none;font-family:var(--comic);font-size:1rem;letter-spacing:.08em;transition:color .2s,text-shadow .2s}
+    .nav-links a:hover{color:var(--cyan);text-shadow:1px 1px 0 var(--blue)}
+    .nav-links a.active{color:var(--cyan)}
+
+    /* PAGE HEADER */
+    .page-header{padding:5.5rem 2rem 1.8rem;max-width:1600px;margin:0 auto;border-bottom:3px solid var(--border);position:relative;overflow:hidden}
+    .page-header::after{content:'MONITOR';position:absolute;right:-1rem;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--comic);font-size:6rem;color:rgba(0,245,255,.03);letter-spacing:.1em;pointer-events:none;white-space:nowrap}
+    .header-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem;opacity:0;animation:up .6s .1s forwards}
+    .page-header h1{font-family:var(--comic);font-size:clamp(2.5rem,5vw,4rem);line-height:.95;letter-spacing:.04em;opacity:0;animation:up .6s .25s forwards}
+    .page-header h1 em{font-style:normal;color:var(--yellow);text-shadow:2px 2px 0 var(--red)}
+    .header-meta{display:flex;align-items:center;gap:2rem;margin-top:.8rem;opacity:0;animation:up .6s .4s forwards;flex-wrap:wrap}
+    #live-clock{font-family:var(--mono);font-size:.78rem;color:var(--cyan);letter-spacing:.08em}
+    #article-count{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.05em}
+    .live-dot{display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-right:.5rem;animation:pulse 1.5s ease-in-out infinite}
+
+    /* DIVIDER */
+    .divider{width:100%;height:4px;background:linear-gradient(90deg,var(--red),var(--blue),var(--pink),var(--yellow),var(--cyan));position:relative;z-index:1}
+
+    /* CONTROLS */
+    .controls{max-width:1600px;margin:0 auto;padding:1.5rem 2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;border-bottom:2px solid var(--border);opacity:0;animation:up .6s .55s forwards}
+    .search-wrap{flex:1;min-width:220px;position:relative}
+    .search-wrap input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.7rem 1rem .7rem 2.4rem;font-family:var(--mono);font-size:.8rem;outline:none;transition:border-color .2s,box-shadow .2s;letter-spacing:.03em}
+    .search-wrap input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .search-wrap input::placeholder{color:var(--muted)}
+    .search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
+    .filter-tabs{display:flex;gap:.4rem;flex-wrap:wrap}
+    .filter-tab{font-family:var(--comic);font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border:2px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+    .filter-tab:hover{border-color:var(--cyan);color:var(--cyan)}
+    .filter-tab.active{border-color:var(--yellow);color:var(--ink);background:var(--yellow);box-shadow:2px 2px 0 var(--red)}
+
+    /* ══════════════════════════════════════
+       THREE-COLUMN LAYOUT WITH ADS
+       [Left Ad] | [Main Content] | [Right Ad]
+    ══════════════════════════════════════ */
+    .outer-layout{
+      display:grid;
+      grid-template-columns:170px 1fr 170px;
+      gap:0;
+      max-width:1600px;
+      margin:0 auto;
+      padding:0;
+      align-items:start;
+      position:relative;
+      z-index:1;
+    }
+
+    /* AD COLUMNS */
+    .ad-col{
+      padding:2rem .8rem;
+      position:sticky;
+      top:4.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1.5rem;
+      align-items:center;
+    }
+    .ad-slot{
+      width:160px;
+      min-height:600px;
+      background:var(--panel);
+      border:2px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .ad-slot::before{
+      content:'';
+      position:absolute;top:0;left:0;right:0;
+      height:3px;
+      background:linear-gradient(90deg,var(--red),var(--blue));
+    }
+    .ad-slot-label{
+      font-family:var(--mono);
+      font-size:.6rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:.5rem;
+    }
+    /* Second smaller ad slot */
+    .ad-slot-sm{
+      width:160px;
+      min-height:300px;
+      background:var(--panel);
+      border:2px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .ad-slot-sm::before{
+      content:'';
+      position:absolute;top:0;left:0;right:0;
+      height:3px;
+      background:linear-gradient(90deg,var(--pink),var(--yellow));
+    }
+
+    /* INNER CONTENT AREA */
+    .inner-content{
+      padding:2rem 1.5rem 5rem;
+      display:grid;
+      grid-template-columns:1fr 260px;
+      gap:2.5rem;
+      align-items:start;
+    }
+
+    /* NEWS FEED */
+    #news-feed{display:flex;flex-direction:column}
+    .news-item{
+      display:grid;grid-template-columns:4px 1fr;gap:1.3rem;
+      padding:1.6rem 0;border-bottom:2px solid var(--border);
+      text-decoration:none;color:inherit;
+      opacity:0;transform:translateY(12px);
+      transition:opacity .5s ease,transform .5s ease;
+    }
+    .news-item.visible{opacity:1;transform:translateY(0)}
+    .news-item:first-child{border-top:2px solid var(--border)}
+    .item-accent-bar{background:var(--border);border-radius:2px;transition:background .2s}
+    .news-item:hover .item-accent-bar{background:var(--red)}
+    .news-item:hover .item-title{color:var(--yellow)}
+    .item-body{display:flex;flex-direction:column;gap:.45rem}
+    .item-meta{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+    .item-source{font-family:var(--comic);font-size:.82rem;letter-spacing:.08em;color:var(--cyan)}
+    .item-date{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.04em}
+    .item-title{font-family:var(--body);font-size:1rem;font-weight:700;line-height:1.35;transition:color .2s}
+    .item-arrow{font-family:var(--comic);font-size:.85rem;color:var(--muted);letter-spacing:.08em;margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
+    .news-item:hover .item-arrow{color:var(--red);transform:translateX(5px)}
+
+    /* CATEGORY BADGE */
+    .item-cat{
+      font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.15rem .5rem;border:1px solid;margin-left:.3rem;
+    }
+    .cat-India{color:var(--red);border-color:var(--red);background:rgba(232,25,44,.08)}
+    .cat-Tech,.cat-AI{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.06)}
+    .cat-Economy,.cat-Business{color:var(--yellow);border-color:var(--yellow);background:rgba(255,230,0,.06)}
+    .cat-Cricket,.cat-Sports{color:var(--pink);border-color:var(--pink);background:rgba(255,106,177,.06)}
+    .cat-SC,.cat-Supply.Chain{color:var(--blue);border-color:rgba(30,62,255,.8);background:rgba(30,62,255,.06)}
+    .cat-default{color:var(--muted);border-color:var(--muted);background:transparent}
+
+    /* SKELETON */
+    .skeleton{background:var(--surface);border-radius:2px;animation:shimmer 1.5s ease-in-out infinite}
+    @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.8}}
+    .skeleton-item{padding:1.6rem 0;border-bottom:2px solid var(--border);display:flex;flex-direction:column;gap:.7rem}
+    .skeleton-item:first-child{border-top:2px solid var(--border)}
+
+    /* LOAD MORE */
+    .load-more-wrap{padding-top:2rem;display:flex;justify-content:center}
+    .btn-load{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:2px solid var(--border);background:transparent;padding:.8rem 2rem;cursor:pointer;transition:all .2s}
+    .btn-load:hover{border-color:var(--red);color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
+    .btn-load:disabled{opacity:.4;cursor:not-allowed}
+
+    /* SIDEBAR */
+    .sidebar{display:flex;flex-direction:column;gap:1.5rem;position:sticky;top:5rem}
+    .sidebar-card{background:var(--panel);border:2px solid var(--border);padding:1.4rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+    .sidebar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .sidebar-card:nth-child(1)::before{background:var(--cyan)}
+    .sidebar-card:nth-child(2)::before{background:var(--red)}
+    .sidebar-card:nth-child(3)::before{background:var(--yellow)}
+    .sidebar-card:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .sc-label{font-family:var(--comic);font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--border)}
+    .source-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s}
+    .source-item:last-child{border-bottom:none}
+    .source-name{font-family:var(--mono);font-size:.72rem;color:var(--muted);transition:color .2s;letter-spacing:.03em}
+    .source-item:hover .source-name{color:var(--white)}
+    .source-item:hover{padding-left:.4rem}
+    .source-count{font-family:var(--comic);font-size:.8rem;color:var(--yellow);background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.2);padding:.1rem .45rem}
+    .stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--border)}
+    .stat-row:last-child{border-bottom:none}
+    .stat-label-s{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em}
+    .stat-val{font-family:var(--comic);font-size:1.3rem;color:var(--red)}
+    .back-link{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--comic);font-size:1rem;letter-spacing:.06em;color:var(--muted);text-decoration:none;transition:all .2s;padding:.8rem 1.2rem;border:2px solid var(--border)}
+    .back-link:hover{color:var(--yellow);border-color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
+    .back-link span{transition:transform .2s}
+    .back-link:hover span{transform:translateX(-4px)}
+
+    /* STATES */
+    .state-msg{padding:3rem 0;text-align:center}
+    .state-msg p{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+    .state-msg strong{display:block;font-family:var(--comic);font-size:1.8rem;color:var(--yellow);margin-bottom:.5rem;text-shadow:2px 2px 0 var(--red)}
+
+    /* FOOTER */
+    footer{border-top:4px solid var(--cyan);padding:1.8rem 2rem;background:var(--ink);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+    footer p{font-family:var(--comic);font-size:.9rem;color:var(--muted);letter-spacing:.05em}
+    footer a{color:var(--red);text-decoration:none}
+    footer a:hover{color:var(--yellow)}
+
+    @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+
+    /* RESPONSIVE: hide ad cols on smaller screens */
+    @media(max-width:1200px){
+      .outer-layout{grid-template-columns:0 1fr 0}
+      .ad-col{display:none}
+    }
+    @media(max-width:900px){
+      .inner-content{grid-template-columns:1fr}
+      .sidebar{position:static}
+    }
+    @media(max-width:640px){
+      nav{padding:.9rem 1.2rem}
+      .nav-links{gap:1rem}
+      .nav-links a{font-size:.88rem}
+      .page-header{padding:5rem 1.2rem 1.5rem}
+      .controls{padding:1.2rem}
+      .inner-content{padding:1.5rem 1.2rem 3rem}
+      footer{flex-direction:column;gap:.8rem;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">RM⊕</a>
+  <ul class="nav-links">
+    <li><a href="/about/">About</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/blog/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/Monitor/" class="active">Monitor</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <p class="header-eyebrow"><span class="live-dot"></span>Live Intelligence Feed</p>
+  <h1>World <em>Monitor</em></h1>
+  <div class="header-meta">
+    <span id="live-clock">--:--:-- IST</span>
+    <span id="article-count">Loading headlines…</span>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon" aria-hidden="true">⌕</span>
+    <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" aria-label="Search headlines"/>
+  </div>
+  <div class="filter-tabs" id="filter-tabs" role="group" aria-label="Filter by category">
+    <button class="filter-tab active" data-filter="all">All</button>
+  </div>
+</div>
+
+<!-- THREE-COLUMN LAYOUT: [Ad Left] [Content + Sidebar] [Ad Right] -->
+<div class="outer-layout">
+
+  <!-- ════ LEFT AD COLUMN ════ -->
+  <aside class="ad-col" aria-label="Advertisement column left">
+    <div class="ad-slot">
+      <!-- Google AdSense — Left 160x600 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-2516736960447895"
+           data-ad-slot="LEFT_AD_SLOT_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+    <div class="ad-slot-sm">
+      <!-- Google AdSense — Left 160x300 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:300px"
+           data-ad-client="ca-pub-2516736960447895"
+           data-ad-slot="LEFT_AD_SLOT_SM_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </aside>
+
+  <!-- ════ MAIN CONTENT ════ -->
+  <div class="inner-content">
+    <main>
+      <!-- Skeleton loaders -->
+      <div id="skeleton-loader">
+        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:120px"></div><div class="skeleton" style="height:18px;width:88%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:140px"></div><div class="skeleton" style="height:18px;width:72%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:100px"></div><div class="skeleton" style="height:18px;width:91%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:130px"></div><div class="skeleton" style="height:18px;width:78%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:110px"></div><div class="skeleton" style="height:18px;width:83%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+      </div>
+
+      <div id="news-feed" role="list" aria-label="News headlines"></div>
+
+      <div class="load-more-wrap">
+        <button class="btn-load" id="load-more-btn" style="display:none" onclick="loadMore()">Load More Headlines ↓</button>
+      </div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Feed statistics and sources">
+      <a href="/" class="back-link"><span>←</span> ramsrinivasan.com</a>
+
+      <div class="sidebar-card">
+        <div class="sc-label">Feed Stats</div>
+        <div class="stat-row"><span class="stat-label-s">Total Articles</span><span class="stat-val" id="stat-total">—</span></div>
+        <div class="stat-row"><span class="stat-label-s">Sources Active</span><span class="stat-val" id="stat-sources">—</span></div>
+        <div class="stat-row"><span class="stat-label-s">Showing</span><span class="stat-val" id="stat-showing">—</span></div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sc-label">Browse by Topic</div>
+        <div id="source-list">
+          <div class="skeleton" style="height:10px;width:80%;margin-bottom:12px"></div>
+          <div class="skeleton" style="height:10px;width:60%;margin-bottom:12px"></div>
+          <div class="skeleton" style="height:10px;width:70%"></div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sc-label">Refresh</div>
+        <p style="font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Feed updates when <code style="color:var(--cyan)">fetch.py</code> runs. Pull latest manually:</p>
+        <button class="btn-load" onclick="reloadFeed()" style="width:100%">↻ Reload Feed</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ════ RIGHT AD COLUMN ════ -->
+  <aside class="ad-col" aria-label="Advertisement column right">
+    <div class="ad-slot">
+      <!-- Google AdSense — Right 160x600 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-2516736960447895"
+           data-ad-slot="RIGHT_AD_SLOT_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+    <div class="ad-slot-sm">
+      <!-- Google AdSense — Right 160x300 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:300px"
+           data-ad-client="ca-pub-2516736960447895"
+           data-ad-slot="RIGHT_AD_SLOT_SM_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </aside>
+
+</div><!-- /outer-layout -->
+
+<footer>
+  <p>© 2026 <a href="/">RamSrinivasan</a>. World Monitor.</p>
+  <p>Curated from trusted Indian sources.</p>
+</footer>
+
+<script>
+  // ── STATE ──
+  let allArticles=[],filtered=[],currentFilter='all',searchQuery='',page=0;
+  const PAGE_SIZE=20;
+
+  // ── CLOCK ──
+  function updateClock(){
+    const now=new Date();
+    document.getElementById('live-clock').textContent=
+      now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' IST';
+  }
+  updateClock();setInterval(updateClock,1000);
+
+  // ── FORMAT DATE ──
+  function formatDate(str){
+    if(!str)return'';
+    try{
+      const d=new Date(str);
+      if(isNaN(d))return str.slice(0,16);
+      return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+    }catch{return''}
+  }
+
+  // ── CATEGORY COLOR ──
+  function catClass(cat){
+    const c=(cat||'').toLowerCase();
+    if(c==='india')return'cat-India';
+    if(c==='tech'||c==='technology')return'cat-Tech';
+    if(c==='ai')return'cat-AI';
+    if(c==='economy'||c==='finance')return'cat-Economy';
+    if(c==='business')return'cat-Economy';
+    if(c==='cricket'||c==='sports')return'cat-Cricket';
+    return'cat-default';
+  }
+
+  // ── LOAD DATA ──
+  async function loadFeed(){
+    try{
+      const res=await fetch('news.json?v='+Date.now());
+      if(!res.ok)throw new Error('Failed');
+      allArticles=await res.json();
+      init();
+    }catch(e){
+      document.getElementById('skeleton-loader').style.display='none';
+      document.getElementById('news-feed').innerHTML=`<div class="state-msg"><strong>Feed Offline</strong><p>Run <code>python fetch.py</code> to generate news.json, then reload this page.</p></div>`;
+    }
+  }
+
+  // ── INIT ──
+  function init(){
+    document.getElementById('skeleton-loader').style.display='none';
+    buildSources();applyFilters();
+  }
+
+  const CAT_ORDER=['India','Supply Chain','Cricket','Economy','Tech','Business','AI','Trending'];
+
+  function buildSources(){
+    const catCounts={},srcCounts={};
+    allArticles.forEach(a=>{
+      const cat=a.category||'Other',src=a.source||'Unknown';
+      catCounts[cat]=(catCounts[cat]||0)+1;
+      srcCounts[src]=(srcCounts[src]||0)+1;
+    });
+    document.getElementById('stat-total').textContent=allArticles.length;
+    document.getElementById('stat-sources').textContent=Object.keys(srcCounts).length;
+
+    const list=document.getElementById('source-list');
+    list.innerHTML='';
+    const orderedCats=[...CAT_ORDER.filter(c=>catCounts[c]),...Object.keys(catCounts).filter(c=>!CAT_ORDER.includes(c)).sort()];
+    orderedCats.forEach(cat=>{
+      const div=document.createElement('div');
+      div.className='source-item';
+      div.innerHTML=`<span class="source-name">${cat}</span><span class="source-count">${catCounts[cat]}</span>`;
+      div.addEventListener('click',()=>setFilter(cat));
+      list.appendChild(div);
+    });
+
+    const tabsEl=document.getElementById('filter-tabs');
+    tabsEl.querySelectorAll('.filter-tab:not([data-filter="all"])').forEach(e=>e.remove());
+    orderedCats.forEach(cat=>{
+      const btn=document.createElement('button');
+      btn.className='filter-tab';btn.dataset.filter=cat;btn.textContent=cat;
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  function setFilter(val){
+    currentFilter=val;
+    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.toggle('active',t.dataset.filter===val));
+    page=0;applyFilters();
+  }
+
+  function applyFilters(){
+    const q=searchQuery.toLowerCase();
+    filtered=allArticles.filter(a=>{
+      const matchCat=currentFilter==='all'||(a.category||'Other')===currentFilter;
+      const matchSearch=!q||a.title.toLowerCase().includes(q)||(a.source||'').toLowerCase().includes(q);
+      return matchCat&&matchSearch;
+    });
+    page=0;
+    document.getElementById('news-feed').innerHTML='';
+    document.getElementById('stat-showing').textContent=filtered.length;
+    renderPage();
+  }
+
+  function renderPage(){
+    const feed=document.getElementById('news-feed');
+    const start=page*PAGE_SIZE;
+    const slice=filtered.slice(start,start+PAGE_SIZE);
+    if(filtered.length===0){
+      feed.innerHTML=`<div class="state-msg"><strong>No Results</strong><p>Try a different search or filter.</p></div>`;
+      document.getElementById('load-more-btn').style.display='none';
+      return;
+    }
+    slice.forEach((a,i)=>{
+      const item=document.createElement('a');
+      item.className='news-item';
+      item.href=a.link||'#';
+      item.target='_blank';
+      item.rel='noopener noreferrer';
+      item.setAttribute('role','listitem');
+      const cat=a.category||'Other';
+      item.innerHTML=`
+        <div class="item-accent-bar"></div>
+        <div class="item-body">
+          <div class="item-meta">
+            <span class="item-source">${a.source||'Unknown'}</span>
+            <span class="item-cat ${catClass(cat)}">${cat}</span>
+            <span class="item-date">${formatDate(a.published)}</span>
+          </div>
+          <div class="item-title">${a.title}</div>
+          <span class="item-arrow">Read ↗</span>
+        </div>`;
+      feed.appendChild(item);
+      setTimeout(()=>item.classList.add('visible'),i*35);
+    });
+    page++;
+    const btn=document.getElementById('load-more-btn');
+    btn.style.display=(page*PAGE_SIZE<filtered.length)?'block':'none';
+  }
+
+  function loadMore(){renderPage()}
+
+  function reloadFeed(){
+    allArticles=[];filtered=[];page=0;
+    document.getElementById('news-feed').innerHTML='';
+    document.getElementById('skeleton-loader').style.display='block';
+    document.getElementById('load-more-btn').style.display='none';
+    document.getElementById('filter-tabs').querySelectorAll('.filter-tab:not([data-filter="all"])').forEach(e=>e.remove());
+    loadFeed();
+  }
+
+  let searchTimer;
+  document.getElementById('search-input').addEventListener('input',e=>{
+    clearTimeout(searchTimer);searchQuery=e.target.value;
+    searchTimer=setTimeout(applyFilters,280);
+  });
+  document.getElementById('filter-tabs').addEventListener('click',e=>{
+    if(e.target.classList.contains('filter-tab'))setFilter(e.target.dataset.filter);
+  });
+  setInterval(()=>{
+    if(allArticles.length)document.getElementById('article-count').textContent=`${filtered.length} headlines · updated on load`;
+  },500);
+
+  loadFeed();
+</script>
+</body>
+</html>
