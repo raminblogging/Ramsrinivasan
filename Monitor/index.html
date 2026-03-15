@@ -6,15 +6,22 @@
   <meta name="google-adsense-account" content="ca-pub-2516736960447895">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>World Monitor — Live News Feed | Ram Srinivasan</title>
-  <meta name="description" content="Real-time news feed — 1000+ RSS sources fetched live, decentralised, in your browser."/>
+  <meta name="description" content="Real-time curated news feed covering India, Supply Chain, Economy, Tech, Cricket and more."/>
   <meta name="author" content="Ram Srinivasan"/>
   <link rel="canonical" href="https://ramsrinivasan.com/Monitor/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ramsrinivasan.com/Monitor/"/>
+  <meta property="og:title" content="World Monitor — Live News Feed | Ram Srinivasan"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZH170NH9GW');</script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -25,12 +32,16 @@
     html{scroll-behavior:smooth}
     body{background:var(--ink);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;min-height:100vh}
     body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(0,245,255,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
+
+    /* NAV */
     nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(8,8,16,.96);border-bottom:3px solid var(--cyan);backdrop-filter:blur(14px)}
     .nav-logo{font-family:var(--comic);font-size:1.8rem;color:var(--red);text-decoration:none;letter-spacing:.06em;text-shadow:2px 2px 0 var(--yellow);transition:transform .2s}
     .nav-logo:hover{transform:rotate(-3deg) scale(1.08)}
     .nav-links{display:flex;gap:1.5rem;list-style:none}
     .nav-links a{color:var(--muted);text-decoration:none;font-family:var(--comic);font-size:1rem;letter-spacing:.08em;transition:color .2s}
     .nav-links a:hover,.nav-links a.active{color:var(--cyan)}
+
+    /* HEADER */
     .page-header{padding:5.5rem 2rem 1.8rem;max-width:1600px;margin:0 auto;border-bottom:3px solid var(--border);position:relative;overflow:hidden}
     .page-header::after{content:'MONITOR';position:absolute;right:-1rem;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--comic);font-size:6rem;color:rgba(0,245,255,.03);pointer-events:none;white-space:nowrap}
     .header-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem;opacity:0;animation:up .6s .1s forwards}
@@ -40,7 +51,10 @@
     #live-clock{font-family:var(--mono);font-size:.78rem;color:var(--cyan);letter-spacing:.08em}
     #article-count{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.05em}
     .live-dot{display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-right:.5rem;animation:pulse 1.5s ease-in-out infinite}
+
     .divider{width:100%;height:4px;background:linear-gradient(90deg,var(--red),var(--blue),var(--pink),var(--yellow),var(--cyan));z-index:1;position:relative}
+
+    /* OUTER 3-COL LAYOUT */
     .outer-layout{display:grid;grid-template-columns:170px 1fr 170px;max-width:1600px;margin:0 auto;position:relative;z-index:1}
     .ad-col{padding:1.5rem .8rem;position:sticky;top:4.5rem;display:flex;flex-direction:column;gap:1.5rem;align-items:center;height:fit-content}
     .ad-slot{width:160px;min-height:600px;background:var(--panel);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
@@ -48,75 +62,77 @@
     .ad-slot-sm{width:160px;min-height:300px;background:var(--panel);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
     .ad-slot-sm::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--yellow))}
     .centre-col{min-width:0;display:flex;flex-direction:column}
-    /* MAP */
+
+    /* MAP — always in DOM, never inside display:none */
     .map-strip{width:100%;background:var(--panel);border-bottom:3px solid var(--border)}
     .map-strip-header{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.2rem;background:var(--ink2);border-bottom:2px solid var(--border)}
-    .map-strip-left{display:flex;align-items:center;gap:.8rem}
-    .map-strip-label{font-family:var(--comic);font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
-    .map-strip-sub{font-family:var(--mono);font-size:.6rem;color:var(--muted)}
-    .map-pin-count{font-family:var(--mono);font-size:.6rem;color:var(--ink);background:var(--cyan);padding:.15rem .55rem}
+    .msl{display:flex;align-items:center;gap:.8rem}
+    .mslabel{font-family:var(--comic);font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+    .mssub{font-family:var(--mono);font-size:.6rem;color:var(--muted)}
+    .mpins{font-family:var(--mono);font-size:.6rem;color:var(--ink);background:var(--cyan);padding:.15rem .55rem}
     #news-map{width:100%;height:240px;display:block;background:#0a0f18}
     .leaflet-container{background:#0a0f18 !important;font-family:var(--mono) !important}
     .leaflet-popup-content-wrapper{background:var(--panel) !important;border:2px solid var(--cyan) !important;border-radius:0 !important;box-shadow:3px 3px 0 var(--cyan) !important;color:var(--white) !important;padding:0 !important}
     .leaflet-popup-tip{background:var(--cyan) !important}
     .leaflet-popup-content{margin:0 !important;padding:0 !important}
-    .map-popup{padding:.8rem 1rem;max-width:220px}
-    .map-popup-cat{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem}
-    .map-popup-title{font-family:var(--body);font-size:.78rem;font-weight:700;line-height:1.3;color:var(--white);margin-bottom:.5rem}
-    .map-popup-link{font-family:var(--comic);font-size:.75rem;color:var(--yellow);text-decoration:none;border-bottom:1px solid rgba(255,230,0,.3)}
-    .map-popup-link:hover{color:var(--red)}
-    .map-popup-src{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.35rem;display:block}
+    .mp{padding:.8rem 1rem;max-width:220px}
+    .mpcat{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem}
+    .mptitle{font-family:var(--body);font-size:.78rem;font-weight:700;line-height:1.3;color:var(--white);margin-bottom:.5rem}
+    .mplink{font-family:var(--comic);font-size:.75rem;color:var(--yellow);text-decoration:none;border-bottom:1px solid rgba(255,230,0,.3)}
+    .mplink:hover{color:var(--red)}
+    .mpsrc{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.35rem;display:block}
     .leaflet-popup-close-button{color:var(--cyan) !important;font-size:1rem !important;top:4px !important;right:6px !important}
-    .map-tt{background:var(--ink2) !important;border:1px solid var(--border) !important;color:var(--muted) !important;font-family:var(--mono) !important;font-size:.6rem !important;border-radius:0 !important;box-shadow:none !important;padding:.2rem .5rem !important}
-    /* PROGRESS */
-    .fetch-progress-wrap{background:var(--ink2);border-bottom:2px solid var(--border);padding:.5rem 1.2rem;display:flex;align-items:center;gap:1rem}
-    .fetch-bar-outer{flex:1;height:4px;background:var(--border);overflow:hidden}
-    .fetch-bar-inner{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));width:0%;transition:width .15s}
-    .fetch-status{font-family:var(--mono);font-size:.6rem;color:var(--muted);white-space:nowrap;min-width:200px}
+    .mtt{background:var(--ink2) !important;border:1px solid var(--border) !important;color:var(--muted) !important;font-family:var(--mono) !important;font-size:.6rem !important;border-radius:0 !important;box-shadow:none !important;padding:.2rem .5rem !important}
+
     /* CATEGORY BROWSE */
-    .category-browse{padding:1.8rem 1.5rem 1rem;border-bottom:2px solid var(--border)}
+    .cat-browse{padding:1.8rem 1.5rem 1rem;border-bottom:2px solid var(--border)}
     .browse-heading{font-family:var(--comic);font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
     .browse-heading::after{content:'';flex:1;height:1px;background:var(--border)}
-    .category-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem}
-    .cat-card{position:relative;height:82px;border:2px solid var(--border);background:var(--panel);cursor:pointer;overflow:hidden;transition:transform .22s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;display:flex;align-items:flex-end;padding:.8rem .9rem;outline:none;animation:fadeSlideUp .35s both}
+    .cat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem}
+    .cat-card{position:relative;height:82px;border:2px solid var(--border);background:var(--panel);cursor:pointer;overflow:hidden;transition:transform .22s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;display:flex;align-items:flex-end;padding:.8rem .9rem;outline:none;animation:fadeUp .35s both}
     .cat-card:hover{transform:scale(1.04) translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.5),3px 3px 0 var(--ca,var(--cyan));border-color:var(--ca,var(--cyan));z-index:2}
-    .cat-card.selected{border-color:var(--ca,var(--cyan));box-shadow:0 0 0 2px var(--ca,var(--cyan)),3px 3px 0 var(--ca,var(--cyan))}
-    .cat-card.selected::after{content:'▶ VIEWING';position:absolute;top:.45rem;right:.5rem;font-family:var(--mono);font-size:.5rem;color:var(--ca,var(--cyan));background:rgba(0,0,0,.85);padding:.1rem .35rem;border:1px solid var(--ca,var(--cyan))}
-    .ccs{position:absolute;top:0;left:0;right:0;height:3px;background:var(--ca,var(--cyan));box-shadow:0 0 10px var(--ca,var(--cyan))}
-    .ccb{position:absolute;right:-.2rem;top:-.4rem;font-family:var(--comic);font-size:4rem;line-height:1;color:var(--ca,var(--cyan));opacity:.07;pointer-events:none;transition:opacity .25s,transform .25s}
-    .cat-card:hover .ccb{opacity:.14;transform:scale(1.1) rotate(-4deg)}
-    .cci{display:flex;flex-direction:column;position:relative;z-index:1}
-    .ccn{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);line-height:1;transition:color .2s}
-    .ccc{font-family:var(--mono);font-size:.55rem;color:var(--muted);margin-top:.2rem}
-    .cat-card:hover .ccn,.cat-card.selected .ccn{color:var(--ca,var(--cyan))}
+    .cat-card.sel{border-color:var(--ca,var(--cyan));box-shadow:0 0 0 2px var(--ca,var(--cyan)),3px 3px 0 var(--ca,var(--cyan))}
+    .cat-card.sel::after{content:'▶ VIEWING';position:absolute;top:.45rem;right:.5rem;font-family:var(--mono);font-size:.5rem;color:var(--ca,var(--cyan));background:rgba(0,0,0,.85);padding:.1rem .35rem;border:1px solid var(--ca,var(--cyan))}
+    .cstr{position:absolute;top:0;left:0;right:0;height:3px;background:var(--ca,var(--cyan));box-shadow:0 0 10px var(--ca,var(--cyan))}
+    .cbg{position:absolute;right:-.2rem;top:-.4rem;font-family:var(--comic);font-size:4rem;line-height:1;color:var(--ca,var(--cyan));opacity:.07;pointer-events:none;transition:opacity .25s,transform .25s}
+    .cat-card:hover .cbg{opacity:.14;transform:scale(1.1) rotate(-4deg)}
+    .cin{display:flex;flex-direction:column;position:relative;z-index:1}
+    .cnm{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);line-height:1;transition:color .2s}
+    .cct{font-family:var(--mono);font-size:.55rem;color:var(--muted);margin-top:.2rem}
+    .cat-card:hover .cnm,.cat-card.sel .cnm{color:var(--ca,var(--cyan))}
+
     /* NEWS VIEW */
     .news-view{display:none;padding:0 1.5rem 5rem}
     .news-view.active{display:grid;grid-template-columns:1fr 260px;gap:2rem;align-items:start}
-    .view-topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 0;border-bottom:2px solid var(--border);margin-bottom:.5rem}
+    .vtop{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 0;border-bottom:2px solid var(--border);margin-bottom:.5rem}
     .vtl{display:flex;align-items:center;gap:1rem}
     .btn-back{font-family:var(--comic);font-size:.95rem;color:var(--muted);background:transparent;border:2px solid var(--border);padding:.45rem 1rem;cursor:pointer;transition:all .2s}
     .btn-back:hover{border-color:var(--red);color:var(--yellow);box-shadow:2px 2px 0 var(--red)}
-    .vcl{font-family:var(--comic);font-size:1.6rem;color:var(--aa,var(--cyan));text-shadow:2px 2px 0 rgba(0,0,0,.5)}
-    .vcb{font-family:var(--mono);font-size:.65rem;color:var(--ink);background:var(--aa,var(--cyan));padding:.2rem .6rem;margin-left:.4rem}
-    .vsw{position:relative;min-width:220px}
-    .vsw input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.55rem 1rem .55rem 2.2rem;font-family:var(--mono);font-size:.75rem;outline:none;transition:border-color .2s,box-shadow .2s}
-    .vsw input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
-    .vsw input::placeholder{color:var(--muted)}
-    .vsi{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem}
+    .vclabel{font-family:var(--comic);font-size:1.6rem;color:var(--aa,var(--cyan));text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+    .vcbadge{font-family:var(--mono);font-size:.65rem;color:var(--ink);background:var(--aa,var(--cyan));padding:.2rem .6rem;margin-left:.4rem}
+    .vsrch{position:relative;min-width:220px}
+    .vsrch input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.55rem 1rem .55rem 2.2rem;font-family:var(--mono);font-size:.75rem;outline:none;transition:border-color .2s,box-shadow .2s}
+    .vsrch input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .vsrch input::placeholder{color:var(--muted)}
+    .vsrch-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem}
+
+    /* NEWS ITEMS */
     #news-feed{display:flex;flex-direction:column}
     .ni{display:grid;grid-template-columns:4px 1fr;gap:1.3rem;padding:1.4rem 0;border-bottom:2px solid var(--border);text-decoration:none;color:inherit;opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
     .ni.vis{opacity:1;transform:translateY(0)}
     .ni:first-child{border-top:2px solid var(--border)}
-    .nib{background:var(--border);border-radius:2px;transition:background .2s}
-    .ni:hover .nib{background:var(--red)}
-    .ni:hover .nit{color:var(--yellow)}
-    .nibd{display:flex;flex-direction:column;gap:.4rem}
-    .nim{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
-    .nis{font-family:var(--comic);font-size:.8rem;color:var(--cyan)}
-    .nid{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
-    .nit{font-family:var(--body);font-size:.98rem;font-weight:700;line-height:1.35;transition:color .2s}
-    .nia{font-family:var(--comic);font-size:.82rem;color:var(--muted);margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
-    .ni:hover .nia{color:var(--red);transform:translateX(5px)}
+    .nbar{background:var(--border);border-radius:2px;transition:background .2s}
+    .ni:hover .nbar{background:var(--red)}
+    .ni:hover .ntitle{color:var(--yellow)}
+    .nbody{display:flex;flex-direction:column;gap:.4rem}
+    .nmeta{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+    .nsrc{font-family:var(--comic);font-size:.8rem;color:var(--cyan)}
+    .ndate{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+    .ntitle{font-family:var(--body);font-size:.98rem;font-weight:700;line-height:1.35;transition:color .2s}
+    .narrow{font-family:var(--comic);font-size:.82rem;color:var(--muted);margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
+    .ni:hover .narrow{color:var(--red);transform:translateX(5px)}
+
+    /* CATEGORY BADGES */
     .ic{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .45rem;border:1px solid;margin-left:.3rem}
     .cIndia{color:var(--red);border-color:var(--red);background:rgba(232,25,44,.08)}
     .cTech,.cAI{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.06)}
@@ -129,12 +145,18 @@
     .cEnvironment{color:#4ade80;border-color:#4ade80;background:rgba(74,222,128,.06)}
     .cStartups{color:#e879f9;border-color:#e879f9;background:rgba(232,121,249,.06)}
     .cCulture{color:#f9a8d4;border-color:#f9a8d4;background:rgba(249,168,212,.06)}
-    .cother{color:var(--muted);border-color:var(--muted);background:transparent}
+
+    /* SKELETON */
     .sk{background:var(--surface);border-radius:2px;animation:shimmer 1.5s ease-in-out infinite}
     @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.8}}
+    .ski{padding:1.4rem 0;border-bottom:2px solid var(--border);display:flex;flex-direction:column;gap:.7rem}
+
+    /* LOAD MORE */
     .lmw{padding-top:2rem;display:flex;justify-content:center}
     .btnl{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:2px solid var(--border);background:transparent;padding:.8rem 2rem;cursor:pointer;transition:all .2s}
     .btnl:hover{border-color:var(--red);color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
+
+    /* SIDEBAR */
     .sidebar{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:5rem}
     .sbc{background:var(--panel);border:2px solid var(--border);padding:1.2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
     .sbc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
@@ -152,22 +174,27 @@
     .stv{font-family:var(--comic);font-size:1.3rem;color:var(--red)}
     .bkl{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--comic);font-size:1rem;color:var(--muted);text-decoration:none;transition:all .2s;padding:.7rem 1rem;border:2px solid var(--border)}
     .bkl:hover{color:var(--yellow);border-color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
+
     .smsg{padding:3rem 0;text-align:center}
     .smsg p{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
     .smsg strong{display:block;font-family:var(--comic);font-size:1.8rem;color:var(--yellow);margin-bottom:.5rem;text-shadow:2px 2px 0 var(--red)}
+
     footer{border-top:4px solid var(--cyan);padding:1.8rem 2rem;background:var(--ink);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
     footer p{font-family:var(--comic);font-size:.9rem;color:var(--muted)}
     footer a{color:var(--red);text-decoration:none}
     footer a:hover{color:var(--yellow)}
+
     @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
-    @keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
     @media(max-width:1200px){.outer-layout{grid-template-columns:0 1fr 0}.ad-col{display:none}}
     @media(max-width:900px){.news-view.active{grid-template-columns:1fr}.sidebar{position:static}}
-    @media(max-width:640px){nav{padding:.9rem 1.2rem}.nav-links{gap:1rem}.page-header{padding:5rem 1.2rem 1.4rem}#news-map{height:180px}.category-row{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.6rem}.news-view,.category-browse{padding-left:1rem;padding-right:1rem}footer{flex-direction:column;gap:.8rem;text-align:center}}
+    @media(max-width:640px){nav{padding:.9rem 1.2rem}.nav-links{gap:1rem}.page-header{padding:5rem 1.2rem 1.4rem}#news-map{height:180px}.cat-row{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.6rem}.news-view,.cat-browse{padding-left:1rem;padding-right:1rem}footer{flex-direction:column;gap:.8rem;text-align:center}}
   </style>
 </head>
 <body>
+
 <nav>
   <a href="/" class="nav-logo">RM⊕</a>
   <ul class="nav-links">
@@ -178,45 +205,43 @@
     <li><a href="/Monitor/" class="active">Monitor</a></li>
   </ul>
 </nav>
+
 <header class="page-header">
   <p class="header-eyebrow"><span class="live-dot"></span>Live Intelligence Feed</p>
   <h1>World <em>Monitor</em></h1>
   <div class="header-meta">
     <span id="live-clock">--:--:-- IST</span>
-    <span id="article-count">Connecting to feeds…</span>
+    <span id="article-count">Loading feed…</span>
   </div>
 </header>
 <div class="divider"></div>
 
 <div class="outer-layout">
+
+  <!-- LEFT AD -->
   <aside class="ad-col">
     <div class="ad-slot"><ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-2516736960447895" data-ad-slot="LEFT_AD_SLOT_ID"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
     <div class="ad-slot-sm"><ins class="adsbygoogle" style="display:inline-block;width:160px;height:300px" data-ad-client="ca-pub-2516736960447895" data-ad-slot="LEFT_AD_SM_ID"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
   </aside>
 
   <div class="centre-col">
-    <!-- MAP always visible -->
+
+    <!-- MAP — always visible, never inside hidden container -->
     <div class="map-strip">
       <div class="map-strip-header">
-        <div class="map-strip-left">
-          <span class="map-strip-label">📡 Live News Map</span>
-          <span class="map-strip-sub" id="msub">Waiting for pins…</span>
+        <div class="msl">
+          <span class="mslabel">📡 Live News Map</span>
+          <span class="mssub" id="msub">Loading pins…</span>
         </div>
-        <span class="map-pin-count" id="mpin">— pins</span>
+        <span class="mpins" id="mpin">— pins</span>
       </div>
       <div id="news-map"></div>
     </div>
 
-    <!-- PROGRESS -->
-    <div class="fetch-progress-wrap" id="fpw">
-      <div class="fetch-bar-outer"><div class="fetch-bar-inner" id="fbar"></div></div>
-      <span class="fetch-status" id="fstat">Starting…</span>
-    </div>
-
     <!-- CATEGORY CARDS -->
-    <section class="category-browse" id="cat-browse">
+    <section class="cat-browse" id="cat-browse">
       <p class="browse-heading">Browse by Category</p>
-      <div class="category-row" id="cat-row">
+      <div class="cat-row" id="cat-row">
         <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
         <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
         <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
@@ -226,28 +251,38 @@
 
     <!-- NEWS VIEW -->
     <div class="news-view" id="news-view">
-      <div class="view-topbar">
+      <div class="vtop">
         <div class="vtl">
           <button class="btn-back" onclick="showCats()">← Categories</button>
-          <span class="vcl" id="vcl">All</span>
-          <span class="vcb" id="vcb">0</span>
+          <span class="vclabel" id="vcl">All</span>
+          <span class="vcbadge" id="vcb">0</span>
         </div>
-        <div class="vsw">
-          <span class="vsi">⌕</span>
+        <div class="vsrch">
+          <span class="vsrch-icon">⌕</span>
           <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" oninput="doSearch(this.value)"/>
         </div>
       </div>
+
       <main>
+        <!-- Skeleton shown while feed.json loads -->
+        <div id="skeleton-loader">
+          <div class="ski"><div class="sk" style="height:10px;width:120px"></div><div class="sk" style="height:16px;width:88%"></div></div>
+          <div class="ski"><div class="sk" style="height:10px;width:140px"></div><div class="sk" style="height:16px;width:72%"></div></div>
+          <div class="ski"><div class="sk" style="height:10px;width:100px"></div><div class="sk" style="height:16px;width:91%"></div></div>
+          <div class="ski"><div class="sk" style="height:10px;width:130px"></div><div class="sk" style="height:16px;width:78%"></div></div>
+        </div>
         <div id="news-feed" role="list"></div>
-        <div class="lmw"><button class="btnl" id="lmb" style="display:none" onclick="loadMore()">Load More ↓</button></div>
+        <div class="lmw"><button class="btnl" id="lmb" style="display:none" onclick="loadMore()">Load More Headlines ↓</button></div>
       </main>
+
       <aside class="sidebar">
         <a href="/" class="bkl"><span>←</span> ramsrinivasan.com</a>
         <div class="sbc">
           <div class="scl">Feed Stats</div>
-          <div class="str"><span class="stl">Articles</span><span class="stv" id="st1">—</span></div>
+          <div class="str"><span class="stl">Total Articles</span><span class="stv" id="st1">—</span></div>
           <div class="str"><span class="stl">Sources</span><span class="stv" id="st2">—</span></div>
           <div class="str"><span class="stl">Showing</span><span class="stv" id="st3">—</span></div>
+          <div class="str"><span class="stl">Last Updated</span><span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)" id="last-updated">—</span></div>
         </div>
         <div class="sbc">
           <div class="scl">By Topic</div>
@@ -255,8 +290,10 @@
         </div>
         <div class="sbc">
           <div class="scl">About</div>
-          <p style="font-family:var(--mono);font-size:.67rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem"><strong style="color:var(--cyan)" id="srccnt">—</strong> RSS feeds. Fully decentralised — runs in <em style="color:var(--yellow)">your browser</em>. No server.</p>
-          <button class="btnl" onclick="refresh()" style="width:100%;padding:.6rem;font-size:.85rem">↻ Refresh</button>
+          <p style="font-family:var(--mono);font-size:.67rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem">
+            Feed generated by <code style="color:var(--cyan)">fetch.py</code> from <strong style="color:var(--cyan)" id="src-count">—</strong> RSS sources. Run the script to refresh.
+          </p>
+          <button class="btnl" onclick="window.location.reload()" style="width:100%;padding:.6rem;font-size:.85rem">↻ Reload Page</button>
         </div>
         <div style="display:flex;justify-content:center;margin-top:.5rem">
           <ins class="adsbygoogle" style="display:inline-block;width:250px;height:250px" data-ad-client="ca-pub-2516736960447895" data-ad-slot="SIDEBAR_AD_ID"></ins>
@@ -264,23 +301,26 @@
         </div>
       </aside>
     </div>
-  </div>
 
+  </div><!-- /centre-col -->
+
+  <!-- RIGHT AD -->
   <aside class="ad-col">
     <div class="ad-slot"><ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-2516736960447895" data-ad-slot="RIGHT_AD_SLOT_ID"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
     <div class="ad-slot-sm"><ins class="adsbygoogle" style="display:inline-block;width:160px;height:300px" data-ad-client="ca-pub-2516736960447895" data-ad-slot="RIGHT_AD_SM_ID"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
   </aside>
-</div>
+
+</div><!-- /outer-layout -->
 
 <footer>
   <p>World Monitor by <a href="/">Ram Srinivasan</a></p>
-  <p style="font-size:.75rem" id="ftxt">1000+ RSS sources · Fully decentralised</p>
+  <p style="font-size:.75rem" id="ftxt">Powered by fetch.py · RSS feeds</p>
 </footer>
 
 <script>
 'use strict';
 
-// ─── CATEGORY ACCENT COLOURS ─────────────────────────────────────
+// ── ACCENT COLOURS PER CATEGORY ───────────────────────────────────
 const CA={
   All:'#F0EEFF',India:'#E8192C',Tech:'#00F5FF',AI:'#00F5FF',
   Economy:'#FFE600',Business:'#FFE600',Finance:'#FFE600',
@@ -289,14 +329,8 @@ const CA={
   Health:'#f97316',Environment:'#4ade80',Startups:'#e879f9',
   Politics:'#a78bfa',Culture:'#f9a8d4',
 };
-const CP={
-  India:'#E8192C',Tech:'#00F5FF',AI:'#00F5FF',
-  Economy:'#FFE600',Business:'#FFE600',Finance:'#FFE600',
-  Cricket:'#FF6AB1',Sports:'#FF6AB1',SC:'#4d7eff',
-  World:'#fb7185',Geopolitics:'#fb7185',Science:'#34d399',
-  Health:'#f97316',Environment:'#4ade80',Startups:'#e879f9',
-  Politics:'#a78bfa',Culture:'#f9a8d4',Other:'#7070A0',
-};
+const CP={...CA,Other:'#7070A0'};
+
 const GEO={
   India:[{a:28.61,o:77.21},{a:19.07,o:72.88},{a:13.08,o:80.27},{a:22.57,o:88.36},{a:12.97,o:77.59}],
   Tech:[{a:37.34,o:-121.89},{a:37.77,o:-122.42},{a:47.61,o:-122.33},{a:51.51,o:-.13},{a:1.35,o:103.82}],
@@ -306,7 +340,7 @@ const GEO={
   Finance:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:22.32,o:114.17}],
   SC:[{a:31.23,o:121.47},{a:1.35,o:103.82},{a:51.92,o:4.48}],
   Cricket:[{a:28.61,o:77.21},{a:13.08,o:80.27},{a:-33.87,o:151.21}],
-  Sports:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35}],
+  Sports:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:35.68,o:139.65}],
   World:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:55.75,o:37.62},{a:39.91,o:116.39}],
   Geopolitics:[{a:38.9,o:-77.04},{a:51.51,o:-.13},{a:55.75,o:37.62}],
   Science:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35}],
@@ -318,11 +352,11 @@ const GEO={
   Other:[{a:0,o:20},{a:48.86,o:2.35}],
 };
 
-// ─── STATE ────────────────────────────────────────────────────────
+// ── STATE ─────────────────────────────────────────────────────────
 let ALL=[], FILT=[], DISP=0, ACAT='All', SQ='';
 let LMAP=null, MKRS=[];
 
-// ─── CLOCK ────────────────────────────────────────────────────────
+// ── CLOCK ─────────────────────────────────────────────────────────
 (function tick(){
   const ist=new Date(Date.now()+5.5*3600000),p=n=>String(n).padStart(2,'0');
   const el=document.getElementById('live-clock');
@@ -330,7 +364,7 @@ let LMAP=null, MKRS=[];
   setTimeout(tick,1000);
 })();
 
-// ─── MAP ──────────────────────────────────────────────────────────
+// ── MAP ───────────────────────────────────────────────────────────
 function initMap(){
   if(LMAP||typeof L==='undefined') return;
   LMAP=L.map('news-map',{center:[20,15],zoom:1,zoomControl:true,attributionControl:false,scrollWheelZoom:false});
@@ -338,7 +372,7 @@ function initMap(){
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,opacity:0.4}).addTo(LMAP);
   L.control.attribution({position:'bottomright',prefix:false}).addTo(LMAP)
     .setPrefix('<span style="font-size:.4rem;color:#444">© CartoDB</span>');
-  document.getElementById('msub').textContent='Click any pin to read the headline';
+  document.getElementById('msub').textContent='Click any pin to read a headline';
 }
 function pinIcon(col){
   const s=`<svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20"><path d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13C14 3.13 10.87 0 7 0z" fill="${col}" opacity=".9"/><circle cx="7" cy="7" r="2.8" fill="#080810" opacity=".8"/></svg>`;
@@ -348,18 +382,18 @@ function plotPins(items){
   if(!LMAP) return;
   MKRS.forEach(m=>LMAP.removeLayer(m));MKRS=[];
   items.slice(0,80).forEach(item=>{
-    const cat=item.c||'Other';
+    const cat=item.category||'Other';
     const pool=GEO[cat]||GEO.Other;
     const col=CP[cat]||'#7070A0';
-    const h=[...(item.t||'')].reduce((a,c)=>a+c.charCodeAt(0),0);
+    const h=[...(item.title||'')].reduce((a,c)=>a+c.charCodeAt(0),0);
     const b=pool[h%pool.length];
     const m=L.marker([b.a+(Math.random()-.5)*2.5,b.o+(Math.random()-.5)*2.5],{icon:pinIcon(col)})
-      .bindTooltip(item.s||cat,{className:'map-tt',direction:'top',offset:[0,-16]})
-      .bindPopup(`<div class="map-popup">
-        <div class="map-popup-cat">${eh(cat)}</div>
-        <div class="map-popup-title">${eh(item.t||'Untitled')}</div>
-        <a class="map-popup-link" href="${item.u||'#'}" target="_blank" rel="noopener">Read more →</a>
-        <span class="map-popup-src">${eh(item.s||'')}</span>
+      .bindTooltip(item.source||cat,{className:'mtt',direction:'top',offset:[0,-16]})
+      .bindPopup(`<div class="mp">
+        <div class="mpcat">${eh(cat)}</div>
+        <div class="mptitle">${eh(item.title||'Untitled')}</div>
+        <a class="mplink" href="${item.url||'#'}" target="_blank" rel="noopener">Read more →</a>
+        <span class="mpsrc">${eh(item.source||'')}</span>
       </div>`,{maxWidth:230}).addTo(LMAP);
     MKRS.push(m);
   });
@@ -368,259 +402,45 @@ function plotPins(items){
 }
 function rePins(){plotPins(FILT.length?FILT:ALL);}
 
-// ─── FEED SOURCES ─────────────────────────────────────────────────
-// Strategy: use Google News RSS (works without CORS proxy) as the
-// primary fast source for all categories, then supplement with
-// direct feeds via allorigins.win proxy for depth.
-//
-// Google News RSS format: https://news.google.com/rss/search?q=TOPIC&hl=en-IN&gl=IN&ceid=IN:en
-// These return immediately, no proxy needed, all categories covered.
-
-const GNEWS = [
-  // Each Google News query gives 20-40 fresh headlines instantly
-  {q:'India+news',         c:'India',       s:'Google News India'},
-  {q:'India+economy',      c:'India',       s:'Google News India Econ'},
-  {q:'India+politics',     c:'India',       s:'Google News India Politics'},
-  {q:'India+technology',   c:'India',       s:'Google News India Tech'},
-  {q:'India+startup',      c:'Startups',    s:'Google News India Startups'},
-  {q:'India+cricket',      c:'Cricket',     s:'Google News Cricket'},
-  {q:'IPL+cricket',        c:'Cricket',     s:'Google News IPL'},
-  {q:'India+health',       c:'Health',      s:'Google News India Health'},
-  {q:'India+science',      c:'Science',     s:'Google News India Science'},
-  {q:'India+environment',  c:'Environment', s:'Google News India Env'},
-  {q:'artificial+intelligence', c:'AI',     s:'Google News AI'},
-  {q:'ChatGPT+OpenAI',     c:'AI',          s:'Google News ChatGPT'},
-  {q:'machine+learning',   c:'AI',          s:'Google News ML'},
-  {q:'large+language+model',c:'AI',         s:'Google News LLM'},
-  {q:'technology+news',    c:'Tech',        s:'Google News Tech'},
-  {q:'Apple+Google+Microsoft', c:'Tech',    s:'Google News BigTech'},
-  {q:'cybersecurity',      c:'Tech',        s:'Google News Cyber'},
-  {q:'semiconductor+chip', c:'Tech',        s:'Google News Chips'},
-  {q:'electric+vehicle',   c:'Tech',        s:'Google News EV'},
-  {q:'space+NASA+SpaceX',  c:'Science',     s:'Google News Space'},
-  {q:'global+economy',     c:'Economy',     s:'Google News Economy'},
-  {q:'stock+market',       c:'Finance',     s:'Google News Stocks'},
-  {q:'cryptocurrency+bitcoin', c:'Finance', s:'Google News Crypto'},
-  {q:'inflation+interest+rate', c:'Economy',s:'Google News Inflation'},
-  {q:'supply+chain+logistics', c:'SC',      s:'Google News Supply Chain'},
-  {q:'shipping+freight',   c:'SC',          s:'Google News Shipping'},
-  {q:'manufacturing+industry', c:'SC',      s:'Google News Manufacturing'},
-  {q:'world+news',         c:'World',       s:'Google News World'},
-  {q:'geopolitics+conflict', c:'Geopolitics',s:'Google News Geopolitics'},
-  {q:'US+China+relations', c:'Geopolitics', s:'Google News US China'},
-  {q:'Russia+Ukraine',     c:'Geopolitics', s:'Google News Russia Ukraine'},
-  {q:'Middle+East',        c:'World',       s:'Google News Middle East'},
-  {q:'climate+change',     c:'Environment', s:'Google News Climate'},
-  {q:'renewable+energy',   c:'Environment', s:'Google News Renewables'},
-  {q:'health+medicine',    c:'Health',      s:'Google News Health'},
-  {q:'science+research',   c:'Science',     s:'Google News Science'},
-  {q:'business+corporate', c:'Business',    s:'Google News Business'},
-  {q:'startup+funding+VC', c:'Startups',    s:'Google News VC Funding'},
-  {q:'sports+news',        c:'Sports',      s:'Google News Sports'},
-  {q:'football+soccer',    c:'Sports',      s:'Google News Football'},
-  {q:'US+politics',        c:'Politics',    s:'Google News US Politics'},
-  {q:'UK+politics',        c:'Politics',    s:'Google News UK Politics'},
-  {q:'entertainment+film+movies', c:'Culture',s:'Google News Culture'},
-  {q:'music+entertainment',c:'Culture',     s:'Google News Music'},
-  // India regional
-  {q:'Mumbai+news',        c:'India',       s:'Google News Mumbai'},
-  {q:'Delhi+news',         c:'India',       s:'Google News Delhi'},
-  {q:'Chennai+news',       c:'India',       s:'Google News Chennai'},
-  {q:'Bangalore+tech',     c:'India',       s:'Google News Bangalore'},
-  {q:'Modi+government',    c:'India',       s:'Google News Modi'},
-  {q:'RBI+India+finance',  c:'Economy',     s:'Google News RBI'},
-];
-
-// Direct RSS feeds via allorigins proxy (single fast proxy, no fallback chain)
-// allorigins returns immediately or fails fast — no 40s wait
-const DIRECT=[
-  // India
-  {u:'https://feeds.feedburner.com/ndtvnews-top-stories',               c:'India',  s:'NDTV'},
-  {u:'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',      c:'India',  s:'Times of India'},
-  {u:'https://www.thehindu.com/news/national/feeder/default.rss',       c:'India',  s:'The Hindu'},
-  {u:'https://indianexpress.com/feed/',                                  c:'India',  s:'Indian Express'},
-  {u:'https://scroll.in/feed',                                          c:'India',  s:'Scroll.in'},
-  {u:'https://thewire.in/feed',                                         c:'India',  s:'The Wire'},
-  {u:'https://www.livemint.com/rss/news',                               c:'India',  s:'Mint'},
-  {u:'https://www.business-standard.com/rss/home_page_top_stories.rss', c:'India',  s:'Business Standard'},
-  {u:'https://economictimes.indiatimes.com/rssfeedstopstories.cms',     c:'Economy',s:'Economic Times'},
-  {u:'https://yourstory.com/feed',                                      c:'Startups',s:'YourStory'},
-  {u:'https://inc42.com/feed/',                                         c:'Startups',s:'Inc42'},
-  // Tech
-  {u:'https://feeds.feedburner.com/TechCrunch',                         c:'Tech',   s:'TechCrunch'},
-  {u:'https://www.theverge.com/rss/index.xml',                          c:'Tech',   s:'The Verge'},
-  {u:'https://feeds.arstechnica.com/arstechnica/index',                 c:'Tech',   s:'Ars Technica'},
-  {u:'https://www.wired.com/feed/rss',                                  c:'Tech',   s:'Wired'},
-  {u:'https://9to5google.com/feed/',                                    c:'Tech',   s:'9to5Google'},
-  {u:'https://9to5mac.com/feed/',                                       c:'Tech',   s:'9to5Mac'},
-  {u:'https://www.zdnet.com/news/rss.xml',                              c:'Tech',   s:'ZDNet'},
-  {u:'https://hackaday.com/blog/feed/',                                 c:'Tech',   s:'Hackaday'},
-  {u:'https://www.techradar.com/rss',                                   c:'Tech',   s:'TechRadar'},
-  // AI
-  {u:'https://venturebeat.com/category/ai/feed/',                       c:'AI',     s:'VentureBeat AI'},
-  {u:'https://www.artificialintelligence-news.com/feed/',               c:'AI',     s:'AI News'},
-  {u:'https://www.marktechpost.com/feed/',                              c:'AI',     s:'MarkTechPost'},
-  {u:'https://www.unite.ai/feed/',                                      c:'AI',     s:'Unite.AI'},
-  {u:'https://www.technologyreview.com/feed/',                          c:'AI',     s:'MIT Tech Review'},
-  {u:'https://huggingface.co/blog/feed.xml',                            c:'AI',     s:'HuggingFace'},
-  {u:'https://towardsdatascience.com/feed',                             c:'AI',     s:'Towards Data Science'},
-  // World
-  {u:'https://feeds.bbci.co.uk/news/world/rss.xml',                     c:'World',  s:'BBC World'},
-  {u:'https://feeds.reuters.com/Reuters/worldNews',                      c:'World',  s:'Reuters World'},
-  {u:'https://www.aljazeera.com/xml/rss/all.xml',                       c:'World',  s:'Al Jazeera'},
-  {u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',          c:'World',  s:'NYT World'},
-  {u:'https://www.theguardian.com/world/rss',                           c:'World',  s:'The Guardian'},
-  // Economy/Finance
-  {u:'https://feeds.bloomberg.com/markets/news.rss',                    c:'Economy',s:'Bloomberg'},
-  {u:'https://www.marketwatch.com/rss/topstories',                      c:'Finance',s:'MarketWatch'},
-  {u:'https://cointelegraph.com/rss',                                   c:'Finance',s:'CoinTelegraph'},
-  {u:'https://www.coindesk.com/arc/outboundfeeds/rss/',                 c:'Finance',s:'CoinDesk'},
-  // SC
-  {u:'https://www.supplychaindive.com/feeds/news/',                     c:'SC',     s:'SC Dive'},
-  {u:'https://theloadstar.com/feed/',                                   c:'SC',     s:'The Loadstar'},
-  {u:'https://www.freightwaves.com/news/feed',                          c:'SC',     s:'FreightWaves'},
-  {u:'https://gcaptain.com/feed/',                                      c:'SC',     s:'gCaptain'},
-  // Cricket/Sports
-  {u:'https://www.espncricinfo.com/rss/content/story/feeds/0.xml',      c:'Cricket',s:'Cricinfo'},
-  {u:'https://sports.ndtv.com/feeds/cricket-news',                      c:'Cricket',s:'NDTV Cricket'},
-  {u:'https://www.cricbuzz.com/rss/google-news.xml',                    c:'Cricket',s:'Cricbuzz'},
-  {u:'https://www.espn.com/espn/rss/news',                              c:'Sports', s:'ESPN'},
-  {u:'https://www.bbc.co.uk/sport/rss/sport',                           c:'Sports', s:'BBC Sport'},
-  // Science/Health/Env
-  {u:'https://phys.org/rss-feed/',                                      c:'Science',s:'Phys.org'},
-  {u:'https://www.sciencedaily.com/rss/all.xml',                        c:'Science',s:'ScienceDaily'},
-  {u:'https://www.nasa.gov/news-release/feed/',                         c:'Science',s:'NASA'},
-  {u:'https://www.who.int/feeds/entity/news/en/rss.xml',                c:'Health', s:'WHO'},
-  {u:'https://www.statnews.com/feed/',                                  c:'Health', s:'STAT News'},
-  {u:'https://www.medicalnewstoday.com/rss/newsarticles.xml',           c:'Health', s:'Medical News Today'},
-  {u:'https://carbonbrief.org/feed/',                                   c:'Environment',s:'Carbon Brief'},
-  {u:'https://electrek.co/feed/',                                       c:'Environment',s:'Electrek'},
-  {u:'https://grist.org/feed/',                                         c:'Environment',s:'Grist'},
-  // Geopolitics
-  {u:'https://warontherocks.com/feed/',                                 c:'Geopolitics',s:'War on the Rocks'},
-  {u:'https://thediplomat.com/feed/',                                   c:'Geopolitics',s:'The Diplomat'},
-  {u:'https://www.bellingcat.com/feed/',                                c:'Geopolitics',s:'Bellingcat'},
-  {u:'https://foreignpolicy.com/feed/',                                 c:'World',  s:'Foreign Policy'},
-  // Business/Startups
-  {u:'https://www.businessinsider.com/rss',                             c:'Business',s:'Business Insider'},
-  {u:'https://fortune.com/feed/',                                       c:'Business',s:'Fortune'},
-  {u:'https://news.ycombinator.com/rss',                                c:'Startups',s:'Hacker News'},
-  {u:'https://techcrunch.com/category/startups/feed/',                  c:'Startups',s:'TC Startups'},
-  // Politics/Culture
-  {u:'https://feeds.feedburner.com/politico/politics',                  c:'Politics',s:'Politico'},
-  {u:'https://thehill.com/feed/',                                       c:'Politics',s:'The Hill'},
-  {u:'https://variety.com/feed/',                                       c:'Culture', s:'Variety'},
-  {u:'https://deadline.com/feed/',                                      c:'Culture', s:'Deadline'},
-];
-
-const TOTAL = GNEWS.length + DIRECT.length;
-
-// ─── XML PARSER ───────────────────────────────────────────────────
-function parseXML(xml,cat,src){
-  try{
-    const doc=new DOMParser().parseFromString(xml,'application/xml');
-    if(doc.querySelector('parsererror')) return [];
-    return [...doc.querySelectorAll('item,entry')].map(el=>{
-      const g=s=>el.querySelector(s)?.textContent?.trim()||'';
-      const ga=(s,a)=>el.querySelector(s)?.getAttribute(a)||'';
-      const title=g('title');
-      const link=g('link')||ga('link','href')||g('id');
-      const date=g('pubDate')||g('published')||g('updated')||'';
-      return title&&link?{t:title,u:link,d:date,s:src,c:cat}:null;
-    }).filter(Boolean);
-  }catch(e){return [];}
-}
-
-// ─── GOOGLE NEWS FETCH (no proxy needed — CORS open) ─────────────
-async function fetchGNews({q,c,s}){
-  const url=`https://news.google.com/rss/search?q=${q}&hl=en-IN&gl=IN&ceid=IN:en`;
-  try{
-    // Google News RSS is served with permissive CORS headers
-    const r=await fetch(url,{signal:AbortSignal.timeout(6000)});
-    if(!r.ok) return [];
-    return parseXML(await r.text(),c,s);
-  }catch(e){return [];}
-}
-
-// ─── DIRECT FEED FETCH via allorigins (single proxy, fast) ────────
-async function fetchDirect({u,c,s}){
-  const proxy=`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`;
-  try{
-    const r=await fetch(proxy,{signal:AbortSignal.timeout(5000)});
-    if(!r.ok) return [];
-    const text=await r.text();
-    if(text.length<100) return [];
-    return parseXML(text,c,s);
-  }catch(e){return [];}
-}
-
-// ─── MAIN LOADER ──────────────────────────────────────────────────
+// ── LOAD feed.json ────────────────────────────────────────────────
 async function loadFeed(){
-  const fbar=document.getElementById('fbar');
-  const fstat=document.getElementById('fstat');
-  const cnt=document.getElementById('article-count');
-  const scnt=document.getElementById('srccnt');
-  const fpw=document.getElementById('fpw');
-  const ftxt=document.getElementById('ftxt');
-
-  if(scnt) scnt.textContent=TOTAL;
-  if(ftxt) ftxt.textContent=`${TOTAL} RSS sources · Fully decentralised`;
-  if(cnt) cnt.textContent=`Connecting to ${TOTAL} feeds…`;
-  if(fpw) fpw.style.display='flex';
-
-  let done=0;
-  const bucket=[];
-
-  function onItem(items){
-    bucket.push(...items);
-    done++;
-    const pct=Math.round(done/TOTAL*100);
-    if(fbar) fbar.style.width=pct+'%';
-    if(fstat) fstat.textContent=`${done}/${TOTAL} feeds · ${bucket.length} articles`;
-    if(cnt) cnt.textContent=`${bucket.length} headlines…`;
-    // Render early so user sees content within seconds
-    if(done===10||done===25||done%40===0||done===TOTAL) render([...bucket]);
+  try{
+    const r=await fetch('feed.json?v='+Date.now());
+    if(!r.ok) throw new Error('feed.json not found');
+    const data=await r.json();
+    ALL=Array.isArray(data)?data:(data.items||[]);
+    // Sort newest first
+    ALL.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  }catch(e){
+    document.getElementById('article-count').textContent='⚠ feed.json not found — run fetch.py first';
+    document.getElementById('skeleton-loader').style.display='none';
+    return;
   }
 
-  // Phase 1: Google News — fast, no proxy, covers ALL categories immediately
-  // Run all GNews fetches in parallel — these typically resolve in 1-2s
-  const gnTasks = GNEWS.map(src=>fetchGNews(src).then(onItem));
+  document.getElementById('skeleton-loader').style.display='none';
 
-  // Phase 2: Direct feeds via allorigins — run in batches of 20 concurrently
-  // This prevents overwhelming the proxy while keeping good throughput
-  const BATCH=20;
-  async function runBatches(){
-    for(let i=0;i<DIRECT.length;i+=BATCH){
-      const batch=DIRECT.slice(i,i+BATCH);
-      await Promise.allSettled(batch.map(src=>fetchDirect(src).then(onItem)));
-    }
+  // Stats
+  const srcs=new Set(ALL.map(i=>i.source)).size;
+  const el=n=>document.getElementById(n);
+  if(el('st1')) el('st1').textContent=ALL.length;
+  if(el('st2')) el('st2').textContent=srcs;
+  if(el('src-count')) el('src-count').textContent=srcs;
+  if(el('article-count')) el('article-count').textContent=`${ALL.length} headlines from ${srcs} sources`;
+
+  // Last updated
+  const newest=ALL.find(i=>i.date);
+  if(newest&&el('last-updated')){
+    el('last-updated').textContent=new Date(newest.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
   }
 
-  await Promise.allSettled([...gnTasks, runBatches()]);
-  render(bucket);
-  if(fpw) setTimeout(()=>{fpw.style.display='none';},1200);
-}
-
-// ─── PROCESS + RENDER ─────────────────────────────────────────────
-function render(raw){
-  const seen=new Set();
-  const d=raw.filter(i=>{
-    if(!i||!i.u||seen.has(i.u)) return false;
-    seen.add(i.u);return true;
-  });
-  d.sort((a,b)=>new Date(b.d||0)-new Date(a.d||0));
-  ALL=d;
   buildCards();
-  updateStats();
-  const cnt=document.getElementById('article-count');
-  if(cnt) cnt.textContent=`${ALL.length} headlines from ${TOTAL} sources`;
   rePins();
 }
 
-// ─── CATEGORY CARDS ───────────────────────────────────────────────
+// ── CATEGORY CARDS ────────────────────────────────────────────────
 function buildCards(){
   const counts={};
-  ALL.forEach(i=>{const c=i.c||'Other';counts[c]=(counts[c]||0)+1;});
+  ALL.forEach(i=>{const c=i.category||'Other';counts[c]=(counts[c]||0)+1;});
   const row=document.getElementById('cat-row');
   row.innerHTML='';
   ['All',...Object.keys(counts).sort()].forEach((cat,idx)=>{
@@ -628,16 +448,16 @@ function buildCards(){
     const L2=cat.replace(/[^A-Z0-9]/gi,'').slice(0,2).toUpperCase()||cat[0].toUpperCase();
     const accent=CA[cat]||'#7070A0';
     const btn=document.createElement('button');
-    btn.className='cat-card'+(cat===ACAT?' selected':'');
+    btn.className='cat-card'+(cat===ACAT?' sel':'');
     btn.dataset.cat=cat;
     btn.setAttribute('role','listitem');
     btn.setAttribute('aria-pressed',cat===ACAT?'true':'false');
-    btn.style.cssText=`animation-delay:${.04+idx*.025}s;--ca:${accent}`;
-    btn.innerHTML=`<div class="ccs"></div>
-      <span class="ccb">${L2}</span>
-      <div class="cci">
-        <span class="ccn">${cat}</span>
-        <span class="ccc">${n} articles</span>
+    btn.style.cssText=`animation-delay:${.04+idx*.03}s;--ca:${accent}`;
+    btn.innerHTML=`<div class="cstr"></div>
+      <span class="cbg">${L2}</span>
+      <div class="cin">
+        <span class="cnm">${cat}</span>
+        <span class="cct">${n} articles</span>
       </div>`;
     btn.addEventListener('click',()=>pickCat(cat));
     row.appendChild(btn);
@@ -653,13 +473,13 @@ function buildSrcList(counts){
     </div>`).join('');
 }
 
-// ─── NETFLIX SELECT ───────────────────────────────────────────────
+// ── NETFLIX SELECT ────────────────────────────────────────────────
 function pickCat(cat){
   ACAT=cat;SQ='';
   const si=document.getElementById('search-input');if(si) si.value='';
   document.querySelectorAll('.cat-card').forEach(c=>{
     const hit=c.dataset.cat===cat;
-    c.classList.toggle('selected',hit);
+    c.classList.toggle('sel',hit);
     c.setAttribute('aria-pressed',hit?'true':'false');
   });
   const accent=CA[cat]||'#00F5FF';
@@ -678,25 +498,28 @@ function showCats(){
   document.getElementById('news-view').classList.remove('active');
   ACAT='All';
   document.querySelectorAll('.cat-card').forEach(c=>{
-    c.classList.toggle('selected',c.dataset.cat==='All');
+    c.classList.toggle('sel',c.dataset.cat==='All');
     c.setAttribute('aria-pressed',c.dataset.cat==='All'?'true':'false');
   });
   document.getElementById('cat-browse').scrollIntoView({behavior:'smooth',block:'start'});
   if(LMAP) setTimeout(()=>LMAP.invalidateSize(),80);
 }
 
-// ─── FILTER ───────────────────────────────────────────────────────
+// ── FILTER ────────────────────────────────────────────────────────
 function applyF(){
   let items=ALL;
-  if(ACAT&&ACAT!=='All') items=items.filter(i=>(i.c||'Other')===ACAT);
-  if(SQ){const q=SQ.toLowerCase();items=items.filter(i=>(i.t||'').toLowerCase().includes(q)||(i.s||'').toLowerCase().includes(q));}
+  if(ACAT&&ACAT!=='All') items=items.filter(i=>(i.category||'Other')===ACAT);
+  if(SQ){const q=SQ.toLowerCase();items=items.filter(i=>(i.title||'').toLowerCase().includes(q)||(i.source||'').toLowerCase().includes(q));}
   FILT=items;DISP=0;
   document.getElementById('news-feed').innerHTML='';
-  loadMore();updateStats();rePins();
+  loadMore();
+  const el=document.getElementById('st3');
+  if(el) el.textContent=FILT.length;
+  rePins();
 }
 function doSearch(v){SQ=v.trim();applyF();}
 
-// ─── RENDER ITEMS ─────────────────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────────────────
 function loadMore(){
   const feed=document.getElementById('news-feed');
   const btn=document.getElementById('lmb');
@@ -707,21 +530,21 @@ function loadMore(){
   }
   slice.forEach((item,idx)=>{
     const el=document.createElement('a');
-    el.className='ni';el.href=item.u||'#';
+    el.className='ni';el.href=item.url||'#';
     el.target='_blank';el.rel='noopener noreferrer';
     el.setAttribute('role','listitem');
-    const cat=item.c||'Other';
-    const cc='c'+cat.replace(/\s+/g,'');
-    const ds=item.d?new Date(item.d).toLocaleDateString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
-    el.innerHTML=`<div class="nib"></div>
-      <div class="nibd">
-        <div class="nim">
-          <span class="nis">${eh(item.s||'')}</span>
+    const cat=item.category||'Other';
+    const cc='c'+cat.replace(/[\s-]/g,'');
+    const ds=item.date?new Date(item.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+    el.innerHTML=`<div class="nbar"></div>
+      <div class="nbody">
+        <div class="nmeta">
+          <span class="nsrc">${eh(item.source||'')}</span>
           <span class="ic ${cc}">${eh(cat)}</span>
-          ${ds?`<span class="nid">${ds}</span>`:''}
+          ${ds?`<span class="ndate">${ds}</span>`:''}
         </div>
-        <div class="nit">${eh(item.t||'Untitled')}</div>
-        <span class="nia">READ MORE →</span>
+        <div class="ntitle">${eh(item.title||'Untitled')}</div>
+        <span class="narrow">READ MORE →</span>
       </div>`;
     feed.appendChild(el);
     setTimeout(()=>el.classList.add('vis'),30+idx*25);
@@ -732,18 +555,9 @@ function loadMore(){
   if(btn) btn.style.display=DISP<FILT.length?'inline-flex':'none';
 }
 
-// ─── STATS ────────────────────────────────────────────────────────
-function updateStats(){
-  const srcs=new Set(ALL.map(i=>i.s)).size;
-  const a=id=>document.getElementById(id);
-  if(a('st1')) a('st1').textContent=ALL.length;
-  if(a('st2')) a('st2').textContent=srcs;
-  if(a('st3')) a('st3').textContent=FILT.length||DISP;
-}
-function refresh(){ALL=[];FILT=[];document.getElementById('news-feed').innerHTML='';loadFeed();}
 function eh(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-// ─── INIT ─────────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   initMap();
   loadFeed();
