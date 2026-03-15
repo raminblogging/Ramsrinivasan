@@ -679,25 +679,85 @@ setInterval(updateClock, 1000);
 updateClock();
 
 // ═══════════════════════════════════════════════════════
-// FEED LOADING  — swap the URL below for your real feed
+// RSS FEED SOURCES  — add / remove feeds here freely
+// ═══════════════════════════════════════════════════════
+const RSS_SOURCES = [
+  // India
+  { url:'https://feeds.feedburner.com/ndtvnews-top-stories',        category:'India',    source:'NDTV'          },
+  { url:'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',category:'India',    source:'Times of India'},
+  { url:'https://www.thehindu.com/news/national/feeder/default.rss', category:'India',    source:'The Hindu'     },
+  { url:'https://indianexpress.com/feed/',                           category:'India',    source:'Indian Express'},
+  // Tech & AI
+  { url:'https://feeds.feedburner.com/TechCrunch',                  category:'Tech',     source:'TechCrunch'    },
+  { url:'https://www.wired.com/feed/rss',                           category:'Tech',     source:'Wired'         },
+  { url:'https://www.theverge.com/rss/index.xml',                   category:'AI',       source:'The Verge'     },
+  { url:'https://venturebeat.com/category/ai/feed/',                 category:'AI',       source:'VentureBeat'   },
+  // Economy & Business
+  { url:'https://feeds.bloomberg.com/markets/news.rss',             category:'Economy',  source:'Bloomberg'     },
+  { url:'https://www.livemint.com/rss/economy',                     category:'Economy',  source:'Mint'          },
+  { url:'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms', category:'Business', source:'ET' },
+  // Supply Chain
+  { url:'https://www.supplychaindive.com/feeds/news/',              category:'SC',       source:'SC Dive'       },
+  { url:'https://www.logisticsmgmt.com/rss/news',                   category:'SC',       source:'Logistics Mgmt'},
+  // Cricket
+  { url:'https://www.espncricinfo.com/rss/content/story/feeds/0.xml',category:'Cricket', source:'Cricinfo'      },
+  { url:'https://sports.ndtv.com/feeds/cricket-news',               category:'Cricket',  source:'NDTV Cricket'  },
+];
+
+// CORS proxy — rss2json is free, no key needed for public feeds
+const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+async function fetchOneFeed({url, category, source}){
+  try {
+    const res  = await fetch(`${PROXY}${encodeURIComponent(url)}&count=15`, {signal: AbortSignal.timeout(8000)});
+    const data = await res.json();
+    if(data.status !== 'ok') return [];
+    return (data.items||[]).map(item=>({
+      title:    item.title || '',
+      url:      item.link  || '#',
+      date:     item.pubDate || item.published || '',
+      source,
+      category,
+    }));
+  } catch(e){ return []; }
+}
+
+// ═══════════════════════════════════════════════════════
+// FEED LOADING  — live RSS + fallback to feed.json
 // ═══════════════════════════════════════════════════════
 async function loadFeed(){
-  try {
-    // Try to load from feed.json (your fetch.py output)
-    const res  = await fetch('/Monitor/feed.json');
-    const data = await res.json();
-    ALL_ITEMS  = Array.isArray(data) ? data : (data.items || []);
-  } catch(e) {
-    // Demo fallback so the UI is testable without a real feed
-    ALL_ITEMS = generateDemoItems();
+  const skelEl = document.getElementById('skeleton-loader');
+  const cntEl  = document.getElementById('article-count');
+  if(cntEl) cntEl.textContent = 'Fetching live feeds…';
+
+  // Fetch all RSS feeds concurrently
+  const results = await Promise.allSettled(RSS_SOURCES.map(fetchOneFeed));
+  let items = results.flatMap(r => r.status==='fulfilled' ? r.value : []);
+
+  // If live fetch yielded nothing, fall back to feed.json
+  if(items.length === 0){
+    try {
+      const res  = await fetch('/Monitor/feed.json');
+      const data = await res.json();
+      items = Array.isArray(data) ? data : (data.items || []);
+    } catch(e){
+      items = generateDemoItems();
+    }
   }
-  document.getElementById('skeleton-loader').style.display = 'none';
+
+  // Deduplicate by URL
+  const seen = new Set();
+  items = items.filter(i=>{ if(seen.has(i.url)) return false; seen.add(i.url); return true; });
+
+  // Sort newest first
+  items.sort((a,b)=> new Date(b.date||0) - new Date(a.date||0));
+
+  ALL_ITEMS = items;
+
+  if(skelEl) skelEl.style.display = 'none';
   buildCategoryCards();
   updateStats();
-  document.getElementById('article-count').textContent =
-    `${ALL_ITEMS.length} headline${ALL_ITEMS.length!==1?'s':''} loaded`;
-  // Plot all items on map
-  setTimeout(refreshMapPins, 300);
+  if(cntEl) cntEl.textContent = `${ALL_ITEMS.length} headline${ALL_ITEMS.length!==1?'s':''} loaded`;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -831,6 +891,16 @@ function showNewsView(){
   const nv = document.getElementById('news-view');
   nv.classList.add('active');
   nv.scrollIntoView({behavior:'smooth', block:'start'});
+  // Map must be initialised AFTER the container is visible so Leaflet
+  // can measure its dimensions correctly
+  setTimeout(()=>{
+    if(!MAP_INSTANCE){
+      initMap();
+      setTimeout(refreshMapPins, 400);
+    } else {
+      MAP_INSTANCE.invalidateSize();
+    }
+  }, 120);
 }
 
 function showCategories(){
@@ -1096,10 +1166,6 @@ function escHtml(str){
 // INIT
 // ═══════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', ()=>{
-  // Init map immediately (tiles load in background)
-  // Defer slightly so Leaflet script is guaranteed ready
-  setTimeout(initMap, 200);
-
   loadFeed();
   // Keyboard accessibility for category cards
   document.addEventListener('keydown', e=>{
