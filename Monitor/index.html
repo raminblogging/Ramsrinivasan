@@ -26,6 +26,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -61,98 +64,190 @@
     /* DIVIDER */
     .divider{width:100%;height:4px;background:linear-gradient(90deg,var(--red),var(--blue),var(--pink),var(--yellow),var(--cyan));position:relative;z-index:1}
 
-    /* CONTROLS */
-    .controls{max-width:1600px;margin:0 auto;padding:1.5rem 2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;border-bottom:2px solid var(--border);opacity:0;animation:up .6s .55s forwards}
-    .search-wrap{flex:1;min-width:220px;position:relative}
-    .search-wrap input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.7rem 1rem .7rem 2.4rem;font-family:var(--mono);font-size:.8rem;outline:none;transition:border-color .2s,box-shadow .2s;letter-spacing:.03em}
-    .search-wrap input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
-    .search-wrap input::placeholder{color:var(--muted)}
-    .search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
-    .filter-tabs{display:flex;gap:.4rem;flex-wrap:wrap}
-    .filter-tab{font-family:var(--comic);font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border:2px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
-    .filter-tab:hover{border-color:var(--cyan);color:var(--cyan)}
-    .filter-tab.active{border-color:var(--yellow);color:var(--ink);background:var(--yellow);box-shadow:2px 2px 0 var(--red)}
-
     /* ══════════════════════════════════════
-       THREE-COLUMN LAYOUT WITH ADS
-       [Left Ad] | [Main Content] | [Right Ad]
+       NETFLIX-STYLE CATEGORY BROWSE SECTION
     ══════════════════════════════════════ */
-    .outer-layout{
-      display:grid;
-      grid-template-columns:170px 1fr 170px;
-      gap:0;
+    .category-browse{
       max-width:1600px;
       margin:0 auto;
-      padding:0;
-      align-items:start;
+      padding:2.5rem 2rem 1rem;
       position:relative;
       z-index:1;
     }
-
-    /* AD COLUMNS */
-    .ad-col{
-      padding:2rem .8rem;
-      position:sticky;
-      top:4.5rem;
-      display:flex;
-      flex-direction:column;
-      gap:1.5rem;
-      align-items:center;
-    }
-    .ad-slot{
-      width:160px;
-      min-height:600px;
-      background:var(--panel);
-      border:2px solid var(--border);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .ad-slot::before{
-      content:'';
-      position:absolute;top:0;left:0;right:0;
-      height:3px;
-      background:linear-gradient(90deg,var(--red),var(--blue));
-    }
-    .ad-slot-label{
-      font-family:var(--mono);
-      font-size:.6rem;
-      letter-spacing:.12em;
+    .browse-heading{
+      font-family:var(--comic);
+      font-size:1.1rem;
+      letter-spacing:.15em;
       text-transform:uppercase;
       color:var(--muted);
-      margin-bottom:.5rem;
-    }
-    /* Second smaller ad slot */
-    .ad-slot-sm{
-      width:160px;
-      min-height:300px;
-      background:var(--panel);
-      border:2px solid var(--border);
+      margin-bottom:1.5rem;
       display:flex;
-      flex-direction:column;
       align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
+      gap:.8rem;
     }
-    .ad-slot-sm::before{
-      content:'';
-      position:absolute;top:0;left:0;right:0;
-      height:3px;
-      background:linear-gradient(90deg,var(--pink),var(--yellow));
+    .browse-heading::after{
+      content:'';flex:1;height:1px;background:var(--border);
     }
 
-    /* INNER CONTENT AREA */
-    .inner-content{
-      padding:2rem 1.5rem 5rem;
+    /* CATEGORY CARDS ROW */
+    .category-row{
       display:grid;
-      grid-template-columns:1fr 260px;
-      gap:2.5rem;
-      align-items:start;
+      grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+      gap:1rem;
     }
+
+    .cat-card{
+      position:relative;
+      height:90px;
+      border:2px solid var(--border);
+      background:var(--panel);
+      cursor:pointer;
+      overflow:hidden;
+      transition:transform .22s cubic-bezier(.34,1.56,.64,1), border-color .2s, box-shadow .2s;
+      display:flex;
+      align-items:flex-end;
+      padding:.9rem 1rem;
+      text-decoration:none;
+      outline:none;
+    }
+    .cat-card::before{
+      content:'';
+      position:absolute;inset:0;
+      opacity:0;
+      transition:opacity .25s;
+    }
+    .cat-card:hover{
+      transform:scale(1.04) translateY(-3px);
+      box-shadow:0 8px 32px rgba(0,0,0,.5), 3px 3px 0 var(--card-accent,var(--cyan));
+      border-color:var(--card-accent,var(--cyan));
+      z-index:2;
+    }
+    .cat-card:hover::before{opacity:.12}
+    .cat-card.selected{
+      border-color:var(--card-accent,var(--cyan));
+      box-shadow:0 0 0 2px var(--card-accent,var(--cyan)), 3px 3px 0 var(--card-accent,var(--cyan));
+    }
+    .cat-card.selected::after{
+      content:'▶ VIEWING';
+      position:absolute;top:.55rem;right:.6rem;
+      font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;
+      color:var(--card-accent,var(--cyan));
+      background:rgba(0,0,0,.7);
+      padding:.1rem .4rem;
+      border:1px solid var(--card-accent,var(--cyan));
+    }
+
+    /* Noise texture overlay per card */
+    .cat-card-noise{
+      position:absolute;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events:none;
+      opacity:.5;
+    }
+
+    /* Gradient stripe at top of each card */
+    .cat-card-stripe{
+      position:absolute;top:0;left:0;right:0;
+      height:3px;
+      background:var(--card-accent,var(--cyan));
+      box-shadow:0 0 12px var(--card-accent,var(--cyan));
+    }
+
+    /* BIG background letter */
+    .cat-card-bg-letter{
+      position:absolute;
+      right:-.2rem;top:-.4rem;
+      font-family:var(--comic);
+      font-size:4.5rem;
+      line-height:1;
+      color:var(--card-accent,var(--cyan));
+      opacity:.07;
+      pointer-events:none;
+      letter-spacing:-.04em;
+      transition:opacity .25s, transform .25s;
+    }
+    .cat-card:hover .cat-card-bg-letter{opacity:.14;transform:scale(1.1) rotate(-4deg)}
+
+    .cat-card-name{
+      font-family:var(--comic);
+      font-size:1.1rem;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--white);
+      position:relative;
+      z-index:1;
+      line-height:1;
+      transition:color .2s;
+    }
+    .cat-card:hover .cat-card-name{color:var(--card-accent,var(--cyan))}
+    .cat-card.selected .cat-card-name{color:var(--card-accent,var(--cyan))}
+
+    /* Per-category accent colors */
+    .cat-card[data-cat="All"]     {--card-accent:var(--white)}
+    .cat-card[data-cat="India"]   {--card-accent:var(--red)}
+    .cat-card[data-cat="Tech"]    {--card-accent:var(--cyan)}
+    .cat-card[data-cat="AI"]      {--card-accent:var(--cyan)}
+    .cat-card[data-cat="Economy"] {--card-accent:var(--yellow)}
+    .cat-card[data-cat="Business"]{--card-accent:var(--yellow)}
+    .cat-card[data-cat="Cricket"] {--card-accent:var(--pink)}
+    .cat-card[data-cat="Sports"]  {--card-accent:var(--pink)}
+    .cat-card[data-cat="SC"]      {--card-accent:#4d7eff}
+    .cat-card[data-cat="Supply Chain"]{--card-accent:#4d7eff}
+
+    /* ══════════════════════════════════════
+       NEWS VIEW — replaces cards on click
+    ══════════════════════════════════════ */
+    .news-view{
+      max-width:1600px;
+      margin:0 auto;
+      padding:0 2rem 5rem;
+      display:none;
+      position:relative;
+      z-index:1;
+    }
+    .news-view.active{display:grid;grid-template-columns:1fr 260px;gap:2.5rem;align-items:start}
+
+    /* Back to categories bar */
+    .view-topbar{
+      grid-column:1/-1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:1.2rem 0;
+      border-bottom:2px solid var(--border);
+      margin-bottom:.5rem;
+    }
+    .view-topbar-left{display:flex;align-items:center;gap:1rem}
+    .btn-back-cats{
+      font-family:var(--comic);font-size:.95rem;letter-spacing:.08em;
+      color:var(--muted);background:transparent;border:2px solid var(--border);
+      padding:.45rem 1rem;cursor:pointer;transition:all .2s;
+      display:flex;align-items:center;gap:.4rem;
+    }
+    .btn-back-cats:hover{border-color:var(--red);color:var(--yellow);box-shadow:2px 2px 0 var(--red)}
+    .view-category-label{
+      font-family:var(--comic);font-size:1.6rem;letter-spacing:.08em;
+      color:var(--active-accent,var(--cyan));
+      text-shadow:2px 2px 0 rgba(0,0,0,.5);
+    }
+    .view-count-badge{
+      font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;
+      color:var(--ink);background:var(--active-accent,var(--cyan));
+      padding:.2rem .6rem;margin-left:.4rem;
+      vertical-align:middle;
+    }
+
+    /* SEARCH inside news view */
+    .view-search-wrap{position:relative;min-width:220px}
+    .view-search-wrap input{
+      width:100%;background:var(--surface);border:2px solid var(--border);
+      color:var(--white);padding:.55rem 1rem .55rem 2.2rem;
+      font-family:var(--mono);font-size:.75rem;outline:none;
+      transition:border-color .2s,box-shadow .2s;letter-spacing:.03em;
+    }
+    .view-search-wrap input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .view-search-wrap input::placeholder{color:var(--muted)}
+    .view-search-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem}
 
     /* NEWS FEED */
     #news-feed{display:flex;flex-direction:column}
@@ -161,7 +256,7 @@
       padding:1.6rem 0;border-bottom:2px solid var(--border);
       text-decoration:none;color:inherit;
       opacity:0;transform:translateY(12px);
-      transition:opacity .5s ease,transform .5s ease;
+      transition:opacity .4s ease,transform .4s ease;
     }
     .news-item.visible{opacity:1;transform:translateY(0)}
     .news-item:first-child{border-top:2px solid var(--border)}
@@ -185,7 +280,7 @@
     .cat-Tech,.cat-AI{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.06)}
     .cat-Economy,.cat-Business{color:var(--yellow);border-color:var(--yellow);background:rgba(255,230,0,.06)}
     .cat-Cricket,.cat-Sports{color:var(--pink);border-color:var(--pink);background:rgba(255,106,177,.06)}
-    .cat-SC,.cat-Supply.Chain{color:var(--blue);border-color:rgba(30,62,255,.8);background:rgba(30,62,255,.06)}
+    .cat-SC{color:#4d7eff;border-color:rgba(77,126,255,.8);background:rgba(77,126,255,.06)}
     .cat-default{color:var(--muted);border-color:var(--muted);background:transparent}
 
     /* SKELETON */
@@ -224,6 +319,97 @@
     .back-link span{transition:transform .2s}
     .back-link:hover span{transform:translateX(-4px)}
 
+    /* ══════════════════════════════════════
+       MAP SIDEBAR CARD
+    ══════════════════════════════════════ */
+    .map-sidebar-card{
+      background:var(--panel);
+      border:2px solid var(--border);
+      padding:0;
+      position:relative;
+      overflow:hidden;
+      transition:border-color .2s,box-shadow .2s;
+    }
+    .map-sidebar-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,var(--cyan),var(--blue));
+      z-index:10;
+    }
+    .map-sidebar-card:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .map-card-header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.7rem 1rem .6rem;
+      border-bottom:2px solid var(--border);
+      background:var(--ink2);
+    }
+    .map-card-label{
+      font-family:var(--comic);font-size:.9rem;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--cyan);
+    }
+    .map-pin-count{
+      font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+      color:var(--ink);background:var(--cyan);padding:.15rem .5rem;
+    }
+    #news-map{
+      width:100%;height:220px;
+      background:var(--ink2);
+      cursor:crosshair;
+    }
+    /* Override Leaflet tile layer for dark feel */
+    .leaflet-container{
+      background:#0a0f18 !important;
+      font-family:var(--mono) !important;
+    }
+    /* Custom popup */
+    .leaflet-popup-content-wrapper{
+      background:var(--panel) !important;
+      border:2px solid var(--cyan) !important;
+      border-radius:0 !important;
+      box-shadow:3px 3px 0 var(--cyan) !important;
+      color:var(--white) !important;
+      padding:0 !important;
+    }
+    .leaflet-popup-tip{background:var(--cyan) !important}
+    .leaflet-popup-content{margin:0 !important;padding:0 !important}
+    .map-popup{padding:.8rem 1rem;max-width:210px}
+    .map-popup-cat{
+      font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem;
+    }
+    .map-popup-title{
+      font-family:var(--body);font-size:.78rem;font-weight:700;
+      line-height:1.3;color:var(--white);margin-bottom:.5rem;
+    }
+    .map-popup-link{
+      font-family:var(--comic);font-size:.75rem;letter-spacing:.06em;
+      color:var(--yellow);text-decoration:none;
+      border-bottom:1px solid rgba(255,230,0,.3);
+      transition:color .2s;
+    }
+    .map-popup-link:hover{color:var(--red)}
+    .map-popup-src{
+      font-family:var(--mono);font-size:.6rem;color:var(--muted);
+      margin-top:.35rem;display:block;
+    }
+    /* Leaflet close button */
+    .leaflet-popup-close-button{
+      color:var(--cyan) !important;font-size:1rem !important;
+      top:4px !important;right:6px !important;
+    }
+    /* Map tooltip on hover */
+    .map-tooltip{
+      background:var(--ink2) !important;
+      border:1px solid var(--border) !important;
+      color:var(--muted) !important;
+      font-family:var(--mono) !important;
+      font-size:.6rem !important;
+      letter-spacing:.05em !important;
+      border-radius:0 !important;
+      box-shadow:none !important;
+      padding:.2rem .5rem !important;
+    }
+    .map-tooltip::before{border-top-color:var(--border) !important}
+
     /* STATES */
     .state-msg{padding:3rem 0;text-align:center}
     .state-msg p{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
@@ -238,13 +424,25 @@
     @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
 
-    /* RESPONSIVE: hide ad cols on smaller screens */
-    @media(max-width:1200px){
-      .outer-layout{grid-template-columns:0 1fr 0}
-      .ad-col{display:none}
-    }
+    /* Category section fade-in animation */
+    @keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .category-browse{animation:fadeSlideUp .5s .5s both}
+    .cat-card{animation:fadeSlideUp .4s both}
+    .cat-card:nth-child(1){animation-delay:.55s}
+    .cat-card:nth-child(2){animation-delay:.62s}
+    .cat-card:nth-child(3){animation-delay:.69s}
+    .cat-card:nth-child(4){animation-delay:.76s}
+    .cat-card:nth-child(5){animation-delay:.83s}
+    .cat-card:nth-child(6){animation-delay:.90s}
+    .cat-card:nth-child(7){animation-delay:.97s}
+    .cat-card:nth-child(8){animation-delay:1.04s}
+
+    /* Stagger news items on entry */
+    @keyframes newsIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+    .news-item.enter{animation:newsIn .35s ease both}
+
     @media(max-width:900px){
-      .inner-content{grid-template-columns:1fr}
+      .news-view.active{grid-template-columns:1fr}
       .sidebar{position:static}
     }
     @media(max-width:640px){
@@ -252,8 +450,10 @@
       .nav-links{gap:1rem}
       .nav-links a{font-size:.88rem}
       .page-header{padding:5rem 1.2rem 1.5rem}
-      .controls{padding:1.2rem}
-      .inner-content{padding:1.5rem 1.2rem 3rem}
+      .category-browse{padding:1.5rem 1.2rem .8rem}
+      .category-row{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.7rem}
+      .cat-card{height:76px}
+      .news-view{padding:0 1.2rem 3rem}
       footer{flex-direction:column;gap:.8rem;text-align:center}
     }
   </style>
@@ -284,279 +484,631 @@
 
 <div class="divider"></div>
 
-<!-- CONTROLS -->
-<div class="controls">
-  <div class="search-wrap">
-    <span class="search-icon" aria-hidden="true">⌕</span>
-    <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" aria-label="Search headlines"/>
+<!-- ══════════════════════════════════════
+     CATEGORY BROWSE (Netflix-style cards)
+══════════════════════════════════════ -->
+<section class="category-browse" id="category-browse" aria-label="Browse by category">
+  <p class="browse-heading">Browse by Category</p>
+  <div class="category-row" id="category-row" role="list">
+    <!-- Cards injected by JS once feed is loaded -->
+    <!-- Static fallback cards shown immediately -->
+    <button class="cat-card selected" data-cat="All" role="listitem" aria-pressed="true" onclick="selectCategory('All', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">A</span>
+      <span class="cat-card-name">All</span>
+    </button>
+    <button class="cat-card" data-cat="India" role="listitem" aria-pressed="false" onclick="selectCategory('India', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">IN</span>
+      <span class="cat-card-name">India</span>
+    </button>
+    <button class="cat-card" data-cat="Tech" role="listitem" aria-pressed="false" onclick="selectCategory('Tech', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">T</span>
+      <span class="cat-card-name">Tech</span>
+    </button>
+    <button class="cat-card" data-cat="AI" role="listitem" aria-pressed="false" onclick="selectCategory('AI', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">AI</span>
+      <span class="cat-card-name">AI</span>
+    </button>
+    <button class="cat-card" data-cat="Economy" role="listitem" aria-pressed="false" onclick="selectCategory('Economy', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">$</span>
+      <span class="cat-card-name">Economy</span>
+    </button>
+    <button class="cat-card" data-cat="SC" role="listitem" aria-pressed="false" onclick="selectCategory('SC', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">SC</span>
+      <span class="cat-card-name">Supply Chain</span>
+    </button>
+    <button class="cat-card" data-cat="Cricket" role="listitem" aria-pressed="false" onclick="selectCategory('Cricket', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">🏏</span>
+      <span class="cat-card-name">Cricket</span>
+    </button>
+    <button class="cat-card" data-cat="Business" role="listitem" aria-pressed="false" onclick="selectCategory('Business', this)">
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">B</span>
+      <span class="cat-card-name">Business</span>
+    </button>
   </div>
-  <div class="filter-tabs" id="filter-tabs" role="group" aria-label="Filter by category">
-    <button class="filter-tab active" data-filter="all">All</button>
+</section>
+
+<!-- ══════════════════════════════════════
+     NEWS VIEW — shown when category selected
+══════════════════════════════════════ -->
+<div class="news-view" id="news-view">
+
+  <!-- Topbar: back button + category label + search -->
+  <div class="view-topbar">
+    <div class="view-topbar-left">
+      <button class="btn-back-cats" onclick="showCategories()" aria-label="Back to categories">
+        ← Categories
+      </button>
+      <span class="view-category-label" id="view-category-label">All</span>
+      <span class="view-count-badge" id="view-count-badge">0</span>
+    </div>
+    <div class="view-search-wrap">
+      <span class="view-search-icon" aria-hidden="true">⌕</span>
+      <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" aria-label="Search headlines" oninput="handleSearch(this.value)"/>
+    </div>
   </div>
-</div>
 
-<!-- THREE-COLUMN LAYOUT: [Ad Left] [Content + Sidebar] [Ad Right] -->
-<div class="outer-layout">
+  <!-- Main feed column -->
+  <main>
+    <!-- Skeleton loaders -->
+    <div id="skeleton-loader">
+      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:120px"></div><div class="skeleton" style="height:18px;width:88%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:140px"></div><div class="skeleton" style="height:18px;width:72%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:100px"></div><div class="skeleton" style="height:18px;width:91%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:130px"></div><div class="skeleton" style="height:18px;width:78%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:110px"></div><div class="skeleton" style="height:18px;width:83%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
+    </div>
 
-  <!-- ════ LEFT AD COLUMN ════ -->
-  <aside class="ad-col" aria-label="Advertisement column left">
-    <div class="ad-slot">
-      <!-- Google AdSense — Left 160x600 -->
+    <div id="news-feed" role="list" aria-label="News headlines"></div>
+
+    <div class="load-more-wrap">
+      <button class="btn-load" id="load-more-btn" style="display:none" onclick="loadMore()">Load More Headlines ↓</button>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Feed statistics and sources">
+    <a href="/" class="back-link"><span>←</span> ramsrinivasan.com</a>
+
+    <!-- MAP CARD -->
+    <div class="map-sidebar-card">
+      <div class="map-card-header">
+        <span class="map-card-label">News Map</span>
+        <span class="map-pin-count" id="map-pin-count">0 pins</span>
+      </div>
+      <div id="news-map" role="img" aria-label="Map showing news pin locations"></div>
+    </div>
+
+    <!-- Google AdSense — sidebar 300x250 -->
+    <div style="width:100%;display:flex;justify-content:center;">
       <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:600px"
+           style="display:inline-block;width:250px;height:250px"
            data-ad-client="ca-pub-2516736960447895"
-           data-ad-slot="LEFT_AD_SLOT_ID"></ins>
+           data-ad-slot="SIDEBAR_AD_SLOT_ID"></ins>
       <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
     </div>
-    <div class="ad-slot-sm">
-      <!-- Google AdSense — Left 160x300 -->
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:300px"
-           data-ad-client="ca-pub-2516736960447895"
-           data-ad-slot="LEFT_AD_SLOT_SM_ID"></ins>
-      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+    <div class="sidebar-card">
+      <div class="sc-label">Feed Stats</div>
+      <div class="stat-row"><span class="stat-label-s">Total Articles</span><span class="stat-val" id="stat-total">—</span></div>
+      <div class="stat-row"><span class="stat-label-s">Sources Active</span><span class="stat-val" id="stat-sources">—</span></div>
+      <div class="stat-row"><span class="stat-label-s">Showing</span><span class="stat-val" id="stat-showing">—</span></div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-label">Browse by Topic</div>
+      <div id="source-list">
+        <div class="skeleton" style="height:10px;width:80%;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:10px;width:60%;margin-bottom:12px"></div>
+        <div class="skeleton" style="height:10px;width:70%"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-label">Refresh</div>
+      <p style="font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">
+        Feed updates when <code style="color:var(--cyan)">fetch.py</code> runs. Pull latest headlines manually below.
+      </p>
+      <button class="btn-load" onclick="refreshFeed()" style="width:100%;padding:.6rem;font-size:.85rem">
+        ↻ Refresh Feed
+      </button>
     </div>
   </aside>
 
-  <!-- ════ MAIN CONTENT ════ -->
-  <div class="inner-content">
-    <main>
-      <!-- Skeleton loaders -->
-      <div id="skeleton-loader">
-        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:120px"></div><div class="skeleton" style="height:18px;width:88%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:140px"></div><div class="skeleton" style="height:18px;width:72%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:100px"></div><div class="skeleton" style="height:18px;width:91%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:130px"></div><div class="skeleton" style="height:18px;width:78%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-        <div class="skeleton-item"><div class="skeleton" style="height:10px;width:110px"></div><div class="skeleton" style="height:18px;width:83%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-      </div>
+</div><!-- /news-view -->
 
-      <div id="news-feed" role="list" aria-label="News headlines"></div>
-
-      <div class="load-more-wrap">
-        <button class="btn-load" id="load-more-btn" style="display:none" onclick="loadMore()">Load More Headlines ↓</button>
-      </div>
-    </main>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" aria-label="Feed statistics and sources">
-      <a href="/" class="back-link"><span>←</span> ramsrinivasan.com</a>
-
-      <div class="sidebar-card">
-        <div class="sc-label">Feed Stats</div>
-        <div class="stat-row"><span class="stat-label-s">Total Articles</span><span class="stat-val" id="stat-total">—</span></div>
-        <div class="stat-row"><span class="stat-label-s">Sources Active</span><span class="stat-val" id="stat-sources">—</span></div>
-        <div class="stat-row"><span class="stat-label-s">Showing</span><span class="stat-val" id="stat-showing">—</span></div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sc-label">Browse by Topic</div>
-        <div id="source-list">
-          <div class="skeleton" style="height:10px;width:80%;margin-bottom:12px"></div>
-          <div class="skeleton" style="height:10px;width:60%;margin-bottom:12px"></div>
-          <div class="skeleton" style="height:10px;width:70%"></div>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sc-label">Refresh</div>
-        <p style="font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Feed updates when <code style="color:var(--cyan)">fetch.py</code> runs. Pull latest manually:</p>
-        <button class="btn-load" onclick="reloadFeed()" style="width:100%">↻ Reload Feed</button>
-      </div>
-    </aside>
-  </div>
-
-  <!-- ════ RIGHT AD COLUMN ════ -->
-  <aside class="ad-col" aria-label="Advertisement column right">
-    <div class="ad-slot">
-      <!-- Google AdSense — Right 160x600 -->
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:600px"
-           data-ad-client="ca-pub-2516736960447895"
-           data-ad-slot="RIGHT_AD_SLOT_ID"></ins>
-      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-    </div>
-    <div class="ad-slot-sm">
-      <!-- Google AdSense — Right 160x300 -->
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:300px"
-           data-ad-client="ca-pub-2516736960447895"
-           data-ad-slot="RIGHT_AD_SLOT_SM_ID"></ins>
-      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-    </div>
-  </aside>
-
-</div><!-- /outer-layout -->
-
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 <a href="/">RamSrinivasan</a>. World Monitor.</p>
-  <p>Curated from trusted Indian sources.</p>
+  <p>World Monitor by <a href="/">Ram Srinivasan</a></p>
+  <p style="font-size:.75rem">Data via RSS · Updated periodically</p>
 </footer>
 
 <script>
-  // ── STATE ──
-  let allArticles=[],filtered=[],currentFilter='all',searchQuery='',page=0;
-  const PAGE_SIZE=20;
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let ALL_ITEMS        = [];
+let FILTERED_ITEMS   = [];
+let DISPLAYED_COUNT  = 0;
+const PAGE_SIZE      = 20;
+let ACTIVE_CAT       = 'All';
+let SEARCH_QUERY     = '';
 
-  // ── CLOCK ──
-  function updateClock(){
-    const now=new Date();
-    document.getElementById('live-clock').textContent=
-      now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' IST';
+// accent color per category (matches CSS)
+const CAT_ACCENTS = {
+  'All':          '#F0EEFF',
+  'India':        '#E8192C',
+  'Tech':         '#00F5FF',
+  'AI':           '#00F5FF',
+  'Economy':      '#FFE600',
+  'Business':     '#FFE600',
+  'Cricket':      '#FF6AB1',
+  'Sports':       '#FF6AB1',
+  'SC':           '#4d7eff',
+  'Supply Chain': '#4d7eff',
+};
+
+// ═══════════════════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════════════════
+function updateClock(){
+  const now = new Date();
+  const ist = new Date(now.getTime() + (5.5*60*60*1000));
+  const hh  = String(ist.getUTCHours()).padStart(2,'0');
+  const mm  = String(ist.getUTCMinutes()).padStart(2,'0');
+  const ss  = String(ist.getUTCSeconds()).padStart(2,'0');
+  const el  = document.getElementById('live-clock');
+  if(el) el.textContent = `${hh}:${mm}:${ss} IST`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ═══════════════════════════════════════════════════════
+// FEED LOADING  — swap the URL below for your real feed
+// ═══════════════════════════════════════════════════════
+async function loadFeed(){
+  try {
+    // Try to load from feed.json (your fetch.py output)
+    const res  = await fetch('/Monitor/feed.json');
+    const data = await res.json();
+    ALL_ITEMS  = Array.isArray(data) ? data : (data.items || []);
+  } catch(e) {
+    // Demo fallback so the UI is testable without a real feed
+    ALL_ITEMS = generateDemoItems();
   }
-  updateClock();setInterval(updateClock,1000);
+  document.getElementById('skeleton-loader').style.display = 'none';
+  buildCategoryCards();
+  updateStats();
+  document.getElementById('article-count').textContent =
+    `${ALL_ITEMS.length} headline${ALL_ITEMS.length!==1?'s':''} loaded`;
+  // Plot all items on map
+  setTimeout(refreshMapPins, 300);
+}
 
-  // ── FORMAT DATE ──
-  function formatDate(str){
-    if(!str)return'';
-    try{
-      const d=new Date(str);
-      if(isNaN(d))return str.slice(0,16);
-      return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-    }catch{return''}
-  }
+// ═══════════════════════════════════════════════════════
+// DEMO DATA (replace with real fetch.py output)
+// ═══════════════════════════════════════════════════════
+function generateDemoItems(){
+  const cats  = ['India','Tech','AI','Economy','SC','Cricket','Business'];
+  const srcs  = ['The Hindu','Mint','ET','TechCrunch','Cricinfo','Bloomberg','Reuters'];
+  const demos = [
+    'India's GDP growth holds steady at 6.8% despite global headwinds',
+    'RBI keeps repo rate unchanged; signals cautious easing ahead',
+    'OpenAI releases new reasoning model with 200K context window',
+    'India-US trade deal negotiations enter final stretch',
+    'Chennai Super Kings eye new batting coach for IPL 2026',
+    'Supply chain resilience index hits 3-year high in Asia-Pac',
+    'Tata Motors EV sales cross 50,000 units milestone',
+    'NIFTY 50 crosses 24,000 — analysts debate next resistance level',
+    'Apple India manufacturing ramps up; Foxconn expands Chennai plant',
+    'Bhumrah named Test captain ahead of England series',
+    'Global container shipping rates ease after port congestion clears',
+    'Anthropic unveils Claude 4 with new tool-use capabilities',
+    'India's UPI crosses 15 billion monthly transactions',
+    'Semiconductor shortage eases as TSMC opens new fab in Pune',
+    'Virat Kohli announces Test retirement; cricket world reacts',
+    'India tops renewable energy capacity additions in Q1 2026',
+    'Meta launches Llama 4 — open-source, multimodal, 1T parameters',
+    'RBI Digital Rupee pilot extended to 15 more cities',
+    'Supply chain AI startups raise $2.4B in funding this quarter',
+    'Google DeepMind and ISRO partner on satellite data analytics',
+  ];
+  return demos.map((title,i)=>({
+    title,
+    source: srcs[i%srcs.length],
+    category: cats[i%cats.length],
+    date: new Date(Date.now() - i*3600000).toISOString(),
+    url: '#',
+  }));
+}
 
-  // ── CATEGORY COLOR ──
-  function catClass(cat){
-    const c=(cat||'').toLowerCase();
-    if(c==='india')return'cat-India';
-    if(c==='tech'||c==='technology')return'cat-Tech';
-    if(c==='ai')return'cat-AI';
-    if(c==='economy'||c==='finance')return'cat-Economy';
-    if(c==='business')return'cat-Economy';
-    if(c==='cricket'||c==='sports')return'cat-Cricket';
-    return'cat-default';
-  }
-
-  // ── LOAD DATA ──
-  async function loadFeed(){
-    try{
-      const res=await fetch('news.json?v='+Date.now());
-      if(!res.ok)throw new Error('Failed');
-      allArticles=await res.json();
-      init();
-    }catch(e){
-      document.getElementById('skeleton-loader').style.display='none';
-      document.getElementById('news-feed').innerHTML=`<div class="state-msg"><strong>Feed Offline</strong><p>Run <code>python fetch.py</code> to generate news.json, then reload this page.</p></div>`;
-    }
-  }
-
-  // ── INIT ──
-  function init(){
-    document.getElementById('skeleton-loader').style.display='none';
-    buildSources();applyFilters();
-  }
-
-  const CAT_ORDER=['India','Supply Chain','Cricket','Economy','Tech','Business','AI','Trending'];
-
-  function buildSources(){
-    const catCounts={},srcCounts={};
-    allArticles.forEach(a=>{
-      const cat=a.category||'Other',src=a.source||'Unknown';
-      catCounts[cat]=(catCounts[cat]||0)+1;
-      srcCounts[src]=(srcCounts[src]||0)+1;
-    });
-    document.getElementById('stat-total').textContent=allArticles.length;
-    document.getElementById('stat-sources').textContent=Object.keys(srcCounts).length;
-
-    const list=document.getElementById('source-list');
-    list.innerHTML='';
-    const orderedCats=[...CAT_ORDER.filter(c=>catCounts[c]),...Object.keys(catCounts).filter(c=>!CAT_ORDER.includes(c)).sort()];
-    orderedCats.forEach(cat=>{
-      const div=document.createElement('div');
-      div.className='source-item';
-      div.innerHTML=`<span class="source-name">${cat}</span><span class="source-count">${catCounts[cat]}</span>`;
-      div.addEventListener('click',()=>setFilter(cat));
-      list.appendChild(div);
-    });
-
-    const tabsEl=document.getElementById('filter-tabs');
-    tabsEl.querySelectorAll('.filter-tab:not([data-filter="all"])').forEach(e=>e.remove());
-    orderedCats.forEach(cat=>{
-      const btn=document.createElement('button');
-      btn.className='filter-tab';btn.dataset.filter=cat;btn.textContent=cat;
-      tabsEl.appendChild(btn);
-    });
-  }
-
-  function setFilter(val){
-    currentFilter=val;
-    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.toggle('active',t.dataset.filter===val));
-    page=0;applyFilters();
-  }
-
-  function applyFilters(){
-    const q=searchQuery.toLowerCase();
-    filtered=allArticles.filter(a=>{
-      const matchCat=currentFilter==='all'||(a.category||'Other')===currentFilter;
-      const matchSearch=!q||a.title.toLowerCase().includes(q)||(a.source||'').toLowerCase().includes(q);
-      return matchCat&&matchSearch;
-    });
-    page=0;
-    document.getElementById('news-feed').innerHTML='';
-    document.getElementById('stat-showing').textContent=filtered.length;
-    renderPage();
-  }
-
-  function renderPage(){
-    const feed=document.getElementById('news-feed');
-    const start=page*PAGE_SIZE;
-    const slice=filtered.slice(start,start+PAGE_SIZE);
-    if(filtered.length===0){
-      feed.innerHTML=`<div class="state-msg"><strong>No Results</strong><p>Try a different search or filter.</p></div>`;
-      document.getElementById('load-more-btn').style.display='none';
-      return;
-    }
-    slice.forEach((a,i)=>{
-      const item=document.createElement('a');
-      item.className='news-item';
-      item.href=a.link||'#';
-      item.target='_blank';
-      item.rel='noopener noreferrer';
-      item.setAttribute('role','listitem');
-      const cat=a.category||'Other';
-      item.innerHTML=`
-        <div class="item-accent-bar"></div>
-        <div class="item-body">
-          <div class="item-meta">
-            <span class="item-source">${a.source||'Unknown'}</span>
-            <span class="item-cat ${catClass(cat)}">${cat}</span>
-            <span class="item-date">${formatDate(a.published)}</span>
-          </div>
-          <div class="item-title">${a.title}</div>
-          <span class="item-arrow">Read ↗</span>
-        </div>`;
-      feed.appendChild(item);
-      setTimeout(()=>item.classList.add('visible'),i*35);
-    });
-    page++;
-    const btn=document.getElementById('load-more-btn');
-    btn.style.display=(page*PAGE_SIZE<filtered.length)?'block':'none';
-  }
-
-  function loadMore(){renderPage()}
-
-  function reloadFeed(){
-    allArticles=[];filtered=[];page=0;
-    document.getElementById('news-feed').innerHTML='';
-    document.getElementById('skeleton-loader').style.display='block';
-    document.getElementById('load-more-btn').style.display='none';
-    document.getElementById('filter-tabs').querySelectorAll('.filter-tab:not([data-filter="all"])').forEach(e=>e.remove());
-    loadFeed();
-  }
-
-  let searchTimer;
-  document.getElementById('search-input').addEventListener('input',e=>{
-    clearTimeout(searchTimer);searchQuery=e.target.value;
-    searchTimer=setTimeout(applyFilters,280);
+// ═══════════════════════════════════════════════════════
+// BUILD CATEGORY CARDS from actual feed data
+// ═══════════════════════════════════════════════════════
+function buildCategoryCards(){
+  const counts = {};
+  ALL_ITEMS.forEach(item => {
+    const c = item.category || 'Other';
+    counts[c] = (counts[c]||0)+1;
   });
-  document.getElementById('filter-tabs').addEventListener('click',e=>{
-    if(e.target.classList.contains('filter-tab'))setFilter(e.target.dataset.filter);
+
+  const row = document.getElementById('category-row');
+  // Clear existing dynamic cards (keep "All")
+  // We'll just rebuild everything
+  row.innerHTML = '';
+
+  const allCats = ['All', ...Object.keys(counts).sort()];
+  allCats.forEach((cat, idx) => {
+    const count = cat==='All' ? ALL_ITEMS.length : counts[cat];
+    const firstLetter = cat.replace(/[^A-Z0-9🏏]/gi,'').slice(0,2).toUpperCase() || cat[0].toUpperCase();
+    const isSelected  = cat === ACTIVE_CAT;
+
+    const btn = document.createElement('button');
+    btn.className      = 'cat-card' + (isSelected?' selected':'');
+    btn.dataset.cat    = cat;
+    btn.setAttribute('role','listitem');
+    btn.setAttribute('aria-pressed', isSelected?'true':'false');
+    btn.style.setProperty('animation-delay', `${.55 + idx*.07}s`);
+    btn.innerHTML = `
+      <div class="cat-card-noise"></div>
+      <div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">${firstLetter}</span>
+      <span class="cat-card-name">${cat}</span>
+    `;
+    btn.addEventListener('click', ()=>selectCategory(cat, btn));
+    row.appendChild(btn);
   });
-  setInterval(()=>{
-    if(allArticles.length)document.getElementById('article-count').textContent=`${filtered.length} headlines · updated on load`;
-  },500);
+
+  // Also update sidebar source list
+  buildSourceList(counts);
+}
+
+// ═══════════════════════════════════════════════════════
+// SIDEBAR SOURCE LIST
+// ═══════════════════════════════════════════════════════
+function buildSourceList(counts){
+  const el = document.getElementById('source-list');
+  if(!el) return;
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  el.innerHTML = sorted.map(([cat,n])=>`
+    <div class="source-item" onclick="selectCategory('${cat}', null)" role="button" tabindex="0">
+      <span class="source-name">${cat}</span>
+      <span class="source-count">${n}</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// CATEGORY SELECTION — the main Netflix behaviour
+// ═══════════════════════════════════════════════════════
+function selectCategory(cat, triggerEl){
+  ACTIVE_CAT    = cat;
+  SEARCH_QUERY  = '';
+  const searchEl = document.getElementById('search-input');
+  if(searchEl) searchEl.value = '';
+
+  // Update card selected state
+  document.querySelectorAll('.cat-card').forEach(c=>{
+    const isThis = c.dataset.cat === cat;
+    c.classList.toggle('selected', isThis);
+    c.setAttribute('aria-pressed', isThis?'true':'false');
+  });
+
+  // Set accent color on news-view
+  const accent = CAT_ACCENTS[cat] || '#00F5FF';
+  const newsView = document.getElementById('news-view');
+  newsView.style.setProperty('--active-accent', accent);
+
+  // Update label
+  const labelEl = document.getElementById('view-category-label');
+  if(labelEl) labelEl.textContent = cat;
+  labelEl.style.color = accent;
+
+  // Filter
+  applyFilters();
+
+  // Hide category browse, show news view
+  showNewsView();
+}
+
+function showNewsView(){
+  document.getElementById('category-browse').style.display = 'none';
+  const nv = document.getElementById('news-view');
+  nv.classList.add('active');
+  nv.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function showCategories(){
+  document.getElementById('category-browse').style.display = '';
+  const nv = document.getElementById('news-view');
+  nv.classList.remove('active');
+  // Deselect all, re-select "All" card
+  ACTIVE_CAT = 'All';
+  document.querySelectorAll('.cat-card').forEach(c=>{
+    const isAll = c.dataset.cat==='All';
+    c.classList.toggle('selected',isAll);
+    c.setAttribute('aria-pressed',isAll?'true':'false');
+  });
+  document.getElementById('category-browse').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══════════════════════════════════════════════════════
+// FILTERING & SEARCH
+// ═══════════════════════════════════════════════════════
+function applyFilters(){
+  let items = ALL_ITEMS;
+  if(ACTIVE_CAT && ACTIVE_CAT !== 'All'){
+    items = items.filter(i=> (i.category||'Other') === ACTIVE_CAT);
+  }
+  if(SEARCH_QUERY){
+    const q = SEARCH_QUERY.toLowerCase();
+    items = items.filter(i=>
+      (i.title||'').toLowerCase().includes(q) ||
+      (i.source||'').toLowerCase().includes(q)
+    );
+  }
+  FILTERED_ITEMS  = items;
+  DISPLAYED_COUNT = 0;
+  document.getElementById('news-feed').innerHTML = '';
+  loadMore();
+  updateStats();
+  refreshMapPins();
+}
+
+function handleSearch(val){
+  SEARCH_QUERY = val.trim();
+  applyFilters();
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER NEWS ITEMS
+// ═══════════════════════════════════════════════════════
+function loadMore(){
+  const feed  = document.getElementById('news-feed');
+  const btn   = document.getElementById('load-more-btn');
+  const slice = FILTERED_ITEMS.slice(DISPLAYED_COUNT, DISPLAYED_COUNT + PAGE_SIZE);
+
+  if(slice.length === 0 && DISPLAYED_COUNT === 0){
+    feed.innerHTML = `<div class="state-msg"><strong>No Results</strong><p>No headlines match your filter.</p></div>`;
+    if(btn) btn.style.display = 'none';
+    return;
+  }
+
+  slice.forEach((item, idx) => {
+    const el   = document.createElement('a');
+    el.className  = 'news-item';
+    el.href       = item.url || '#';
+    el.target     = item.url && item.url!=='#' ? '_blank' : '';
+    el.rel        = 'noopener noreferrer';
+    el.setAttribute('role','listitem');
+
+    const cat   = item.category || 'Other';
+    const catCls= `cat-${cat.replace(/\s+/g,'')}`;
+    const dateStr = item.date
+      ? new Date(item.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
+      : '';
+
+    el.innerHTML = `
+      <div class="item-accent-bar"></div>
+      <div class="item-body">
+        <div class="item-meta">
+          <span class="item-source">${escHtml(item.source||'Unknown')}</span>
+          <span class="item-cat ${catCls}">${escHtml(cat)}</span>
+          ${dateStr?`<span class="item-date">${dateStr}</span>`:''}
+        </div>
+        <div class="item-title">${escHtml(item.title||'Untitled')}</div>
+        <span class="item-arrow">READ MORE →</span>
+      </div>
+    `;
+
+    // Stagger animation
+    el.style.animationDelay = `${idx * .04}s`;
+    feed.appendChild(el);
+
+    // Intersection observer for scroll-reveal
+    setTimeout(()=>el.classList.add('visible'), 50 + idx*40);
+  });
+
+  DISPLAYED_COUNT += slice.length;
+
+  // Badge count
+  const badge = document.getElementById('view-count-badge');
+  if(badge) badge.textContent = `${FILTERED_ITEMS.length} article${FILTERED_ITEMS.length!==1?'s':''}`;
+
+  // Load more button
+  if(btn){
+    btn.style.display = DISPLAYED_COUNT < FILTERED_ITEMS.length ? 'inline-flex' : 'none';
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════════════════════
+function updateStats(){
+  const sources = new Set(ALL_ITEMS.map(i=>i.source)).size;
+  const tot  = document.getElementById('stat-total');
+  const src  = document.getElementById('stat-sources');
+  const show = document.getElementById('stat-showing');
+  if(tot)  tot.textContent  = ALL_ITEMS.length;
+  if(src)  src.textContent  = sources;
+  if(show) show.textContent = FILTERED_ITEMS.length || DISPLAYED_COUNT;
+}
+
+// ═══════════════════════════════════════════════════════
+// REFRESH
+// ═══════════════════════════════════════════════════════
+function refreshFeed(){
+  document.getElementById('skeleton-loader').style.display = '';
+  document.getElementById('news-feed').innerHTML = '';
+  loadFeed().then(()=>{ applyFilters(); refreshMapPins(); });
+}
+
+// ═══════════════════════════════════════════════════════
+// NEWS MAP — Leaflet with custom dark tiles + category pins
+// ═══════════════════════════════════════════════════════
+let MAP_INSTANCE  = null;
+let MAP_MARKERS   = [];
+
+// Rough geo coords per category (city centroids relevant to each topic)
+const CAT_GEO = {
+  'India':        [{lat:20.5937,  lng:78.9629},  {lat:28.6139,  lng:77.2090},  {lat:13.0827,  lng:80.2707},  {lat:19.0760,  lng:72.8777},  {lat:12.9716,  lng:77.5946}],
+  'Tech':         [{lat:37.3382,  lng:-121.8863}, {lat:37.7749,  lng:-122.4194},{lat:47.6062,  lng:-122.3321},{lat:51.5074,  lng:-0.1278},   {lat:1.3521,   lng:103.8198}],
+  'AI':           [{lat:37.3382,  lng:-121.8863}, {lat:40.7128,  lng:-74.0060}, {lat:51.5074,  lng:-0.1278},  {lat:48.8566,  lng:2.3522},    {lat:35.6762,  lng:139.6503}],
+  'Economy':      [{lat:40.7128,  lng:-74.0060},  {lat:51.5074,  lng:-0.1278},  {lat:35.6762,  lng:139.6503}, {lat:22.3193,  lng:114.1694},  {lat:48.8566,  lng:2.3522}],
+  'Business':     [{lat:40.7128,  lng:-74.0060},  {lat:1.3521,   lng:103.8198}, {lat:25.2048,  lng:55.2708},  {lat:22.3193,  lng:114.1694},  {lat:28.6139,  lng:77.2090}],
+  'SC':           [{lat:31.2304,  lng:121.4737},  {lat:1.3521,   lng:103.8198}, {lat:22.3193,  lng:114.1694}, {lat:34.6937,  lng:135.5023},  {lat:51.9225,  lng:4.4792}],
+  'Cricket':      [{lat:28.6139,  lng:77.2090},   {lat:13.0827,  lng:80.2707},  {lat:-33.8688, lng:151.2093}, {lat:51.5074,  lng:-0.1278},   {lat:6.9271,   lng:79.8612}],
+  'Sports':       [{lat:40.7128,  lng:-74.0060},  {lat:51.5074,  lng:-0.1278},  {lat:48.8566,  lng:2.3522},   {lat:35.6762,  lng:139.6503},  {lat:-23.5505, lng:-46.6333}],
+  'Other':        [{lat:0,        lng:20},         {lat:48.8566,  lng:2.3522},   {lat:55.7558,  lng:37.6176}],
+};
+
+// Accent hex per category (for SVG pin colour)
+const CAT_PIN_COLOR = {
+  'India':'#E8192C','Tech':'#00F5FF','AI':'#00F5FF',
+  'Economy':'#FFE600','Business':'#FFE600',
+  'Cricket':'#FF6AB1','Sports':'#FF6AB1',
+  'SC':'#4d7eff','Other':'#7070A0',
+};
+
+function makePinIcon(color){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
+    <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z" fill="${color}" opacity=".9"/>
+    <circle cx="9" cy="9" r="3.5" fill="#080810" opacity=".85"/>
+  </svg>`;
+  return L.divIcon({
+    html: svg,
+    className: '',
+    iconSize:  [18, 24],
+    iconAnchor:[9,  24],
+    popupAnchor:[0,-22],
+  });
+}
+
+function initMap(){
+  if(MAP_INSTANCE) return;
+  const mapEl = document.getElementById('news-map');
+  if(!mapEl || typeof L === 'undefined') return;
+
+  MAP_INSTANCE = L.map('news-map', {
+    center:[20, 15],
+    zoom:1,
+    zoomControl:true,
+    attributionControl:false,
+    scrollWheelZoom:false,
+  });
+
+  // Dark CartoDB tiles
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{
+    subdomains:'abcd', maxZoom:19,
+  }).addTo(MAP_INSTANCE);
+
+  // Minimal label overlay
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{
+    subdomains:'abcd', maxZoom:19, opacity:0.5,
+  }).addTo(MAP_INSTANCE);
+
+  // Tiny attribution tucked away
+  L.control.attribution({position:'bottomright',prefix:false})
+    .addTo(MAP_INSTANCE)
+    .setPrefix('<span style="font-size:.45rem;color:#333;font-family:monospace">© CartoDB</span>');
+}
+
+function plotMapPins(items){
+  if(!MAP_INSTANCE) return;
+
+  // Clear old markers
+  MAP_MARKERS.forEach(m => MAP_INSTANCE.removeLayer(m));
+  MAP_MARKERS = [];
+
+  // Only pin up to 40 items so the map stays readable
+  const pinItems = items.slice(0, 40);
+  let pinCount   = 0;
+
+  pinItems.forEach(item => {
+    const cat    = item.category || 'Other';
+    const pool   = CAT_GEO[cat] || CAT_GEO['Other'];
+    const color  = CAT_PIN_COLOR[cat] || '#7070A0';
+    // Pick a coord from the pool using a hash of the title for variety
+    const hash   = (item.title||'').split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+    const coord  = pool[hash % pool.length];
+    // Jitter so overlapping pins spread slightly
+    const jLat   = coord.lat + (Math.random()-.5)*2.5;
+    const jLng   = coord.lng + (Math.random()-.5)*2.5;
+
+    const marker = L.marker([jLat, jLng], {icon: makePinIcon(color)})
+      .bindTooltip(item.source || cat, {
+        className:'map-tooltip', direction:'top', offset:[0,-20],
+      })
+      .bindPopup(`
+        <div class="map-popup">
+          <div class="map-popup-cat">${escHtml(cat)}</div>
+          <div class="map-popup-title">${escHtml(item.title||'Untitled')}</div>
+          <a class="map-popup-link" href="${item.url||'#'}" target="_blank" rel="noopener">
+            Read more →
+          </a>
+          <span class="map-popup-src">${escHtml(item.source||'')}</span>
+        </div>
+      `, {maxWidth:230})
+      .addTo(MAP_INSTANCE);
+
+    MAP_MARKERS.push(marker);
+    pinCount++;
+  });
+
+  // Update pin count badge
+  const badge = document.getElementById('map-pin-count');
+  if(badge) badge.textContent = `${pinCount} pin${pinCount!==1?'s':''}`;
+}
+
+// Called after feed loads or filter changes
+function refreshMapPins(){
+  const items = FILTERED_ITEMS.length ? FILTERED_ITEMS : ALL_ITEMS;
+  plotMapPins(items);
+}
+
+// ═══════════════════════════════════════════════════════
+// UTIL
+// ═══════════════════════════════════════════════════════
+function escHtml(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', ()=>{
+  // Init map immediately (tiles load in background)
+  // Defer slightly so Leaflet script is guaranteed ready
+  setTimeout(initMap, 200);
 
   loadFeed();
+  // Keyboard accessibility for category cards
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape' && document.getElementById('news-view').classList.contains('active')){
+      showCategories();
+    }
+  });
+});
 </script>
+
 </body>
 </html>
