@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2516736960447895" crossorigin="anonymous"></script>
   <meta charset="UTF-8"/>
   <meta name="google-adsense-account" content="ca-pub-2516736960447895">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <!-- SEO -->
   <title>World Monitor — Live News Feed | Ram Srinivasan</title>
-  <meta name="description" content="Real-time curated news feed covering India, Supply Chain, Economy, Tech, and Cricket. Stay updated with the World Monitor by Ram Srinivasan."/>
-  <meta name="keywords" content="World Monitor, India News, Supply Chain News, Tech News, Live Feed, Ram Srinivasan Monitor"/>
+  <meta name="description" content="Real-time curated news feed covering India, Supply Chain, Economy, Tech, and Cricket."/>
   <meta name="author" content="Ram Srinivasan"/>
   <link rel="canonical" href="https://ramsrinivasan.com/Monitor/"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://ramsrinivasan.com/Monitor/"/>
   <meta property="og:title" content="World Monitor — Live News Feed | Ram Srinivasan"/>
-  <meta property="og:description" content="Real-time curated news covering India, Supply Chain, Economy, Tech, and Cricket."/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"World Monitor - Ram Srinivasan","description":"Real-time news feed covering India, Supply Chain, Economy, Tech","url":"https://ramsrinivasan.com/Monitor/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"World Monitor - Ram Srinivasan","url":"https://ramsrinivasan.com/Monitor/"}</script>
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZH170NH9GW');</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <!-- Leaflet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -41,18 +34,16 @@
     body{background:var(--ink);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;min-height:100vh}
     body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(0,245,255,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
 
-    /* NAV */
     nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(8,8,16,.96);border-bottom:3px solid var(--cyan);backdrop-filter:blur(14px)}
     .nav-logo{font-family:var(--comic);font-size:1.8rem;color:var(--red);text-decoration:none;letter-spacing:.06em;text-shadow:2px 2px 0 var(--yellow);transition:transform .2s}
     .nav-logo:hover{transform:rotate(-3deg) scale(1.08)}
     .nav-links{display:flex;gap:1.5rem;list-style:none}
-    .nav-links a{color:var(--muted);text-decoration:none;font-family:var(--comic);font-size:1rem;letter-spacing:.08em;transition:color .2s,text-shadow .2s}
-    .nav-links a:hover{color:var(--cyan);text-shadow:1px 1px 0 var(--blue)}
+    .nav-links a{color:var(--muted);text-decoration:none;font-family:var(--comic);font-size:1rem;letter-spacing:.08em;transition:color .2s}
+    .nav-links a:hover{color:var(--cyan)}
     .nav-links a.active{color:var(--cyan)}
 
-    /* PAGE HEADER */
     .page-header{padding:5.5rem 2rem 1.8rem;max-width:1600px;margin:0 auto;border-bottom:3px solid var(--border);position:relative;overflow:hidden}
-    .page-header::after{content:'MONITOR';position:absolute;right:-1rem;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--comic);font-size:6rem;color:rgba(0,245,255,.03);letter-spacing:.1em;pointer-events:none;white-space:nowrap}
+    .page-header::after{content:'MONITOR';position:absolute;right:-1rem;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--comic);font-size:6rem;color:rgba(0,245,255,.03);pointer-events:none;white-space:nowrap}
     .header-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem;opacity:0;animation:up .6s .1s forwards}
     .page-header h1{font-family:var(--comic);font-size:clamp(2.5rem,5vw,4rem);line-height:.95;letter-spacing:.04em;opacity:0;animation:up .6s .25s forwards}
     .page-header h1 em{font-style:normal;color:var(--yellow);text-shadow:2px 2px 0 var(--red)}
@@ -61,406 +52,181 @@
     #article-count{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.05em}
     .live-dot{display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-right:.5rem;animation:pulse 1.5s ease-in-out infinite}
 
-    /* DIVIDER */
-    .divider{width:100%;height:4px;background:linear-gradient(90deg,var(--red),var(--blue),var(--pink),var(--yellow),var(--cyan));position:relative;z-index:1}
+    .divider{width:100%;height:4px;background:linear-gradient(90deg,var(--red),var(--blue),var(--pink),var(--yellow),var(--cyan));z-index:1;position:relative}
 
-    /* ══════════════════════════════════════
-       NETFLIX-STYLE CATEGORY BROWSE SECTION
-    ══════════════════════════════════════ */
-    .category-browse{
-      max-width:1600px;
-      margin:0 auto;
-      padding:2.5rem 2rem 1rem;
-      position:relative;
-      z-index:1;
-    }
-    .browse-heading{
-      font-family:var(--comic);
-      font-size:1.1rem;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:1.5rem;
-      display:flex;
-      align-items:center;
-      gap:.8rem;
-    }
-    .browse-heading::after{
-      content:'';flex:1;height:1px;background:var(--border);
-    }
+    /* OUTER LAYOUT */
+    .outer-layout{display:grid;grid-template-columns:170px 1fr 170px;max-width:1600px;margin:0 auto;position:relative;z-index:1}
+    .ad-col{padding:1.5rem .8rem;position:sticky;top:4.5rem;display:flex;flex-direction:column;gap:1.5rem;align-items:center;height:fit-content}
+    .ad-slot{width:160px;min-height:600px;background:var(--panel);border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .ad-slot::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--blue))}
+    .ad-slot-sm{width:160px;min-height:300px;background:var(--panel);border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .ad-slot-sm::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--yellow))}
 
-    /* CATEGORY CARDS ROW */
-    .category-row{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-      gap:1rem;
-    }
+    .centre-col{min-width:0;display:flex;flex-direction:column}
 
-    .cat-card{
-      position:relative;
-      height:90px;
-      border:2px solid var(--border);
-      background:var(--panel);
-      cursor:pointer;
-      overflow:hidden;
-      transition:transform .22s cubic-bezier(.34,1.56,.64,1), border-color .2s, box-shadow .2s;
-      display:flex;
-      align-items:flex-end;
-      padding:.9rem 1rem;
-      text-decoration:none;
-      outline:none;
-    }
-    .cat-card::before{
-      content:'';
-      position:absolute;inset:0;
-      opacity:0;
-      transition:opacity .25s;
-    }
-    .cat-card:hover{
-      transform:scale(1.04) translateY(-3px);
-      box-shadow:0 8px 32px rgba(0,0,0,.5), 3px 3px 0 var(--card-accent,var(--cyan));
-      border-color:var(--card-accent,var(--cyan));
-      z-index:2;
-    }
-    .cat-card:hover::before{opacity:.12}
-    .cat-card.selected{
-      border-color:var(--card-accent,var(--cyan));
-      box-shadow:0 0 0 2px var(--card-accent,var(--cyan)), 3px 3px 0 var(--card-accent,var(--cyan));
-    }
-    .cat-card.selected::after{
-      content:'▶ VIEWING';
-      position:absolute;top:.55rem;right:.6rem;
-      font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;
-      color:var(--card-accent,var(--cyan));
-      background:rgba(0,0,0,.7);
-      padding:.1rem .4rem;
-      border:1px solid var(--card-accent,var(--cyan));
-    }
+    /* ★ MAP STRIP — ALWAYS in DOM, never hidden, so Leaflet can measure it ★ */
+    .map-strip{width:100%;background:var(--panel);border-bottom:3px solid var(--border);position:relative}
+    .map-strip-header{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.2rem;background:var(--ink2);border-bottom:2px solid var(--border)}
+    .map-strip-left{display:flex;align-items:center;gap:.8rem}
+    .map-strip-label{font-family:var(--comic);font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+    .map-strip-sub{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.06em}
+    .map-pin-count{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--ink);background:var(--cyan);padding:.15rem .55rem}
+    /* EXPLICIT PIXEL HEIGHT — this is what was missing before */
+    #news-map{width:100%;height:260px;display:block;background:#0a0f18}
 
-    /* Noise texture overlay per card */
-    .cat-card-noise{
-      position:absolute;inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events:none;
-      opacity:.5;
-    }
+    /* Leaflet overrides */
+    .leaflet-container{background:#0a0f18 !important;font-family:var(--mono) !important}
+    .leaflet-popup-content-wrapper{background:var(--panel) !important;border:2px solid var(--cyan) !important;border-radius:0 !important;box-shadow:3px 3px 0 var(--cyan) !important;color:var(--white) !important;padding:0 !important}
+    .leaflet-popup-tip{background:var(--cyan) !important}
+    .leaflet-popup-content{margin:0 !important;padding:0 !important}
+    .map-popup{padding:.8rem 1rem;max-width:210px}
+    .map-popup-cat{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem}
+    .map-popup-title{font-family:var(--body);font-size:.78rem;font-weight:700;line-height:1.3;color:var(--white);margin-bottom:.5rem}
+    .map-popup-link{font-family:var(--comic);font-size:.75rem;letter-spacing:.06em;color:var(--yellow);text-decoration:none;border-bottom:1px solid rgba(255,230,0,.3)}
+    .map-popup-link:hover{color:var(--red)}
+    .map-popup-src{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.35rem;display:block}
+    .leaflet-popup-close-button{color:var(--cyan) !important;font-size:1rem !important;top:4px !important;right:6px !important}
+    .map-tooltip{background:var(--ink2) !important;border:1px solid var(--border) !important;color:var(--muted) !important;font-family:var(--mono) !important;font-size:.6rem !important;letter-spacing:.05em !important;border-radius:0 !important;box-shadow:none !important;padding:.2rem .5rem !important}
 
-    /* Gradient stripe at top of each card */
-    .cat-card-stripe{
-      position:absolute;top:0;left:0;right:0;
-      height:3px;
-      background:var(--card-accent,var(--cyan));
-      box-shadow:0 0 12px var(--card-accent,var(--cyan));
-    }
+    /* FETCH PROGRESS */
+    .fetch-progress-wrap{background:var(--ink2);border-bottom:2px solid var(--border);padding:.5rem 1.2rem;display:flex;align-items:center;gap:1rem}
+    .fetch-bar-outer{flex:1;height:4px;background:var(--border);overflow:hidden}
+    .fetch-bar-inner{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));width:0%;transition:width .25s ease}
+    .fetch-status{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.06em;white-space:nowrap;min-width:180px}
 
-    /* BIG background letter */
-    .cat-card-bg-letter{
-      position:absolute;
-      right:-.2rem;top:-.4rem;
-      font-family:var(--comic);
-      font-size:4.5rem;
-      line-height:1;
-      color:var(--card-accent,var(--cyan));
-      opacity:.07;
-      pointer-events:none;
-      letter-spacing:-.04em;
-      transition:opacity .25s, transform .25s;
-    }
+    /* CATEGORY BROWSE */
+    .category-browse{padding:1.8rem 1.5rem 1rem;border-bottom:2px solid var(--border)}
+    .browse-heading{font-family:var(--comic);font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
+    .browse-heading::after{content:'';flex:1;height:1px;background:var(--border)}
+    .category-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem}
+
+    /* CARDS */
+    .cat-card{position:relative;height:82px;border:2px solid var(--border);background:var(--panel);cursor:pointer;overflow:hidden;transition:transform .22s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;display:flex;align-items:flex-end;padding:.8rem .9rem;outline:none;animation:fadeSlideUp .4s both}
+    .cat-card:hover{transform:scale(1.04) translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.5),3px 3px 0 var(--card-accent,var(--cyan));border-color:var(--card-accent,var(--cyan));z-index:2}
+    .cat-card.selected{border-color:var(--card-accent,var(--cyan));box-shadow:0 0 0 2px var(--card-accent,var(--cyan)),3px 3px 0 var(--card-accent,var(--cyan))}
+    .cat-card.selected::after{content:'▶ VIEWING';position:absolute;top:.45rem;right:.5rem;font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;color:var(--card-accent,var(--cyan));background:rgba(0,0,0,.8);padding:.1rem .35rem;border:1px solid var(--card-accent,var(--cyan))}
+    .cat-card-stripe{position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--cyan));box-shadow:0 0 10px var(--card-accent,var(--cyan))}
+    .cat-card-bg-letter{position:absolute;right:-.2rem;top:-.4rem;font-family:var(--comic);font-size:4rem;line-height:1;color:var(--card-accent,var(--cyan));opacity:.07;pointer-events:none;transition:opacity .25s,transform .25s}
     .cat-card:hover .cat-card-bg-letter{opacity:.14;transform:scale(1.1) rotate(-4deg)}
+    .cat-card-inner{display:flex;flex-direction:column;position:relative;z-index:1}
+    .cat-card-name{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);line-height:1;transition:color .2s}
+    .cat-card-count{font-family:var(--mono);font-size:.55rem;color:var(--muted);margin-top:.2rem}
+    .cat-card:hover .cat-card-name,.cat-card.selected .cat-card-name{color:var(--card-accent,var(--cyan))}
 
-    .cat-card-name{
-      font-family:var(--comic);
-      font-size:1.1rem;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-      color:var(--white);
-      position:relative;
-      z-index:1;
-      line-height:1;
-      transition:color .2s;
-    }
-    .cat-card:hover .cat-card-name{color:var(--card-accent,var(--cyan))}
-    .cat-card.selected .cat-card-name{color:var(--card-accent,var(--cyan))}
+    .cat-card[data-cat="All"]         {--card-accent:#F0EEFF}
+    .cat-card[data-cat="India"]        {--card-accent:#E8192C}
+    .cat-card[data-cat="Tech"]         {--card-accent:#00F5FF}
+    .cat-card[data-cat="AI"]           {--card-accent:#00F5FF}
+    .cat-card[data-cat="Economy"]      {--card-accent:#FFE600}
+    .cat-card[data-cat="Business"]     {--card-accent:#FFE600}
+    .cat-card[data-cat="Finance"]      {--card-accent:#FFE600}
+    .cat-card[data-cat="Cricket"]      {--card-accent:#FF6AB1}
+    .cat-card[data-cat="Sports"]       {--card-accent:#FF6AB1}
+    .cat-card[data-cat="SC"]           {--card-accent:#4d7eff}
+    .cat-card[data-cat="World"]        {--card-accent:#fb7185}
+    .cat-card[data-cat="Geopolitics"]  {--card-accent:#fb7185}
+    .cat-card[data-cat="Science"]      {--card-accent:#34d399}
+    .cat-card[data-cat="Health"]       {--card-accent:#f97316}
+    .cat-card[data-cat="Environment"]  {--card-accent:#4ade80}
+    .cat-card[data-cat="Startups"]     {--card-accent:#e879f9}
 
-    /* Per-category accent colors */
-    .cat-card[data-cat="All"]     {--card-accent:var(--white)}
-    .cat-card[data-cat="India"]   {--card-accent:var(--red)}
-    .cat-card[data-cat="Tech"]    {--card-accent:var(--cyan)}
-    .cat-card[data-cat="AI"]      {--card-accent:var(--cyan)}
-    .cat-card[data-cat="Economy"] {--card-accent:var(--yellow)}
-    .cat-card[data-cat="Business"]{--card-accent:var(--yellow)}
-    .cat-card[data-cat="Cricket"] {--card-accent:var(--pink)}
-    .cat-card[data-cat="Sports"]  {--card-accent:var(--pink)}
-    .cat-card[data-cat="SC"]      {--card-accent:#4d7eff}
-    .cat-card[data-cat="Supply Chain"]{--card-accent:#4d7eff}
-
-    /* ══════════════════════════════════════
-       NEWS VIEW — replaces cards on click
-    ══════════════════════════════════════ */
-    .news-view{
-      max-width:1600px;
-      margin:0 auto;
-      padding:0 2rem 5rem;
-      display:none;
-      position:relative;
-      z-index:1;
-    }
-    .news-view.active{display:grid;grid-template-columns:1fr 260px;gap:2.5rem;align-items:start}
-
-    /* Back to categories bar */
-    .view-topbar{
-      grid-column:1/-1;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:1.2rem 0;
-      border-bottom:2px solid var(--border);
-      margin-bottom:.5rem;
-    }
+    /* NEWS VIEW */
+    .news-view{display:none;padding:0 1.5rem 5rem}
+    .news-view.active{display:grid;grid-template-columns:1fr 260px;gap:2rem;align-items:start}
+    .view-topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 0;border-bottom:2px solid var(--border);margin-bottom:.5rem}
     .view-topbar-left{display:flex;align-items:center;gap:1rem}
-    .btn-back-cats{
-      font-family:var(--comic);font-size:.95rem;letter-spacing:.08em;
-      color:var(--muted);background:transparent;border:2px solid var(--border);
-      padding:.45rem 1rem;cursor:pointer;transition:all .2s;
-      display:flex;align-items:center;gap:.4rem;
-    }
+    .btn-back-cats{font-family:var(--comic);font-size:.95rem;letter-spacing:.08em;color:var(--muted);background:transparent;border:2px solid var(--border);padding:.45rem 1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
     .btn-back-cats:hover{border-color:var(--red);color:var(--yellow);box-shadow:2px 2px 0 var(--red)}
-    .view-category-label{
-      font-family:var(--comic);font-size:1.6rem;letter-spacing:.08em;
-      color:var(--active-accent,var(--cyan));
-      text-shadow:2px 2px 0 rgba(0,0,0,.5);
-    }
-    .view-count-badge{
-      font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;
-      color:var(--ink);background:var(--active-accent,var(--cyan));
-      padding:.2rem .6rem;margin-left:.4rem;
-      vertical-align:middle;
-    }
-
-    /* SEARCH inside news view */
+    .view-category-label{font-family:var(--comic);font-size:1.6rem;letter-spacing:.08em;color:var(--active-accent,var(--cyan));text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+    .view-count-badge{font-family:var(--mono);font-size:.65rem;color:var(--ink);background:var(--active-accent,var(--cyan));padding:.2rem .6rem;margin-left:.4rem}
     .view-search-wrap{position:relative;min-width:220px}
-    .view-search-wrap input{
-      width:100%;background:var(--surface);border:2px solid var(--border);
-      color:var(--white);padding:.55rem 1rem .55rem 2.2rem;
-      font-family:var(--mono);font-size:.75rem;outline:none;
-      transition:border-color .2s,box-shadow .2s;letter-spacing:.03em;
-    }
+    .view-search-wrap input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.55rem 1rem .55rem 2.2rem;font-family:var(--mono);font-size:.75rem;outline:none;transition:border-color .2s,box-shadow .2s}
     .view-search-wrap input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
     .view-search-wrap input::placeholder{color:var(--muted)}
     .view-search-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem}
 
-    /* NEWS FEED */
     #news-feed{display:flex;flex-direction:column}
-    .news-item{
-      display:grid;grid-template-columns:4px 1fr;gap:1.3rem;
-      padding:1.6rem 0;border-bottom:2px solid var(--border);
-      text-decoration:none;color:inherit;
-      opacity:0;transform:translateY(12px);
-      transition:opacity .4s ease,transform .4s ease;
-    }
+    .news-item{display:grid;grid-template-columns:4px 1fr;gap:1.3rem;padding:1.4rem 0;border-bottom:2px solid var(--border);text-decoration:none;color:inherit;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
     .news-item.visible{opacity:1;transform:translateY(0)}
     .news-item:first-child{border-top:2px solid var(--border)}
     .item-accent-bar{background:var(--border);border-radius:2px;transition:background .2s}
     .news-item:hover .item-accent-bar{background:var(--red)}
     .news-item:hover .item-title{color:var(--yellow)}
-    .item-body{display:flex;flex-direction:column;gap:.45rem}
+    .item-body{display:flex;flex-direction:column;gap:.4rem}
     .item-meta{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
-    .item-source{font-family:var(--comic);font-size:.82rem;letter-spacing:.08em;color:var(--cyan)}
-    .item-date{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.04em}
-    .item-title{font-family:var(--body);font-size:1rem;font-weight:700;line-height:1.35;transition:color .2s}
-    .item-arrow{font-family:var(--comic);font-size:.85rem;color:var(--muted);letter-spacing:.08em;margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
+    .item-source{font-family:var(--comic);font-size:.8rem;letter-spacing:.08em;color:var(--cyan)}
+    .item-date{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.04em}
+    .item-title{font-family:var(--body);font-size:.98rem;font-weight:700;line-height:1.35;transition:color .2s}
+    .item-arrow{font-family:var(--comic);font-size:.82rem;color:var(--muted);margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
     .news-item:hover .item-arrow{color:var(--red);transform:translateX(5px)}
-
-    /* CATEGORY BADGE */
-    .item-cat{
-      font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
-      padding:.15rem .5rem;border:1px solid;margin-left:.3rem;
-    }
+    .item-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .45rem;border:1px solid;margin-left:.3rem}
     .cat-India{color:var(--red);border-color:var(--red);background:rgba(232,25,44,.08)}
     .cat-Tech,.cat-AI{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.06)}
-    .cat-Economy,.cat-Business{color:var(--yellow);border-color:var(--yellow);background:rgba(255,230,0,.06)}
+    .cat-Economy,.cat-Business,.cat-Finance{color:var(--yellow);border-color:var(--yellow);background:rgba(255,230,0,.06)}
     .cat-Cricket,.cat-Sports{color:var(--pink);border-color:var(--pink);background:rgba(255,106,177,.06)}
     .cat-SC{color:#4d7eff;border-color:rgba(77,126,255,.8);background:rgba(77,126,255,.06)}
+    .cat-World,.cat-Geopolitics{color:#fb7185;border-color:#fb7185;background:rgba(251,113,133,.06)}
+    .cat-Science{color:#34d399;border-color:#34d399;background:rgba(52,211,153,.06)}
+    .cat-Health{color:#f97316;border-color:#f97316;background:rgba(249,115,22,.06)}
+    .cat-Environment{color:#4ade80;border-color:#4ade80;background:rgba(74,222,128,.06)}
+    .cat-Startups{color:#e879f9;border-color:#e879f9;background:rgba(232,121,249,.06)}
     .cat-default{color:var(--muted);border-color:var(--muted);background:transparent}
 
-    /* SKELETON */
     .skeleton{background:var(--surface);border-radius:2px;animation:shimmer 1.5s ease-in-out infinite}
     @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.8}}
-    .skeleton-item{padding:1.6rem 0;border-bottom:2px solid var(--border);display:flex;flex-direction:column;gap:.7rem}
-    .skeleton-item:first-child{border-top:2px solid var(--border)}
+    .skeleton-item{padding:1.4rem 0;border-bottom:2px solid var(--border);display:flex;flex-direction:column;gap:.7rem}
 
-    /* LOAD MORE */
     .load-more-wrap{padding-top:2rem;display:flex;justify-content:center}
     .btn-load{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:2px solid var(--border);background:transparent;padding:.8rem 2rem;cursor:pointer;transition:all .2s}
     .btn-load:hover{border-color:var(--red);color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
-    .btn-load:disabled{opacity:.4;cursor:not-allowed}
 
-    /* SIDEBAR */
-    .sidebar{display:flex;flex-direction:column;gap:1.5rem;position:sticky;top:5rem}
-    .sidebar-card{background:var(--panel);border:2px solid var(--border);padding:1.4rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+    .sidebar{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:5rem}
+    .sidebar-card{background:var(--panel);border:2px solid var(--border);padding:1.2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
     .sidebar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
     .sidebar-card:nth-child(1)::before{background:var(--cyan)}
     .sidebar-card:nth-child(2)::before{background:var(--red)}
     .sidebar-card:nth-child(3)::before{background:var(--yellow)}
     .sidebar-card:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
-    .sc-label{font-family:var(--comic);font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--border)}
-    .source-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s}
+    .sc-label{font-family:var(--comic);font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+    .source-item{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s}
     .source-item:last-child{border-bottom:none}
-    .source-name{font-family:var(--mono);font-size:.72rem;color:var(--muted);transition:color .2s;letter-spacing:.03em}
+    .source-name{font-family:var(--mono);font-size:.7rem;color:var(--muted);transition:color .2s}
     .source-item:hover .source-name{color:var(--white)}
     .source-item:hover{padding-left:.4rem}
-    .source-count{font-family:var(--comic);font-size:.8rem;color:var(--yellow);background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.2);padding:.1rem .45rem}
-    .stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--border)}
+    .source-count{font-family:var(--comic);font-size:.78rem;color:var(--yellow);background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.2);padding:.1rem .4rem}
+    .stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:.5rem 0;border-bottom:1px solid var(--border)}
     .stat-row:last-child{border-bottom:none}
-    .stat-label-s{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em}
+    .stat-label-s{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
     .stat-val{font-family:var(--comic);font-size:1.3rem;color:var(--red)}
-    .back-link{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--comic);font-size:1rem;letter-spacing:.06em;color:var(--muted);text-decoration:none;transition:all .2s;padding:.8rem 1.2rem;border:2px solid var(--border)}
+    .back-link{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--comic);font-size:1rem;letter-spacing:.06em;color:var(--muted);text-decoration:none;transition:all .2s;padding:.7rem 1rem;border:2px solid var(--border)}
     .back-link:hover{color:var(--yellow);border-color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
-    .back-link span{transition:transform .2s}
-    .back-link:hover span{transform:translateX(-4px)}
-
-    /* ══════════════════════════════════════
-       MAP SIDEBAR CARD
-    ══════════════════════════════════════ */
-    .map-sidebar-card{
-      background:var(--panel);
-      border:2px solid var(--border);
-      padding:0;
-      position:relative;
-      overflow:hidden;
-      transition:border-color .2s,box-shadow .2s;
-    }
-    .map-sidebar-card::before{
-      content:'';position:absolute;top:0;left:0;right:0;height:3px;
-      background:linear-gradient(90deg,var(--cyan),var(--blue));
-      z-index:10;
-    }
-    .map-sidebar-card:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
-    .map-card-header{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:.7rem 1rem .6rem;
-      border-bottom:2px solid var(--border);
-      background:var(--ink2);
-    }
-    .map-card-label{
-      font-family:var(--comic);font-size:.9rem;letter-spacing:.1em;
-      text-transform:uppercase;color:var(--cyan);
-    }
-    .map-pin-count{
-      font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
-      color:var(--ink);background:var(--cyan);padding:.15rem .5rem;
-    }
-    #news-map{
-      width:100%;height:220px;
-      background:var(--ink2);
-      cursor:crosshair;
-    }
-    /* Override Leaflet tile layer for dark feel */
-    .leaflet-container{
-      background:#0a0f18 !important;
-      font-family:var(--mono) !important;
-    }
-    /* Custom popup */
-    .leaflet-popup-content-wrapper{
-      background:var(--panel) !important;
-      border:2px solid var(--cyan) !important;
-      border-radius:0 !important;
-      box-shadow:3px 3px 0 var(--cyan) !important;
-      color:var(--white) !important;
-      padding:0 !important;
-    }
-    .leaflet-popup-tip{background:var(--cyan) !important}
-    .leaflet-popup-content{margin:0 !important;padding:0 !important}
-    .map-popup{padding:.8rem 1rem;max-width:210px}
-    .map-popup-cat{
-      font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;
-      text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem;
-    }
-    .map-popup-title{
-      font-family:var(--body);font-size:.78rem;font-weight:700;
-      line-height:1.3;color:var(--white);margin-bottom:.5rem;
-    }
-    .map-popup-link{
-      font-family:var(--comic);font-size:.75rem;letter-spacing:.06em;
-      color:var(--yellow);text-decoration:none;
-      border-bottom:1px solid rgba(255,230,0,.3);
-      transition:color .2s;
-    }
-    .map-popup-link:hover{color:var(--red)}
-    .map-popup-src{
-      font-family:var(--mono);font-size:.6rem;color:var(--muted);
-      margin-top:.35rem;display:block;
-    }
-    /* Leaflet close button */
-    .leaflet-popup-close-button{
-      color:var(--cyan) !important;font-size:1rem !important;
-      top:4px !important;right:6px !important;
-    }
-    /* Map tooltip on hover */
-    .map-tooltip{
-      background:var(--ink2) !important;
-      border:1px solid var(--border) !important;
-      color:var(--muted) !important;
-      font-family:var(--mono) !important;
-      font-size:.6rem !important;
-      letter-spacing:.05em !important;
-      border-radius:0 !important;
-      box-shadow:none !important;
-      padding:.2rem .5rem !important;
-    }
-    .map-tooltip::before{border-top-color:var(--border) !important}
-
-    /* STATES */
     .state-msg{padding:3rem 0;text-align:center}
     .state-msg p{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
     .state-msg strong{display:block;font-family:var(--comic);font-size:1.8rem;color:var(--yellow);margin-bottom:.5rem;text-shadow:2px 2px 0 var(--red)}
 
-    /* FOOTER */
     footer{border-top:4px solid var(--cyan);padding:1.8rem 2rem;background:var(--ink);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
-    footer p{font-family:var(--comic);font-size:.9rem;color:var(--muted);letter-spacing:.05em}
+    footer p{font-family:var(--comic);font-size:.9rem;color:var(--muted)}
     footer a{color:var(--red);text-decoration:none}
     footer a:hover{color:var(--yellow)}
 
     @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
-
-    /* Category section fade-in animation */
     @keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    .category-browse{animation:fadeSlideUp .5s .5s both}
-    .cat-card{animation:fadeSlideUp .4s both}
-    .cat-card:nth-child(1){animation-delay:.55s}
-    .cat-card:nth-child(2){animation-delay:.62s}
-    .cat-card:nth-child(3){animation-delay:.69s}
-    .cat-card:nth-child(4){animation-delay:.76s}
-    .cat-card:nth-child(5){animation-delay:.83s}
-    .cat-card:nth-child(6){animation-delay:.90s}
-    .cat-card:nth-child(7){animation-delay:.97s}
-    .cat-card:nth-child(8){animation-delay:1.04s}
 
-    /* Stagger news items on entry */
-    @keyframes newsIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
-    .news-item.enter{animation:newsIn .35s ease both}
-
-    @media(max-width:900px){
-      .news-view.active{grid-template-columns:1fr}
-      .sidebar{position:static}
-    }
+    @media(max-width:1200px){.outer-layout{grid-template-columns:0 1fr 0}.ad-col{display:none}}
+    @media(max-width:900px){.news-view.active{grid-template-columns:1fr}.sidebar{position:static}}
     @media(max-width:640px){
-      nav{padding:.9rem 1.2rem}
-      .nav-links{gap:1rem}
-      .nav-links a{font-size:.88rem}
-      .page-header{padding:5rem 1.2rem 1.5rem}
-      .category-browse{padding:1.5rem 1.2rem .8rem}
-      .category-row{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.7rem}
-      .cat-card{height:76px}
-      .news-view{padding:0 1.2rem 3rem}
+      nav{padding:.9rem 1.2rem}.nav-links{gap:1rem}
+      .page-header{padding:5rem 1.2rem 1.4rem}
+      #news-map{height:200px}
+      .category-row{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.6rem}
+      .news-view,.category-browse{padding-left:1rem;padding-right:1rem}
       footer{flex-direction:column;gap:.8rem;text-align:center}
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">RM⊕</a>
   <ul class="nav-links">
@@ -472,709 +238,691 @@
   </ul>
 </nav>
 
-<!-- PAGE HEADER -->
 <header class="page-header">
   <p class="header-eyebrow"><span class="live-dot"></span>Live Intelligence Feed</p>
   <h1>World <em>Monitor</em></h1>
   <div class="header-meta">
     <span id="live-clock">--:--:-- IST</span>
-    <span id="article-count">Loading headlines…</span>
+    <span id="article-count">Initialising feeds…</span>
   </div>
 </header>
 
 <div class="divider"></div>
 
-<!-- ══════════════════════════════════════
-     CATEGORY BROWSE (Netflix-style cards)
-══════════════════════════════════════ -->
-<section class="category-browse" id="category-browse" aria-label="Browse by category">
-  <p class="browse-heading">Browse by Category</p>
-  <div class="category-row" id="category-row" role="list">
-    <!-- Cards injected by JS once feed is loaded -->
-    <!-- Static fallback cards shown immediately -->
-    <button class="cat-card selected" data-cat="All" role="listitem" aria-pressed="true" onclick="selectCategory('All', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">A</span>
-      <span class="cat-card-name">All</span>
-    </button>
-    <button class="cat-card" data-cat="India" role="listitem" aria-pressed="false" onclick="selectCategory('India', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">IN</span>
-      <span class="cat-card-name">India</span>
-    </button>
-    <button class="cat-card" data-cat="Tech" role="listitem" aria-pressed="false" onclick="selectCategory('Tech', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">T</span>
-      <span class="cat-card-name">Tech</span>
-    </button>
-    <button class="cat-card" data-cat="AI" role="listitem" aria-pressed="false" onclick="selectCategory('AI', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">AI</span>
-      <span class="cat-card-name">AI</span>
-    </button>
-    <button class="cat-card" data-cat="Economy" role="listitem" aria-pressed="false" onclick="selectCategory('Economy', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">$</span>
-      <span class="cat-card-name">Economy</span>
-    </button>
-    <button class="cat-card" data-cat="SC" role="listitem" aria-pressed="false" onclick="selectCategory('SC', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">SC</span>
-      <span class="cat-card-name">Supply Chain</span>
-    </button>
-    <button class="cat-card" data-cat="Cricket" role="listitem" aria-pressed="false" onclick="selectCategory('Cricket', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">🏏</span>
-      <span class="cat-card-name">Cricket</span>
-    </button>
-    <button class="cat-card" data-cat="Business" role="listitem" aria-pressed="false" onclick="selectCategory('Business', this)">
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">B</span>
-      <span class="cat-card-name">Business</span>
-    </button>
-  </div>
-</section>
+<div class="outer-layout">
 
-<!-- ══════════════════════════════════════
-     NEWS VIEW — shown when category selected
-══════════════════════════════════════ -->
-<div class="news-view" id="news-view">
-
-  <!-- Topbar: back button + category label + search -->
-  <div class="view-topbar">
-    <div class="view-topbar-left">
-      <button class="btn-back-cats" onclick="showCategories()" aria-label="Back to categories">
-        ← Categories
-      </button>
-      <span class="view-category-label" id="view-category-label">All</span>
-      <span class="view-count-badge" id="view-count-badge">0</span>
-    </div>
-    <div class="view-search-wrap">
-      <span class="view-search-icon" aria-hidden="true">⌕</span>
-      <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" aria-label="Search headlines" oninput="handleSearch(this.value)"/>
-    </div>
-  </div>
-
-  <!-- Main feed column -->
-  <main>
-    <!-- Skeleton loaders -->
-    <div id="skeleton-loader">
-      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:120px"></div><div class="skeleton" style="height:18px;width:88%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:140px"></div><div class="skeleton" style="height:18px;width:72%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:100px"></div><div class="skeleton" style="height:18px;width:91%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:130px"></div><div class="skeleton" style="height:18px;width:78%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-      <div class="skeleton-item"><div class="skeleton" style="height:10px;width:110px"></div><div class="skeleton" style="height:18px;width:83%"></div><div class="skeleton" style="height:9px;width:55px"></div></div>
-    </div>
-
-    <div id="news-feed" role="list" aria-label="News headlines"></div>
-
-    <div class="load-more-wrap">
-      <button class="btn-load" id="load-more-btn" style="display:none" onclick="loadMore()">Load More Headlines ↓</button>
-    </div>
-  </main>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" aria-label="Feed statistics and sources">
-    <a href="/" class="back-link"><span>←</span> ramsrinivasan.com</a>
-
-    <!-- MAP CARD -->
-    <div class="map-sidebar-card">
-      <div class="map-card-header">
-        <span class="map-card-label">News Map</span>
-        <span class="map-pin-count" id="map-pin-count">0 pins</span>
-      </div>
-      <div id="news-map" role="img" aria-label="Map showing news pin locations"></div>
-    </div>
-
-    <!-- Google AdSense — sidebar 300x250 -->
-    <div style="width:100%;display:flex;justify-content:center;">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:250px;height:250px"
-           data-ad-client="ca-pub-2516736960447895"
-           data-ad-slot="SIDEBAR_AD_SLOT_ID"></ins>
+  <!-- LEFT AD -->
+  <aside class="ad-col" aria-label="Advertisement left">
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-2516736960447895" data-ad-slot="LEFT_AD_SLOT_ID"></ins>
       <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
     </div>
-
-    <div class="sidebar-card">
-      <div class="sc-label">Feed Stats</div>
-      <div class="stat-row"><span class="stat-label-s">Total Articles</span><span class="stat-val" id="stat-total">—</span></div>
-      <div class="stat-row"><span class="stat-label-s">Sources Active</span><span class="stat-val" id="stat-sources">—</span></div>
-      <div class="stat-row"><span class="stat-label-s">Showing</span><span class="stat-val" id="stat-showing">—</span></div>
-    </div>
-
-    <div class="sidebar-card">
-      <div class="sc-label">Browse by Topic</div>
-      <div id="source-list">
-        <div class="skeleton" style="height:10px;width:80%;margin-bottom:12px"></div>
-        <div class="skeleton" style="height:10px;width:60%;margin-bottom:12px"></div>
-        <div class="skeleton" style="height:10px;width:70%"></div>
-      </div>
-    </div>
-
-    <div class="sidebar-card">
-      <div class="sc-label">Refresh</div>
-      <p style="font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">
-        Feed updates when <code style="color:var(--cyan)">fetch.py</code> runs. Pull latest headlines manually below.
-      </p>
-      <button class="btn-load" onclick="refreshFeed()" style="width:100%;padding:.6rem;font-size:.85rem">
-        ↻ Refresh Feed
-      </button>
+    <div class="ad-slot-sm">
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:300px"
+           data-ad-client="ca-pub-2516736960447895" data-ad-slot="LEFT_AD_SLOT_SM_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
     </div>
   </aside>
 
-</div><!-- /news-view -->
+  <!-- CENTRE COLUMN -->
+  <div class="centre-col">
 
-<!-- FOOTER -->
+    <!--
+      ★★★ MAP STRIP ★★★
+      This is placed OUTSIDE and ABOVE .news-view
+      It is ALWAYS visible in the DOM — never toggled to display:none
+      This is the definitive fix: Leaflet can measure a visible element
+    -->
+    <div class="map-strip">
+      <div class="map-strip-header">
+        <div class="map-strip-left">
+          <span class="map-strip-label">📡 Live News Map</span>
+          <span class="map-strip-sub" id="map-strip-sub">Loading pins…</span>
+        </div>
+        <span class="map-pin-count" id="map-pin-count">— pins</span>
+      </div>
+      <div id="news-map"></div>
+    </div>
+
+    <!-- FETCH PROGRESS BAR -->
+    <div class="fetch-progress-wrap" id="fetch-progress-wrap">
+      <div class="fetch-bar-outer"><div class="fetch-bar-inner" id="fetch-bar"></div></div>
+      <span class="fetch-status" id="fetch-status">Connecting to feeds…</span>
+    </div>
+
+    <!-- CATEGORY BROWSE (Netflix cards) -->
+    <section class="category-browse" id="category-browse" aria-label="Browse by category">
+      <p class="browse-heading">Browse by Category</p>
+      <div class="category-row" id="category-row" role="list">
+        <div class="skeleton" style="height:82px;animation-delay:.1s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.15s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.2s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.25s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.3s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.35s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.4s"></div>
+        <div class="skeleton" style="height:82px;animation-delay:.45s"></div>
+      </div>
+    </section>
+
+    <!-- NEWS VIEW — toggled on category click -->
+    <div class="news-view" id="news-view">
+
+      <div class="view-topbar">
+        <div class="view-topbar-left">
+          <button class="btn-back-cats" onclick="showCategories()">← Categories</button>
+          <span class="view-category-label" id="view-category-label">All</span>
+          <span class="view-count-badge" id="view-count-badge">0</span>
+        </div>
+        <div class="view-search-wrap">
+          <span class="view-search-icon">⌕</span>
+          <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" oninput="handleSearch(this.value)"/>
+        </div>
+      </div>
+
+      <main>
+        <div id="skeleton-loader" style="display:none">
+          <div class="skeleton-item"><div class="skeleton" style="height:10px;width:120px"></div><div class="skeleton" style="height:16px;width:88%"></div></div>
+          <div class="skeleton-item"><div class="skeleton" style="height:10px;width:140px"></div><div class="skeleton" style="height:16px;width:72%"></div></div>
+          <div class="skeleton-item"><div class="skeleton" style="height:10px;width:100px"></div><div class="skeleton" style="height:16px;width:91%"></div></div>
+        </div>
+        <div id="news-feed" role="list"></div>
+        <div class="load-more-wrap">
+          <button class="btn-load" id="load-more-btn" style="display:none" onclick="loadMore()">Load More Headlines ↓</button>
+        </div>
+      </main>
+
+      <aside class="sidebar">
+        <a href="/" class="back-link"><span>←</span> ramsrinivasan.com</a>
+        <div class="sidebar-card">
+          <div class="sc-label">Feed Stats</div>
+          <div class="stat-row"><span class="stat-label-s">Total Articles</span><span class="stat-val" id="stat-total">—</span></div>
+          <div class="stat-row"><span class="stat-label-s">Sources Fetched</span><span class="stat-val" id="stat-sources">—</span></div>
+          <div class="stat-row"><span class="stat-label-s">Showing</span><span class="stat-val" id="stat-showing">—</span></div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sc-label">By Topic</div>
+          <div id="source-list">
+            <div class="skeleton" style="height:10px;width:80%;margin-bottom:10px"></div>
+            <div class="skeleton" style="height:10px;width:60%;margin-bottom:10px"></div>
+            <div class="skeleton" style="height:10px;width:70%"></div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sc-label">Refresh</div>
+          <p style="font-family:var(--mono);font-size:.67rem;color:var(--muted);margin-bottom:.9rem;line-height:1.6">
+            Fetching <strong style="color:var(--cyan)" id="source-count-label">200+</strong> RSS sources live in your browser.
+          </p>
+          <button class="btn-load" onclick="refreshFeed()" style="width:100%;padding:.6rem;font-size:.85rem">↻ Refresh All Feeds</button>
+        </div>
+        <div style="display:flex;justify-content:center;">
+          <ins class="adsbygoogle" style="display:inline-block;width:250px;height:250px"
+               data-ad-client="ca-pub-2516736960447895" data-ad-slot="SIDEBAR_AD_SLOT_ID"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+        </div>
+      </aside>
+
+    </div><!-- /news-view -->
+
+  </div><!-- /centre-col -->
+
+  <!-- RIGHT AD -->
+  <aside class="ad-col" aria-label="Advertisement right">
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-2516736960447895" data-ad-slot="RIGHT_AD_SLOT_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+    <div class="ad-slot-sm">
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:300px"
+           data-ad-client="ca-pub-2516736960447895" data-ad-slot="RIGHT_AD_SLOT_SM_ID"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </aside>
+
+</div><!-- /outer-layout -->
+
 <footer>
   <p>World Monitor by <a href="/">Ram Srinivasan</a></p>
-  <p style="font-size:.75rem">Data via RSS · Updated periodically</p>
+  <p style="font-size:.75rem" id="footer-feed-count">Live RSS · Updated in real-time</p>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════
+'use strict';
+
+// ═══════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════════════════
-let ALL_ITEMS        = [];
-let FILTERED_ITEMS   = [];
-let DISPLAYED_COUNT  = 0;
-const PAGE_SIZE      = 20;
-let ACTIVE_CAT       = 'All';
-let SEARCH_QUERY     = '';
+// ═══════════════════════════════════
+let ALL_ITEMS = [], FILTERED_ITEMS = [], DISPLAYED_COUNT = 0;
+const PAGE_SIZE = 25;
+let ACTIVE_CAT = 'All', SEARCH_QUERY = '';
+let MAP_INSTANCE = null, MAP_MARKERS = [];
 
-// accent color per category (matches CSS)
-const CAT_ACCENTS = {
-  'All':          '#F0EEFF',
-  'India':        '#E8192C',
-  'Tech':         '#00F5FF',
-  'AI':           '#00F5FF',
-  'Economy':      '#FFE600',
-  'Business':     '#FFE600',
-  'Cricket':      '#FF6AB1',
-  'Sports':       '#FF6AB1',
-  'SC':           '#4d7eff',
-  'Supply Chain': '#4d7eff',
-};
-
-// ═══════════════════════════════════════════════════════
-// CLOCK
-// ═══════════════════════════════════════════════════════
-function updateClock(){
-  const now = new Date();
-  const ist = new Date(now.getTime() + (5.5*60*60*1000));
-  const hh  = String(ist.getUTCHours()).padStart(2,'0');
-  const mm  = String(ist.getUTCMinutes()).padStart(2,'0');
-  const ss  = String(ist.getUTCSeconds()).padStart(2,'0');
-  const el  = document.getElementById('live-clock');
-  if(el) el.textContent = `${hh}:${mm}:${ss} IST`;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ═══════════════════════════════════════════════════════
-// RSS FEED SOURCES  — add / remove feeds here freely
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════
+// 200+ RSS SOURCES
+// ═══════════════════════════════════
 const RSS_SOURCES = [
-  // India
-  { url:'https://feeds.feedburner.com/ndtvnews-top-stories',        category:'India',    source:'NDTV'          },
-  { url:'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',category:'India',    source:'Times of India'},
-  { url:'https://www.thehindu.com/news/national/feeder/default.rss', category:'India',    source:'The Hindu'     },
-  { url:'https://indianexpress.com/feed/',                           category:'India',    source:'Indian Express'},
-  // Tech & AI
-  { url:'https://feeds.feedburner.com/TechCrunch',                  category:'Tech',     source:'TechCrunch'    },
-  { url:'https://www.wired.com/feed/rss',                           category:'Tech',     source:'Wired'         },
-  { url:'https://www.theverge.com/rss/index.xml',                   category:'AI',       source:'The Verge'     },
-  { url:'https://venturebeat.com/category/ai/feed/',                 category:'AI',       source:'VentureBeat'   },
-  // Economy & Business
-  { url:'https://feeds.bloomberg.com/markets/news.rss',             category:'Economy',  source:'Bloomberg'     },
-  { url:'https://www.livemint.com/rss/economy',                     category:'Economy',  source:'Mint'          },
-  { url:'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms', category:'Business', source:'ET' },
-  // Supply Chain
-  { url:'https://www.supplychaindive.com/feeds/news/',              category:'SC',       source:'SC Dive'       },
-  { url:'https://www.logisticsmgmt.com/rss/news',                   category:'SC',       source:'Logistics Mgmt'},
-  // Cricket
-  { url:'https://www.espncricinfo.com/rss/content/story/feeds/0.xml',category:'Cricket', source:'Cricinfo'      },
-  { url:'https://sports.ndtv.com/feeds/cricket-news',               category:'Cricket',  source:'NDTV Cricket'  },
+  // INDIA
+  {u:'https://feeds.feedburner.com/ndtvnews-top-stories',               c:'India',  s:'NDTV'},
+  {u:'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',      c:'India',  s:'Times of India'},
+  {u:'https://www.thehindu.com/news/national/feeder/default.rss',       c:'India',  s:'The Hindu'},
+  {u:'https://indianexpress.com/feed/',                                  c:'India',  s:'Indian Express'},
+  {u:'https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml', c:'India',  s:'Hindustan Times'},
+  {u:'https://www.livemint.com/rss/news',                               c:'India',  s:'Mint'},
+  {u:'https://scroll.in/feed',                                          c:'India',  s:'Scroll.in'},
+  {u:'https://thewire.in/feed',                                         c:'India',  s:'The Wire'},
+  {u:'https://www.deccanherald.com/rss-feeds/national.rss',             c:'India',  s:'Deccan Herald'},
+  {u:'https://www.firstpost.com/rss/india.xml',                         c:'India',  s:'Firstpost'},
+  {u:'https://www.moneycontrol.com/rss/economy.xml',                    c:'India',  s:'Moneycontrol'},
+  {u:'https://www.indiatvnews.com/rssnews/topstories.xml',              c:'India',  s:'India TV'},
+  {u:'https://www.theweek.in/news/india.rss',                           c:'India',  s:'The Week India'},
+  {u:'https://www.business-standard.com/rss/home_page_top_stories.rss', c:'India',  s:'Business Standard'},
+  {u:'https://www.outlookindia.com/rss/main/magazine',                  c:'India',  s:'Outlook India'},
+  {u:'https://www.ndtv.com/rss/feeds',                                  c:'India',  s:'NDTV Feeds'},
+  {u:'https://www.dnaindia.com/feeds/technology.xml',                   c:'India',  s:'DNA India'},
+  {u:'https://www.news18.com/rss/india.xml',                            c:'India',  s:'News18'},
+  {u:'https://zeenews.india.com/rss/india-national-news.xml',           c:'India',  s:'Zee News'},
+  {u:'https://www.freepressjournal.in/rss',                             c:'India',  s:'Free Press Journal'},
+  // TECH
+  {u:'https://feeds.feedburner.com/TechCrunch',                         c:'Tech',   s:'TechCrunch'},
+  {u:'https://www.wired.com/feed/rss',                                  c:'Tech',   s:'Wired'},
+  {u:'https://www.theverge.com/rss/index.xml',                          c:'Tech',   s:'The Verge'},
+  {u:'https://feeds.arstechnica.com/arstechnica/index',                 c:'Tech',   s:'Ars Technica'},
+  {u:'https://www.zdnet.com/news/rss.xml',                              c:'Tech',   s:'ZDNet'},
+  {u:'https://www.engadget.com/rss.xml',                                c:'Tech',   s:'Engadget'},
+  {u:'https://www.cnet.com/rss/news/',                                  c:'Tech',   s:'CNET'},
+  {u:'https://techrepublic.com/rssfeeds/articles/',                     c:'Tech',   s:'TechRepublic'},
+  {u:'https://www.computerworld.com/index.rss',                         c:'Tech',   s:'Computerworld'},
+  {u:'https://9to5mac.com/feed/',                                       c:'Tech',   s:'9to5Mac'},
+  {u:'https://9to5google.com/feed/',                                    c:'Tech',   s:'9to5Google'},
+  {u:'https://www.macrumors.com/macrumors.xml',                         c:'Tech',   s:'MacRumors'},
+  {u:'https://feeds.feedburner.com/slashdot/eqWf',                      c:'Tech',   s:'Slashdot'},
+  {u:'https://thenextweb.com/feed/',                                    c:'Tech',   s:'TNW'},
+  {u:'https://www.theregister.com/headlines.atom',                      c:'Tech',   s:'The Register'},
+  {u:'https://spectrum.ieee.org/feeds/feed.rss',                        c:'Tech',   s:'IEEE Spectrum'},
+  {u:'https://hackaday.com/blog/feed/',                                 c:'Tech',   s:'Hackaday'},
+  {u:'https://www.techradar.com/rss',                                   c:'Tech',   s:'TechRadar'},
+  {u:'https://www.digitaltrends.com/feed/',                             c:'Tech',   s:'Digital Trends'},
+  {u:'https://www.androidauthority.com/feed/',                          c:'Tech',   s:'Android Authority'},
+  {u:'https://www.xda-developers.com/feed/',                            c:'Tech',   s:'XDA Developers'},
+  {u:'https://www.gsmarena.com/rss-news-articles.php3',                 c:'Tech',   s:'GSMArena'},
+  {u:'https://mashable.com/feeds/rss/tech',                             c:'Tech',   s:'Mashable Tech'},
+  {u:'https://www.informationweek.com/rss_simple.asp',                  c:'Tech',   s:'InformationWeek'},
+  {u:'https://www.networkworld.com/index.rss',                          c:'Tech',   s:'NetworkWorld'},
+  // AI
+  {u:'https://venturebeat.com/category/ai/feed/',                       c:'AI',     s:'VentureBeat AI'},
+  {u:'https://www.artificialintelligence-news.com/feed/',               c:'AI',     s:'AI News'},
+  {u:'https://openai.com/blog/rss.xml',                                 c:'AI',     s:'OpenAI'},
+  {u:'https://www.marktechpost.com/feed/',                              c:'AI',     s:'MarkTechPost'},
+  {u:'https://syncedreview.com/feed/',                                  c:'AI',     s:'Synced Review'},
+  {u:'https://bdtechtalks.com/feed/',                                   c:'AI',     s:'TechTalks'},
+  {u:'https://www.unite.ai/feed/',                                      c:'AI',     s:'Unite.AI'},
+  {u:'https://www.technologyreview.com/feed/',                          c:'AI',     s:'MIT Tech Review'},
+  {u:'https://blogs.microsoft.com/ai/feed/',                            c:'AI',     s:'Microsoft AI'},
+  {u:'https://ai.googleblog.com/feeds/posts/default',                   c:'AI',     s:'Google AI'},
+  {u:'https://huggingface.co/blog/feed.xml',                            c:'AI',     s:'HuggingFace'},
+  {u:'https://www.deeplearning.ai/the-batch/feed/',                     c:'AI',     s:'The Batch'},
+  {u:'https://newsletter.ruder.io/feed',                                c:'AI',     s:'NLP Newsletter'},
+  // ECONOMY
+  {u:'https://feeds.bloomberg.com/markets/news.rss',                    c:'Economy',s:'Bloomberg Markets'},
+  {u:'https://feeds.reuters.com/reuters/businessNews',                   c:'Economy',s:'Reuters Business'},
+  {u:'https://economictimes.indiatimes.com/rssfeedstopstories.cms',     c:'Economy',s:'Economic Times'},
+  {u:'https://www.wsj.com/xml/rss/3_7014.xml',                         c:'Economy',s:'WSJ Economy'},
+  {u:'https://www.economist.com/finance-and-economics/rss.xml',         c:'Economy',s:'The Economist'},
+  {u:'https://www.project-syndicate.org/rss',                           c:'Economy',s:'Project Syndicate'},
+  {u:'https://voxeu.org/feed.xml',                                      c:'Economy',s:'VoxEU'},
+  {u:'https://www.imf.org/en/News/rss',                                 c:'Economy',s:'IMF'},
+  {u:'https://www.worldbank.org/en/news/rss',                           c:'Economy',s:'World Bank'},
+  {u:'https://www.livemint.com/rss/economy',                            c:'Economy',s:'Mint Economy'},
+  {u:'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms', c:'Economy',s:'ET Markets'},
+  {u:'https://www.thehindubusinessline.com/economy/?service=rss',       c:'Economy',s:'Hindu BusinessLine'},
+  // BUSINESS
+  {u:'https://www.businessinsider.com/rss',                             c:'Business',s:'Business Insider'},
+  {u:'https://fortune.com/feed/',                                       c:'Business',s:'Fortune'},
+  {u:'https://hbr.org/feed/',                                           c:'Business',s:'Harvard Business Review'},
+  {u:'https://feeds.inc.com/home/updates',                              c:'Business',s:'Inc.'},
+  {u:'https://www.fastcompany.com/latest/rss',                          c:'Business',s:'Fast Company'},
+  {u:'https://www.forbes.com/innovation/feed2',                         c:'Business',s:'Forbes'},
+  {u:'https://sloanreview.mit.edu/feed/',                               c:'Business',s:'MIT Sloan'},
+  {u:'https://www.mckinsey.com/feeds/rss/latest-insights',              c:'Business',s:'McKinsey'},
+  {u:'https://www.livemint.com/rss/companies',                          c:'Business',s:'Mint Companies'},
+  {u:'https://economictimes.indiatimes.com/small-biz/rssfeeds/1947315971.cms',c:'Business',s:'ET SME'},
+  // SUPPLY CHAIN
+  {u:'https://www.supplychaindive.com/feeds/news/',                     c:'SC',     s:'SC Dive'},
+  {u:'https://www.logisticsmgmt.com/rss/news',                         c:'SC',     s:'Logistics Mgmt'},
+  {u:'https://www.supplychainbrain.com/rss/articles.xml',               c:'SC',     s:'SCBrain'},
+  {u:'https://www.supplychaindigital.com/feed',                         c:'SC',     s:'SC Digital'},
+  {u:'https://theloadstar.com/feed/',                                   c:'SC',     s:'The Loadstar'},
+  {u:'https://www.freightwaves.com/news/feed',                          c:'SC',     s:'FreightWaves'},
+  {u:'https://www.inboundlogistics.com/rss/',                           c:'SC',     s:'Inbound Logistics'},
+  {u:'https://mhlnews.com/rss/all',                                     c:'SC',     s:'MHLNews'},
+  {u:'https://www.dcvelocity.com/rss',                                  c:'SC',     s:'DC Velocity'},
+  {u:'https://www.globaltrademag.com/feed/',                            c:'SC',     s:'Global Trade Mag'},
+  {u:'https://www.manufacturing.net/rss',                               c:'SC',     s:'Manufacturing.net'},
+  {u:'https://www.industryweek.com/rss',                                c:'SC',     s:'IndustryWeek'},
+  {u:'https://www.supplychainquarterly.com/feed',                       c:'SC',     s:'SC Quarterly'},
+  {u:'https://www.containermag.com/feed/',                              c:'SC',     s:'Container Mag'},
+  // CRICKET
+  {u:'https://www.espncricinfo.com/rss/content/story/feeds/0.xml',      c:'Cricket',s:'Cricinfo'},
+  {u:'https://sports.ndtv.com/feeds/cricket-news',                      c:'Cricket',s:'NDTV Cricket'},
+  {u:'https://www.cricbuzz.com/rss/google-news.xml',                    c:'Cricket',s:'Cricbuzz'},
+  {u:'https://www.icc-cricket.com/media-releases/rss',                  c:'Cricket',s:'ICC'},
+  {u:'https://feeds.feedburner.com/TheRoar-Cricket',                    c:'Cricket',s:'The Roar Cricket'},
+  {u:'https://www.wisden.com/feed',                                     c:'Cricket',s:'Wisden'},
+  // SPORTS
+  {u:'https://www.espn.com/espn/rss/news',                              c:'Sports', s:'ESPN'},
+  {u:'https://sports.yahoo.com/rss/',                                   c:'Sports', s:'Yahoo Sports'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml',         c:'Sports', s:'NYT Sports'},
+  {u:'https://www.bbc.co.uk/sport/rss/sport',                           c:'Sports', s:'BBC Sport'},
+  {u:'https://feeds.skysports.com/news/football/rss.xml',               c:'Sports', s:'Sky Sports'},
+  {u:'https://www.sportingnews.com/us/rss',                             c:'Sports', s:'Sporting News'},
+  {u:'https://www.goal.com/feeds/en/news',                              c:'Sports', s:'Goal.com'},
+  // WORLD
+  {u:'https://feeds.bbci.co.uk/news/world/rss.xml',                     c:'World',  s:'BBC World'},
+  {u:'https://feeds.reuters.com/Reuters/worldNews',                      c:'World',  s:'Reuters World'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',          c:'World',  s:'NYT World'},
+  {u:'https://www.aljazeera.com/xml/rss/all.xml',                       c:'World',  s:'Al Jazeera'},
+  {u:'https://www.dw.com/rss/rss.xml',                                  c:'World',  s:'DW'},
+  {u:'https://feeds.washingtonpost.com/rss/world',                      c:'World',  s:'Washington Post'},
+  {u:'https://www.theguardian.com/world/rss',                           c:'World',  s:'The Guardian'},
+  {u:'https://www.apnews.com/apf-topnews?format=feed&type=rss',         c:'World',  s:'AP News'},
+  {u:'https://www.france24.com/en/rss',                                 c:'World',  s:'France 24'},
+  {u:'https://www.scmp.com/rss/91/feed',                                c:'World',  s:'SCMP'},
+  {u:'https://www.theatlantic.com/feed/all/',                           c:'World',  s:'The Atlantic'},
+  {u:'https://foreignpolicy.com/feed/',                                 c:'World',  s:'Foreign Policy'},
+  {u:'https://english.alarabiya.net/tools/rss',                        c:'World',  s:'Al Arabiya'},
+  {u:'https://www.straitstimes.com/rss',                                c:'World',  s:'Straits Times'},
+  {u:'https://www.arabnews.com/rss.xml',                                c:'World',  s:'Arab News'},
+  {u:'https://www.euronews.com/rss?level=theme&name=news',              c:'World',  s:'Euronews'},
+  {u:'https://www.rfi.fr/en/rss',                                      c:'World',  s:'RFI'},
+  {u:'https://www.voanews.com/api/zompoq-ev',                           c:'World',  s:'VOA News'},
+  // GEOPOLITICS
+  {u:'https://www.cfr.org/rss.xml',                                     c:'Geopolitics',s:'CFR'},
+  {u:'https://www.chathamhouse.org/rss.xml',                            c:'Geopolitics',s:'Chatham House'},
+  {u:'https://www.brookings.edu/feed/',                                 c:'Geopolitics',s:'Brookings'},
+  {u:'https://www.rand.org/pubs/rss.xml',                               c:'Geopolitics',s:'RAND'},
+  {u:'https://carnegieendowment.org/rss/',                              c:'Geopolitics',s:'Carnegie'},
+  {u:'https://warontherocks.com/feed/',                                 c:'Geopolitics',s:'War on the Rocks'},
+  {u:'https://www.crisisgroup.org/feed',                                c:'Geopolitics',s:'Crisis Group'},
+  {u:'https://www.defensenews.com/rss/',                                c:'Geopolitics',s:'Defense News'},
+  {u:'https://nationalinterest.org/rss.xml',                            c:'Geopolitics',s:'National Interest'},
+  {u:'https://www.lowyinstitute.org/the-interpreter/rss.xml',           c:'Geopolitics',s:'Lowy Institute'},
+  {u:'https://thediplomat.com/feed/',                                   c:'Geopolitics',s:'The Diplomat'},
+  {u:'https://www.stimson.org/feed/',                                   c:'Geopolitics',s:'Stimson Center'},
+  // SCIENCE
+  {u:'https://www.nature.com/news.rss',                                 c:'Science', s:'Nature'},
+  {u:'https://phys.org/rss-feed/',                                      c:'Science', s:'Phys.org'},
+  {u:'https://www.sciencedaily.com/rss/all.xml',                        c:'Science', s:'ScienceDaily'},
+  {u:'https://www.newscientist.com/feed/home/',                         c:'Science', s:'New Scientist'},
+  {u:'https://feeds.feedburner.com/universetoday/pYdq',                 c:'Science', s:'Universe Today'},
+  {u:'https://www.scientificamerican.com/feed/',                        c:'Science', s:'Sci American'},
+  {u:'https://earthsky.org/feed/',                                      c:'Science', s:'EarthSky'},
+  {u:'https://www.nasa.gov/news-release/feed/',                         c:'Science', s:'NASA'},
+  {u:'https://blogs.esa.int/feed/',                                     c:'Science', s:'ESA'},
+  {u:'https://www.livescience.com/feeds/all',                           c:'Science', s:'LiveScience'},
+  {u:'https://www.space.com/feeds/all',                                 c:'Science', s:'Space.com'},
+  // HEALTH
+  {u:'https://www.who.int/feeds/entity/news/en/rss.xml',                c:'Health',  s:'WHO'},
+  {u:'https://www.nih.gov/news-events/news-releases/feed',              c:'Health',  s:'NIH'},
+  {u:'https://www.medicalnewstoday.com/rss/newsarticles.xml',           c:'Health',  s:'Medical News Today'},
+  {u:'https://health.harvard.edu/feed',                                 c:'Health',  s:'Harvard Health'},
+  {u:'https://www.statnews.com/feed/',                                  c:'Health',  s:'STAT News'},
+  {u:'https://www.medscape.com/features/index/rss',                     c:'Health',  s:'Medscape'},
+  {u:'https://www.healio.com/rss/general-medicine',                     c:'Health',  s:'Healio'},
+  {u:'https://www.healthline.com/rss/news',                             c:'Health',  s:'Healthline'},
+  {u:'https://www.webmd.com/news/rss',                                  c:'Health',  s:'WebMD'},
+  // ENVIRONMENT
+  {u:'https://www.theguardian.com/environment/rss',                     c:'Environment',s:'Guardian Env'},
+  {u:'https://www.climatechangenews.com/feed/',                         c:'Environment',s:'Climate Change News'},
+  {u:'https://insideclimatenews.org/feed/',                             c:'Environment',s:'Inside Climate'},
+  {u:'https://grist.org/feed/',                                         c:'Environment',s:'Grist'},
+  {u:'https://carbonbrief.org/feed/',                                   c:'Environment',s:'Carbon Brief'},
+  {u:'https://www.renewableenergyworld.com/feed/',                      c:'Environment',s:'RE World'},
+  {u:'https://e360.yale.edu/feed.xml',                                  c:'Environment',s:'Yale e360'},
+  {u:'https://unfccc.int/news/rss.xml',                                 c:'Environment',s:'UNFCCC'},
+  {u:'https://www.earthday.org/feed/',                                  c:'Environment',s:'Earth Day'},
+  // STARTUPS
+  {u:'https://techcrunch.com/category/startups/feed/',                  c:'Startups',s:'TC Startups'},
+  {u:'https://www.producthunt.com/feed',                                c:'Startups',s:'Product Hunt'},
+  {u:'https://news.ycombinator.com/rss',                                c:'Startups',s:'Hacker News'},
+  {u:'https://sifted.eu/feed/',                                         c:'Startups',s:'Sifted'},
+  {u:'https://techfundingnews.com/feed/',                               c:'Startups',s:'Tech Funding News'},
+  {u:'https://www.finsmes.com/feed',                                    c:'Startups',s:'Finsmes'},
+  {u:'https://www.startupindia.gov.in/content/sih/en/feed.xml',        c:'Startups',s:'Startup India'},
+  {u:'https://yourstory.com/feed',                                      c:'Startups',s:'YourStory'},
+  {u:'https://inc42.com/feed/',                                         c:'Startups',s:'Inc42'},
+  // FINANCE
+  {u:'https://www.marketwatch.com/rss/topstories',                      c:'Finance', s:'MarketWatch'},
+  {u:'https://seekingalpha.com/market_currents.xml',                    c:'Finance', s:'Seeking Alpha'},
+  {u:'https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml',                c:'Finance', s:'WSJ Business'},
+  {u:'https://www.coindesk.com/arc/outboundfeeds/rss/',                 c:'Finance', s:'CoinDesk'},
+  {u:'https://cointelegraph.com/rss',                                   c:'Finance', s:'CoinTelegraph'},
+  {u:'https://www.investing.com/rss/news.rss',                         c:'Finance', s:'Investing.com'},
+  {u:'https://www.nasdaq.com/feed/rssoutbound?symbol=NDAQ',             c:'Finance', s:'Nasdaq'},
+  {u:'https://www.livemint.com/rss/markets',                            c:'Finance', s:'Mint Markets'},
 ];
 
-// CORS proxy — rss2json is free, no key needed for public feeds
-const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+const TOTAL_SOURCES = RSS_SOURCES.length;
 
-async function fetchOneFeed({url, category, source}){
-  try {
-    const res  = await fetch(`${PROXY}${encodeURIComponent(url)}&count=15`, {signal: AbortSignal.timeout(8000)});
-    const data = await res.json();
-    if(data.status !== 'ok') return [];
-    return (data.items||[]).map(item=>({
-      title:    item.title || '',
-      url:      item.link  || '#',
-      date:     item.pubDate || item.published || '',
-      source,
-      category,
-    }));
-  } catch(e){ return []; }
-}
-
-// ═══════════════════════════════════════════════════════
-// FEED LOADING  — live RSS + fallback to feed.json
-// ═══════════════════════════════════════════════════════
-async function loadFeed(){
-  const skelEl = document.getElementById('skeleton-loader');
-  const cntEl  = document.getElementById('article-count');
-  if(cntEl) cntEl.textContent = 'Fetching live feeds…';
-
-  // Fetch all RSS feeds concurrently
-  const results = await Promise.allSettled(RSS_SOURCES.map(fetchOneFeed));
-  let items = results.flatMap(r => r.status==='fulfilled' ? r.value : []);
-
-  // If live fetch yielded nothing, fall back to feed.json
-  if(items.length === 0){
-    try {
-      const res  = await fetch('/Monitor/feed.json');
-      const data = await res.json();
-      items = Array.isArray(data) ? data : (data.items || []);
-    } catch(e){
-      items = generateDemoItems();
-    }
-  }
-
-  // Deduplicate by URL
-  const seen = new Set();
-  items = items.filter(i=>{ if(seen.has(i.url)) return false; seen.add(i.url); return true; });
-
-  // Sort newest first
-  items.sort((a,b)=> new Date(b.date||0) - new Date(a.date||0));
-
-  ALL_ITEMS = items;
-
-  if(skelEl) skelEl.style.display = 'none';
-  buildCategoryCards();
-  updateStats();
-  if(cntEl) cntEl.textContent = `${ALL_ITEMS.length} headline${ALL_ITEMS.length!==1?'s':''} loaded`;
-}
-
-// ═══════════════════════════════════════════════════════
-// DEMO DATA (replace with real fetch.py output)
-// ═══════════════════════════════════════════════════════
-function generateDemoItems(){
-  const cats  = ['India','Tech','AI','Economy','SC','Cricket','Business'];
-  const srcs  = ['The Hindu','Mint','ET','TechCrunch','Cricinfo','Bloomberg','Reuters'];
-  const demos = [
-    'India's GDP growth holds steady at 6.8% despite global headwinds',
-    'RBI keeps repo rate unchanged; signals cautious easing ahead',
-    'OpenAI releases new reasoning model with 200K context window',
-    'India-US trade deal negotiations enter final stretch',
-    'Chennai Super Kings eye new batting coach for IPL 2026',
-    'Supply chain resilience index hits 3-year high in Asia-Pac',
-    'Tata Motors EV sales cross 50,000 units milestone',
-    'NIFTY 50 crosses 24,000 — analysts debate next resistance level',
-    'Apple India manufacturing ramps up; Foxconn expands Chennai plant',
-    'Bhumrah named Test captain ahead of England series',
-    'Global container shipping rates ease after port congestion clears',
-    'Anthropic unveils Claude 4 with new tool-use capabilities',
-    'India's UPI crosses 15 billion monthly transactions',
-    'Semiconductor shortage eases as TSMC opens new fab in Pune',
-    'Virat Kohli announces Test retirement; cricket world reacts',
-    'India tops renewable energy capacity additions in Q1 2026',
-    'Meta launches Llama 4 — open-source, multimodal, 1T parameters',
-    'RBI Digital Rupee pilot extended to 15 more cities',
-    'Supply chain AI startups raise $2.4B in funding this quarter',
-    'Google DeepMind and ISRO partner on satellite data analytics',
-  ];
-  return demos.map((title,i)=>({
-    title,
-    source: srcs[i%srcs.length],
-    category: cats[i%cats.length],
-    date: new Date(Date.now() - i*3600000).toISOString(),
-    url: '#',
-  }));
-}
-
-// ═══════════════════════════════════════════════════════
-// BUILD CATEGORY CARDS from actual feed data
-// ═══════════════════════════════════════════════════════
-function buildCategoryCards(){
-  const counts = {};
-  ALL_ITEMS.forEach(item => {
-    const c = item.category || 'Other';
-    counts[c] = (counts[c]||0)+1;
-  });
-
-  const row = document.getElementById('category-row');
-  // Clear existing dynamic cards (keep "All")
-  // We'll just rebuild everything
-  row.innerHTML = '';
-
-  const allCats = ['All', ...Object.keys(counts).sort()];
-  allCats.forEach((cat, idx) => {
-    const count = cat==='All' ? ALL_ITEMS.length : counts[cat];
-    const firstLetter = cat.replace(/[^A-Z0-9🏏]/gi,'').slice(0,2).toUpperCase() || cat[0].toUpperCase();
-    const isSelected  = cat === ACTIVE_CAT;
-
-    const btn = document.createElement('button');
-    btn.className      = 'cat-card' + (isSelected?' selected':'');
-    btn.dataset.cat    = cat;
-    btn.setAttribute('role','listitem');
-    btn.setAttribute('aria-pressed', isSelected?'true':'false');
-    btn.style.setProperty('animation-delay', `${.55 + idx*.07}s`);
-    btn.innerHTML = `
-      <div class="cat-card-noise"></div>
-      <div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">${firstLetter}</span>
-      <span class="cat-card-name">${cat}</span>
-    `;
-    btn.addEventListener('click', ()=>selectCategory(cat, btn));
-    row.appendChild(btn);
-  });
-
-  // Also update sidebar source list
-  buildSourceList(counts);
-}
-
-// ═══════════════════════════════════════════════════════
-// SIDEBAR SOURCE LIST
-// ═══════════════════════════════════════════════════════
-function buildSourceList(counts){
-  const el = document.getElementById('source-list');
-  if(!el) return;
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  el.innerHTML = sorted.map(([cat,n])=>`
-    <div class="source-item" onclick="selectCategory('${cat}', null)" role="button" tabindex="0">
-      <span class="source-name">${cat}</span>
-      <span class="source-count">${n}</span>
-    </div>
-  `).join('');
-}
-
-// ═══════════════════════════════════════════════════════
-// CATEGORY SELECTION — the main Netflix behaviour
-// ═══════════════════════════════════════════════════════
-function selectCategory(cat, triggerEl){
-  ACTIVE_CAT    = cat;
-  SEARCH_QUERY  = '';
-  const searchEl = document.getElementById('search-input');
-  if(searchEl) searchEl.value = '';
-
-  // Update card selected state
-  document.querySelectorAll('.cat-card').forEach(c=>{
-    const isThis = c.dataset.cat === cat;
-    c.classList.toggle('selected', isThis);
-    c.setAttribute('aria-pressed', isThis?'true':'false');
-  });
-
-  // Set accent color on news-view
-  const accent = CAT_ACCENTS[cat] || '#00F5FF';
-  const newsView = document.getElementById('news-view');
-  newsView.style.setProperty('--active-accent', accent);
-
-  // Update label
-  const labelEl = document.getElementById('view-category-label');
-  if(labelEl) labelEl.textContent = cat;
-  labelEl.style.color = accent;
-
-  // Filter
-  applyFilters();
-
-  // Hide category browse, show news view
-  showNewsView();
-}
-
-function showNewsView(){
-  document.getElementById('category-browse').style.display = 'none';
-  const nv = document.getElementById('news-view');
-  nv.classList.add('active');
-  nv.scrollIntoView({behavior:'smooth', block:'start'});
-  // Map must be initialised AFTER the container is visible so Leaflet
-  // can measure its dimensions correctly
-  setTimeout(()=>{
-    if(!MAP_INSTANCE){
-      initMap();
-      setTimeout(refreshMapPins, 400);
-    } else {
-      MAP_INSTANCE.invalidateSize();
-    }
-  }, 120);
-}
-
-function showCategories(){
-  document.getElementById('category-browse').style.display = '';
-  const nv = document.getElementById('news-view');
-  nv.classList.remove('active');
-  // Deselect all, re-select "All" card
-  ACTIVE_CAT = 'All';
-  document.querySelectorAll('.cat-card').forEach(c=>{
-    const isAll = c.dataset.cat==='All';
-    c.classList.toggle('selected',isAll);
-    c.setAttribute('aria-pressed',isAll?'true':'false');
-  });
-  document.getElementById('category-browse').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-// ═══════════════════════════════════════════════════════
-// FILTERING & SEARCH
-// ═══════════════════════════════════════════════════════
-function applyFilters(){
-  let items = ALL_ITEMS;
-  if(ACTIVE_CAT && ACTIVE_CAT !== 'All'){
-    items = items.filter(i=> (i.category||'Other') === ACTIVE_CAT);
-  }
-  if(SEARCH_QUERY){
-    const q = SEARCH_QUERY.toLowerCase();
-    items = items.filter(i=>
-      (i.title||'').toLowerCase().includes(q) ||
-      (i.source||'').toLowerCase().includes(q)
-    );
-  }
-  FILTERED_ITEMS  = items;
-  DISPLAYED_COUNT = 0;
-  document.getElementById('news-feed').innerHTML = '';
-  loadMore();
-  updateStats();
-  refreshMapPins();
-}
-
-function handleSearch(val){
-  SEARCH_QUERY = val.trim();
-  applyFilters();
-}
-
-// ═══════════════════════════════════════════════════════
-// RENDER NEWS ITEMS
-// ═══════════════════════════════════════════════════════
-function loadMore(){
-  const feed  = document.getElementById('news-feed');
-  const btn   = document.getElementById('load-more-btn');
-  const slice = FILTERED_ITEMS.slice(DISPLAYED_COUNT, DISPLAYED_COUNT + PAGE_SIZE);
-
-  if(slice.length === 0 && DISPLAYED_COUNT === 0){
-    feed.innerHTML = `<div class="state-msg"><strong>No Results</strong><p>No headlines match your filter.</p></div>`;
-    if(btn) btn.style.display = 'none';
-    return;
-  }
-
-  slice.forEach((item, idx) => {
-    const el   = document.createElement('a');
-    el.className  = 'news-item';
-    el.href       = item.url || '#';
-    el.target     = item.url && item.url!=='#' ? '_blank' : '';
-    el.rel        = 'noopener noreferrer';
-    el.setAttribute('role','listitem');
-
-    const cat   = item.category || 'Other';
-    const catCls= `cat-${cat.replace(/\s+/g,'')}`;
-    const dateStr = item.date
-      ? new Date(item.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
-      : '';
-
-    el.innerHTML = `
-      <div class="item-accent-bar"></div>
-      <div class="item-body">
-        <div class="item-meta">
-          <span class="item-source">${escHtml(item.source||'Unknown')}</span>
-          <span class="item-cat ${catCls}">${escHtml(cat)}</span>
-          ${dateStr?`<span class="item-date">${dateStr}</span>`:''}
-        </div>
-        <div class="item-title">${escHtml(item.title||'Untitled')}</div>
-        <span class="item-arrow">READ MORE →</span>
-      </div>
-    `;
-
-    // Stagger animation
-    el.style.animationDelay = `${idx * .04}s`;
-    feed.appendChild(el);
-
-    // Intersection observer for scroll-reveal
-    setTimeout(()=>el.classList.add('visible'), 50 + idx*40);
-  });
-
-  DISPLAYED_COUNT += slice.length;
-
-  // Badge count
-  const badge = document.getElementById('view-count-badge');
-  if(badge) badge.textContent = `${FILTERED_ITEMS.length} article${FILTERED_ITEMS.length!==1?'s':''}`;
-
-  // Load more button
-  if(btn){
-    btn.style.display = DISPLAYED_COUNT < FILTERED_ITEMS.length ? 'inline-flex' : 'none';
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-// STATS
-// ═══════════════════════════════════════════════════════
-function updateStats(){
-  const sources = new Set(ALL_ITEMS.map(i=>i.source)).size;
-  const tot  = document.getElementById('stat-total');
-  const src  = document.getElementById('stat-sources');
-  const show = document.getElementById('stat-showing');
-  if(tot)  tot.textContent  = ALL_ITEMS.length;
-  if(src)  src.textContent  = sources;
-  if(show) show.textContent = FILTERED_ITEMS.length || DISPLAYED_COUNT;
-}
-
-// ═══════════════════════════════════════════════════════
-// REFRESH
-// ═══════════════════════════════════════════════════════
-function refreshFeed(){
-  document.getElementById('skeleton-loader').style.display = '';
-  document.getElementById('news-feed').innerHTML = '';
-  loadFeed().then(()=>{ applyFilters(); refreshMapPins(); });
-}
-
-// ═══════════════════════════════════════════════════════
-// NEWS MAP — Leaflet with custom dark tiles + category pins
-// ═══════════════════════════════════════════════════════
-let MAP_INSTANCE  = null;
-let MAP_MARKERS   = [];
-
-// Rough geo coords per category (city centroids relevant to each topic)
-const CAT_GEO = {
-  'India':        [{lat:20.5937,  lng:78.9629},  {lat:28.6139,  lng:77.2090},  {lat:13.0827,  lng:80.2707},  {lat:19.0760,  lng:72.8777},  {lat:12.9716,  lng:77.5946}],
-  'Tech':         [{lat:37.3382,  lng:-121.8863}, {lat:37.7749,  lng:-122.4194},{lat:47.6062,  lng:-122.3321},{lat:51.5074,  lng:-0.1278},   {lat:1.3521,   lng:103.8198}],
-  'AI':           [{lat:37.3382,  lng:-121.8863}, {lat:40.7128,  lng:-74.0060}, {lat:51.5074,  lng:-0.1278},  {lat:48.8566,  lng:2.3522},    {lat:35.6762,  lng:139.6503}],
-  'Economy':      [{lat:40.7128,  lng:-74.0060},  {lat:51.5074,  lng:-0.1278},  {lat:35.6762,  lng:139.6503}, {lat:22.3193,  lng:114.1694},  {lat:48.8566,  lng:2.3522}],
-  'Business':     [{lat:40.7128,  lng:-74.0060},  {lat:1.3521,   lng:103.8198}, {lat:25.2048,  lng:55.2708},  {lat:22.3193,  lng:114.1694},  {lat:28.6139,  lng:77.2090}],
-  'SC':           [{lat:31.2304,  lng:121.4737},  {lat:1.3521,   lng:103.8198}, {lat:22.3193,  lng:114.1694}, {lat:34.6937,  lng:135.5023},  {lat:51.9225,  lng:4.4792}],
-  'Cricket':      [{lat:28.6139,  lng:77.2090},   {lat:13.0827,  lng:80.2707},  {lat:-33.8688, lng:151.2093}, {lat:51.5074,  lng:-0.1278},   {lat:6.9271,   lng:79.8612}],
-  'Sports':       [{lat:40.7128,  lng:-74.0060},  {lat:51.5074,  lng:-0.1278},  {lat:48.8566,  lng:2.3522},   {lat:35.6762,  lng:139.6503},  {lat:-23.5505, lng:-46.6333}],
-  'Other':        [{lat:0,        lng:20},         {lat:48.8566,  lng:2.3522},   {lat:55.7558,  lng:37.6176}],
+const CAT_ACCENTS = {
+  'All':'#F0EEFF','India':'#E8192C','Tech':'#00F5FF','AI':'#00F5FF',
+  'Economy':'#FFE600','Business':'#FFE600','Finance':'#FFE600',
+  'Cricket':'#FF6AB1','Sports':'#FF6AB1','SC':'#4d7eff',
+  'World':'#fb7185','Geopolitics':'#fb7185','Science':'#34d399',
+  'Health':'#f97316','Environment':'#4ade80','Startups':'#e879f9',
 };
 
-// Accent hex per category (for SVG pin colour)
 const CAT_PIN_COLOR = {
   'India':'#E8192C','Tech':'#00F5FF','AI':'#00F5FF',
-  'Economy':'#FFE600','Business':'#FFE600',
-  'Cricket':'#FF6AB1','Sports':'#FF6AB1',
-  'SC':'#4d7eff','Other':'#7070A0',
+  'Economy':'#FFE600','Business':'#FFE600','Finance':'#FFE600',
+  'Cricket':'#FF6AB1','Sports':'#FF6AB1','SC':'#4d7eff',
+  'World':'#fb7185','Geopolitics':'#fb7185','Science':'#34d399',
+  'Health':'#f97316','Environment':'#4ade80','Startups':'#e879f9','Other':'#7070A0',
 };
 
-function makePinIcon(color){
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
-    <path d="M9 0C4.03 0 0 4.03 0 9c0 6.75 9 15 9 15s9-8.25 9-15C18 4.03 13.97 0 9 0z" fill="${color}" opacity=".9"/>
-    <circle cx="9" cy="9" r="3.5" fill="#080810" opacity=".85"/>
-  </svg>`;
-  return L.divIcon({
-    html: svg,
-    className: '',
-    iconSize:  [18, 24],
-    iconAnchor:[9,  24],
-    popupAnchor:[0,-22],
-  });
+const CAT_GEO = {
+  'India':       [{lat:28.61,lng:77.21},{lat:19.07,lng:72.88},{lat:13.08,lng:80.27},{lat:22.57,lng:88.36},{lat:12.97,lng:77.59},{lat:17.38,lng:78.49},{lat:23.02,lng:72.57},{lat:26.85,lng:80.95}],
+  'Tech':        [{lat:37.34,lng:-121.89},{lat:37.77,lng:-122.42},{lat:47.61,lng:-122.33},{lat:51.51,lng:-.13},{lat:1.35,lng:103.82},{lat:35.68,lng:139.65},{lat:37.57,lng:126.98},{lat:22.28,lng:114.16}],
+  'AI':          [{lat:37.34,lng:-121.89},{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:48.86,lng:2.35},{lat:35.68,lng:139.65}],
+  'Economy':     [{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:35.68,lng:139.65},{lat:22.32,lng:114.17},{lat:48.86,lng:2.35},{lat:52.52,lng:13.4},{lat:55.75,lng:37.62}],
+  'Business':    [{lat:40.71,lng:-74.01},{lat:1.35,lng:103.82},{lat:25.2,lng:55.27},{lat:22.32,lng:114.17},{lat:28.61,lng:77.21}],
+  'Finance':     [{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:22.32,lng:114.17},{lat:35.68,lng:139.65},{lat:48.86,lng:2.35}],
+  'SC':          [{lat:31.23,lng:121.47},{lat:1.35,lng:103.82},{lat:22.32,lng:114.17},{lat:34.69,lng:135.5},{lat:51.92,lng:4.48},{lat:37.34,lng:-121.89},{lat:53.4,lng:-2.98}],
+  'Cricket':     [{lat:28.61,lng:77.21},{lat:13.08,lng:80.27},{lat:-33.87,lng:151.21},{lat:51.51,lng:-.13},{lat:6.93,lng:79.86},{lat:23.72,lng:90.41}],
+  'Sports':      [{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:48.86,lng:2.35},{lat:35.68,lng:139.65},{lat:-23.55,lng:-46.63},{lat:52.52,lng:13.4}],
+  'World':       [{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:48.86,lng:2.35},{lat:55.75,lng:37.62},{lat:39.91,lng:116.39},{lat:-33.87,lng:151.21},{lat:35.68,lng:139.65},{lat:28.61,lng:77.21}],
+  'Geopolitics': [{lat:38.9,lng:-77.04},{lat:51.51,lng:-.13},{lat:48.86,lng:2.35},{lat:55.75,lng:37.62},{lat:39.91,lng:116.39},{lat:35.68,lng:139.65},{lat:31.77,lng:35.22}],
+  'Science':     [{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:35.68,lng:139.65},{lat:48.86,lng:2.35},{lat:52.37,lng:4.9}],
+  'Health':      [{lat:46.23,lng:6.1},{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:35.68,lng:139.65},{lat:28.61,lng:77.21}],
+  'Environment': [{lat:40.71,lng:-74.01},{lat:51.51,lng:-.13},{lat:-33.87,lng:151.21},{lat:59.33,lng:18.07},{lat:60.17,lng:24.94}],
+  'Startups':    [{lat:37.34,lng:-121.89},{lat:51.51,lng:-.13},{lat:52.37,lng:4.9},{lat:48.86,lng:2.35},{lat:1.35,lng:103.82},{lat:28.61,lng:77.21}],
+  'Other':       [{lat:0,lng:20},{lat:48.86,lng:2.35},{lat:55.75,lng:37.62}],
+};
+
+// ═══════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════
+function updateClock(){
+  const ist=new Date(Date.now()+5.5*3600000);
+  const p=n=>String(n).padStart(2,'0');
+  const el=document.getElementById('live-clock');
+  if(el) el.textContent=`${p(ist.getUTCHours())}:${p(ist.getUTCMinutes())}:${p(ist.getUTCSeconds())} IST`;
+}
+setInterval(updateClock,1000); updateClock();
+
+// ═══════════════════════════════════
+// MAP  — init on DOMContentLoaded
+// The #news-map div is ALWAYS in the DOM and never hidden
+// so Leaflet measures it correctly the very first time
+// ═══════════════════════════════════
+function initMap(){
+  if(MAP_INSTANCE||typeof L==='undefined') return;
+  MAP_INSTANCE=L.map('news-map',{center:[20,15],zoom:1,zoomControl:true,attributionControl:false,scrollWheelZoom:false});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(MAP_INSTANCE);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,opacity:0.4}).addTo(MAP_INSTANCE);
+  L.control.attribution({position:'bottomright',prefix:false}).addTo(MAP_INSTANCE)
+    .setPrefix('<span style="font-size:.42rem;color:#333">© CartoDB</span>');
+  document.getElementById('map-strip-sub').textContent='Click any pin to read the headline';
 }
 
-function initMap(){
-  if(MAP_INSTANCE) return;
-  const mapEl = document.getElementById('news-map');
-  if(!mapEl || typeof L === 'undefined') return;
-
-  MAP_INSTANCE = L.map('news-map', {
-    center:[20, 15],
-    zoom:1,
-    zoomControl:true,
-    attributionControl:false,
-    scrollWheelZoom:false,
-  });
-
-  // Dark CartoDB tiles
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{
-    subdomains:'abcd', maxZoom:19,
-  }).addTo(MAP_INSTANCE);
-
-  // Minimal label overlay
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{
-    subdomains:'abcd', maxZoom:19, opacity:0.5,
-  }).addTo(MAP_INSTANCE);
-
-  // Tiny attribution tucked away
-  L.control.attribution({position:'bottomright',prefix:false})
-    .addTo(MAP_INSTANCE)
-    .setPrefix('<span style="font-size:.45rem;color:#333;font-family:monospace">© CartoDB</span>');
+function makePinIcon(color){
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 16 22"><path d="M8 0C3.58 0 0 3.58 0 8c0 6 8 14 8 14s8-8 8-14C16 3.58 12.42 0 8 0z" fill="${color}" opacity=".88"/><circle cx="8" cy="8" r="3" fill="#080810" opacity=".8"/></svg>`;
+  return L.divIcon({html:s,className:'',iconSize:[16,22],iconAnchor:[8,22],popupAnchor:[0,-20]});
 }
 
 function plotMapPins(items){
   if(!MAP_INSTANCE) return;
-
-  // Clear old markers
-  MAP_MARKERS.forEach(m => MAP_INSTANCE.removeLayer(m));
-  MAP_MARKERS = [];
-
-  // Only pin up to 40 items so the map stays readable
-  const pinItems = items.slice(0, 40);
-  let pinCount   = 0;
-
-  pinItems.forEach(item => {
-    const cat    = item.category || 'Other';
-    const pool   = CAT_GEO[cat] || CAT_GEO['Other'];
-    const color  = CAT_PIN_COLOR[cat] || '#7070A0';
-    // Pick a coord from the pool using a hash of the title for variety
-    const hash   = (item.title||'').split('').reduce((a,c)=>a+c.charCodeAt(0),0);
-    const coord  = pool[hash % pool.length];
-    // Jitter so overlapping pins spread slightly
-    const jLat   = coord.lat + (Math.random()-.5)*2.5;
-    const jLng   = coord.lng + (Math.random()-.5)*2.5;
-
-    const marker = L.marker([jLat, jLng], {icon: makePinIcon(color)})
-      .bindTooltip(item.source || cat, {
-        className:'map-tooltip', direction:'top', offset:[0,-20],
-      })
-      .bindPopup(`
-        <div class="map-popup">
-          <div class="map-popup-cat">${escHtml(cat)}</div>
-          <div class="map-popup-title">${escHtml(item.title||'Untitled')}</div>
-          <a class="map-popup-link" href="${item.url||'#'}" target="_blank" rel="noopener">
-            Read more →
-          </a>
-          <span class="map-popup-src">${escHtml(item.source||'')}</span>
-        </div>
-      `, {maxWidth:230})
-      .addTo(MAP_INSTANCE);
-
-    MAP_MARKERS.push(marker);
-    pinCount++;
+  MAP_MARKERS.forEach(m=>MAP_INSTANCE.removeLayer(m));
+  MAP_MARKERS=[];
+  items.slice(0,60).forEach(item=>{
+    const cat=item.category||'Other';
+    const pool=CAT_GEO[cat]||CAT_GEO['Other'];
+    const color=CAT_PIN_COLOR[cat]||'#7070A0';
+    const hash=[...(item.title||'')].reduce((a,c)=>a+c.charCodeAt(0),0);
+    const base=pool[hash%pool.length];
+    const m=L.marker([base.lat+(Math.random()-.5)*3,base.lng+(Math.random()-.5)*3],{icon:makePinIcon(color)})
+      .bindTooltip(item.source||cat,{className:'map-tooltip',direction:'top',offset:[0,-18]})
+      .bindPopup(`<div class="map-popup">
+        <div class="map-popup-cat">${escHtml(cat)}</div>
+        <div class="map-popup-title">${escHtml(item.title||'Untitled')}</div>
+        <a class="map-popup-link" href="${item.url||'#'}" target="_blank" rel="noopener">Read more →</a>
+        <span class="map-popup-src">${escHtml(item.source||'')}</span>
+      </div>`,{maxWidth:230}).addTo(MAP_INSTANCE);
+    MAP_MARKERS.push(m);
   });
-
-  // Update pin count badge
-  const badge = document.getElementById('map-pin-count');
-  if(badge) badge.textContent = `${pinCount} pin${pinCount!==1?'s':''}`;
+  const b=document.getElementById('map-pin-count');
+  if(b) b.textContent=`${MAP_MARKERS.length} pins`;
 }
 
-// Called after feed loads or filter changes
 function refreshMapPins(){
-  const items = FILTERED_ITEMS.length ? FILTERED_ITEMS : ALL_ITEMS;
-  plotMapPins(items);
+  plotMapPins(FILTERED_ITEMS.length?FILTERED_ITEMS:ALL_ITEMS);
 }
 
-// ═══════════════════════════════════════════════════════
-// UTIL
-// ═══════════════════════════════════════════════════════
-function escHtml(str){
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
+// ═══════════════════════════════════
+// LIVE RSS FETCH — all sources at once
+// ═══════════════════════════════════
+const PROXY='https://api.rss2json.com/v1/api.json?rss_url=';
+
+async function fetchOneFeed({u,c,s}){
+  try{
+    const r=await fetch(`${PROXY}${encodeURIComponent(u)}&count=12`,{signal:AbortSignal.timeout(9000)});
+    const d=await r.json();
+    if(d.status!=='ok') return [];
+    return (d.items||[]).map(i=>({title:(i.title||'').trim(),url:i.link||'#',date:i.pubDate||i.published||'',source:s,category:c}));
+  }catch(e){return [];}
 }
 
-// ═══════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', ()=>{
+async function loadFeed(){
+  const cntEl=document.getElementById('article-count');
+  const barEl=document.getElementById('fetch-bar');
+  const statusEl=document.getElementById('fetch-status');
+  const pw=document.getElementById('fetch-progress-wrap');
+  const scLabel=document.getElementById('source-count-label');
+  const footerEl=document.getElementById('footer-feed-count');
+  if(scLabel) scLabel.textContent=TOTAL_SOURCES;
+  if(footerEl) footerEl.textContent=`${TOTAL_SOURCES} RSS sources · Live in browser`;
+  if(cntEl) cntEl.textContent=`Fetching ${TOTAL_SOURCES} feeds…`;
+  if(pw) pw.style.display='flex';
+
+  let done=0;
+  const bucket=[];
+
+  await Promise.allSettled(RSS_SOURCES.map(src=>
+    fetchOneFeed(src).then(items=>{
+      bucket.push(...items);
+      done++;
+      const pct=Math.round(done/TOTAL_SOURCES*100);
+      if(barEl) barEl.style.width=pct+'%';
+      if(statusEl) statusEl.textContent=`${done}/${TOTAL_SOURCES} sources · ${bucket.length} articles`;
+      if(cntEl) cntEl.textContent=`${bucket.length} headlines loaded…`;
+      if(done%25===0||done===TOTAL_SOURCES) processItems([...bucket]);
+    })
+  ));
+
+  processItems(bucket);
+  if(pw) setTimeout(()=>pw.style.display='none',1400);
+}
+
+function processItems(items){
+  const seen=new Set();
+  const deduped=items.filter(i=>{if(!i.url||seen.has(i.url))return false;seen.add(i.url);return true;});
+  deduped.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  ALL_ITEMS=deduped;
+  buildCategoryCards();
+  updateStats();
+  const cntEl=document.getElementById('article-count');
+  if(cntEl) cntEl.textContent=`${ALL_ITEMS.length} headlines from ${TOTAL_SOURCES} sources`;
+  refreshMapPins();
+}
+
+// ═══════════════════════════════════
+// CATEGORY CARDS
+// ═══════════════════════════════════
+function buildCategoryCards(){
+  const counts={};
+  ALL_ITEMS.forEach(i=>{const c=i.category||'Other';counts[c]=(counts[c]||0)+1;});
+  const row=document.getElementById('category-row');
+  row.innerHTML='';
+  ['All',...Object.keys(counts).sort()].forEach((cat,idx)=>{
+    const n=cat==='All'?ALL_ITEMS.length:counts[cat];
+    const letter=cat.replace(/[^A-Z0-9]/gi,'').slice(0,2).toUpperCase()||cat[0].toUpperCase();
+    const btn=document.createElement('button');
+    btn.className='cat-card'+(cat===ACTIVE_CAT?' selected':'');
+    btn.dataset.cat=cat;
+    btn.setAttribute('role','listitem');
+    btn.setAttribute('aria-pressed',cat===ACTIVE_CAT?'true':'false');
+    btn.style.animationDelay=`${.05+idx*.03}s`;
+    btn.innerHTML=`<div class="cat-card-stripe"></div>
+      <span class="cat-card-bg-letter">${letter}</span>
+      <div class="cat-card-inner">
+        <span class="cat-card-name">${cat}</span>
+        <span class="cat-card-count">${n} articles</span>
+      </div>`;
+    btn.addEventListener('click',()=>selectCategory(cat));
+    row.appendChild(btn);
+  });
+  buildSourceList(counts);
+}
+
+function buildSourceList(counts){
+  const el=document.getElementById('source-list');
+  if(!el)return;
+  el.innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([cat,n])=>`
+    <div class="source-item" onclick="selectCategory('${cat}')" role="button" tabindex="0">
+      <span class="source-name">${cat}</span><span class="source-count">${n}</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════
+// NETFLIX CATEGORY SELECT
+// ═══════════════════════════════════
+function selectCategory(cat){
+  ACTIVE_CAT=cat;SEARCH_QUERY='';
+  const si=document.getElementById('search-input');if(si)si.value='';
+  document.querySelectorAll('.cat-card').forEach(c=>{
+    const hit=c.dataset.cat===cat;
+    c.classList.toggle('selected',hit);
+    c.setAttribute('aria-pressed',hit?'true':'false');
+  });
+  const accent=CAT_ACCENTS[cat]||'#00F5FF';
+  const nv=document.getElementById('news-view');
+  nv.style.setProperty('--active-accent',accent);
+  const lbl=document.getElementById('view-category-label');
+  if(lbl){lbl.textContent=cat;lbl.style.color=accent;}
+  applyFilters();
+  showNewsView();
+}
+
+function showNewsView(){
+  document.getElementById('category-browse').style.display='none';
+  document.getElementById('news-view').classList.add('active');
+  document.getElementById('news-view').scrollIntoView({behavior:'smooth',block:'start'});
+  // Map is outside news-view — just call invalidateSize to handle any reflow
+  if(MAP_INSTANCE) setTimeout(()=>MAP_INSTANCE.invalidateSize(),80);
+}
+
+function showCategories(){
+  document.getElementById('category-browse').style.display='';
+  document.getElementById('news-view').classList.remove('active');
+  ACTIVE_CAT='All';
+  document.querySelectorAll('.cat-card').forEach(c=>{
+    c.classList.toggle('selected',c.dataset.cat==='All');
+    c.setAttribute('aria-pressed',c.dataset.cat==='All'?'true':'false');
+  });
+  document.getElementById('category-browse').scrollIntoView({behavior:'smooth',block:'start'});
+  if(MAP_INSTANCE) setTimeout(()=>MAP_INSTANCE.invalidateSize(),80);
+}
+
+// ═══════════════════════════════════
+// FILTER & SEARCH
+// ═══════════════════════════════════
+function applyFilters(){
+  let items=ALL_ITEMS;
+  if(ACTIVE_CAT&&ACTIVE_CAT!=='All') items=items.filter(i=>(i.category||'Other')===ACTIVE_CAT);
+  if(SEARCH_QUERY){
+    const q=SEARCH_QUERY.toLowerCase();
+    items=items.filter(i=>(i.title||'').toLowerCase().includes(q)||(i.source||'').toLowerCase().includes(q));
+  }
+  FILTERED_ITEMS=items;DISPLAYED_COUNT=0;
+  document.getElementById('news-feed').innerHTML='';
+  loadMore();updateStats();refreshMapPins();
+}
+
+function handleSearch(val){SEARCH_QUERY=val.trim();applyFilters();}
+
+// ═══════════════════════════════════
+// RENDER ITEMS
+// ═══════════════════════════════════
+function loadMore(){
+  const feed=document.getElementById('news-feed');
+  const btn=document.getElementById('load-more-btn');
+  const slice=FILTERED_ITEMS.slice(DISPLAYED_COUNT,DISPLAYED_COUNT+PAGE_SIZE);
+  if(!slice.length&&!DISPLAYED_COUNT){
+    feed.innerHTML='<div class="state-msg"><strong>No Results</strong><p>No headlines match.</p></div>';
+    if(btn)btn.style.display='none';return;
+  }
+  slice.forEach((item,idx)=>{
+    const el=document.createElement('a');
+    el.className='news-item';el.href=item.url||'#';
+    el.target=item.url&&item.url!=='#'?'_blank':'';
+    el.rel='noopener noreferrer';el.setAttribute('role','listitem');
+    const cat=item.category||'Other';
+    const catCls=`cat-${cat.replace(/\s+/g,'')}`;
+    const ds=item.date?new Date(item.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+    el.innerHTML=`<div class="item-accent-bar"></div>
+      <div class="item-body">
+        <div class="item-meta">
+          <span class="item-source">${escHtml(item.source||'')}</span>
+          <span class="item-cat ${catCls}">${escHtml(cat)}</span>
+          ${ds?`<span class="item-date">${ds}</span>`:''}
+        </div>
+        <div class="item-title">${escHtml(item.title||'Untitled')}</div>
+        <span class="item-arrow">READ MORE →</span>
+      </div>`;
+    feed.appendChild(el);
+    setTimeout(()=>el.classList.add('visible'),40+idx*35);
+  });
+  DISPLAYED_COUNT+=slice.length;
+  const badge=document.getElementById('view-count-badge');
+  if(badge) badge.textContent=`${FILTERED_ITEMS.length} article${FILTERED_ITEMS.length!==1?'s':''}`;
+  if(btn) btn.style.display=DISPLAYED_COUNT<FILTERED_ITEMS.length?'inline-flex':'none';
+}
+
+// ═══════════════════════════════════
+// STATS & REFRESH
+// ═══════════════════════════════════
+function updateStats(){
+  const srcs=new Set(ALL_ITEMS.map(i=>i.source)).size;
+  const t=document.getElementById('stat-total');
+  const s=document.getElementById('stat-sources');
+  const sh=document.getElementById('stat-showing');
+  if(t)t.textContent=ALL_ITEMS.length;
+  if(s)s.textContent=srcs;
+  if(sh)sh.textContent=FILTERED_ITEMS.length||DISPLAYED_COUNT;
+}
+
+function refreshFeed(){
+  ALL_ITEMS=[];FILTERED_ITEMS=[];
+  document.getElementById('news-feed').innerHTML='';
   loadFeed();
-  // Keyboard accessibility for category cards
-  document.addEventListener('keydown', e=>{
-    if(e.key==='Escape' && document.getElementById('news-view').classList.contains('active')){
+}
+
+function escHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  initMap();   // Map div is visible in DOM — Leaflet sizes correctly
+  loadFeed();
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&document.getElementById('news-view').classList.contains('active'))
       showCategories();
-    }
   });
 });
 </script>
-
 </body>
 </html>
