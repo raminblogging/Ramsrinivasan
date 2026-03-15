@@ -6,7 +6,7 @@
   <meta name="google-adsense-account" content="ca-pub-2516736960447895">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>World Monitor — Live News Feed | Ram Srinivasan</title>
-  <meta name="description" content="Real-time curated news feed covering India, Supply Chain, Economy, Tech, and Cricket. 1000+ RSS sources fetched live in your browser."/>
+  <meta name="description" content="Real-time news feed — 1000+ RSS sources fetched live, decentralised, in your browser."/>
   <meta name="author" content="Ram Srinivasan"/>
   <link rel="canonical" href="https://ramsrinivasan.com/Monitor/"/>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH170NH9GW"></script>
@@ -48,15 +48,14 @@
     .ad-slot-sm{width:160px;min-height:300px;background:var(--panel);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
     .ad-slot-sm::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--yellow))}
     .centre-col{min-width:0;display:flex;flex-direction:column}
-
-    /* MAP — always in DOM, never hidden */
+    /* MAP */
     .map-strip{width:100%;background:var(--panel);border-bottom:3px solid var(--border)}
     .map-strip-header{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.2rem;background:var(--ink2);border-bottom:2px solid var(--border)}
     .map-strip-left{display:flex;align-items:center;gap:.8rem}
     .map-strip-label{font-family:var(--comic);font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
     .map-strip-sub{font-family:var(--mono);font-size:.6rem;color:var(--muted)}
     .map-pin-count{font-family:var(--mono);font-size:.6rem;color:var(--ink);background:var(--cyan);padding:.15rem .55rem}
-    #news-map{width:100%;height:260px;display:block;background:#0a0f18}
+    #news-map{width:100%;height:240px;display:block;background:#0a0f18}
     .leaflet-container{background:#0a0f18 !important;font-family:var(--mono) !important}
     .leaflet-popup-content-wrapper{background:var(--panel) !important;border:2px solid var(--cyan) !important;border-radius:0 !important;box-shadow:3px 3px 0 var(--cyan) !important;color:var(--white) !important;padding:0 !important}
     .leaflet-popup-tip{background:var(--cyan) !important}
@@ -69,105 +68,93 @@
     .map-popup-src{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.35rem;display:block}
     .leaflet-popup-close-button{color:var(--cyan) !important;font-size:1rem !important;top:4px !important;right:6px !important}
     .map-tt{background:var(--ink2) !important;border:1px solid var(--border) !important;color:var(--muted) !important;font-family:var(--mono) !important;font-size:.6rem !important;border-radius:0 !important;box-shadow:none !important;padding:.2rem .5rem !important}
-
     /* PROGRESS */
     .fetch-progress-wrap{background:var(--ink2);border-bottom:2px solid var(--border);padding:.5rem 1.2rem;display:flex;align-items:center;gap:1rem}
     .fetch-bar-outer{flex:1;height:4px;background:var(--border);overflow:hidden}
-    .fetch-bar-inner{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));width:0%;transition:width .2s}
+    .fetch-bar-inner{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));width:0%;transition:width .15s}
     .fetch-status{font-family:var(--mono);font-size:.6rem;color:var(--muted);white-space:nowrap;min-width:200px}
-
     /* CATEGORY BROWSE */
     .category-browse{padding:1.8rem 1.5rem 1rem;border-bottom:2px solid var(--border)}
     .browse-heading{font-family:var(--comic);font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
     .browse-heading::after{content:'';flex:1;height:1px;background:var(--border)}
     .category-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem}
-    .cat-card{position:relative;height:82px;border:2px solid var(--border);background:var(--panel);cursor:pointer;overflow:hidden;transition:transform .22s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;display:flex;align-items:flex-end;padding:.8rem .9rem;outline:none;animation:fadeSlideUp .4s both}
-    .cat-card:hover{transform:scale(1.04) translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.5),3px 3px 0 var(--card-accent,var(--cyan));border-color:var(--card-accent,var(--cyan));z-index:2}
-    .cat-card.selected{border-color:var(--card-accent,var(--cyan));box-shadow:0 0 0 2px var(--card-accent,var(--cyan)),3px 3px 0 var(--card-accent,var(--cyan))}
-    .cat-card.selected::after{content:'▶ VIEWING';position:absolute;top:.45rem;right:.5rem;font-family:var(--mono);font-size:.5rem;color:var(--card-accent,var(--cyan));background:rgba(0,0,0,.8);padding:.1rem .35rem;border:1px solid var(--card-accent,var(--cyan))}
-    .cat-card-stripe{position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--cyan));box-shadow:0 0 10px var(--card-accent,var(--cyan))}
-    .cat-card-bg-letter{position:absolute;right:-.2rem;top:-.4rem;font-family:var(--comic);font-size:4rem;line-height:1;color:var(--card-accent,var(--cyan));opacity:.07;pointer-events:none;transition:opacity .25s,transform .25s}
-    .cat-card:hover .cat-card-bg-letter{opacity:.14;transform:scale(1.1) rotate(-4deg)}
-    .cat-card-inner{display:flex;flex-direction:column;position:relative;z-index:1}
-    .cat-card-name{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);line-height:1;transition:color .2s}
-    .cat-card-count{font-family:var(--mono);font-size:.55rem;color:var(--muted);margin-top:.2rem}
-    .cat-card:hover .cat-card-name,.cat-card.selected .cat-card-name{color:var(--card-accent,var(--cyan))}
-    .cat-card[data-cat="All"]{--card-accent:#F0EEFF}.cat-card[data-cat="India"]{--card-accent:#E8192C}
-    .cat-card[data-cat="Tech"]{--card-accent:#00F5FF}.cat-card[data-cat="AI"]{--card-accent:#00F5FF}
-    .cat-card[data-cat="Economy"]{--card-accent:#FFE600}.cat-card[data-cat="Business"]{--card-accent:#FFE600}
-    .cat-card[data-cat="Finance"]{--card-accent:#FFE600}.cat-card[data-cat="Cricket"]{--card-accent:#FF6AB1}
-    .cat-card[data-cat="Sports"]{--card-accent:#FF6AB1}.cat-card[data-cat="SC"]{--card-accent:#4d7eff}
-    .cat-card[data-cat="World"]{--card-accent:#fb7185}.cat-card[data-cat="Geopolitics"]{--card-accent:#fb7185}
-    .cat-card[data-cat="Science"]{--card-accent:#34d399}.cat-card[data-cat="Health"]{--card-accent:#f97316}
-    .cat-card[data-cat="Environment"]{--card-accent:#4ade80}.cat-card[data-cat="Startups"]{--card-accent:#e879f9}
-    .cat-card[data-cat="Politics"]{--card-accent:#a78bfa}.cat-card[data-cat="Culture"]{--card-accent:#f9a8d4}
-
+    .cat-card{position:relative;height:82px;border:2px solid var(--border);background:var(--panel);cursor:pointer;overflow:hidden;transition:transform .22s cubic-bezier(.34,1.56,.64,1),border-color .2s,box-shadow .2s;display:flex;align-items:flex-end;padding:.8rem .9rem;outline:none;animation:fadeSlideUp .35s both}
+    .cat-card:hover{transform:scale(1.04) translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.5),3px 3px 0 var(--ca,var(--cyan));border-color:var(--ca,var(--cyan));z-index:2}
+    .cat-card.selected{border-color:var(--ca,var(--cyan));box-shadow:0 0 0 2px var(--ca,var(--cyan)),3px 3px 0 var(--ca,var(--cyan))}
+    .cat-card.selected::after{content:'▶ VIEWING';position:absolute;top:.45rem;right:.5rem;font-family:var(--mono);font-size:.5rem;color:var(--ca,var(--cyan));background:rgba(0,0,0,.85);padding:.1rem .35rem;border:1px solid var(--ca,var(--cyan))}
+    .ccs{position:absolute;top:0;left:0;right:0;height:3px;background:var(--ca,var(--cyan));box-shadow:0 0 10px var(--ca,var(--cyan))}
+    .ccb{position:absolute;right:-.2rem;top:-.4rem;font-family:var(--comic);font-size:4rem;line-height:1;color:var(--ca,var(--cyan));opacity:.07;pointer-events:none;transition:opacity .25s,transform .25s}
+    .cat-card:hover .ccb{opacity:.14;transform:scale(1.1) rotate(-4deg)}
+    .cci{display:flex;flex-direction:column;position:relative;z-index:1}
+    .ccn{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);line-height:1;transition:color .2s}
+    .ccc{font-family:var(--mono);font-size:.55rem;color:var(--muted);margin-top:.2rem}
+    .cat-card:hover .ccn,.cat-card.selected .ccn{color:var(--ca,var(--cyan))}
     /* NEWS VIEW */
     .news-view{display:none;padding:0 1.5rem 5rem}
     .news-view.active{display:grid;grid-template-columns:1fr 260px;gap:2rem;align-items:start}
     .view-topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 0;border-bottom:2px solid var(--border);margin-bottom:.5rem}
-    .view-topbar-left{display:flex;align-items:center;gap:1rem}
-    .btn-back-cats{font-family:var(--comic);font-size:.95rem;color:var(--muted);background:transparent;border:2px solid var(--border);padding:.45rem 1rem;cursor:pointer;transition:all .2s}
-    .btn-back-cats:hover{border-color:var(--red);color:var(--yellow);box-shadow:2px 2px 0 var(--red)}
-    .view-category-label{font-family:var(--comic);font-size:1.6rem;color:var(--active-accent,var(--cyan));text-shadow:2px 2px 0 rgba(0,0,0,.5)}
-    .view-count-badge{font-family:var(--mono);font-size:.65rem;color:var(--ink);background:var(--active-accent,var(--cyan));padding:.2rem .6rem;margin-left:.4rem}
-    .view-search-wrap{position:relative;min-width:220px}
-    .view-search-wrap input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.55rem 1rem .55rem 2.2rem;font-family:var(--mono);font-size:.75rem;outline:none;transition:border-color .2s,box-shadow .2s}
-    .view-search-wrap input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
-    .view-search-wrap input::placeholder{color:var(--muted)}
-    .view-search-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem}
+    .vtl{display:flex;align-items:center;gap:1rem}
+    .btn-back{font-family:var(--comic);font-size:.95rem;color:var(--muted);background:transparent;border:2px solid var(--border);padding:.45rem 1rem;cursor:pointer;transition:all .2s}
+    .btn-back:hover{border-color:var(--red);color:var(--yellow);box-shadow:2px 2px 0 var(--red)}
+    .vcl{font-family:var(--comic);font-size:1.6rem;color:var(--aa,var(--cyan));text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+    .vcb{font-family:var(--mono);font-size:.65rem;color:var(--ink);background:var(--aa,var(--cyan));padding:.2rem .6rem;margin-left:.4rem}
+    .vsw{position:relative;min-width:220px}
+    .vsw input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--white);padding:.55rem 1rem .55rem 2.2rem;font-family:var(--mono);font-size:.75rem;outline:none;transition:border-color .2s,box-shadow .2s}
+    .vsw input:focus{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .vsw input::placeholder{color:var(--muted)}
+    .vsi{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem}
     #news-feed{display:flex;flex-direction:column}
-    .news-item{display:grid;grid-template-columns:4px 1fr;gap:1.3rem;padding:1.4rem 0;border-bottom:2px solid var(--border);text-decoration:none;color:inherit;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
-    .news-item.visible{opacity:1;transform:translateY(0)}
-    .news-item:first-child{border-top:2px solid var(--border)}
-    .item-accent-bar{background:var(--border);border-radius:2px;transition:background .2s}
-    .news-item:hover .item-accent-bar{background:var(--red)}
-    .news-item:hover .item-title{color:var(--yellow)}
-    .item-body{display:flex;flex-direction:column;gap:.4rem}
-    .item-meta{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
-    .item-source{font-family:var(--comic);font-size:.8rem;color:var(--cyan)}
-    .item-date{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
-    .item-title{font-family:var(--body);font-size:.98rem;font-weight:700;line-height:1.35;transition:color .2s}
-    .item-arrow{font-family:var(--comic);font-size:.82rem;color:var(--muted);margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
-    .news-item:hover .item-arrow{color:var(--red);transform:translateX(5px)}
-    .item-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .45rem;border:1px solid;margin-left:.3rem}
-    .cat-India{color:var(--red);border-color:var(--red);background:rgba(232,25,44,.08)}
-    .cat-Tech,.cat-AI{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.06)}
-    .cat-Economy,.cat-Business,.cat-Finance{color:var(--yellow);border-color:var(--yellow);background:rgba(255,230,0,.06)}
-    .cat-Cricket,.cat-Sports{color:var(--pink);border-color:var(--pink);background:rgba(255,106,177,.06)}
-    .cat-SC{color:#4d7eff;border-color:rgba(77,126,255,.8);background:rgba(77,126,255,.06)}
-    .cat-World,.cat-Geopolitics,.cat-Politics{color:#fb7185;border-color:#fb7185;background:rgba(251,113,133,.06)}
-    .cat-Science{color:#34d399;border-color:#34d399;background:rgba(52,211,153,.06)}
-    .cat-Health{color:#f97316;border-color:#f97316;background:rgba(249,115,22,.06)}
-    .cat-Environment{color:#4ade80;border-color:#4ade80;background:rgba(74,222,128,.06)}
-    .cat-Startups{color:#e879f9;border-color:#e879f9;background:rgba(232,121,249,.06)}
-    .cat-Culture{color:#f9a8d4;border-color:#f9a8d4;background:rgba(249,168,212,.06)}
-    .cat-default{color:var(--muted);border-color:var(--muted);background:transparent}
-    .skeleton{background:var(--surface);border-radius:2px;animation:shimmer 1.5s ease-in-out infinite}
+    .ni{display:grid;grid-template-columns:4px 1fr;gap:1.3rem;padding:1.4rem 0;border-bottom:2px solid var(--border);text-decoration:none;color:inherit;opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
+    .ni.vis{opacity:1;transform:translateY(0)}
+    .ni:first-child{border-top:2px solid var(--border)}
+    .nib{background:var(--border);border-radius:2px;transition:background .2s}
+    .ni:hover .nib{background:var(--red)}
+    .ni:hover .nit{color:var(--yellow)}
+    .nibd{display:flex;flex-direction:column;gap:.4rem}
+    .nim{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+    .nis{font-family:var(--comic);font-size:.8rem;color:var(--cyan)}
+    .nid{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+    .nit{font-family:var(--body);font-size:.98rem;font-weight:700;line-height:1.35;transition:color .2s}
+    .nia{font-family:var(--comic);font-size:.82rem;color:var(--muted);margin-top:.2rem;transition:color .2s,transform .2s;display:inline-block}
+    .ni:hover .nia{color:var(--red);transform:translateX(5px)}
+    .ic{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .45rem;border:1px solid;margin-left:.3rem}
+    .cIndia{color:var(--red);border-color:var(--red);background:rgba(232,25,44,.08)}
+    .cTech,.cAI{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.06)}
+    .cEconomy,.cBusiness,.cFinance{color:var(--yellow);border-color:var(--yellow);background:rgba(255,230,0,.06)}
+    .cCricket,.cSports{color:var(--pink);border-color:var(--pink);background:rgba(255,106,177,.06)}
+    .cSC{color:#4d7eff;border-color:rgba(77,126,255,.8);background:rgba(77,126,255,.06)}
+    .cWorld,.cGeopolitics,.cPolitics{color:#fb7185;border-color:#fb7185;background:rgba(251,113,133,.06)}
+    .cScience{color:#34d399;border-color:#34d399;background:rgba(52,211,153,.06)}
+    .cHealth{color:#f97316;border-color:#f97316;background:rgba(249,115,22,.06)}
+    .cEnvironment{color:#4ade80;border-color:#4ade80;background:rgba(74,222,128,.06)}
+    .cStartups{color:#e879f9;border-color:#e879f9;background:rgba(232,121,249,.06)}
+    .cCulture{color:#f9a8d4;border-color:#f9a8d4;background:rgba(249,168,212,.06)}
+    .cother{color:var(--muted);border-color:var(--muted);background:transparent}
+    .sk{background:var(--surface);border-radius:2px;animation:shimmer 1.5s ease-in-out infinite}
     @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.8}}
-    .load-more-wrap{padding-top:2rem;display:flex;justify-content:center}
-    .btn-load{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:2px solid var(--border);background:transparent;padding:.8rem 2rem;cursor:pointer;transition:all .2s}
-    .btn-load:hover{border-color:var(--red);color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
+    .lmw{padding-top:2rem;display:flex;justify-content:center}
+    .btnl{font-family:var(--comic);font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:2px solid var(--border);background:transparent;padding:.8rem 2rem;cursor:pointer;transition:all .2s}
+    .btnl:hover{border-color:var(--red);color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
     .sidebar{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:5rem}
-    .sidebar-card{background:var(--panel);border:2px solid var(--border);padding:1.2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
-    .sidebar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-    .sidebar-card:nth-child(1)::before{background:var(--cyan)}.sidebar-card:nth-child(2)::before{background:var(--red)}.sidebar-card:nth-child(3)::before{background:var(--yellow)}
-    .sidebar-card:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
-    .sc-label{font-family:var(--comic);font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
-    .source-item{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s}
-    .source-item:last-child{border-bottom:none}
-    .source-name{font-family:var(--mono);font-size:.7rem;color:var(--muted);transition:color .2s}
-    .source-item:hover .source-name{color:var(--white)}.source-item:hover{padding-left:.4rem}
-    .source-count{font-family:var(--comic);font-size:.78rem;color:var(--yellow);background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.2);padding:.1rem .4rem}
-    .stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:.5rem 0;border-bottom:1px solid var(--border)}
-    .stat-row:last-child{border-bottom:none}
-    .stat-label-s{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
-    .stat-val{font-family:var(--comic);font-size:1.3rem;color:var(--red)}
-    .back-link{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--comic);font-size:1rem;color:var(--muted);text-decoration:none;transition:all .2s;padding:.7rem 1rem;border:2px solid var(--border)}
-    .back-link:hover{color:var(--yellow);border-color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
-    .state-msg{padding:3rem 0;text-align:center}
-    .state-msg p{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
-    .state-msg strong{display:block;font-family:var(--comic);font-size:1.8rem;color:var(--yellow);margin-bottom:.5rem;text-shadow:2px 2px 0 var(--red)}
+    .sbc{background:var(--panel);border:2px solid var(--border);padding:1.2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+    .sbc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .sbc:nth-child(1)::before{background:var(--cyan)}.sbc:nth-child(2)::before{background:var(--red)}.sbc:nth-child(3)::before{background:var(--yellow)}
+    .sbc:hover{border-color:var(--cyan);box-shadow:3px 3px 0 var(--cyan)}
+    .scl{font-family:var(--comic);font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+    .sri{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s}
+    .sri:last-child{border-bottom:none}
+    .srn{font-family:var(--mono);font-size:.7rem;color:var(--muted);transition:color .2s}
+    .sri:hover .srn{color:var(--white)}.sri:hover{padding-left:.4rem}
+    .src{font-family:var(--comic);font-size:.78rem;color:var(--yellow);background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.2);padding:.1rem .4rem}
+    .str{display:flex;justify-content:space-between;align-items:baseline;padding:.5rem 0;border-bottom:1px solid var(--border)}
+    .str:last-child{border-bottom:none}
+    .stl{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+    .stv{font-family:var(--comic);font-size:1.3rem;color:var(--red)}
+    .bkl{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--comic);font-size:1rem;color:var(--muted);text-decoration:none;transition:all .2s;padding:.7rem 1rem;border:2px solid var(--border)}
+    .bkl:hover{color:var(--yellow);border-color:var(--yellow);box-shadow:3px 3px 0 var(--red)}
+    .smsg{padding:3rem 0;text-align:center}
+    .smsg p{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+    .smsg strong{display:block;font-family:var(--comic);font-size:1.8rem;color:var(--yellow);margin-bottom:.5rem;text-shadow:2px 2px 0 var(--red)}
     footer{border-top:4px solid var(--cyan);padding:1.8rem 2rem;background:var(--ink);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
     footer p{font-family:var(--comic);font-size:.9rem;color:var(--muted)}
     footer a{color:var(--red);text-decoration:none}
@@ -181,7 +168,6 @@
   </style>
 </head>
 <body>
-
 <nav>
   <a href="/" class="nav-logo">RM⊕</a>
   <ul class="nav-links">
@@ -192,13 +178,12 @@
     <li><a href="/Monitor/" class="active">Monitor</a></li>
   </ul>
 </nav>
-
 <header class="page-header">
   <p class="header-eyebrow"><span class="live-dot"></span>Live Intelligence Feed</p>
   <h1>World <em>Monitor</em></h1>
   <div class="header-meta">
     <span id="live-clock">--:--:-- IST</span>
-    <span id="article-count">Connecting to 1000+ feeds…</span>
+    <span id="article-count">Connecting to feeds…</span>
   </div>
 </header>
 <div class="divider"></div>
@@ -210,14 +195,14 @@
   </aside>
 
   <div class="centre-col">
-    <!-- MAP — always visible, never inside display:none container -->
+    <!-- MAP always visible -->
     <div class="map-strip">
       <div class="map-strip-header">
         <div class="map-strip-left">
           <span class="map-strip-label">📡 Live News Map</span>
-          <span class="map-strip-sub" id="map-strip-sub">Waiting for pins…</span>
+          <span class="map-strip-sub" id="msub">Waiting for pins…</span>
         </div>
-        <span class="map-pin-count" id="map-pin-count">— pins</span>
+        <span class="map-pin-count" id="mpin">— pins</span>
       </div>
       <div id="news-map"></div>
     </div>
@@ -225,55 +210,53 @@
     <!-- PROGRESS -->
     <div class="fetch-progress-wrap" id="fpw">
       <div class="fetch-bar-outer"><div class="fetch-bar-inner" id="fbar"></div></div>
-      <span class="fetch-status" id="fstatus">Starting…</span>
+      <span class="fetch-status" id="fstat">Starting…</span>
     </div>
 
     <!-- CATEGORY CARDS -->
-    <section class="category-browse" id="category-browse">
+    <section class="category-browse" id="cat-browse">
       <p class="browse-heading">Browse by Category</p>
-      <div class="category-row" id="category-row">
-        <div class="skeleton" style="height:82px"></div><div class="skeleton" style="height:82px"></div>
-        <div class="skeleton" style="height:82px"></div><div class="skeleton" style="height:82px"></div>
-        <div class="skeleton" style="height:82px"></div><div class="skeleton" style="height:82px"></div>
-        <div class="skeleton" style="height:82px"></div><div class="skeleton" style="height:82px"></div>
+      <div class="category-row" id="cat-row">
+        <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
+        <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
+        <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
+        <div class="sk" style="height:82px"></div><div class="sk" style="height:82px"></div>
       </div>
     </section>
 
     <!-- NEWS VIEW -->
     <div class="news-view" id="news-view">
       <div class="view-topbar">
-        <div class="view-topbar-left">
-          <button class="btn-back-cats" onclick="showCategories()">← Categories</button>
-          <span class="view-category-label" id="vcl">All</span>
-          <span class="view-count-badge" id="vcb">0</span>
+        <div class="vtl">
+          <button class="btn-back" onclick="showCats()">← Categories</button>
+          <span class="vcl" id="vcl">All</span>
+          <span class="vcb" id="vcb">0</span>
         </div>
-        <div class="view-search-wrap">
-          <span class="view-search-icon">⌕</span>
-          <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" oninput="handleSearch(this.value)"/>
+        <div class="vsw">
+          <span class="vsi">⌕</span>
+          <input type="text" id="search-input" placeholder="Search headlines…" autocomplete="off" oninput="doSearch(this.value)"/>
         </div>
       </div>
       <main>
         <div id="news-feed" role="list"></div>
-        <div class="load-more-wrap">
-          <button class="btn-load" id="lmb" style="display:none" onclick="loadMore()">Load More Headlines ↓</button>
-        </div>
+        <div class="lmw"><button class="btnl" id="lmb" style="display:none" onclick="loadMore()">Load More ↓</button></div>
       </main>
       <aside class="sidebar">
-        <a href="/" class="back-link"><span>←</span> ramsrinivasan.com</a>
-        <div class="sidebar-card">
-          <div class="sc-label">Feed Stats</div>
-          <div class="stat-row"><span class="stat-label-s">Articles</span><span class="stat-val" id="st-total">—</span></div>
-          <div class="stat-row"><span class="stat-label-s">Sources</span><span class="stat-val" id="st-sources">—</span></div>
-          <div class="stat-row"><span class="stat-label-s">Showing</span><span class="stat-val" id="st-showing">—</span></div>
+        <a href="/" class="bkl"><span>←</span> ramsrinivasan.com</a>
+        <div class="sbc">
+          <div class="scl">Feed Stats</div>
+          <div class="str"><span class="stl">Articles</span><span class="stv" id="st1">—</span></div>
+          <div class="str"><span class="stl">Sources</span><span class="stv" id="st2">—</span></div>
+          <div class="str"><span class="stl">Showing</span><span class="stv" id="st3">—</span></div>
         </div>
-        <div class="sidebar-card">
-          <div class="sc-label">By Topic</div>
-          <div id="source-list"><div class="skeleton" style="height:10px;width:80%;margin-bottom:10px"></div><div class="skeleton" style="height:10px;width:60%;margin-bottom:10px"></div><div class="skeleton" style="height:10px;width:70%"></div></div>
+        <div class="sbc">
+          <div class="scl">By Topic</div>
+          <div id="src-list"><div class="sk" style="height:10px;width:80%;margin-bottom:10px"></div><div class="sk" style="height:10px;width:60%;margin-bottom:10px"></div><div class="sk" style="height:10px;width:70%"></div></div>
         </div>
-        <div class="sidebar-card">
-          <div class="sc-label">About</div>
-          <p style="font-family:var(--mono);font-size:.67rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem"><strong style="color:var(--cyan)" id="src-count-lbl">1000+</strong> RSS feeds fetched live, decentralised — runs entirely in <em style="color:var(--yellow)">your browser</em>. No server. No backend.</p>
-          <button class="btn-load" onclick="refreshFeed()" style="width:100%;padding:.6rem;font-size:.85rem">↻ Refresh All Feeds</button>
+        <div class="sbc">
+          <div class="scl">About</div>
+          <p style="font-family:var(--mono);font-size:.67rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem"><strong style="color:var(--cyan)" id="srccnt">—</strong> RSS feeds. Fully decentralised — runs in <em style="color:var(--yellow)">your browser</em>. No server.</p>
+          <button class="btnl" onclick="refresh()" style="width:100%;padding:.6rem;font-size:.85rem">↻ Refresh</button>
         </div>
         <div style="display:flex;justify-content:center;margin-top:.5rem">
           <ins class="adsbygoogle" style="display:inline-block;width:250px;height:250px" data-ad-client="ca-pub-2516736960447895" data-ad-slot="SIDEBAR_AD_ID"></ins>
@@ -291,451 +274,14 @@
 
 <footer>
   <p>World Monitor by <a href="/">Ram Srinivasan</a></p>
-  <p style="font-size:.75rem" id="footer-txt">1000+ RSS sources · Fully decentralised</p>
+  <p style="font-size:.75rem" id="ftxt">1000+ RSS sources · Fully decentralised</p>
 </footer>
 
 <script>
 'use strict';
 
-// ═══════════════════════════════════════════════════════════════════
-// CORS PROXIES — tried in order, fall through on failure
-// All are free, no-key, open proxies that rewrite CORS headers
-// ═══════════════════════════════════════════════════════════════════
-const PROXIES = [
-  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  url => `https://cors-anywhere.herokuapp.com/${url}`,
-  url => `https://thingproxy.freeboard.io/fetch/${url}`,
-  url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-];
-
-// ═══════════════════════════════════════════════════════════════════
-// 1000 RSS FEED SOURCES — pure client-side, no backend needed
-// ═══════════════════════════════════════════════════════════════════
-const RSS_SOURCES = [
-  // ── INDIA (100 sources) ──────────────────────────────────────────
-  {u:'https://feeds.feedburner.com/ndtvnews-top-stories',                    c:'India',  s:'NDTV Top'},
-  {u:'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',           c:'India',  s:'Times of India'},
-  {u:'https://www.thehindu.com/news/national/feeder/default.rss',            c:'India',  s:'The Hindu'},
-  {u:'https://indianexpress.com/feed/',                                       c:'India',  s:'Indian Express'},
-  {u:'https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml',      c:'India',  s:'Hindustan Times'},
-  {u:'https://www.livemint.com/rss/news',                                    c:'India',  s:'Mint'},
-  {u:'https://scroll.in/feed',                                               c:'India',  s:'Scroll.in'},
-  {u:'https://thewire.in/feed',                                              c:'India',  s:'The Wire'},
-  {u:'https://www.deccanherald.com/rss-feeds/national.rss',                  c:'India',  s:'Deccan Herald'},
-  {u:'https://www.firstpost.com/rss/india.xml',                              c:'India',  s:'Firstpost'},
-  {u:'https://www.moneycontrol.com/rss/economy.xml',                         c:'India',  s:'Moneycontrol'},
-  {u:'https://www.theweek.in/news/india.rss',                                c:'India',  s:'The Week'},
-  {u:'https://www.business-standard.com/rss/home_page_top_stories.rss',      c:'India',  s:'Business Standard'},
-  {u:'https://www.outlookindia.com/rss/main/magazine',                       c:'India',  s:'Outlook India'},
-  {u:'https://www.news18.com/rss/india.xml',                                 c:'India',  s:'News18'},
-  {u:'https://zeenews.india.com/rss/india-national-news.xml',                c:'India',  s:'Zee News'},
-  {u:'https://www.dnaindia.com/feeds/technology.xml',                        c:'India',  s:'DNA India'},
-  {u:'https://www.indiatvnews.com/rssnews/topstories.xml',                   c:'India',  s:'India TV News'},
-  {u:'https://www.freepressjournal.in/rss',                                  c:'India',  s:'Free Press Journal'},
-  {u:'https://yourstory.com/feed',                                           c:'India',  s:'YourStory'},
-  {u:'https://inc42.com/feed/',                                              c:'India',  s:'Inc42'},
-  {u:'https://www.entrackr.com/feed/',                                       c:'India',  s:'Entrackr'},
-  {u:'https://www.medianama.com/feed/',                                      c:'India',  s:'MediaNama'},
-  {u:'https://factordaily.com/feed/',                                        c:'India',  s:'FactorDaily'},
-  {u:'https://www.thehindubusinessline.com/economy/?service=rss',            c:'India',  s:'Hindu BusinessLine'},
-  {u:'https://economictimes.indiatimes.com/rssfeedstopstories.cms',          c:'India',  s:'Economic Times'},
-  {u:'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms', c:'India',  s:'ET Markets'},
-  {u:'https://economictimes.indiatimes.com/small-biz/rssfeeds/1947315971.cms',c:'India', s:'ET SME'},
-  {u:'https://www.ndtv.com/rss/feeds',                                       c:'India',  s:'NDTV All'},
-  {u:'https://www.tribuneindia.com/rss/feed.xml',                            c:'India',  s:'Tribune India'},
-  {u:'https://www.tribuneindia.com/rss/feed-business.xml',                   c:'India',  s:'Tribune Business'},
-  {u:'https://www.thehindu.com/business/feeder/default.rss',                 c:'India',  s:'Hindu Business'},
-  {u:'https://www.thehindu.com/sport/feeder/default.rss',                    c:'India',  s:'Hindu Sport'},
-  {u:'https://www.thehindu.com/sci-tech/feeder/default.rss',                 c:'India',  s:'Hindu SciTech'},
-  {u:'https://www.thehindu.com/opinion/feeder/default.rss',                  c:'India',  s:'Hindu Opinion'},
-  {u:'https://indianexpress.com/section/india/feed/',                        c:'India',  s:'IE India'},
-  {u:'https://indianexpress.com/section/business/feed/',                     c:'India',  s:'IE Business'},
-  {u:'https://indianexpress.com/section/technology/feed/',                   c:'India',  s:'IE Tech'},
-  {u:'https://www.hindustantimes.com/feeds/rss/education/rssfeed.xml',       c:'India',  s:'HT Education'},
-  {u:'https://www.hindustantimes.com/feeds/rss/technology/rssfeed.xml',      c:'India',  s:'HT Technology'},
-  {u:'https://timesofindia.indiatimes.com/rssfeeds/66949542.cms',            c:'India',  s:'TOI Business'},
-  {u:'https://timesofindia.indiatimes.com/rssfeeds/664944.cms',              c:'India',  s:'TOI Tech'},
-  {u:'https://timesofindia.indiatimes.com/rssfeeds/1898055.cms',             c:'India',  s:'TOI Sports'},
-  {u:'https://www.livemint.com/rss/politics',                                c:'India',  s:'Mint Politics'},
-  {u:'https://www.livemint.com/rss/companies',                               c:'India',  s:'Mint Companies'},
-  {u:'https://www.livemint.com/rss/markets',                                 c:'India',  s:'Mint Markets'},
-  {u:'https://www.livemint.com/rss/technology',                              c:'India',  s:'Mint Technology'},
-  {u:'https://www.rediff.com/rss/inews.rss',                                 c:'India',  s:'Rediff India'},
-  {u:'https://www.rediff.com/rss/businessnews.rss',                          c:'India',  s:'Rediff Business'},
-  {u:'https://www.sify.com/news/rss/',                                       c:'India',  s:'Sify News'},
-  // ── TECH (120 sources) ───────────────────────────────────────────
-  {u:'https://feeds.feedburner.com/TechCrunch',                              c:'Tech',   s:'TechCrunch'},
-  {u:'https://www.wired.com/feed/rss',                                       c:'Tech',   s:'Wired'},
-  {u:'https://www.theverge.com/rss/index.xml',                               c:'Tech',   s:'The Verge'},
-  {u:'https://feeds.arstechnica.com/arstechnica/index',                      c:'Tech',   s:'Ars Technica'},
-  {u:'https://www.zdnet.com/news/rss.xml',                                   c:'Tech',   s:'ZDNet'},
-  {u:'https://www.engadget.com/rss.xml',                                     c:'Tech',   s:'Engadget'},
-  {u:'https://www.cnet.com/rss/news/',                                       c:'Tech',   s:'CNET'},
-  {u:'https://techrepublic.com/rssfeeds/articles/',                          c:'Tech',   s:'TechRepublic'},
-  {u:'https://www.computerworld.com/index.rss',                              c:'Tech',   s:'Computerworld'},
-  {u:'https://9to5mac.com/feed/',                                            c:'Tech',   s:'9to5Mac'},
-  {u:'https://9to5google.com/feed/',                                         c:'Tech',   s:'9to5Google'},
-  {u:'https://www.macrumors.com/macrumors.xml',                              c:'Tech',   s:'MacRumors'},
-  {u:'https://feeds.feedburner.com/slashdot/eqWf',                           c:'Tech',   s:'Slashdot'},
-  {u:'https://thenextweb.com/feed/',                                         c:'Tech',   s:'TNW'},
-  {u:'https://www.theregister.com/headlines.atom',                           c:'Tech',   s:'The Register'},
-  {u:'https://spectrum.ieee.org/feeds/feed.rss',                             c:'Tech',   s:'IEEE Spectrum'},
-  {u:'https://hackaday.com/blog/feed/',                                      c:'Tech',   s:'Hackaday'},
-  {u:'https://www.techradar.com/rss',                                        c:'Tech',   s:'TechRadar'},
-  {u:'https://www.digitaltrends.com/feed/',                                  c:'Tech',   s:'Digital Trends'},
-  {u:'https://www.androidauthority.com/feed/',                               c:'Tech',   s:'Android Authority'},
-  {u:'https://www.xda-developers.com/feed/',                                 c:'Tech',   s:'XDA Developers'},
-  {u:'https://www.gsmarena.com/rss-news-articles.php3',                      c:'Tech',   s:'GSMArena'},
-  {u:'https://mashable.com/feeds/rss/tech',                                  c:'Tech',   s:'Mashable Tech'},
-  {u:'https://www.informationweek.com/rss_simple.asp',                       c:'Tech',   s:'InformationWeek'},
-  {u:'https://www.networkworld.com/index.rss',                               c:'Tech',   s:'NetworkWorld'},
-  {u:'https://www.pcmag.com/feeds/rss/latest',                               c:'Tech',   s:'PCMag'},
-  {u:'https://feeds.feedburner.com/HackRead',                                c:'Tech',   s:'HackRead'},
-  {u:'https://www.bleepingcomputer.com/feed/',                               c:'Tech',   s:'BleepingComputer'},
-  {u:'https://krebsonsecurity.com/feed/',                                    c:'Tech',   s:'Krebs Security'},
-  {u:'https://threatpost.com/feed/',                                         c:'Tech',   s:'Threatpost'},
-  {u:'https://www.darkreading.com/rss.xml',                                  c:'Tech',   s:'Dark Reading'},
-  {u:'https://www.securityweek.com/feed/',                                   c:'Tech',   s:'SecurityWeek'},
-  {u:'https://feeds.feedburner.com/MotherboardRSS',                          c:'Tech',   s:'Motherboard'},
-  {u:'https://www.theinformation.com/feed',                                  c:'Tech',   s:'The Information'},
-  {u:'https://stratechery.com/feed/',                                        c:'Tech',   s:'Stratechery'},
-  {u:'https://www.platformer.news/feed',                                     c:'Tech',   s:'Platformer'},
-  {u:'https://www.protocol.com/feeds/feed.rss',                              c:'Tech',   s:'Protocol'},
-  {u:'https://www.techmeme.com/feed.asp',                                    c:'Tech',   s:'Techmeme'},
-  {u:'https://www.electronicsweekly.com/feed/',                              c:'Tech',   s:'Electronics Weekly'},
-  {u:'https://www.tomshardware.com/feeds/all',                               c:'Tech',   s:'Tom\'s Hardware'},
-  {u:'https://www.anandtech.com/rss/',                                       c:'Tech',   s:'AnandTech'},
-  {u:'https://gizmodo.com/rss',                                              c:'Tech',   s:'Gizmodo'},
-  {u:'https://www.pcworld.com/index.rss',                                    c:'Tech',   s:'PCWorld'},
-  {u:'https://arstechnica.com/gadgets/feed/',                                c:'Tech',   s:'Ars Gadgets'},
-  {u:'https://www.notebookcheck.net/News.35.0.html?rss=1',                   c:'Tech',   s:'NotebookCheck'},
-  {u:'https://www.techspot.com/backend.xml',                                 c:'Tech',   s:'TechSpot'},
-  {u:'https://www.hardocp.com/rss.xml',                                      c:'Tech',   s:'HardOCP'},
-  {u:'https://www.extremetech.com/feed',                                     c:'Tech',   s:'ExtremeTech'},
-  {u:'https://www.tweaktown.com/feed/index.xml',                             c:'Tech',   s:'Tweaktown'},
-  {u:'https://hexus.net/rss2.php',                                           c:'Tech',   s:'Hexus'},
-  // ── AI (60 sources) ──────────────────────────────────────────────
-  {u:'https://venturebeat.com/category/ai/feed/',                            c:'AI',     s:'VentureBeat AI'},
-  {u:'https://www.artificialintelligence-news.com/feed/',                    c:'AI',     s:'AI News'},
-  {u:'https://openai.com/blog/rss.xml',                                      c:'AI',     s:'OpenAI Blog'},
-  {u:'https://www.marktechpost.com/feed/',                                   c:'AI',     s:'MarkTechPost'},
-  {u:'https://syncedreview.com/feed/',                                       c:'AI',     s:'Synced Review'},
-  {u:'https://bdtechtalks.com/feed/',                                        c:'AI',     s:'TechTalks AI'},
-  {u:'https://www.unite.ai/feed/',                                           c:'AI',     s:'Unite.AI'},
-  {u:'https://www.technologyreview.com/feed/',                               c:'AI',     s:'MIT Tech Review'},
-  {u:'https://blogs.microsoft.com/ai/feed/',                                 c:'AI',     s:'Microsoft AI'},
-  {u:'https://ai.googleblog.com/feeds/posts/default',                        c:'AI',     s:'Google AI Blog'},
-  {u:'https://huggingface.co/blog/feed.xml',                                 c:'AI',     s:'HuggingFace'},
-  {u:'https://www.deeplearning.ai/the-batch/feed/',                          c:'AI',     s:'The Batch'},
-  {u:'https://jack-clark.net/feed.xml',                                      c:'AI',     s:'Import AI'},
-  {u:'https://newsletter.ruder.io/feed',                                     c:'AI',     s:'NLP Newsletter'},
-  {u:'https://aiweekly.co/issues.rss',                                       c:'AI',     s:'AI Weekly'},
-  {u:'https://www.interconnects.ai/feed',                                    c:'AI',     s:'Interconnects'},
-  {u:'https://thegradient.pub/rss/',                                         c:'AI',     s:'The Gradient'},
-  {u:'https://www.louisbouchard.ai/rss/',                                    c:'AI',     s:'Louis Bouchard'},
-  {u:'https://lexfridman.com/feed/podcast/',                                 c:'AI',     s:'Lex Fridman'},
-  {u:'https://www.deepmind.com/blog/rss.xml',                                c:'AI',     s:'DeepMind'},
-  {u:'https://stability.ai/news/rss.xml',                                    c:'AI',     s:'Stability AI'},
-  {u:'https://www.anthropic.com/rss.xml',                                    c:'AI',     s:'Anthropic'},
-  {u:'https://research.facebook.com/feed/',                                  c:'AI',     s:'Meta AI Research'},
-  {u:'https://blogs.nvidia.com/feed/',                                       c:'AI',     s:'NVIDIA Blog'},
-  {u:'https://towardsdatascience.com/feed',                                  c:'AI',     s:'Towards Data Science'},
-  {u:'https://machinelearningmastery.com/feed/',                             c:'AI',     s:'ML Mastery'},
-  {u:'https://distill.pub/rss.xml',                                          c:'AI',     s:'Distill.pub'},
-  {u:'https://paperswithcode.com/latest.rss',                                c:'AI',     s:'Papers With Code'},
-  {u:'https://www.alignmentforum.org/feed.xml',                              c:'AI',     s:'Alignment Forum'},
-  {u:'https://www.lesswrong.com/feed.xml',                                   c:'AI',     s:'LessWrong AI'},
-  // ── ECONOMY (60 sources) ─────────────────────────────────────────
-  {u:'https://feeds.bloomberg.com/markets/news.rss',                         c:'Economy',s:'Bloomberg Markets'},
-  {u:'https://feeds.reuters.com/reuters/businessNews',                        c:'Economy',s:'Reuters Business'},
-  {u:'https://www.ft.com/?format=rss',                                       c:'Economy',s:'Financial Times'},
-  {u:'https://www.wsj.com/xml/rss/3_7014.xml',                              c:'Economy',s:'WSJ Economy'},
-  {u:'https://www.economist.com/finance-and-economics/rss.xml',              c:'Economy',s:'The Economist'},
-  {u:'https://www.project-syndicate.org/rss',                                c:'Economy',s:'Project Syndicate'},
-  {u:'https://voxeu.org/feed.xml',                                           c:'Economy',s:'VoxEU'},
-  {u:'https://www.imf.org/en/News/rss',                                      c:'Economy',s:'IMF'},
-  {u:'https://www.worldbank.org/en/news/rss',                                c:'Economy',s:'World Bank'},
-  {u:'https://feeds.feedburner.com/typepad/krugman',                         c:'Economy',s:'Krugman NYT'},
-  {u:'https://www.nber.org/rss/new_releases.rss',                            c:'Economy',s:'NBER'},
-  {u:'https://www.brookings.edu/topic/economic-studies/feed/',               c:'Economy',s:'Brookings Econ'},
-  {u:'https://www.piie.com/rss.xml',                                         c:'Economy',s:'Peterson Institute'},
-  {u:'https://cepr.org/feed',                                                c:'Economy',s:'CEPR'},
-  {u:'https://www.mckinsey.com/feeds/rss/latest-insights',                   c:'Economy',s:'McKinsey Insights'},
-  {u:'https://hbr.org/feed/',                                                c:'Economy',s:'Harvard Business Review'},
-  {u:'https://feeds.harvardbusiness.org/harvardbusiness/',                   c:'Economy',s:'HBR Feeds'},
-  {u:'https://knowledge.wharton.upenn.edu/rssfeed.cfm',                      c:'Economy',s:'Wharton Knowledge'},
-  {u:'https://sloanreview.mit.edu/feed/',                                    c:'Economy',s:'MIT Sloan'},
-  {u:'https://www.kansascityfed.org/rss/publications/',                      c:'Economy',s:'Kansas City Fed'},
-  // ── BUSINESS (50 sources) ────────────────────────────────────────
-  {u:'https://www.businessinsider.com/rss',                                  c:'Business',s:'Business Insider'},
-  {u:'https://fortune.com/feed/',                                            c:'Business',s:'Fortune'},
-  {u:'https://feeds.inc.com/home/updates',                                   c:'Business',s:'Inc.'},
-  {u:'https://www.fastcompany.com/latest/rss',                               c:'Business',s:'Fast Company'},
-  {u:'https://www.forbes.com/innovation/feed2',                              c:'Business',s:'Forbes'},
-  {u:'https://www.livemint.com/rss/companies',                               c:'Business',s:'Mint Companies'},
-  {u:'https://www.bain.com/about/media-center/press-releases/rss/',          c:'Business',s:'Bain'},
-  {u:'https://www.bcg.com/rss/publications',                                 c:'Business',s:'BCG'},
-  {u:'https://www.pwc.com/gx/en/services/consulting/rss.xml',                c:'Business',s:'PwC'},
-  {u:'https://www.deloitte.com/rss/topics/deloitte-insights.xml',            c:'Business',s:'Deloitte'},
-  {u:'https://www.kpmg.com/rss.xml',                                         c:'Business',s:'KPMG'},
-  {u:'https://www.ey.com/rss/latest-thinking.rss',                           c:'Business',s:'EY'},
-  {u:'https://hbr.org/topic/business-communication/feed',                    c:'Business',s:'HBR Business'},
-  {u:'https://www.inc.com/rss',                                              c:'Business',s:'Inc Magazine'},
-  {u:'https://www.entrepreneur.com/latest/rss',                              c:'Business',s:'Entrepreneur'},
-  {u:'https://www.businesswire.com/rss/home/?rss=G1',                        c:'Business',s:'Business Wire'},
-  {u:'https://www.prnewswire.com/rss/news-releases-list.rss',                c:'Business',s:'PR Newswire'},
-  {u:'https://www.globenewswire.com/RssFeed/subjectcode/26',                 c:'Business',s:'GlobeNewswire'},
-  // ── SUPPLY CHAIN (60 sources) ────────────────────────────────────
-  {u:'https://www.supplychaindive.com/feeds/news/',                          c:'SC',     s:'SC Dive'},
-  {u:'https://www.logisticsmgmt.com/rss/news',                               c:'SC',     s:'Logistics Mgmt'},
-  {u:'https://www.supplychainbrain.com/rss/articles.xml',                    c:'SC',     s:'SCBrain'},
-  {u:'https://www.supplychaindigital.com/feed',                              c:'SC',     s:'SC Digital'},
-  {u:'https://theloadstar.com/feed/',                                        c:'SC',     s:'The Loadstar'},
-  {u:'https://www.freightwaves.com/news/feed',                               c:'SC',     s:'FreightWaves'},
-  {u:'https://www.inboundlogistics.com/rss/',                                c:'SC',     s:'Inbound Logistics'},
-  {u:'https://mhlnews.com/rss/all',                                          c:'SC',     s:'MHLNews'},
-  {u:'https://www.dcvelocity.com/rss',                                       c:'SC',     s:'DC Velocity'},
-  {u:'https://www.globaltrademag.com/feed/',                                 c:'SC',     s:'Global Trade'},
-  {u:'https://www.manufacturing.net/rss',                                    c:'SC',     s:'Manufacturing.net'},
-  {u:'https://www.industryweek.com/rss',                                     c:'SC',     s:'IndustryWeek'},
-  {u:'https://www.supplychainquarterly.com/feed',                            c:'SC',     s:'SC Quarterly'},
-  {u:'https://www.containermag.com/feed/',                                   c:'SC',     s:'Container Mag'},
-  {u:'https://www.joc.com/rss',                                              c:'SC',     s:'Journal of Commerce'},
-  {u:'https://www.truckinginfo.com/rss/news.aspx',                           c:'SC',     s:'TruckingInfo'},
-  {u:'https://www.fleetowner.com/rss/all',                                   c:'SC',     s:'Fleet Owner'},
-  {u:'https://www.transporttopics.com/rss',                                  c:'SC',     s:'Transport Topics'},
-  {u:'https://www.supplychainresearch.com/feed/',                            c:'SC',     s:'SC Research'},
-  {u:'https://www.sdcexec.com/rss/all',                                      c:'SC',     s:'SDC Exec'},
-  {u:'https://www.logisticsmgmt.com/rss/exclusives',                         c:'SC',     s:'LM Exclusives'},
-  {u:'https://www.aircargoworld.com/feed/',                                   c:'SC',     s:'Air Cargo World'},
-  {u:'https://www.aircargonews.net/feed/',                                   c:'SC',     s:'Air Cargo News'},
-  {u:'https://www.portstrategy.com/feed/',                                   c:'SC',     s:'Port Strategy'},
-  {u:'https://www.seatrade-maritime.com/rss.xml',                            c:'SC',     s:'Seatrade Maritime'},
-  {u:'https://gcaptain.com/feed/',                                           c:'SC',     s:'gCaptain'},
-  {u:'https://www.hellenicshippingnews.com/feed/',                           c:'SC',     s:'Hellenic Shipping'},
-  {u:'https://splash247.com/feed/',                                          c:'SC',     s:'Splash 247'},
-  {u:'https://www.lloydslist.com/rss',                                       c:'SC',     s:'Lloyd\'s List'},
-  // ── CRICKET (30 sources) ─────────────────────────────────────────
-  {u:'https://www.espncricinfo.com/rss/content/story/feeds/0.xml',           c:'Cricket',s:'Cricinfo'},
-  {u:'https://sports.ndtv.com/feeds/cricket-news',                           c:'Cricket',s:'NDTV Cricket'},
-  {u:'https://www.cricbuzz.com/rss/google-news.xml',                         c:'Cricket',s:'Cricbuzz'},
-  {u:'https://www.icc-cricket.com/media-releases/rss',                       c:'Cricket',s:'ICC'},
-  {u:'https://www.wisden.com/feed',                                          c:'Cricket',s:'Wisden'},
-  {u:'https://www.cricket.com.au/rss',                                       c:'Cricket',s:'Cricket Australia'},
-  {u:'https://www.bcci.tv/rss/',                                             c:'Cricket',s:'BCCI'},
-  {u:'https://feeds.feedburner.com/TheRoar-Cricket',                         c:'Cricket',s:'The Roar Cricket'},
-  {u:'https://www.cricketworld.com/feed/',                                   c:'Cricket',s:'Cricket World'},
-  {u:'https://www.cricketaddictor.com/feed/',                                c:'Cricket',s:'Cricket Addictor'},
-  {u:'https://www.cricketcountry.com/feed/',                                 c:'Cricket',s:'Cricket Country'},
-  {u:'https://www.firstpost.com/rss/sports-cricket.xml',                    c:'Cricket',s:'Firstpost Cricket'},
-  // ── SPORTS (40 sources) ──────────────────────────────────────────
-  {u:'https://www.espn.com/espn/rss/news',                                   c:'Sports', s:'ESPN'},
-  {u:'https://sports.yahoo.com/rss/',                                        c:'Sports', s:'Yahoo Sports'},
-  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml',              c:'Sports', s:'NYT Sports'},
-  {u:'https://www.bbc.co.uk/sport/rss/sport',                                c:'Sports', s:'BBC Sport'},
-  {u:'https://feeds.skysports.com/news/football/rss.xml',                    c:'Sports', s:'Sky Sports Football'},
-  {u:'https://www.sportingnews.com/us/rss',                                  c:'Sports', s:'Sporting News'},
-  {u:'https://www.goal.com/feeds/en/news',                                   c:'Sports', s:'Goal.com'},
-  {u:'https://www.90min.com/feeds/latest.rss',                               c:'Sports', s:'90min'},
-  {u:'https://www.fourfourtwo.com/rss',                                      c:'Sports', s:'FourFourTwo'},
-  {u:'https://www.theguardian.com/football/rss',                             c:'Sports', s:'Guardian Football'},
-  {u:'https://www.sportskeeda.com/feed',                                     c:'Sports', s:'Sportskeeda'},
-  {u:'https://sports.ndtv.com/feeds/sports-news',                            c:'Sports', s:'NDTV Sports'},
-  {u:'https://www.firstpost.com/rss/sports.xml',                             c:'Sports', s:'Firstpost Sports'},
-  {u:'https://www.insidethegames.biz/rss',                                   c:'Sports', s:'Inside The Games'},
-  // ── WORLD NEWS (80 sources) ──────────────────────────────────────
-  {u:'https://feeds.bbci.co.uk/news/world/rss.xml',                          c:'World',  s:'BBC World'},
-  {u:'https://feeds.reuters.com/Reuters/worldNews',                           c:'World',  s:'Reuters World'},
-  {u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',               c:'World',  s:'NYT World'},
-  {u:'https://www.aljazeera.com/xml/rss/all.xml',                            c:'World',  s:'Al Jazeera'},
-  {u:'https://www.dw.com/rss/rss.xml',                                       c:'World',  s:'DW'},
-  {u:'https://feeds.washingtonpost.com/rss/world',                           c:'World',  s:'Washington Post'},
-  {u:'https://www.theguardian.com/world/rss',                                c:'World',  s:'The Guardian'},
-  {u:'https://www.apnews.com/apf-topnews?format=feed&type=rss',              c:'World',  s:'AP News'},
-  {u:'https://www.france24.com/en/rss',                                      c:'World',  s:'France 24'},
-  {u:'https://www.scmp.com/rss/91/feed',                                     c:'World',  s:'SCMP'},
-  {u:'https://www.theatlantic.com/feed/all/',                                c:'World',  s:'The Atlantic'},
-  {u:'https://foreignpolicy.com/feed/',                                      c:'World',  s:'Foreign Policy'},
-  {u:'https://english.alarabiya.net/tools/rss',                              c:'World',  s:'Al Arabiya'},
-  {u:'https://www.straitstimes.com/rss',                                     c:'World',  s:'Straits Times'},
-  {u:'https://www.arabnews.com/rss.xml',                                     c:'World',  s:'Arab News'},
-  {u:'https://www.euronews.com/rss?level=theme&name=news',                   c:'World',  s:'Euronews'},
-  {u:'https://www.rfi.fr/en/rss',                                            c:'World',  s:'RFI'},
-  {u:'https://www.voanews.com/api/zompoq-ev',                                c:'World',  s:'VOA News'},
-  {u:'https://feeds.bbci.co.uk/news/rss.xml',                                c:'World',  s:'BBC Top'},
-  {u:'https://feeds.reuters.com/Reuters/topNews',                             c:'World',  s:'Reuters Top'},
-  {u:'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',            c:'World',  s:'NYT Homepage'},
-  {u:'https://www.newyorker.com/feed/news',                                  c:'World',  s:'New Yorker'},
-  {u:'https://feeds.npr.org/1001/rss.xml',                                   c:'World',  s:'NPR News'},
-  {u:'https://feeds.npr.org/1004/rss.xml',                                   c:'World',  s:'NPR World'},
-  {u:'https://www.cbsnews.com/latest/rss/main',                              c:'World',  s:'CBS News'},
-  {u:'https://abcnews.go.com/abcnews/topstories',                            c:'World',  s:'ABC News'},
-  {u:'https://feeds.feedburner.com/time/world',                              c:'World',  s:'TIME World'},
-  {u:'https://www.newsweek.com/rss',                                         c:'World',  s:'Newsweek'},
-  {u:'https://theintercept.com/feed/?rss',                                   c:'World',  s:'The Intercept'},
-  {u:'https://www.motherjones.com/feed/',                                    c:'World',  s:'Mother Jones'},
-  // ── GEOPOLITICS (40 sources) ─────────────────────────────────────
-  {u:'https://www.cfr.org/rss.xml',                                          c:'Geopolitics',s:'CFR'},
-  {u:'https://www.chathamhouse.org/rss.xml',                                 c:'Geopolitics',s:'Chatham House'},
-  {u:'https://www.brookings.edu/feed/',                                      c:'Geopolitics',s:'Brookings'},
-  {u:'https://www.rand.org/pubs/rss.xml',                                    c:'Geopolitics',s:'RAND'},
-  {u:'https://carnegieendowment.org/rss/',                                   c:'Geopolitics',s:'Carnegie'},
-  {u:'https://warontherocks.com/feed/',                                      c:'Geopolitics',s:'War on the Rocks'},
-  {u:'https://www.crisisgroup.org/feed',                                     c:'Geopolitics',s:'Crisis Group'},
-  {u:'https://www.defensenews.com/rss/',                                     c:'Geopolitics',s:'Defense News'},
-  {u:'https://nationalinterest.org/rss.xml',                                 c:'Geopolitics',s:'National Interest'},
-  {u:'https://www.lowyinstitute.org/the-interpreter/rss.xml',                c:'Geopolitics',s:'Lowy Institute'},
-  {u:'https://thediplomat.com/feed/',                                        c:'Geopolitics',s:'The Diplomat'},
-  {u:'https://www.stimson.org/feed/',                                        c:'Geopolitics',s:'Stimson Center'},
-  {u:'https://www.sipri.org/rss.xml',                                        c:'Geopolitics',s:'SIPRI'},
-  {u:'https://www.iiss.org/rss',                                             c:'Geopolitics',s:'IISS'},
-  {u:'https://www.janes.com/feeds/news',                                     c:'Geopolitics',s:'Janes'},
-  {u:'https://www.bellingcat.com/feed/',                                     c:'Geopolitics',s:'Bellingcat'},
-  {u:'https://foreignaffairs.com/rss.xml',                                   c:'Geopolitics',s:'Foreign Affairs'},
-  {u:'https://www.fpri.org/feed/',                                           c:'Geopolitics',s:'FPRI'},
-  {u:'https://www.usip.org/publications/feed',                               c:'Geopolitics',s:'USIP'},
-  {u:'https://www.wilsoncenter.org/rss.xml',                                 c:'Geopolitics',s:'Wilson Center'},
-  // ── SCIENCE (50 sources) ─────────────────────────────────────────
-  {u:'https://www.nature.com/news.rss',                                      c:'Science', s:'Nature'},
-  {u:'https://phys.org/rss-feed/',                                           c:'Science', s:'Phys.org'},
-  {u:'https://www.sciencedaily.com/rss/all.xml',                             c:'Science', s:'ScienceDaily'},
-  {u:'https://www.newscientist.com/feed/home/',                              c:'Science', s:'New Scientist'},
-  {u:'https://feeds.feedburner.com/universetoday/pYdq',                      c:'Science', s:'Universe Today'},
-  {u:'https://www.scientificamerican.com/feed/',                             c:'Science', s:'Scientific American'},
-  {u:'https://earthsky.org/feed/',                                           c:'Science', s:'EarthSky'},
-  {u:'https://www.nasa.gov/news-release/feed/',                              c:'Science', s:'NASA'},
-  {u:'https://blogs.esa.int/feed/',                                          c:'Science', s:'ESA'},
-  {u:'https://www.livescience.com/feeds/all',                                c:'Science', s:'LiveScience'},
-  {u:'https://www.space.com/feeds/all',                                      c:'Science', s:'Space.com'},
-  {u:'https://www.discovermagazine.com/rss',                                 c:'Science', s:'Discover Mag'},
-  {u:'https://www.sciencemag.org/rss/news_current.xml',                      c:'Science', s:'Science Mag'},
-  {u:'https://www.pnas.org/rss/current.xml',                                 c:'Science', s:'PNAS'},
-  {u:'https://www.quantamagazine.org/feed/',                                 c:'Science', s:'Quanta Magazine'},
-  {u:'https://nautil.us/feed/',                                              c:'Science', s:'Nautilus'},
-  {u:'https://aeon.co/feed.rss',                                             c:'Science', s:'Aeon'},
-  {u:'https://www.popularmechanics.com/rss/all.rss/',                        c:'Science', s:'Popular Mechanics'},
-  {u:'https://www.popsci.com/feed/',                                         c:'Science', s:'Popular Science'},
-  {u:'https://feeds.feedburner.com/IEEESpectrumFullText',                    c:'Science', s:'IEEE Full'},
-  // ── HEALTH (50 sources) ──────────────────────────────────────────
-  {u:'https://www.who.int/feeds/entity/news/en/rss.xml',                     c:'Health',  s:'WHO'},
-  {u:'https://www.nih.gov/news-events/news-releases/feed',                   c:'Health',  s:'NIH'},
-  {u:'https://www.medicalnewstoday.com/rss/newsarticles.xml',                c:'Health',  s:'Medical News Today'},
-  {u:'https://health.harvard.edu/feed',                                      c:'Health',  s:'Harvard Health'},
-  {u:'https://www.statnews.com/feed/',                                       c:'Health',  s:'STAT News'},
-  {u:'https://www.medscape.com/features/index/rss',                          c:'Health',  s:'Medscape'},
-  {u:'https://www.healio.com/rss/general-medicine',                          c:'Health',  s:'Healio'},
-  {u:'https://www.healthline.com/rss/news',                                  c:'Health',  s:'Healthline'},
-  {u:'https://www.webmd.com/news/rss',                                       c:'Health',  s:'WebMD'},
-  {u:'https://www.cdc.gov/media/rss/rss.xml',                                c:'Health',  s:'CDC'},
-  {u:'https://www.mayoclinic.org/rss/news',                                  c:'Health',  s:'Mayo Clinic'},
-  {u:'https://www.bmj.com/rss/current.xml',                                  c:'Health',  s:'BMJ'},
-  {u:'https://www.thelancet.com/rssfeed/lancet_online.xml',                  c:'Health',  s:'The Lancet'},
-  {u:'https://feeds.feedburner.com/medpagetoday/PublicHealth',               c:'Health',  s:'MedPage Today'},
-  {u:'https://www.fiercehealthcare.com/rss/xml',                             c:'Health',  s:'Fierce Healthcare'},
-  {u:'https://www.modernhealthcare.com/rss/latest',                          c:'Health',  s:'Modern Healthcare'},
-  {u:'https://www.beckershospitalreview.com/rss/rss.feed',                   c:'Health',  s:'Becker\'s Hospital'},
-  {u:'https://kffhealthnews.org/feed/',                                      c:'Health',  s:'KFF Health News'},
-  {u:'https://www.hsph.harvard.edu/news/feed/',                              c:'Health',  s:'Harvard SPH'},
-  {u:'https://www.jhsph.edu/news/rss.xml',                                   c:'Health',  s:'Johns Hopkins SPH'},
-  // ── ENVIRONMENT (40 sources) ─────────────────────────────────────
-  {u:'https://www.theguardian.com/environment/rss',                          c:'Environment',s:'Guardian Env'},
-  {u:'https://www.climatechangenews.com/feed/',                              c:'Environment',s:'Climate Change News'},
-  {u:'https://insideclimatenews.org/feed/',                                  c:'Environment',s:'Inside Climate'},
-  {u:'https://grist.org/feed/',                                              c:'Environment',s:'Grist'},
-  {u:'https://carbonbrief.org/feed/',                                        c:'Environment',s:'Carbon Brief'},
-  {u:'https://www.renewableenergyworld.com/feed/',                           c:'Environment',s:'RE World'},
-  {u:'https://e360.yale.edu/feed.xml',                                       c:'Environment',s:'Yale e360'},
-  {u:'https://unfccc.int/news/rss.xml',                                      c:'Environment',s:'UNFCCC'},
-  {u:'https://www.climatecentral.org/feed',                                  c:'Environment',s:'Climate Central'},
-  {u:'https://www.eenews.net/rss/1',                                         c:'Environment',s:'E&E News'},
-  {u:'https://www.treehugger.com/feeds/latest/',                             c:'Environment',s:'Treehugger'},
-  {u:'https://www.cleantechnica.com/feed/',                                  c:'Environment',s:'CleanTechnica'},
-  {u:'https://electrek.co/feed/',                                            c:'Environment',s:'Electrek'},
-  {u:'https://www.solarpowerworldonline.com/feed/',                          c:'Environment',s:'Solar Power World'},
-  {u:'https://www.windpowermonthly.com/rss',                                 c:'Environment',s:'Wind Power Monthly'},
-  {u:'https://www.offshore-energy.biz/feed/',                                c:'Environment',s:'Offshore Energy'},
-  {u:'https://www.rechargenews.com/rss',                                     c:'Environment',s:'Recharge News'},
-  // ── STARTUPS (40 sources) ────────────────────────────────────────
-  {u:'https://techcrunch.com/category/startups/feed/',                       c:'Startups',s:'TC Startups'},
-  {u:'https://www.producthunt.com/feed',                                     c:'Startups',s:'Product Hunt'},
-  {u:'https://news.ycombinator.com/rss',                                     c:'Startups',s:'Hacker News'},
-  {u:'https://sifted.eu/feed/',                                              c:'Startups',s:'Sifted'},
-  {u:'https://techfundingnews.com/feed/',                                    c:'Startups',s:'Tech Funding News'},
-  {u:'https://www.finsmes.com/feed',                                         c:'Startups',s:'Finsmes'},
-  {u:'https://www.startupindia.gov.in/content/sih/en/feed.xml',             c:'Startups',s:'Startup India'},
-  {u:'https://yourstory.com/feed',                                           c:'Startups',s:'YourStory'},
-  {u:'https://inc42.com/feed/',                                              c:'Startups',s:'Inc42'},
-  {u:'https://www.indiehackers.com/feed.rss',                                c:'Startups',s:'Indie Hackers'},
-  {u:'https://techcrunch.com/category/venture/feed/',                        c:'Startups',s:'TC Venture'},
-  {u:'https://www.crunchbase.com/news/feed/',                                c:'Startups',s:'Crunchbase News'},
-  {u:'https://pitchbook.com/news/rss',                                       c:'Startups',s:'PitchBook'},
-  {u:'https://www.strictlyvc.com/feed/',                                     c:'Startups',s:'StrictlyVC'},
-  {u:'https://feeds.feedburner.com/bothsidesofthetable',                     c:'Startups',s:'Both Sides Table'},
-  {u:'https://avc.com/feed/',                                                c:'Startups',s:'AVC Fred Wilson'},
-  {u:'https://www.feld.com/feed',                                            c:'Startups',s:'Feld Thoughts'},
-  {u:'https://cdixon.org/feed',                                              c:'Startups',s:'Chris Dixon'},
-  {u:'https://paulgraham.com/rss.html',                                      c:'Startups',s:'Paul Graham'},
-  // ── FINANCE (50 sources) ─────────────────────────────────────────
-  {u:'https://www.marketwatch.com/rss/topstories',                           c:'Finance', s:'MarketWatch'},
-  {u:'https://seekingalpha.com/market_currents.xml',                         c:'Finance', s:'Seeking Alpha'},
-  {u:'https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml',                     c:'Finance', s:'WSJ Business'},
-  {u:'https://www.coindesk.com/arc/outboundfeeds/rss/',                      c:'Finance', s:'CoinDesk'},
-  {u:'https://cointelegraph.com/rss',                                        c:'Finance', s:'CoinTelegraph'},
-  {u:'https://www.investing.com/rss/news.rss',                               c:'Finance', s:'Investing.com'},
-  {u:'https://www.nasdaq.com/feed/rssoutbound?symbol=NDAQ',                  c:'Finance', s:'Nasdaq'},
-  {u:'https://www.livemint.com/rss/markets',                                 c:'Finance', s:'Mint Markets'},
-  {u:'https://feeds.feedburner.com/zerohedge/feed',                          c:'Finance', s:'ZeroHedge'},
-  {u:'https://thereformedbroker.com/feed/',                                  c:'Finance', s:'Reformed Broker'},
-  {u:'https://www.morningstar.com/rss/rss.aspx?id=RSS_NewsArticle',          c:'Finance', s:'Morningstar'},
-  {u:'https://feeds.feedburner.com/fool',                                    c:'Finance', s:'Motley Fool'},
-  {u:'https://www.thestreet.com/rss/00000000-0000-0000-0000-000000000792.rss',c:'Finance',s:'TheStreet'},
-  {u:'https://moneymorning.com/feed/',                                       c:'Finance', s:'Money Morning'},
-  {u:'https://www.kiplinger.com/rss/kiplinger',                              c:'Finance', s:'Kiplinger'},
-  {u:'https://www.bankrate.com/rss/',                                        c:'Finance', s:'Bankrate'},
-  {u:'https://www.nerdwallet.com/blog/feed/',                                c:'Finance', s:'NerdWallet'},
-  {u:'https://www.businessinsider.com/personal-finance-rss',                 c:'Finance', s:'BI Personal Finance'},
-  // ── POLITICS (30 sources) ────────────────────────────────────────
-  {u:'https://feeds.feedburner.com/politico/politics',                       c:'Politics',s:'Politico'},
-  {u:'https://thehill.com/feed/',                                            c:'Politics',s:'The Hill'},
-  {u:'https://www.realclearpolitics.com/index.xml',                          c:'Politics',s:'RealClearPolitics'},
-  {u:'https://fivethirtyeight.com/features/feed/',                           c:'Politics',s:'FiveThirtyEight'},
-  {u:'https://feeds.feedburner.com/tpm-news',                                c:'Politics',s:'Talking Points Memo'},
-  {u:'https://www.vox.com/rss/index.xml',                                    c:'Politics',s:'Vox'},
-  {u:'https://slate.com/feeds/all.rss',                                      c:'Politics',s:'Slate'},
-  {u:'https://www.salon.com/feed/',                                          c:'Politics',s:'Salon'},
-  {u:'https://reason.com/feed/',                                             c:'Politics',s:'Reason'},
-  {u:'https://www.city-journal.org/rss',                                     c:'Politics',s:'City Journal'},
-  {u:'https://www.hindustantimes.com/feeds/rss/politics/rssfeed.xml',        c:'Politics',s:'HT Politics'},
-  {u:'https://zeenews.india.com/rss/politics.xml',                           c:'Politics',s:'Zee Politics'},
-  {u:'https://www.firstpost.com/rss/politics.xml',                           c:'Politics',s:'Firstpost Politics'},
-  {u:'https://indianexpress.com/section/political-pulse/feed/',              c:'Politics',s:'IE Politics'},
-  // ── CULTURE (20 sources) ─────────────────────────────────────────
-  {u:'https://pitchfork.com/feed/feed.json',                                 c:'Culture', s:'Pitchfork'},
-  {u:'https://www.rollingstone.com/feed/',                                   c:'Culture', s:'Rolling Stone'},
-  {u:'https://variety.com/feed/',                                            c:'Culture', s:'Variety'},
-  {u:'https://deadline.com/feed/',                                           c:'Culture', s:'Deadline'},
-  {u:'https://www.hollywoodreporter.com/feed/',                              c:'Culture', s:'Hollywood Reporter'},
-  {u:'https://ew.com/feed/',                                                 c:'Culture', s:'Entertainment Weekly'},
-  {u:'https://collider.com/feed/',                                           c:'Culture', s:'Collider'},
-  {u:'https://www.thewrap.com/feed/',                                        c:'Culture', s:'The Wrap'},
-  {u:'https://www.vulture.com/rss/index.xml',                                c:'Culture', s:'Vulture'},
-  {u:'https://www.indiewire.com/feed/',                                      c:'Culture', s:'IndieWire'},
-  {u:'https://screenrant.com/feed/',                                         c:'Culture', s:'Screen Rant'},
-  {u:'https://www.cinemablend.com/rss/news',                                 c:'Culture', s:'CinemaBlend'},
-];
-
-const TOTAL = RSS_SOURCES.length;
-
-// ═══════════════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════════════
-let ALL_ITEMS=[], FILTERED_ITEMS=[], DISPLAYED=0;
-const PAGE=25;
-let ACTIVE_CAT='All', Q='';
-let MAP=null, MARKERS=[];
-
-const CAT_ACCENT={
+// ─── CATEGORY ACCENT COLOURS ─────────────────────────────────────
+const CA={
   All:'#F0EEFF',India:'#E8192C',Tech:'#00F5FF',AI:'#00F5FF',
   Economy:'#FFE600',Business:'#FFE600',Finance:'#FFE600',
   Cricket:'#FF6AB1',Sports:'#FF6AB1',SC:'#4d7eff',
@@ -743,7 +289,7 @@ const CAT_ACCENT={
   Health:'#f97316',Environment:'#4ade80',Startups:'#e879f9',
   Politics:'#a78bfa',Culture:'#f9a8d4',
 };
-const CAT_PIN={
+const CP={
   India:'#E8192C',Tech:'#00F5FF',AI:'#00F5FF',
   Economy:'#FFE600',Business:'#FFE600',Finance:'#FFE600',
   Cricket:'#FF6AB1',Sports:'#FF6AB1',SC:'#4d7eff',
@@ -752,29 +298,31 @@ const CAT_PIN={
   Politics:'#a78bfa',Culture:'#f9a8d4',Other:'#7070A0',
 };
 const GEO={
-  India:[{a:28.61,o:77.21},{a:19.07,o:72.88},{a:13.08,o:80.27},{a:22.57,o:88.36},{a:12.97,o:77.59},{a:17.38,o:78.49},{a:23.02,o:72.57},{a:26.85,o:80.95}],
-  Tech:[{a:37.34,o:-121.89},{a:37.77,o:-122.42},{a:47.61,o:-122.33},{a:51.51,o:-.13},{a:1.35,o:103.82},{a:35.68,o:139.65}],
-  AI:[{a:37.34,o:-121.89},{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:35.68,o:139.65}],
-  Economy:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:35.68,o:139.65},{a:22.32,o:114.17},{a:48.86,o:2.35}],
-  Business:[{a:40.71,o:-74.01},{a:1.35,o:103.82},{a:25.2,o:55.27},{a:22.32,o:114.17},{a:28.61,o:77.21}],
-  Finance:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:22.32,o:114.17},{a:35.68,o:139.65},{a:48.86,o:2.35}],
-  SC:[{a:31.23,o:121.47},{a:1.35,o:103.82},{a:22.32,o:114.17},{a:34.69,o:135.5},{a:51.92,o:4.48}],
-  Cricket:[{a:28.61,o:77.21},{a:13.08,o:80.27},{a:-33.87,o:151.21},{a:51.51,o:-.13},{a:6.93,o:79.86}],
-  Sports:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:35.68,o:139.65},{a:-23.55,o:-46.63}],
-  World:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:55.75,o:37.62},{a:39.91,o:116.39},{a:-33.87,o:151.21}],
-  Geopolitics:[{a:38.9,o:-77.04},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:55.75,o:37.62},{a:39.91,o:116.39}],
-  Science:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:35.68,o:139.65},{a:48.86,o:2.35},{a:52.37,o:4.9}],
-  Health:[{a:46.23,o:6.1},{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:35.68,o:139.65},{a:28.61,o:77.21}],
-  Environment:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:-33.87,o:151.21},{a:59.33,o:18.07},{a:60.17,o:24.94}],
-  Startups:[{a:37.34,o:-121.89},{a:51.51,o:-.13},{a:52.37,o:4.9},{a:48.86,o:2.35},{a:28.61,o:77.21}],
-  Politics:[{a:38.9,o:-77.04},{a:51.51,o:-.13},{a:28.61,o:77.21},{a:39.91,o:116.39},{a:55.75,o:37.62}],
-  Culture:[{a:40.71,o:-74.01},{a:34.05,o:-118.24},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:35.68,o:139.65}],
-  Other:[{a:0,o:20},{a:48.86,o:2.35},{a:55.75,o:37.62}],
+  India:[{a:28.61,o:77.21},{a:19.07,o:72.88},{a:13.08,o:80.27},{a:22.57,o:88.36},{a:12.97,o:77.59}],
+  Tech:[{a:37.34,o:-121.89},{a:37.77,o:-122.42},{a:47.61,o:-122.33},{a:51.51,o:-.13},{a:1.35,o:103.82}],
+  AI:[{a:37.34,o:-121.89},{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35}],
+  Economy:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:35.68,o:139.65},{a:48.86,o:2.35}],
+  Business:[{a:40.71,o:-74.01},{a:1.35,o:103.82},{a:28.61,o:77.21}],
+  Finance:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:22.32,o:114.17}],
+  SC:[{a:31.23,o:121.47},{a:1.35,o:103.82},{a:51.92,o:4.48}],
+  Cricket:[{a:28.61,o:77.21},{a:13.08,o:80.27},{a:-33.87,o:151.21}],
+  Sports:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35}],
+  World:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35},{a:55.75,o:37.62},{a:39.91,o:116.39}],
+  Geopolitics:[{a:38.9,o:-77.04},{a:51.51,o:-.13},{a:55.75,o:37.62}],
+  Science:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:48.86,o:2.35}],
+  Health:[{a:46.23,o:6.1},{a:40.71,o:-74.01},{a:28.61,o:77.21}],
+  Environment:[{a:40.71,o:-74.01},{a:51.51,o:-.13},{a:59.33,o:18.07}],
+  Startups:[{a:37.34,o:-121.89},{a:51.51,o:-.13},{a:28.61,o:77.21}],
+  Politics:[{a:38.9,o:-77.04},{a:51.51,o:-.13},{a:28.61,o:77.21}],
+  Culture:[{a:40.71,o:-74.01},{a:34.05,o:-118.24},{a:51.51,o:-.13}],
+  Other:[{a:0,o:20},{a:48.86,o:2.35}],
 };
 
-// ═══════════════════════════════════════════════════════════════════
-// CLOCK
-// ═══════════════════════════════════════════════════════════════════
+// ─── STATE ────────────────────────────────────────────────────────
+let ALL=[], FILT=[], DISP=0, ACAT='All', SQ='';
+let LMAP=null, MKRS=[];
+
+// ─── CLOCK ────────────────────────────────────────────────────────
 (function tick(){
   const ist=new Date(Date.now()+5.5*3600000),p=n=>String(n).padStart(2,'0');
   const el=document.getElementById('live-clock');
@@ -782,30 +330,27 @@ const GEO={
   setTimeout(tick,1000);
 })();
 
-// ═══════════════════════════════════════════════════════════════════
-// MAP — always in DOM, init immediately on DOMContentLoaded
-// ═══════════════════════════════════════════════════════════════════
+// ─── MAP ──────────────────────────────────────────────────────────
 function initMap(){
-  if(MAP||typeof L==='undefined') return;
-  MAP=L.map('news-map',{center:[20,15],zoom:1,zoomControl:true,attributionControl:false,scrollWheelZoom:false});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(MAP);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,opacity:0.4}).addTo(MAP);
-  L.control.attribution({position:'bottomright',prefix:false}).addTo(MAP)
+  if(LMAP||typeof L==='undefined') return;
+  LMAP=L.map('news-map',{center:[20,15],zoom:1,zoomControl:true,attributionControl:false,scrollWheelZoom:false});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(LMAP);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,opacity:0.4}).addTo(LMAP);
+  L.control.attribution({position:'bottomright',prefix:false}).addTo(LMAP)
     .setPrefix('<span style="font-size:.4rem;color:#444">© CartoDB</span>');
-  document.getElementById('map-strip-sub').textContent='Click any pin to read the headline';
+  document.getElementById('msub').textContent='Click any pin to read the headline';
 }
-function pinIcon(color){
-  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20"><path d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13C14 3.13 10.87 0 7 0z" fill="${color}" opacity=".9"/><circle cx="7" cy="7" r="2.8" fill="#080810" opacity=".8"/></svg>`;
+function pinIcon(col){
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20"><path d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13C14 3.13 10.87 0 7 0z" fill="${col}" opacity=".9"/><circle cx="7" cy="7" r="2.8" fill="#080810" opacity=".8"/></svg>`;
   return L.divIcon({html:s,className:'',iconSize:[14,20],iconAnchor:[7,20],popupAnchor:[0,-18]});
 }
 function plotPins(items){
-  if(!MAP) return;
-  MARKERS.forEach(m=>MAP.removeLayer(m));
-  MARKERS=[];
+  if(!LMAP) return;
+  MKRS.forEach(m=>LMAP.removeLayer(m));MKRS=[];
   items.slice(0,80).forEach(item=>{
     const cat=item.c||'Other';
     const pool=GEO[cat]||GEO.Other;
-    const col=CAT_PIN[cat]||'#7070A0';
+    const col=CP[cat]||'#7070A0';
     const h=[...(item.t||'')].reduce((a,c)=>a+c.charCodeAt(0),0);
     const b=pool[h%pool.length];
     const m=L.marker([b.a+(Math.random()-.5)*2.5,b.o+(Math.random()-.5)*2.5],{icon:pinIcon(col)})
@@ -815,248 +360,395 @@ function plotPins(items){
         <div class="map-popup-title">${eh(item.t||'Untitled')}</div>
         <a class="map-popup-link" href="${item.u||'#'}" target="_blank" rel="noopener">Read more →</a>
         <span class="map-popup-src">${eh(item.s||'')}</span>
-      </div>`,{maxWidth:230}).addTo(MAP);
-    MARKERS.push(m);
+      </div>`,{maxWidth:230}).addTo(LMAP);
+    MKRS.push(m);
   });
-  const b=document.getElementById('map-pin-count');
-  if(b) b.textContent=`${MARKERS.length} pins`;
+  const b=document.getElementById('mpin');
+  if(b) b.textContent=`${MKRS.length} pins`;
 }
-function refreshPins(){plotPins(FILTERED_ITEMS.length?FILTERED_ITEMS:ALL_ITEMS);}
+function rePins(){plotPins(FILT.length?FILT:ALL);}
 
-// ═══════════════════════════════════════════════════════════════════
-// XML PARSER — parses raw RSS/Atom XML directly in browser
-// No third-party proxy API — uses plain fetch + DOMParser
-// ═══════════════════════════════════════════════════════════════════
-function parseXML(xml){
+// ─── FEED SOURCES ─────────────────────────────────────────────────
+// Strategy: use Google News RSS (works without CORS proxy) as the
+// primary fast source for all categories, then supplement with
+// direct feeds via allorigins.win proxy for depth.
+//
+// Google News RSS format: https://news.google.com/rss/search?q=TOPIC&hl=en-IN&gl=IN&ceid=IN:en
+// These return immediately, no proxy needed, all categories covered.
+
+const GNEWS = [
+  // Each Google News query gives 20-40 fresh headlines instantly
+  {q:'India+news',         c:'India',       s:'Google News India'},
+  {q:'India+economy',      c:'India',       s:'Google News India Econ'},
+  {q:'India+politics',     c:'India',       s:'Google News India Politics'},
+  {q:'India+technology',   c:'India',       s:'Google News India Tech'},
+  {q:'India+startup',      c:'Startups',    s:'Google News India Startups'},
+  {q:'India+cricket',      c:'Cricket',     s:'Google News Cricket'},
+  {q:'IPL+cricket',        c:'Cricket',     s:'Google News IPL'},
+  {q:'India+health',       c:'Health',      s:'Google News India Health'},
+  {q:'India+science',      c:'Science',     s:'Google News India Science'},
+  {q:'India+environment',  c:'Environment', s:'Google News India Env'},
+  {q:'artificial+intelligence', c:'AI',     s:'Google News AI'},
+  {q:'ChatGPT+OpenAI',     c:'AI',          s:'Google News ChatGPT'},
+  {q:'machine+learning',   c:'AI',          s:'Google News ML'},
+  {q:'large+language+model',c:'AI',         s:'Google News LLM'},
+  {q:'technology+news',    c:'Tech',        s:'Google News Tech'},
+  {q:'Apple+Google+Microsoft', c:'Tech',    s:'Google News BigTech'},
+  {q:'cybersecurity',      c:'Tech',        s:'Google News Cyber'},
+  {q:'semiconductor+chip', c:'Tech',        s:'Google News Chips'},
+  {q:'electric+vehicle',   c:'Tech',        s:'Google News EV'},
+  {q:'space+NASA+SpaceX',  c:'Science',     s:'Google News Space'},
+  {q:'global+economy',     c:'Economy',     s:'Google News Economy'},
+  {q:'stock+market',       c:'Finance',     s:'Google News Stocks'},
+  {q:'cryptocurrency+bitcoin', c:'Finance', s:'Google News Crypto'},
+  {q:'inflation+interest+rate', c:'Economy',s:'Google News Inflation'},
+  {q:'supply+chain+logistics', c:'SC',      s:'Google News Supply Chain'},
+  {q:'shipping+freight',   c:'SC',          s:'Google News Shipping'},
+  {q:'manufacturing+industry', c:'SC',      s:'Google News Manufacturing'},
+  {q:'world+news',         c:'World',       s:'Google News World'},
+  {q:'geopolitics+conflict', c:'Geopolitics',s:'Google News Geopolitics'},
+  {q:'US+China+relations', c:'Geopolitics', s:'Google News US China'},
+  {q:'Russia+Ukraine',     c:'Geopolitics', s:'Google News Russia Ukraine'},
+  {q:'Middle+East',        c:'World',       s:'Google News Middle East'},
+  {q:'climate+change',     c:'Environment', s:'Google News Climate'},
+  {q:'renewable+energy',   c:'Environment', s:'Google News Renewables'},
+  {q:'health+medicine',    c:'Health',      s:'Google News Health'},
+  {q:'science+research',   c:'Science',     s:'Google News Science'},
+  {q:'business+corporate', c:'Business',    s:'Google News Business'},
+  {q:'startup+funding+VC', c:'Startups',    s:'Google News VC Funding'},
+  {q:'sports+news',        c:'Sports',      s:'Google News Sports'},
+  {q:'football+soccer',    c:'Sports',      s:'Google News Football'},
+  {q:'US+politics',        c:'Politics',    s:'Google News US Politics'},
+  {q:'UK+politics',        c:'Politics',    s:'Google News UK Politics'},
+  {q:'entertainment+film+movies', c:'Culture',s:'Google News Culture'},
+  {q:'music+entertainment',c:'Culture',     s:'Google News Music'},
+  // India regional
+  {q:'Mumbai+news',        c:'India',       s:'Google News Mumbai'},
+  {q:'Delhi+news',         c:'India',       s:'Google News Delhi'},
+  {q:'Chennai+news',       c:'India',       s:'Google News Chennai'},
+  {q:'Bangalore+tech',     c:'India',       s:'Google News Bangalore'},
+  {q:'Modi+government',    c:'India',       s:'Google News Modi'},
+  {q:'RBI+India+finance',  c:'Economy',     s:'Google News RBI'},
+];
+
+// Direct RSS feeds via allorigins proxy (single fast proxy, no fallback chain)
+// allorigins returns immediately or fails fast — no 40s wait
+const DIRECT=[
+  // India
+  {u:'https://feeds.feedburner.com/ndtvnews-top-stories',               c:'India',  s:'NDTV'},
+  {u:'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',      c:'India',  s:'Times of India'},
+  {u:'https://www.thehindu.com/news/national/feeder/default.rss',       c:'India',  s:'The Hindu'},
+  {u:'https://indianexpress.com/feed/',                                  c:'India',  s:'Indian Express'},
+  {u:'https://scroll.in/feed',                                          c:'India',  s:'Scroll.in'},
+  {u:'https://thewire.in/feed',                                         c:'India',  s:'The Wire'},
+  {u:'https://www.livemint.com/rss/news',                               c:'India',  s:'Mint'},
+  {u:'https://www.business-standard.com/rss/home_page_top_stories.rss', c:'India',  s:'Business Standard'},
+  {u:'https://economictimes.indiatimes.com/rssfeedstopstories.cms',     c:'Economy',s:'Economic Times'},
+  {u:'https://yourstory.com/feed',                                      c:'Startups',s:'YourStory'},
+  {u:'https://inc42.com/feed/',                                         c:'Startups',s:'Inc42'},
+  // Tech
+  {u:'https://feeds.feedburner.com/TechCrunch',                         c:'Tech',   s:'TechCrunch'},
+  {u:'https://www.theverge.com/rss/index.xml',                          c:'Tech',   s:'The Verge'},
+  {u:'https://feeds.arstechnica.com/arstechnica/index',                 c:'Tech',   s:'Ars Technica'},
+  {u:'https://www.wired.com/feed/rss',                                  c:'Tech',   s:'Wired'},
+  {u:'https://9to5google.com/feed/',                                    c:'Tech',   s:'9to5Google'},
+  {u:'https://9to5mac.com/feed/',                                       c:'Tech',   s:'9to5Mac'},
+  {u:'https://www.zdnet.com/news/rss.xml',                              c:'Tech',   s:'ZDNet'},
+  {u:'https://hackaday.com/blog/feed/',                                 c:'Tech',   s:'Hackaday'},
+  {u:'https://www.techradar.com/rss',                                   c:'Tech',   s:'TechRadar'},
+  // AI
+  {u:'https://venturebeat.com/category/ai/feed/',                       c:'AI',     s:'VentureBeat AI'},
+  {u:'https://www.artificialintelligence-news.com/feed/',               c:'AI',     s:'AI News'},
+  {u:'https://www.marktechpost.com/feed/',                              c:'AI',     s:'MarkTechPost'},
+  {u:'https://www.unite.ai/feed/',                                      c:'AI',     s:'Unite.AI'},
+  {u:'https://www.technologyreview.com/feed/',                          c:'AI',     s:'MIT Tech Review'},
+  {u:'https://huggingface.co/blog/feed.xml',                            c:'AI',     s:'HuggingFace'},
+  {u:'https://towardsdatascience.com/feed',                             c:'AI',     s:'Towards Data Science'},
+  // World
+  {u:'https://feeds.bbci.co.uk/news/world/rss.xml',                     c:'World',  s:'BBC World'},
+  {u:'https://feeds.reuters.com/Reuters/worldNews',                      c:'World',  s:'Reuters World'},
+  {u:'https://www.aljazeera.com/xml/rss/all.xml',                       c:'World',  s:'Al Jazeera'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',          c:'World',  s:'NYT World'},
+  {u:'https://www.theguardian.com/world/rss',                           c:'World',  s:'The Guardian'},
+  // Economy/Finance
+  {u:'https://feeds.bloomberg.com/markets/news.rss',                    c:'Economy',s:'Bloomberg'},
+  {u:'https://www.marketwatch.com/rss/topstories',                      c:'Finance',s:'MarketWatch'},
+  {u:'https://cointelegraph.com/rss',                                   c:'Finance',s:'CoinTelegraph'},
+  {u:'https://www.coindesk.com/arc/outboundfeeds/rss/',                 c:'Finance',s:'CoinDesk'},
+  // SC
+  {u:'https://www.supplychaindive.com/feeds/news/',                     c:'SC',     s:'SC Dive'},
+  {u:'https://theloadstar.com/feed/',                                   c:'SC',     s:'The Loadstar'},
+  {u:'https://www.freightwaves.com/news/feed',                          c:'SC',     s:'FreightWaves'},
+  {u:'https://gcaptain.com/feed/',                                      c:'SC',     s:'gCaptain'},
+  // Cricket/Sports
+  {u:'https://www.espncricinfo.com/rss/content/story/feeds/0.xml',      c:'Cricket',s:'Cricinfo'},
+  {u:'https://sports.ndtv.com/feeds/cricket-news',                      c:'Cricket',s:'NDTV Cricket'},
+  {u:'https://www.cricbuzz.com/rss/google-news.xml',                    c:'Cricket',s:'Cricbuzz'},
+  {u:'https://www.espn.com/espn/rss/news',                              c:'Sports', s:'ESPN'},
+  {u:'https://www.bbc.co.uk/sport/rss/sport',                           c:'Sports', s:'BBC Sport'},
+  // Science/Health/Env
+  {u:'https://phys.org/rss-feed/',                                      c:'Science',s:'Phys.org'},
+  {u:'https://www.sciencedaily.com/rss/all.xml',                        c:'Science',s:'ScienceDaily'},
+  {u:'https://www.nasa.gov/news-release/feed/',                         c:'Science',s:'NASA'},
+  {u:'https://www.who.int/feeds/entity/news/en/rss.xml',                c:'Health', s:'WHO'},
+  {u:'https://www.statnews.com/feed/',                                  c:'Health', s:'STAT News'},
+  {u:'https://www.medicalnewstoday.com/rss/newsarticles.xml',           c:'Health', s:'Medical News Today'},
+  {u:'https://carbonbrief.org/feed/',                                   c:'Environment',s:'Carbon Brief'},
+  {u:'https://electrek.co/feed/',                                       c:'Environment',s:'Electrek'},
+  {u:'https://grist.org/feed/',                                         c:'Environment',s:'Grist'},
+  // Geopolitics
+  {u:'https://warontherocks.com/feed/',                                 c:'Geopolitics',s:'War on the Rocks'},
+  {u:'https://thediplomat.com/feed/',                                   c:'Geopolitics',s:'The Diplomat'},
+  {u:'https://www.bellingcat.com/feed/',                                c:'Geopolitics',s:'Bellingcat'},
+  {u:'https://foreignpolicy.com/feed/',                                 c:'World',  s:'Foreign Policy'},
+  // Business/Startups
+  {u:'https://www.businessinsider.com/rss',                             c:'Business',s:'Business Insider'},
+  {u:'https://fortune.com/feed/',                                       c:'Business',s:'Fortune'},
+  {u:'https://news.ycombinator.com/rss',                                c:'Startups',s:'Hacker News'},
+  {u:'https://techcrunch.com/category/startups/feed/',                  c:'Startups',s:'TC Startups'},
+  // Politics/Culture
+  {u:'https://feeds.feedburner.com/politico/politics',                  c:'Politics',s:'Politico'},
+  {u:'https://thehill.com/feed/',                                       c:'Politics',s:'The Hill'},
+  {u:'https://variety.com/feed/',                                       c:'Culture', s:'Variety'},
+  {u:'https://deadline.com/feed/',                                      c:'Culture', s:'Deadline'},
+];
+
+const TOTAL = GNEWS.length + DIRECT.length;
+
+// ─── XML PARSER ───────────────────────────────────────────────────
+function parseXML(xml,cat,src){
   try{
     const doc=new DOMParser().parseFromString(xml,'application/xml');
-    const items=[...doc.querySelectorAll('item, entry')];
-    return items.map(el=>{
-      const txt=s=>el.querySelector(s)?.textContent?.trim()||'';
-      const attr=(s,a)=>el.querySelector(s)?.getAttribute(a)||'';
-      const title=txt('title');
-      const link=txt('link')||attr('link','href')||txt('id');
-      const date=txt('pubDate')||txt('published')||txt('updated')||txt('dc\\:date')||'';
-      return {title,link,date};
-    }).filter(i=>i.title&&i.link);
+    if(doc.querySelector('parsererror')) return [];
+    return [...doc.querySelectorAll('item,entry')].map(el=>{
+      const g=s=>el.querySelector(s)?.textContent?.trim()||'';
+      const ga=(s,a)=>el.querySelector(s)?.getAttribute(a)||'';
+      const title=g('title');
+      const link=g('link')||ga('link','href')||g('id');
+      const date=g('pubDate')||g('published')||g('updated')||'';
+      return title&&link?{t:title,u:link,d:date,s:src,c:cat}:null;
+    }).filter(Boolean);
   }catch(e){return [];}
 }
 
-// Try each proxy in order until one works
-async function fetchWithProxy(url){
-  for(const makeUrl of PROXIES){
-    try{
-      const r=await fetch(makeUrl(url),{signal:AbortSignal.timeout(8000)});
-      if(!r.ok) continue;
-      const text=await r.text();
-      if(text.length<200) continue;
-      const parsed=parseXML(text);
-      if(parsed.length>0) return parsed;
-    }catch(e){/* try next proxy */}
-  }
-  return [];
+// ─── GOOGLE NEWS FETCH (no proxy needed — CORS open) ─────────────
+async function fetchGNews({q,c,s}){
+  const url=`https://news.google.com/rss/search?q=${q}&hl=en-IN&gl=IN&ceid=IN:en`;
+  try{
+    // Google News RSS is served with permissive CORS headers
+    const r=await fetch(url,{signal:AbortSignal.timeout(6000)});
+    if(!r.ok) return [];
+    return parseXML(await r.text(),c,s);
+  }catch(e){return [];}
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// MAIN FEED LOADER — fires all fetches in parallel, streams results
-// ═══════════════════════════════════════════════════════════════════
+// ─── DIRECT FEED FETCH via allorigins (single proxy, fast) ────────
+async function fetchDirect({u,c,s}){
+  const proxy=`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`;
+  try{
+    const r=await fetch(proxy,{signal:AbortSignal.timeout(5000)});
+    if(!r.ok) return [];
+    const text=await r.text();
+    if(text.length<100) return [];
+    return parseXML(text,c,s);
+  }catch(e){return [];}
+}
+
+// ─── MAIN LOADER ──────────────────────────────────────────────────
 async function loadFeed(){
-  const cntEl=document.getElementById('article-count');
-  const barEl=document.getElementById('fbar');
-  const statusEl=document.getElementById('fstatus');
-  const pw=document.getElementById('fpw');
-  const scl=document.getElementById('src-count-lbl');
-  const ftxt=document.getElementById('footer-txt');
-  if(scl) scl.textContent=TOTAL;
+  const fbar=document.getElementById('fbar');
+  const fstat=document.getElementById('fstat');
+  const cnt=document.getElementById('article-count');
+  const scnt=document.getElementById('srccnt');
+  const fpw=document.getElementById('fpw');
+  const ftxt=document.getElementById('ftxt');
+
+  if(scnt) scnt.textContent=TOTAL;
   if(ftxt) ftxt.textContent=`${TOTAL} RSS sources · Fully decentralised`;
-  if(cntEl) cntEl.textContent=`Connecting to ${TOTAL} feeds…`;
-  if(pw) pw.style.display='flex';
+  if(cnt) cnt.textContent=`Connecting to ${TOTAL} feeds…`;
+  if(fpw) fpw.style.display='flex';
 
   let done=0;
   const bucket=[];
 
-  await Promise.allSettled(
-    RSS_SOURCES.map(src=>
-      fetchWithProxy(src.u).then(items=>{
-        // Map raw XML items to our schema
-        items.forEach(i=>bucket.push({
-          t:i.title,   // title
-          u:i.link,    // url
-          d:i.date,    // date
-          s:src.s,     // source name
-          c:src.c,     // category
-        }));
-        done++;
-        const pct=Math.round(done/TOTAL*100);
-        if(barEl) barEl.style.width=pct+'%';
-        if(statusEl) statusEl.textContent=`${done}/${TOTAL} feeds · ${bucket.length} articles`;
-        if(cntEl) cntEl.textContent=`${bucket.length} headlines loaded…`;
-        // Render progressively every 30 fetches
-        if(done%30===0||done===TOTAL) processItems([...bucket]);
-      })
-    )
-  );
+  function onItem(items){
+    bucket.push(...items);
+    done++;
+    const pct=Math.round(done/TOTAL*100);
+    if(fbar) fbar.style.width=pct+'%';
+    if(fstat) fstat.textContent=`${done}/${TOTAL} feeds · ${bucket.length} articles`;
+    if(cnt) cnt.textContent=`${bucket.length} headlines…`;
+    // Render early so user sees content within seconds
+    if(done===10||done===25||done%40===0||done===TOTAL) render([...bucket]);
+  }
 
-  processItems(bucket);
-  if(pw) setTimeout(()=>{pw.style.display='none';},1500);
+  // Phase 1: Google News — fast, no proxy, covers ALL categories immediately
+  // Run all GNews fetches in parallel — these typically resolve in 1-2s
+  const gnTasks = GNEWS.map(src=>fetchGNews(src).then(onItem));
+
+  // Phase 2: Direct feeds via allorigins — run in batches of 20 concurrently
+  // This prevents overwhelming the proxy while keeping good throughput
+  const BATCH=20;
+  async function runBatches(){
+    for(let i=0;i<DIRECT.length;i+=BATCH){
+      const batch=DIRECT.slice(i,i+BATCH);
+      await Promise.allSettled(batch.map(src=>fetchDirect(src).then(onItem)));
+    }
+  }
+
+  await Promise.allSettled([...gnTasks, runBatches()]);
+  render(bucket);
+  if(fpw) setTimeout(()=>{fpw.style.display='none';},1200);
 }
 
-function processItems(raw){
+// ─── PROCESS + RENDER ─────────────────────────────────────────────
+function render(raw){
   const seen=new Set();
-  const deduped=raw.filter(i=>{
-    if(!i.u||seen.has(i.u)) return false;
+  const d=raw.filter(i=>{
+    if(!i||!i.u||seen.has(i.u)) return false;
     seen.add(i.u);return true;
   });
-  deduped.sort((a,b)=>new Date(b.d||0)-new Date(a.d||0));
-  ALL_ITEMS=deduped;
-  buildCards();updateStats();
-  const cntEl=document.getElementById('article-count');
-  if(cntEl) cntEl.textContent=`${ALL_ITEMS.length} headlines from ${TOTAL} sources`;
-  refreshPins();
+  d.sort((a,b)=>new Date(b.d||0)-new Date(a.d||0));
+  ALL=d;
+  buildCards();
+  updateStats();
+  const cnt=document.getElementById('article-count');
+  if(cnt) cnt.textContent=`${ALL.length} headlines from ${TOTAL} sources`;
+  rePins();
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// CATEGORY CARDS
-// ═══════════════════════════════════════════════════════════════════
+// ─── CATEGORY CARDS ───────────────────────────────────────────────
 function buildCards(){
   const counts={};
-  ALL_ITEMS.forEach(i=>{const c=i.c||'Other';counts[c]=(counts[c]||0)+1;});
-  const row=document.getElementById('category-row');
+  ALL.forEach(i=>{const c=i.c||'Other';counts[c]=(counts[c]||0)+1;});
+  const row=document.getElementById('cat-row');
   row.innerHTML='';
   ['All',...Object.keys(counts).sort()].forEach((cat,idx)=>{
-    const n=cat==='All'?ALL_ITEMS.length:counts[cat];
-    const letter=cat.replace(/[^A-Z0-9]/gi,'').slice(0,2).toUpperCase()||cat[0].toUpperCase();
+    const n=cat==='All'?ALL.length:counts[cat];
+    const L2=cat.replace(/[^A-Z0-9]/gi,'').slice(0,2).toUpperCase()||cat[0].toUpperCase();
+    const accent=CA[cat]||'#7070A0';
     const btn=document.createElement('button');
-    btn.className='cat-card'+(cat===ACTIVE_CAT?' selected':'');
-    btn.dataset.cat=cat;btn.setAttribute('role','listitem');
-    btn.setAttribute('aria-pressed',cat===ACTIVE_CAT?'true':'false');
-    btn.style.animationDelay=`${.04+idx*.025}s`;
-    btn.innerHTML=`<div class="cat-card-stripe"></div>
-      <span class="cat-card-bg-letter">${letter}</span>
-      <div class="cat-card-inner">
-        <span class="cat-card-name">${cat}</span>
-        <span class="cat-card-count">${n} articles</span>
+    btn.className='cat-card'+(cat===ACAT?' selected':'');
+    btn.dataset.cat=cat;
+    btn.setAttribute('role','listitem');
+    btn.setAttribute('aria-pressed',cat===ACAT?'true':'false');
+    btn.style.cssText=`animation-delay:${.04+idx*.025}s;--ca:${accent}`;
+    btn.innerHTML=`<div class="ccs"></div>
+      <span class="ccb">${L2}</span>
+      <div class="cci">
+        <span class="ccn">${cat}</span>
+        <span class="ccc">${n} articles</span>
       </div>`;
-    btn.addEventListener('click',()=>selectCat(cat));
+    btn.addEventListener('click',()=>pickCat(cat));
     row.appendChild(btn);
   });
-  buildSourceList(counts);
+  buildSrcList(counts);
 }
-function buildSourceList(counts){
-  const el=document.getElementById('source-list');
+function buildSrcList(counts){
+  const el=document.getElementById('src-list');
   if(!el) return;
   el.innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([c,n])=>
-    `<div class="source-item" onclick="selectCat('${c}')" role="button" tabindex="0">
-      <span class="source-name">${c}</span><span class="source-count">${n}</span>
+    `<div class="sri" onclick="pickCat('${c}')" role="button" tabindex="0">
+      <span class="srn">${c}</span><span class="src">${n}</span>
     </div>`).join('');
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// NETFLIX SELECT
-// ═══════════════════════════════════════════════════════════════════
-function selectCat(cat){
-  ACTIVE_CAT=cat;Q='';
+// ─── NETFLIX SELECT ───────────────────────────────────────────────
+function pickCat(cat){
+  ACAT=cat;SQ='';
   const si=document.getElementById('search-input');if(si) si.value='';
   document.querySelectorAll('.cat-card').forEach(c=>{
     const hit=c.dataset.cat===cat;
-    c.classList.toggle('selected',hit);c.setAttribute('aria-pressed',hit?'true':'false');
+    c.classList.toggle('selected',hit);
+    c.setAttribute('aria-pressed',hit?'true':'false');
   });
-  const accent=CAT_ACCENT[cat]||'#00F5FF';
+  const accent=CA[cat]||'#00F5FF';
   const nv=document.getElementById('news-view');
-  nv.style.setProperty('--active-accent',accent);
+  nv.style.setProperty('--aa',accent);
   const lbl=document.getElementById('vcl');
   if(lbl){lbl.textContent=cat;lbl.style.color=accent;}
-  applyFilters();
-  document.getElementById('category-browse').style.display='none';
+  applyF();
+  document.getElementById('cat-browse').style.display='none';
   nv.classList.add('active');
   nv.scrollIntoView({behavior:'smooth',block:'start'});
-  if(MAP) setTimeout(()=>MAP.invalidateSize(),80);
+  if(LMAP) setTimeout(()=>LMAP.invalidateSize(),80);
 }
-function showCategories(){
-  document.getElementById('category-browse').style.display='';
+function showCats(){
+  document.getElementById('cat-browse').style.display='';
   document.getElementById('news-view').classList.remove('active');
-  ACTIVE_CAT='All';
+  ACAT='All';
   document.querySelectorAll('.cat-card').forEach(c=>{
     c.classList.toggle('selected',c.dataset.cat==='All');
     c.setAttribute('aria-pressed',c.dataset.cat==='All'?'true':'false');
   });
-  document.getElementById('category-browse').scrollIntoView({behavior:'smooth',block:'start'});
-  if(MAP) setTimeout(()=>MAP.invalidateSize(),80);
+  document.getElementById('cat-browse').scrollIntoView({behavior:'smooth',block:'start'});
+  if(LMAP) setTimeout(()=>LMAP.invalidateSize(),80);
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// FILTER & RENDER
-// ═══════════════════════════════════════════════════════════════════
-function applyFilters(){
-  let items=ALL_ITEMS;
-  if(ACTIVE_CAT&&ACTIVE_CAT!=='All') items=items.filter(i=>(i.c||'Other')===ACTIVE_CAT);
-  if(Q){const q=Q.toLowerCase();items=items.filter(i=>(i.t||'').toLowerCase().includes(q)||(i.s||'').toLowerCase().includes(q));}
-  FILTERED_ITEMS=items;DISPLAYED=0;
+// ─── FILTER ───────────────────────────────────────────────────────
+function applyF(){
+  let items=ALL;
+  if(ACAT&&ACAT!=='All') items=items.filter(i=>(i.c||'Other')===ACAT);
+  if(SQ){const q=SQ.toLowerCase();items=items.filter(i=>(i.t||'').toLowerCase().includes(q)||(i.s||'').toLowerCase().includes(q));}
+  FILT=items;DISP=0;
   document.getElementById('news-feed').innerHTML='';
-  loadMore();updateStats();refreshPins();
+  loadMore();updateStats();rePins();
 }
-function handleSearch(v){Q=v.trim();applyFilters();}
+function doSearch(v){SQ=v.trim();applyF();}
+
+// ─── RENDER ITEMS ─────────────────────────────────────────────────
 function loadMore(){
   const feed=document.getElementById('news-feed');
   const btn=document.getElementById('lmb');
-  const slice=FILTERED_ITEMS.slice(DISPLAYED,DISPLAYED+PAGE);
-  if(!slice.length&&!DISPLAYED){
-    feed.innerHTML='<div class="state-msg"><strong>No Results</strong><p>No headlines match.</p></div>';
+  const slice=FILT.slice(DISP,DISP+25);
+  if(!slice.length&&!DISP){
+    feed.innerHTML='<div class="smsg"><strong>No Results</strong><p>No headlines match.</p></div>';
     if(btn) btn.style.display='none';return;
   }
   slice.forEach((item,idx)=>{
     const el=document.createElement('a');
-    el.className='news-item';el.href=item.u||'#';
-    el.target=item.u&&item.u!=='#'?'_blank':'';el.rel='noopener noreferrer';
+    el.className='ni';el.href=item.u||'#';
+    el.target='_blank';el.rel='noopener noreferrer';
     el.setAttribute('role','listitem');
     const cat=item.c||'Other';
-    const catCls=`cat-${cat.replace(/\s+/g,'')}`;
+    const cc='c'+cat.replace(/\s+/g,'');
     const ds=item.d?new Date(item.d).toLocaleDateString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
-    el.innerHTML=`<div class="item-accent-bar"></div>
-      <div class="item-body">
-        <div class="item-meta">
-          <span class="item-source">${eh(item.s||'')}</span>
-          <span class="item-cat ${catCls}">${eh(cat)}</span>
-          ${ds?`<span class="item-date">${ds}</span>`:''}
+    el.innerHTML=`<div class="nib"></div>
+      <div class="nibd">
+        <div class="nim">
+          <span class="nis">${eh(item.s||'')}</span>
+          <span class="ic ${cc}">${eh(cat)}</span>
+          ${ds?`<span class="nid">${ds}</span>`:''}
         </div>
-        <div class="item-title">${eh(item.t||'Untitled')}</div>
-        <span class="item-arrow">READ MORE →</span>
+        <div class="nit">${eh(item.t||'Untitled')}</div>
+        <span class="nia">READ MORE →</span>
       </div>`;
     feed.appendChild(el);
-    setTimeout(()=>el.classList.add('visible'),40+idx*30);
+    setTimeout(()=>el.classList.add('vis'),30+idx*25);
   });
-  DISPLAYED+=slice.length;
+  DISP+=slice.length;
   const b=document.getElementById('vcb');
-  if(b) b.textContent=`${FILTERED_ITEMS.length} article${FILTERED_ITEMS.length!==1?'s':''}`;
-  if(btn) btn.style.display=DISPLAYED<FILTERED_ITEMS.length?'inline-flex':'none';
-}
-function updateStats(){
-  const srcs=new Set(ALL_ITEMS.map(i=>i.s)).size;
-  const t=document.getElementById('st-total');
-  const s=document.getElementById('st-sources');
-  const sh=document.getElementById('st-showing');
-  if(t) t.textContent=ALL_ITEMS.length;
-  if(s) s.textContent=srcs;
-  if(sh) sh.textContent=FILTERED_ITEMS.length||DISPLAYED;
-}
-function refreshFeed(){
-  ALL_ITEMS=[];FILTERED_ITEMS=[];
-  document.getElementById('news-feed').innerHTML='';
-  loadFeed();
-}
-function eh(s){
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  if(b) b.textContent=`${FILT.length} article${FILT.length!==1?'s':''}`;
+  if(btn) btn.style.display=DISP<FILT.length?'inline-flex':'none';
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════════════
+// ─── STATS ────────────────────────────────────────────────────────
+function updateStats(){
+  const srcs=new Set(ALL.map(i=>i.s)).size;
+  const a=id=>document.getElementById(id);
+  if(a('st1')) a('st1').textContent=ALL.length;
+  if(a('st2')) a('st2').textContent=srcs;
+  if(a('st3')) a('st3').textContent=FILT.length||DISP;
+}
+function refresh(){ALL=[];FILT=[];document.getElementById('news-feed').innerHTML='';loadFeed();}
+function eh(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ─── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
-  initMap();   // Map div always visible — Leaflet measures correctly
+  initMap();
   loadFeed();
   document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&document.getElementById('news-view').classList.contains('active'))
-      showCategories();
+    if(e.key==='Escape'&&document.getElementById('news-view').classList.contains('active')) showCats();
   });
 });
 </script>
